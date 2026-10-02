@@ -1,0 +1,25 @@
+# dependencies / build output
+node_modules/
+.wrangler/
+dist/
+
+# generated or private media
+recordings/
+spike/samples/
+audio/
+
+# old scaffold archive (kept locally only)
+_archive/
+
+# secrets
+.dev.vars*
+.env*
+*.pem
+*key*.json
+
+# python
+__pycache__/
+*.pyc
+
+# local Claude Code settings (agents/ and handoffs/ stay trackable)
+.claude/settings.local.json

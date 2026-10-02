@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(../info/**)",
+      "Edit(~/Desktop/Dima smartcomfort/info/**)",
+      "Edit(//c/Users/Banknote/Desktop/Dima smartcomfort/info/**)",
+      "Bash(git push *)",
+      "Bash(npm publish *)",
+      "Bash(npx wrangler delete *)",
+      "Bash(gcloud projects delete *)",
+      "PowerShell(git push *)",
+      "PowerShell(npm publish *)",
+      "PowerShell(npx wrangler delete *)",
+      "PowerShell(gcloud projects delete *)"
+    ],
+    "allow": [
+      "Bash(npm *)",
+      "Bash(node *)",
+      "Bash(git *)",
+      "Bash(python *)",
+      "Bash(py *)",
+      "Bash(npx wrangler *)",
+      "Bash(npx vitest *)",
+      "Bash(npx tsc *)",
+      "Bash(npx elevenlabs *)",
+      "PowerShell(npm *)",
+      "PowerShell(node *)",
+      "PowerShell(git *)",
+      "PowerShell(python *)",
+      "PowerShell(py *)",
+      "PowerShell(npx wrangler *)",
+      "PowerShell(npx vitest *)",
+      "PowerShell(npx tsc *)",
+      "PowerShell(npx elevenlabs *)"
+    ]
+  }
+}
