@@ -39,8 +39,8 @@ describe("phrase table vs PHRASE_SPEC", () => {
     expect(problems.some((p) => p.startsWith("missing key callback_ok"))).toBe(true);
     expect(problems.some((p) => p.startsWith("price_range.ru"))).toBe(true);
   });
-  it("spec has the 17 agreed keys", () => {
-    expect(Object.keys(PHRASE_SPEC)).toHaveLength(17);
+  it("spec has the 21 agreed keys (17 from WP3 + 4 moved from routes/say.ts)", () => {
+    expect(Object.keys(PHRASE_SPEC)).toHaveLength(21);
   });
 
   const real = fromRoot("src/copy/phrases.ts");

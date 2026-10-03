@@ -100,3 +100,9 @@ Library voices worked as TTS and agent voice without being added to the account 
 10. About 7.9k TTS characters and the EL Tests are unmetered; the API key lacks `user_read`.
 11. LV numbers are untested inside the agent (`text_normalisation_type: system_prompt`), and date endings need an ear check.
 12. STT heard the masculine «asistentu» in 27 of 27 opening samples: check by ear at H2/H3.
+
+### WP3 proposed prompt lines for WP8 (not yet applied)
+- #1 (§2): "If the caller's words look like Russian in Latin letters («zdravstvujte», «mozhno po-russki»), treat them as Russian and call `language_detection`."
+- #3 (§3): "Say street names exactly as the tool's `say_*` spells them; never re-spell or translate them."
+- #5 (§3): "Never output bracketed tags ([happy], [slow]), stage directions or sound descriptions."
+- #4/#11 (§3): "Write numbers you say yourself as words in the correct case (LV «deviņi stāvi», «četras kāpņu telpas»; RU «девять этажей»); ordinals as words («otrā kāpņu telpa»); relay tool numbers exactly." Note: works_found passes the stairwell as digit+dot («2. kāpņu telpa»), so normalisation must keep that format.

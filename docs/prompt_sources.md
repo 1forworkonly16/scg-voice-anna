@@ -9,7 +9,7 @@ Paths are relative to `../info/` unless they start with `docs/`. Line numbers as
 | 3 | Free inspection and estimate («бесплатный осмотр и смета» / «bezmaksas apsekošana un tāme») (prompt §1, §6; phrases) | data/services.json L22-30; copy/site_text_lv.md L791; data/glossary_lv_ru_en.json L17-18 | [S05][S17] |
 | 4 | Engineer looks at the systems in the basement and apartments (prompt §6) | 02_how_the_business_works.md L45 | [S05] |
 | 5 | Office hours Mon–Fri 9:00–17:00 (prompt §6; callback_ok) | data/company.json L59; copy/ru_key_messages.md L58 | [S17] |
-| 6 | Office phones +371 22848144, +371 29327275 (prompt §6) | data/company.json L57, L68 | [S17] |
+| 6 | Office phones +371 22848144, +371 29327275 (prompt §6) | data/company.json L57 (`contacts.current_site.phones`), L68 (`use_in_demos`); re-checked 2026-10-03 in WP3 polish: L57 is right, L58 is the e-mail, so the proposed L57→L58 change was not applied | [S17] |
 | 7 | Risers are common property; owners decide at a general meeting or written poll; 50%+1 signatures (prompt §6) | copy/ru_key_messages.md L51; data/services.json L42 | [S06] |
 | 8 | Three-party contract: owners' representative + manager + chosen company; paid from the repair savings fund (prompt §6) | copy/ru_key_messages.md L52; data/services.json L41, L47 | [S06][S11][S12] |
 | 9 | About 1.5 months from decision to start of works, in SCG's experience (prompt §6) | copy/ru_key_messages.md L53; data/services.json L46 | [S06][S11][S12] |
@@ -32,5 +32,6 @@ Paths are relative to `../info/` unless they start with `docs/`. Line numbers as
 | 26 | Parauga iela 7 is a fictional ДЕМО building for the works flow | docs/plan.md L40 | — |
 | 27 | Terms: стояки/stāvvadi, лежаки/guļvadi, старший по дому/mājas vecākais, kāpņu telpa, apsaimniekotājs, avārijas dienests, būvdarbu vadītājs | data/glossary_lv_ru_en.json L4-5, L22, L24, L38-39, L45 | — |
 | 28 | Scenario list 1, 3, 8, 9, 10 | demo-briefs/C L111-121 | — |
+| 29 | Consent before storing the caller's name and phone; only for this request; no callback time promised (prompt §4A; consent_required) | DV `CLAUDE.md` rule 5 (GDPR consent, data minimisation); demo-briefs/C L67 (no third-party data), L103 (GDPR) | — |
 
 **Deliberately left out of the prompt** (sourced, but risky in a call): the «7 days» estimate turnaround (services.json L29; a timeline promise), the 20–40% three-party savings (services.json L45; reads as a manager comparison), manufacturers' 40–60-year pipe life (services.json L17; easily heard as a warranty), past client names (company.json L91-97). No dynamic variables are used: `system__time_utc` exists (plan L56), but giving it to the model invites date arithmetic; `get_slots` supplies today and the labels.

@@ -7,7 +7,7 @@ Design rule: tool placeholders (`{address}`, `{slot}`, `{date}` …) arrive in t
 ## Opening (`elevenlabs/prompt/first_message.md`, `presets.json` lv)
 | Key | LV | RU meaning | Note |
 |---|---|---|---|
-| first_message | Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски. | Здравствуйте, Smart Comfort Group, вы говорите с ИИ-ассистентом Анной; разговор записывается. Чем могу помочь? | Feminine accusative after «ar»: «asistenti Annu». The greeting ends in a comma (not «!») so that sentence 1 holds the disclosure for any sentence splitter. CHECK: «Labdien, Smart Comfort Group, …» reads naturally on the phone? |
+| first_message | Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски. | Здравствуйте, Smart Comfort Group, вы говорите с ИИ-ассистентом Анной; разговор записывается. Чем могу помочь? | Feminine accusative after «ar»: «asistenti Annu». The greeting ends in a comma (not «!») so that sentence 1 holds the disclosure for any sentence splitter. CHECK: «Labdien, Smart Comfort Group, …» reads naturally on the phone? EAR CHECK at H3: the text is correct (feminine accusative after «ar»), but speech-to-text heard the masculine «asistentu» in 27 of 27 spike samples; listen whether Marina says «asistenti». If it still sounds masculine, use the nominative, where the ending is clearer: «… Smart Comfort Group, es esmu mākslīgā intelekta asistente Anna; saruna tiek ierakstīta.» |
 
 ## System prompt (`elevenlabs/prompt/system_prompt.md`)
 | Key | LV | RU meaning | Note |
@@ -17,9 +17,9 @@ Design rule: tool placeholders (`{address}`, `{slot}`, `{date}` …) arrive in t
 | §2 switch request example | Runāsim latviski | Давайте по-латышски | |
 | §3 read-back | Deviņi stāvi, četras kāpņu telpas — vai pareizi? | Девять этажей, четыре подъезда — верно? | |
 | §3 plain words | caurules pagrabā | трубы в подвале | used before «guļvadi» |
-| §4 role | Kāda ir jūsu loma — mājas vecākais, biedrības valdes loceklis vai dzīvokļa īpašnieks? | Вы старший по дому, член правления или владелец квартиры? | CHECK: «loma» may sound formal; alternative «Vai jūs esat mājas vecākais, biedrības valdes loceklis vai dzīvokļa īpašnieks?» |
+| §4 role | Kāda ir jūsu loma — mājas vecākais, biedrības valdes loceklis vai dzīvokļa īpašnieks? To a woman who speaks of herself in the feminine: «mājas vecākā», «valdes locekle», «dzīvokļa īpašniece». | Вы старший по дому, член правления или владелец квартиры? (женщине: «старшая по дому») | CHECK: «loma» may sound formal; alternative «Vai jūs esat mājas vecākais, biedrības valdes loceklis vai dzīvokļa īpašnieks?» |
 | §4 name | Kā varu jūs uzrunāt? | Как к вам обращаться? | |
-| §4 consent | Vai piekrītat, ka saglabājam jūsu vārdu un tālruni šim pieteikumam? | Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки? | CHECK: «tālruņa numuru» may be clearer than «tālruni» |
+| §4 consent | Vai piekrītat, ka saglabāsim jūsu vārdu un tālruņa numuru šim pieteikumam? | Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки? | |
 | §4 handover | Savienot tieši tagad nevaru, bet mūsu darbinieks jums piezvanīs darba laikā. Uz kuru numuru zvanīt? | Соединить сейчас не могу, но наш сотрудник перезвонит в рабочее время. Какой номер удобен? | |
 | §4 unknown | To precizēs mūsu inženieris vai menedžeris. | Это уточнит наш инженер или менеджер. | CHECK: «menedžeris» is common in speech; a purist would say «vadītājs» or «speciālists» |
 | §4 leak | Ja šobrīd tek, aizgrieziet ievada krānu dzīvoklī un zvaniet sava apsaimniekotāja avārijas dienestam. | Если сейчас течёт, перекройте вводной кран в квартире и позвоните в аварийную службу вашего управляющего. | CHECK: «ievada krāns» vs «galvenais krāns» (what residents actually say) |
@@ -28,7 +28,7 @@ Design rule: tool placeholders (`{address}`, `{slot}`, `{date}` …) arrive in t
 | §5 filler 3 | Mirklīti, pierakstu. | Минутку, записываю. | |
 | §5 "tomorrow" | rīt | завтра | only in the never-compute rule |
 | §5 goodbye | Paldies par zvanu, visu labu! | Спасибо за звонок, всего доброго! | |
-| §6 co-financing | Pašreizējie Rīgas noteikumi iekšējo stāvvadu nomaiņu neparedz. Taču Rīga sedz līdz 90% no tehniskās dokumentācijas izmaksām — apsekošanai, energosertifikātam, tehniskajam projektam — mājām, kas nodotas ekspluatācijā 2001. gadā vai agrāk; nosacījumus precizēs mūsu menedžeris. | Нынешние правила Риги не включают замену внутренних стояков. Но Рига компенсирует до 90% технической документации … для домов, сданных в эксплуатацию в 2001 году или раньше; условия уточнит наш менеджер. | CHECK: the dative list after the dash («apsekošanai, …») reads as "for the inspection, …"; alternative «… izmaksām: tehniskajai apsekošanai, energosertifikātam un tehniskajam projektam». Also check «nodotas ekspluatācijā» |
+| §6 co-financing | Pašreizējie Rīgas noteikumi iekšējo stāvvadu nomaiņu neparedz. Taču mājām, kas nodotas ekspluatācijā 2001. gadā vai agrāk, Rīga sedz līdz 90% no tehniskās dokumentācijas — apsekošanas, energosertifikāta, tehniskā projekta — izmaksām; nosacījumus precizēs mūsu menedžeris. | Нынешние правила Риги не включают замену внутренних стояков. Но Рига компенсирует до 90% технической документации … для домов, сданных в эксплуатацию в 2001 году или раньше; условия уточнит наш менеджер. | List now in the genitive, inside «dokumentācijas … izmaksām». CHECK «nodotas ekspluatācijā» |
 | §6 exact price | Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas — vai pierakstīt jūs? | Точную цену даст инженер после бесплатного осмотра — записать вас? | |
 | §7 banned 1 | par pusi lētāk | за полцены | banned, listed so Anna avoids it |
 | §7 banned 2 | divreiz ietaupīt | вдвойне сэкономить | banned |
@@ -48,16 +48,20 @@ Design rule: tool placeholders (`{address}`, `{slot}`, `{date}` …) arrive in t
 | building_not_found | Šo adresi sarakstā neatradu, bet tas nekas. Cik mājā ir stāvu, kāpņu telpu un aptuveni cik dzīvokļu? | Этот адрес я не нашла, но это не страшно. Сколько этажей, подъездов и примерно квартир? | CHECK: «tas nekas» (never mind) is colloquial; alternative «tas nav šķērslis» |
 | slots_offer | Bezmaksas apsekošanai brīvie laiki: {slot1}, {slot2} vai {slot3}. Kurš laiks jums der? | Для бесплатного осмотра свободно: … Какое время удобнее? | Recommended label format for WP2: «ceturtdien, 8. oktobrī, plkst. 10.00» (adverb + locative works after a colon) |
 | no_slots | Šobrīd kalendārā apsekošanai brīva laika nav. Vai vēlaties, lai mēs jums piezvanām darba laikā un vienojamies par dienu? | Сейчас нет свободного времени. Хотите, мы перезвоним и согласуем день? | |
-| booking_ok | Esmu pierakstījusi bezmaksas apsekošanu: {address}, {slot}. Lūdzu, pierakstiet šo laiku — tas ir jūsu apstiprinājums. | Готово, я записала бесплатный осмотр: … Пожалуйста, запишите это время — это и есть ваше подтверждение. | feminine «pierakstījusi» |
-| slot_taken | Diemžēl šis laiks tikko kļuva aizņemts; vēl brīvi: {alt1} vai {alt2}. Kas jums ērtāk? | К сожалению, это время только что заняли; свободно ещё: … Что удобнее? | CHECK: «vēl brīvi:» (plural, laiki implied) |
+| booking_ok | Esmu jūs pierakstījusi bezmaksas apsekošanai: {address}, {slot}. Lūdzu, pierakstiet šo laiku — tas ir jūsu apstiprinājums. | Готово, я записала вас на бесплатный осмотр: … Пожалуйста, запишите это время — это и есть ваше подтверждение. | feminine «pierakstījusi» |
+| slot_taken | Diemžēl šis laiks tikko kļuva aizņemts; vēl ir pieejami: {alt1} vai {alt2}. Kurš jums ērtāk? | К сожалению, это время только что заняли; свободно ещё: … Что удобнее? | |
 | invalid_phone | Šķiet, numuru pierakstīju nepareizi. Lūdzu, nosauciet to vēlreiz pa vienam ciparam. | Кажется, я неправильно записала номер. Продиктуйте ещё раз по цифрам. | |
 | calendar_down | Kalendārs šobrīd neatbild, tāpēc apsekošanas laiku apstiprināt nevaru. Vai vēlaties, lai mēs jums piezvanām darba laikā un vienojamies par dienu? | Календарь не отвечает, подтвердить время не могу. Хотите, мы перезвоним? | |
-| works_found | Dzīvoklis {apartment}, kāpņu telpa numur {stairwell}: darbi pēc grafika paredzēti — {date}, {window}. Vai vēlaties šo laiku pārcelt? | Квартира …, подъезд …: работы по графику — … Хотите перенести это время? | CHECK: «numur» is the spoken form; written standard is «Nr.» (TTS may read it as letters). Alternative: «{stairwell}. kāpņu telpa» if code passes an ordinal |
-| works_not_found | Pēc šīs adreses un dzīvokļa numura darbu grafiku neatradu. Vai vēlaties, lai mēs jums piezvanām darba laikā? | По этому адресу и квартире график не нашла. Хотите, мы перезвоним? | |
+| works_found | Dzīvoklis {apartment}, {stairwell}. kāpņu telpa: darbi pēc grafika paredzēti — {date}, {window}. Vai vēlaties šo laiku pārcelt? | Квартира …, подъезд …: работы по графику — … Хотите перенести это время? | Code passes the stairwell as a digit, so «2. kāpņu telpa» must be read as the ordinal «otrā»: EAR CHECK at H3 (WP8 number normalisation must keep digit + dot here) |
+| works_not_found | Šai adresei un dzīvoklim darbu grafiku neatradu. Vai vēlaties, lai mēs jums piezvanām darba laikā? | По этому адресу и квартире график не нашла. Хотите, мы перезвоним? | |
 | access_rescheduled | Labi, jaunais piekļuves laiks jūsu dzīvoklim — {date}, {window}. Esmu to ierakstījusi darbu grafikā. | Готово, новое время доступа — … Я записала это в график работ. | CHECK: «piekļuves laiks» is understandable but bureaucratic; alternative «jaunais laiks, kad darbinieki ienāks jūsu dzīvoklī» |
 | callback_ok | Labi, jūsu lūgumu esmu nodevusi — jums piezvanīs darba laikā, no pirmdienas līdz piektdienai no 9 līdz 17. | Хорошо, я передала вашу просьбу — вам перезвонят в рабочее время, пн–пт с 9 до 17. | |
 | tool_error_generic | Atvainojiet, radās tehniska kļūme. Vai vēlaties, lai mēs jums piezvanām darba laikā? | Извините, техническая заминка. Хотите, мы перезвоним? | |
 | unknown_question | To precizēs mūsu inženieris vai menedžeris — jūsu jautājumu esmu pierakstījusi. | Это уточнит наш инженер или менеджер — я записала ваш вопрос. | see «menedžeris» above |
+| consent_required | Man vajadzīga jūsu piekrišana: saglabāsim jūsu vārdu un tālruņa numuru tikai šim pieteikumam, lai varētu ar jums par to sazināties. Vai piekrītat? | Мне нужно ваше согласие: мы сохраним ваше имя и номер телефона только для этой заявки, чтобы связаться с вами по ней. Вы согласны? | used by book_inspection and request_callback; says what is stored and why, no callback time |
+| invalid_reschedule | Diemžēl uz šo laiku pārcelt nevar. Tūlīt vēlreiz nosaukšu pieejamos variantus. | К сожалению, на это время перенести нельзя. Сейчас я ещё раз назову свободные варианты. | the hint tells Anna to read the options again |
+| slots_offer_two | Bezmaksas apsekošanai brīvie laiki: {slot1} vai {slot2}. Kurš laiks jums der? | Для бесплатного осмотра свободно: … или … Какое время вам удобнее? | same pattern as slots_offer |
+| slots_offer_one | Bezmaksas apsekošanai šobrīd brīvs tikai viens laiks: {slot1}. Vai jums der? | Для бесплатного осмотра сейчас свободно только одно время: … Вам подходит? | |
 
 ## Prompt addendum and tool description (`presets.json`, `tool_descriptions.json`)
 English instructions only; the Latvian examples there («Runāsim latviski», «labi», «paldies») are reused from above.
@@ -69,3 +73,23 @@ English instructions only; the Latvian examples there («Runāsim latviski», «
 | scenarios.md S10 | Labdien, gribu uzzināt par stāvvadu nomaiņu mūsu mājā. / Zināt, runāsim tomēr latviski, man tā ir vieglāk. / Cik tas varētu maksāt? Dzīvokļu ir apmēram simt četrdesmit četri. / Paldies, pagaidām viss. | caller lines |
 | scenarios.md S8 | Vai jūs esat īsts cilvēks vai robots? / Gribu runāt ar cilvēku. | caller lines |
 | t20 history | Labprāt palīdzēšu. Kāda ir mājas adrese? | Anna line in test history |
+
+## Voice
+One voice (Marina) speaks both languages. Checked: no line in `system_prompt.md`, `first_message.md`, `presets.json` or `tool_descriptions.json` hands the caller to another speaker or colleague on a language switch; both presets introduce the same Anna. Nothing changed.
+
+## WP3 polish changes, 2026-10-03 (verifier fixes + moved phrases)
+| # | Where | Before | After |
+|---|---|---|---|
+| 1 | prompt §6 co-financing | … sedz līdz 90% no tehniskās dokumentācijas izmaksām — apsekošanai, energosertifikātam, tehniskajam projektam — mājām, kas nodotas ekspluatācijā 2001. gadā vai agrāk; … | Taču mājām, kas nodotas ekspluatācijā 2001. gadā vai agrāk, Rīga sedz līdz 90% no tehniskās dokumentācijas — apsekošanas, energosertifikāta, tehniskā projekta — izmaksām; … |
+| 2 | phrases works_not_found | Pēc šīs adreses un dzīvokļa numura darbu grafiku neatradu. | Šai adresei un dzīvoklim darbu grafiku neatradu. |
+| 3 | phrases slot_taken | … vēl brīvi: {alt1} vai {alt2}. Kas jums ērtāk? | … vēl ir pieejami: {alt1} vai {alt2}. Kurš jums ērtāk? |
+| 4 | phrases works_found | Dzīvoklis {apartment}, kāpņu telpa numur {stairwell}: … | Dzīvoklis {apartment}, {stairwell}. kāpņu telpa: … |
+| 5 | prompt §4 consent | Vai piekrītat, ka saglabājam jūsu vārdu un tālruni šim pieteikumam? | Vai piekrītat, ka saglabāsim jūsu vārdu un tālruņa numuru šim pieteikumam? |
+| 6 | prompt §4 role | masculine forms only | + "If the caller speaks of herself in the feminine…": LV «mājas vecākā», «valdes locekle», «dzīvokļa īpašniece»; RU «старшая по дому» |
+| 7 | phrases booking_ok | Esmu pierakstījusi bezmaksas apsekošanu: … (RU Готово, я записала бесплатный осмотр: …) | Esmu jūs pierakstījusi bezmaksas apsekošanai: … (RU Готово, я записала вас на бесплатный осмотр: …) |
+| 8 | phrases consent_required (moved from `src/routes/say.ts`) | Lai jūs pierakstītu, man vajadzīga jūsu piekrišana, ka «Smart Comfort Group» saglabā jūsu kontaktdatus un jums piezvana. Vai piekrītat? (RU … сохранит ваши контактные данные и перезвонит вам …) | Man vajadzīga jūsu piekrišana: saglabāsim jūsu vārdu un tālruņa numuru tikai šim pieteikumam, lai varētu ar jums par to sazināties. Vai piekrītat? (RU Мне нужно ваше согласие: мы сохраним ваше имя и номер телефона только для этой заявки, чтобы связаться с вами по ней. Вы согласны?) Names the data and the purpose, promises no callback, also fits request_callback. |
+| 9 | phrases invalid_reschedule (moved) | Šis laiks pārcelšanai nav piemērots. Izvēlēsimies kādu no piedāvātajiem. (RU Это время для переноса не подходит. Давайте выберем одно из предложенных.) | Diemžēl uz šo laiku pārcelt nevar. Tūlīt vēlreiz nosaukšu pieejamos variantus. (RU К сожалению, на это время перенести нельзя. Сейчас я ещё раз назову свободные варианты.) |
+| 10 | phrases slots_offer_two (moved) | Bezmaksas apsekošanai brīvie laiki: {slot1} vai {slot2}. Kurš laiks jums der? | unchanged |
+| 11 | phrases slots_offer_one (moved) | Bezmaksas apsekošanai brīvs tikai viens laiks: {slot1}. Vai der? (RU … свободно только одно время: {slot1}. Подойдёт?) | Bezmaksas apsekošanai šobrīd brīvs tikai viens laiks: {slot1}. Vai jums der? (RU … сейчас свободно только одно время: {slot1}. Вам подходит?) |
+| 12 | first message | jūs runājat ar mākslīgā intelekta asistenti Annu | unchanged: «ar» + feminine accusative «asistenti» is correct; ear check at H3 (see Opening) |
+| 13 | `docs/prompt_sources.md` row 6 | company.json L57 | kept L57: re-checked, L57 = phones, L58 = e-mail; the verifier's L58 would be wrong |

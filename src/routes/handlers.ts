@@ -34,7 +34,7 @@ import { prewarmToken } from "../google/auth";
 import { appendRow, readTabs, rowOf } from "../google/sheets";
 import { accessMessage, bookingMessage, callbackMessage, priceText, ROLE_RU } from "../notify/messages";
 import { sendTelegram } from "../notify/telegram";
-import { fail, ok, say, sayExtra, sayExtraBoth, sayGeneric, type Body, type Say } from "./envelope";
+import { fail, ok, say, sayGeneric, type Body, type Say } from "./envelope";
 import type { Channel, Deps } from "./types";
 import { isTestMarker, randomHex, sha256Hex } from "./util";
 
@@ -86,8 +86,8 @@ function googleFailure(e: unknown, calendar: boolean): Body {
 function slotsPhrase(slots: Slot[]): Say {
   const [a, b, c] = slots;
   if (a && b && c) return say("slots_offer", { ru: { slot1: a.label_ru, slot2: b.label_ru, slot3: c.label_ru }, lv: { slot1: a.label_lv, slot2: b.label_lv, slot3: c.label_lv } });
-  if (a && b) return sayExtraBoth("slots_offer_two", { ru: { slot1: a.label_ru, slot2: b.label_ru }, lv: { slot1: a.label_lv, slot2: b.label_lv } });
-  if (a) return sayExtraBoth("slots_offer_one", { ru: { slot1: a.label_ru }, lv: { slot1: a.label_lv } });
+  if (a && b) return say("slots_offer_two", { ru: { slot1: a.label_ru, slot2: b.label_ru }, lv: { slot1: a.label_lv, slot2: b.label_lv } });
+  if (a) return say("slots_offer_one", { ru: { slot1: a.label_ru }, lv: { slot1: a.label_lv } });
   return say("no_slots", { ru: {}, lv: {} });
 }
 
@@ -206,7 +206,7 @@ function eventTexts(p: { isTest: boolean; address: string; floors: number; stair
 export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">): Promise<Body> {
   const { deps } = c;
   if (input.consent !== true) {
-    return fail("consent_required", sayExtra("consent_required"), "Ask for consent to store the contact details; call again with consent true only after a clear yes.");
+    return fail("consent_required", say("consent_required", { ru: {}, lv: {} }), "Ask for consent to store the contact details; call again with consent true only after a clear yes.");
   }
   const phone = normalizePhone(input.phone);
   if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), "Ask the caller to repeat the phone number digit by digit, then call again.");
@@ -371,7 +371,7 @@ export async function rescheduleAccess(c: Ctx, input: ToolInput<"reschedule_acce
   const sched = apartmentSchedule(toWorksRows(tabs.Works ?? []), toAccessRows(tabs.Access ?? []), input.building_id, input.apartment);
   if (!sched) return fail("not_found", say("works_not_found", { ru: {}, lv: {} }), "No works schedule for this building and apartment. Offer a callback.");
   if (validateReschedule(sched, input.new_date, input.new_window, now)) {
-    return fail("invalid_reschedule", sayExtra("invalid_reschedule"), "That date or window is not allowed. Offer the options from find_works_schedule again.");
+    return fail("invalid_reschedule", say("invalid_reschedule", { ru: {}, lv: {} }), "That date or window is not allowed. Offer the options from find_works_schedule again.");
   }
   const isTest = isTestMarker(input.conversation_id);
   const accessId = `A-${(await sha256Hex(`${input.conversation_id}|access|${input.new_date}|${input.new_window}`)).slice(0, 6).toUpperCase()}`;
@@ -396,7 +396,7 @@ export async function rescheduleAccess(c: Ctx, input: ToolInput<"reschedule_acce
 
 export async function requestCallback(c: Ctx, input: ToolInput<"request_callback">): Promise<Body> {
   const { deps } = c;
-  if (input.consent !== true) return fail("consent_required", sayExtra("consent_required"), "Ask for consent to store the phone number; call again with consent true only after a clear yes.");
+  if (input.consent !== true) return fail("consent_required", say("consent_required", { ru: {}, lv: {} }), "Ask for consent to store the phone number; call again with consent true only after a clear yes.");
   const phone = normalizePhone(input.phone);
   if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), "Ask the caller to repeat the phone number digit by digit, then call again.");
   const now = deps.now();

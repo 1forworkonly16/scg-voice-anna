@@ -17,4 +17,8 @@ export const PHRASES = {
   callback_ok: { ru: "Передала.", lv: "Nodevu." },
   tool_error_generic: { ru: "Сбой.", lv: "Kļūda." },
   unknown_question: { ru: "Это уточнит инженер.", lv: "To precizēs inženieris." },
+  consent_required: { ru: "Согласны?", lv: "Vai piekrītat?" },
+  invalid_reschedule: { ru: "Нельзя.", lv: "Nevar." },
+  slots_offer_two: { ru: "Свободно: {slot1} или {slot2}.", lv: "Brīvi: {slot1} vai {slot2}." },
+  slots_offer_one: { ru: "Свободно: {slot1}.", lv: "Brīvi: {slot1}." },
 } as const;

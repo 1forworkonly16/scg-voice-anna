@@ -69,4 +69,4 @@ Timeouts on the ElevenLabs side: 10 s for `book_inspection`, 8 s for the others.
 TODO: `create_ticket` (type, urgency, description, address) and `log_request` (kind, summary_ru).
 
 ## Phrase keys used for `say_*`
-`price_range`, `building_found`, `building_confirm`, `building_need_house`, `building_not_found`, `slots_offer`, `no_slots`, `booking_ok`, `slot_taken`, `invalid_phone`, `calendar_down`, `works_found`, `works_not_found`, `access_rescheduled`, `callback_ok`, `tool_error_generic`, `unknown_question`. Placeholder sets are fixed in `PHRASE_SPEC` (`src/lib/render.ts`).
+`price_range`, `building_found`, `building_confirm`, `building_need_house`, `building_not_found`, `slots_offer`, `no_slots`, `booking_ok`, `slot_taken`, `invalid_phone`, `calendar_down`, `works_found`, `works_not_found`, `access_rescheduled`, `callback_ok`, `tool_error_generic`, `unknown_question`, `consent_required`, `invalid_reschedule`, `slots_offer_two`, `slots_offer_one` (21 keys). Placeholder sets are fixed in `PHRASE_SPEC` (`src/lib/render.ts`).

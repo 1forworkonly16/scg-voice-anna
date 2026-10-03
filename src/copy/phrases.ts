@@ -28,12 +28,12 @@ export const PHRASES = {
     lv: "Šobrīd kalendārā apsekošanai brīva laika nav. Vai vēlaties, lai mēs jums piezvanām darba laikā un vienojamies par dienu?",
   },
   booking_ok: {
-    ru: "Готово, я записала бесплатный осмотр: {address}, {slot}. Пожалуйста, запишите это время — это и есть ваше подтверждение.",
-    lv: "Esmu pierakstījusi bezmaksas apsekošanu: {address}, {slot}. Lūdzu, pierakstiet šo laiku — tas ir jūsu apstiprinājums.",
+    ru: "Готово, я записала вас на бесплатный осмотр: {address}, {slot}. Пожалуйста, запишите это время — это и есть ваше подтверждение.",
+    lv: "Esmu jūs pierakstījusi bezmaksas apsekošanai: {address}, {slot}. Lūdzu, pierakstiet šo laiku — tas ir jūsu apstiprinājums.",
   },
   slot_taken: {
     ru: "К сожалению, это время только что заняли; свободно ещё: {alt1} или {alt2}. Что вам удобнее?",
-    lv: "Diemžēl šis laiks tikko kļuva aizņemts; vēl brīvi: {alt1} vai {alt2}. Kas jums ērtāk?",
+    lv: "Diemžēl šis laiks tikko kļuva aizņemts; vēl ir pieejami: {alt1} vai {alt2}. Kurš jums ērtāk?",
   },
   invalid_phone: {
     ru: "Кажется, я неправильно записала номер. Продиктуйте его, пожалуйста, ещё раз по цифрам.",
@@ -45,11 +45,11 @@ export const PHRASES = {
   },
   works_found: {
     ru: "Квартира {apartment}, подъезд {stairwell}: работы у вас по графику — {date}, {window}. Хотите перенести это время?",
-    lv: "Dzīvoklis {apartment}, kāpņu telpa numur {stairwell}: darbi pēc grafika paredzēti — {date}, {window}. Vai vēlaties šo laiku pārcelt?",
+    lv: "Dzīvoklis {apartment}, {stairwell}. kāpņu telpa: darbi pēc grafika paredzēti — {date}, {window}. Vai vēlaties šo laiku pārcelt?",
   },
   works_not_found: {
     ru: "По этому адресу и квартире я не нашла график работ. Хотите, мы перезвоним вам в рабочее время?",
-    lv: "Pēc šīs adreses un dzīvokļa numura darbu grafiku neatradu. Vai vēlaties, lai mēs jums piezvanām darba laikā?",
+    lv: "Šai adresei un dzīvoklim darbu grafiku neatradu. Vai vēlaties, lai mēs jums piezvanām darba laikā?",
   },
   access_rescheduled: {
     ru: "Готово, новое время доступа в вашу квартиру — {date}, {window}. Я записала это в график работ.",
@@ -66,5 +66,21 @@ export const PHRASES = {
   unknown_question: {
     ru: "Это уточнит наш инженер или менеджер — я записала ваш вопрос.",
     lv: "To precizēs mūsu inženieris vai menedžeris — jūsu jautājumu esmu pierakstījusi.",
+  },
+  consent_required: {
+    ru: "Мне нужно ваше согласие: мы сохраним ваше имя и номер телефона только для этой заявки, чтобы связаться с вами по ней. Вы согласны?",
+    lv: "Man vajadzīga jūsu piekrišana: saglabāsim jūsu vārdu un tālruņa numuru tikai šim pieteikumam, lai varētu ar jums par to sazināties. Vai piekrītat?",
+  },
+  invalid_reschedule: {
+    ru: "К сожалению, на это время перенести нельзя. Сейчас я ещё раз назову свободные варианты.",
+    lv: "Diemžēl uz šo laiku pārcelt nevar. Tūlīt vēlreiz nosaukšu pieejamos variantus.",
+  },
+  slots_offer_two: {
+    ru: "Для бесплатного осмотра свободно: {slot1} или {slot2}. Какое время вам удобнее?",
+    lv: "Bezmaksas apsekošanai brīvie laiki: {slot1} vai {slot2}. Kurš laiks jums der?",
+  },
+  slots_offer_one: {
+    ru: "Для бесплатного осмотра сейчас свободно только одно время: {slot1}. Вам подходит?",
+    lv: "Bezmaksas apsekošanai šobrīd brīvs tikai viens laiks: {slot1}. Vai jums der?",
   },
 } as const;
