@@ -16,7 +16,14 @@ export function chatFor(deps: Deps, isTest: boolean): string | null {
   return chat || null;
 }
 
+/** Sends and logs a failure (reason + HTTP status only, never the token or the text) so a lost alert is visible in `wrangler tail`. */
 export async function sendTelegram(deps: Deps, text: string, isTest: boolean): Promise<SendResult> {
+  const r = await sendTelegramOnce(deps, text, isTest);
+  if (!r.ok && r.reason !== "skipped_test_without_test_chat") console.log(JSON.stringify({ evt: "telegram_fail", reason: r.reason, status: r.status ?? null, test: isTest }));
+  return r;
+}
+
+async function sendTelegramOnce(deps: Deps, text: string, isTest: boolean): Promise<SendResult> {
   const token = deps.env.TELEGRAM_BOT_TOKEN?.replace(/[\r\n]+/g, "").trim();
   if (!token) return { ok: false, reason: "no_token" };
   const chat = chatFor(deps, isTest);

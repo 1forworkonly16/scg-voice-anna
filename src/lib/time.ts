@@ -26,7 +26,7 @@ export interface RigaParts {
   second: number;
 }
 
-export function rigaParts(d: Date): RigaParts {
+function rigaPartsIntl(d: Date): RigaParts {
   const p: Record<string, string> = {};
   for (const x of partsFmt.formatToParts(d)) p[x.type] = x.value;
   return {
@@ -39,11 +39,35 @@ export function rigaParts(d: Date): RigaParts {
   };
 }
 
+// Intl.DateTimeFormat is the CPU hog of get_slots on Workers Free (10 ms budget; measured 6-11 ms with an Intl call per slot candidate).
+// The EU changes the clocks at exactly 01:00 UTC, so the Riga offset is constant inside every UTC hour: one Intl call per hour, memoised.
+const offsetByHour = new Map<number, number>();
+
 /** Riga UTC offset in minutes at the given instant (120 winter, 180 summer). */
 export function rigaOffsetMinutes(d: Date): number {
-  const p = rigaParts(d);
-  const asUtc = Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
-  return Math.round((asUtc - Math.floor(d.getTime() / 1000) * 1000) / 60000);
+  const ms = d.getTime();
+  if (!Number.isFinite(ms)) throw new RangeError("Invalid time value");
+  const hour = Math.floor(ms / 3600000);
+  const hit = offsetByHour.get(hour);
+  if (hit !== undefined) return hit;
+  const start = new Date(hour * 3600000);
+  const p = rigaPartsIntl(start);
+  const off = Math.round((Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second) - start.getTime()) / 60000);
+  if (offsetByHour.size > 2000) offsetByHour.clear();
+  offsetByHour.set(hour, off);
+  return off;
+}
+
+export function rigaParts(d: Date): RigaParts {
+  const t = new Date(d.getTime() + rigaOffsetMinutes(d) * 60000);
+  return {
+    year: t.getUTCFullYear(),
+    month: t.getUTCMonth() + 1,
+    day: t.getUTCDate(),
+    hour: t.getUTCHours(),
+    minute: t.getUTCMinutes(),
+    second: t.getUTCSeconds(),
+  };
 }
 
 const pad = (n: number) => String(n).padStart(2, "0");

@@ -9,10 +9,10 @@
 
   // Non-secret ids: WP7 fills them from docs/resources.md (WP5). Empty = feature reports "not configured".
   "vars": {
-    "CALENDAR_ID": "",
-    "SHEET_ID": "",
-    "TELEGRAM_CHAT_ID": "",
-    "TELEGRAM_TEST_CHAT_ID": "",
+    "CALENDAR_ID": "8b868c3728630911dcf1e56659548c03498d351b5315ce1b07c4264dc0f294e5@group.calendar.google.com",
+    "SHEET_ID": "1-BkNS8pby3NQf3CKKw-9O79u8MXtamYpNuN3xHXreGI",
+    "TELEGRAM_CHAT_ID": "-5579985990",
+    "TELEGRAM_TEST_CHAT_ID": "1010766038",
     "ELEVENLABS_AGENT_ID": "",
     "NUMBER_MODE": "digits"
   },
