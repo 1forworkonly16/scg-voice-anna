@@ -32,10 +32,19 @@ const resultEntry = (rid: string, tool: string, result: unknown, t: number) => (
   time_in_call_secs: t,
 });
 
+/** The recorded language_detection(ru) call + result that a real call holds before Anna's first Russian reply. */
+function ruSwitch(t: number): any[] {
+  const { rid, entry } = callEntry('language_detection', { reason: 'Caller answered in Russian', language: 'ru' }, null, t);
+  return [entry, resultEntry(rid, 'language_detection', { result_type: 'language_detection_success', status: 'success', reason: 'Caller answered in Russian', language: 'ru' }, t + 1)];
+}
+
 function convertHistory(hist: any[]): any[] {
-  const out: any[] = []; let t = 0;
+  const out: any[] = []; let t = 0; let agentTurns = 0;
+  let switched = hist.some((m) => m.tool_calls?.some((c: any) => c.name === 'language_detection'));
   for (const m of hist) {
     t += 4;
+    // After the LV greeting, a real call switches to Russian (language_detection ru) before Anna's first Russian reply; add it so the history is realistic.
+    if (m.role === 'agent' && agentTurns++ > 0 && !switched && hasCyr(m.message ?? '')) { out.push(...ruSwitch(t)); switched = true; t += 2; }
     if (m.role === 'agent' && !m.tool_calls?.length && /^Нашла: Ilūkstes iela 16/.test(m.message ?? '')) { // the specs write the lookup answer without the call; add it so the history is realistic
       const { rid, entry } = callEntry('lookup_building', { language: 'ru', address: 'Ilūkstes iela 16' }, null, t);
       out.push(entry); out.push(resultEntry(rid, 'lookup_building', LOOKUP_MOCK, t)); t += 1;
@@ -70,10 +79,7 @@ function needsLangSwitchInjection(spec: Spec): boolean {
 function buildHistory(spec: Spec, injectTool?: string): any[] {
   const h = convertHistory(spec.chat_history);
   let t = (h.at(-1)?.time_in_call_secs ?? 0);
-  if (needsLangSwitchInjection(spec)) {
-    const { rid, entry } = callEntry('language_detection', { reason: 'Caller answered in Russian', language: 'ru' }, null, ++t);
-    h.push(entry); h.push(resultEntry(rid, 'language_detection', { result_type: 'language_detection_success', status: 'success', reason: 'Caller answered in Russian', language: 'ru' }, ++t));
-  }
+  if (needsLangSwitchInjection(spec)) { h.push(...ruSwitch(t + 1)); t += 2; }
   if (injectTool) {
     const { rid, entry } = callEntry(injectTool, relayArgs(spec, injectTool), 'Секунду, проверяю.', t + 1);
     h.push(entry); h.push(resultEntry(rid, injectTool, spec.mocked_tools[injectTool], t + 2));

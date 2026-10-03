@@ -18,8 +18,8 @@ const requestBase = {
 
 const floors = z.number().int().min(1).max(40).describe("Number of floors above ground, e.g. 9.");
 const stairwells = z.number().int().min(1).max(30).describe("Number of stairwells (entrances), e.g. 4.");
-const apartments = z.number().int().min(1).max(2000).describe("Total number of apartments in the building, e.g. 144.");
-const phone = z.string().min(6).max(24).describe("Caller phone number exactly as dictated, digits with optional +371.");
+const apartments = z.number().int().min(1).max(2000).describe("Total number of apartments in the building, as the caller said it or as lookup_building returned it. Never guess.");
+const phone = z.string().min(6).max(24).describe("Caller phone number as dictated, written as digits only without spaces, with optional +371.");
 const consent = z.boolean().describe("true only after the caller has clearly agreed that SCG stores the contact details and calls back.");
 
 // ---------- shared response parts ----------
@@ -231,13 +231,13 @@ export const logRequestOutput = success({
 // ---------- registry ----------
 export const TOOLS = {
   lookup_building: {
-    description: "Find the caller's building in the SCG address list from the address as spoken. Returns status found/confirm/need_house/not_found and only sourced facts. Read say_ru / say_lv aloud.",
+    description: "Find the caller's building in the SCG address list from the address as spoken, for an inspection or a price. Not for residents asking about works at their building: use find_works_schedule. Returns status found/confirm/need_house/not_found and only sourced facts (unsourced ones are null). Read say_ru / say_lv aloud.",
     timeoutSecs: 8,
     input: lookupBuildingInput,
     output: lookupBuildingOutput,
   },
   quote_range: {
-    description: "Compute the indicative price range for a building from floors, stairwells and apartments. Never calculate prices yourself; read say_ru / say_lv aloud.",
+    description: "Compute the indicative price range for a building from floors, stairwells and apartments. Pass apartments only if the caller said the number or lookup_building returned it (not null); otherwise ask the caller first. Never calculate prices yourself; read say_ru / say_lv aloud.",
     timeoutSecs: 8,
     input: quoteRangeInput,
     output: quoteRangeOutput,
@@ -255,7 +255,7 @@ export const TOOLS = {
     output: bookInspectionOutput,
   },
   find_works_schedule: {
-    description: "For a resident of a building under works: find the stairwell and the date and time window when access to the apartment is needed, plus up to three alternatives.",
+    description: "For a resident of a building under works who gives an apartment number or asks about the works, water off, access or the schedule: find the stairwell and the date and time window when access to the apartment is needed, plus up to three alternatives. Use it instead of lookup_building.",
     timeoutSecs: 8,
     input: findWorksScheduleInput,
     output: findWorksScheduleOutput,
@@ -267,7 +267,7 @@ export const TOOLS = {
     output: rescheduleAccessOutput,
   },
   request_callback: {
-    description: "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs phone and consent.",
+    description: "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs phone and consent. Call it right after the caller confirmed the phone and consented; never ask for a name.",
     timeoutSecs: 8,
     input: requestCallbackInput,
     output: requestCallbackOutput,

@@ -3,7 +3,7 @@
   "type": "next_reply",
   "language": "ru",
   "critical": false,
-  "scenario": "M1 scenario 1: the caller gives Ilūkstes iela 16. The building record holds 9 floors and 4 stairwells (sourced) and 144 apartments (an assumption, not in sourced[]). Anna must state only the sourced facts.",
+  "scenario": "M1 scenario 1: the caller gives Ilūkstes iela 16. The building record holds 9 floors and 4 stairwells (sourced) and an unsourced apartment count, which the live Worker returns as null (it is not in sourced[]). Anna must state only the sourced facts.",
   "chat_history": [
     {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
@@ -11,7 +11,7 @@
     {"role": "user", "message": "Ilūkstes iela, шестнадцать."}
   ],
   "mocked_tools": {
-    "lookup_building": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "ilukstes-16", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 144, "sourced": ["floors", "stairwells"]}, "candidates": [], "hint": "confirm_sourced_facts", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?", "say_lv": "Atradu: Ilūkstes iela 16 — deviņi stāvi, četras kāpņu telpas. Vai pareizi?"}
+    "lookup_building": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "ilukstes-16", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": null, "sourced": ["floors", "stairwells"]}, "candidates": [], "hint": "confirm_sourced_facts", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?", "say_lv": "Atradu: Ilūkstes iela 16 — deviņi stāvi, četras kāpņu telpas. Vai pareizi?"}
   },
   "expect": {
     "tool": "lookup_building",

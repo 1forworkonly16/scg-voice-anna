@@ -1,0 +1,519 @@
+{
+ "_note": "WP8 prompt-fix round 2 (builder). EL Tests, agent scg-anna (agent_4801m41cmf0ge7er75wzv5nj3pn1), live config after el:tools + el:build, el:check 67/67. No secrets, no personal data (test phone/address are fictional spec data).",
+ "date": "2026-10-03",
+ "llm": "claude-haiku-4-5",
+ "result": "PARTIAL: critical 10/10; reworked t04 2/2, t13 2/2, t18 2/2 (after iteration 2), t21 0/4",
+ "summary": {
+  "critical_x1": "10/10 (final config)",
+  "t04_s1_asks_apartments_before_price": "2/2 (first batch)",
+  "t13_s3_find_works_schedule": "2/2 (first batch)",
+  "t18_handover_request_callback_args": "first batch 0/2 (called request_callback right after consent, but phone '20 123 456' with spaces failed the exact check); iteration 2: 2/2 with phone '20123456'",
+  "t21_s10_switch_ru_to_lv": "0/2 + 0/2: answers in Latvian («Labi, tad latviski. Kāds ir jūsu mājas adrese?») without calling language_detection(lv)"
+ },
+ "changes": {
+  "spec_realism": [
+   "lookup_building mocks for Ilūkstes iela 16 (t03, t09, t22, t26): apartments 144 -> null (live Worker returns null for unsourced fields)",
+   "scripts/el/tests.ts: language_detection(ru) call + result inserted before Anna's first Russian reply after the LV greeting (ruSwitch helper; previously only for single-agent-turn histories)"
+  ],
+  "tool_descriptions": "src/contract/schemas.ts: lookup_building (not for residents asking about works), quote_range (apartments only if said or non-null from lookup), find_works_schedule (resident cues; instead of lookup_building), request_callback (call right after consent, never ask for a name), apartments param (no 'e.g. 144'), phone param (digits only without spaces); elevenlabs/prompt/tool_descriptions.json language_detection (BEFORE the first word, both directions, back to Latvian needs lv)",
+  "prompt": "elevenlabs/prompt/system_prompt.md §2 L9, §4 routing line L25, A.3 L30, C L42, §7 L76; mirrored to prompt_m2"
+ },
+ "credits": {
+  "method": "GET /v1/user/subscription (character_limit - character_count)",
+  "remaining_before": 23825,
+  "remaining_after": 22601,
+  "used": 1224,
+  "sum_reported_credits_used": 1224,
+  "cap": "stop at 2500 used or remaining < 21000; not reached",
+  "remaining_after_all": 22551,
+  "used_total_incl_experiment": 1274
+ },
+ "usd_reported_llm_price": 0.1589,
+ "safety": "Tool-execution logs of all 7 webhook tools: 0 before and after every batch. No voice calls. Agent left locked (auth on), 7 M1 tools.",
+ "doubt": "t21 fails consistently on Haiku: prompt rule, tool description and an lv language preset (tested, reverted) all leave it at 0/2. Known issue for the user's live test, scenario 10 (RU->LV): listen whether ASR/TTS follow the switch.",
+ "runs": [
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t13_s3_find_works_schedule",
+   "status": "passed",
+   "credits_reported": 79,
+   "llm_price_usd": 0.011400400000000002,
+   "rationale": "All parameter evaluations passed",
+   "agent": [
+    {
+     "message": "Секунду, проверяю.",
+     "tools": []
+    },
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "find_works_schedule",
+       "args": "{\"address\": \"Parauga iela 7\", \"apartment\": 12, \"language\": \"ru\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t21_s10_switch_ru_to_lv",
+   "status": "failed",
+   "credits_reported": 77,
+   "llm_price_usd": 0.010989,
+   "rationale": "Failure",
+   "agent": [
+    {
+     "message": "Labi, pēc jūsu vēlmes. Tad lūdzu, mājas adresi.",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t04_s1_asks_apartments_before_price",
+   "status": "passed",
+   "credits_reported": 79,
+   "llm_price_usd": 0.0112805,
+   "rationale": "The agent correctly asked for the number of apartments in the building in Russian, adhering to the instruction to not call quote_range or state an amount yet.",
+   "agent": [
+    {
+     "message": "Спасибо. Сколько примерно квартир в доме?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t21_s10_switch_ru_to_lv",
+   "status": "failed",
+   "credits_reported": 77,
+   "llm_price_usd": 0.010989,
+   "rationale": "Failure",
+   "agent": [
+    {
+     "message": "Labi, pārswitchojos uz latviski. Kāds ir jūsu mājas adrese?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t04_s1_asks_apartments_before_price",
+   "status": "passed",
+   "credits_reported": 79,
+   "llm_price_usd": 0.011308,
+   "rationale": "The agent correctly responded in Russian, avoided quoting a price, and asked a short, direct question about the number of apartments in the building.",
+   "agent": [
+    {
+     "message": "Сейчас посмотрю. Сколько примерно квартир в доме?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t13_s3_find_works_schedule",
+   "status": "passed",
+   "credits_reported": 79,
+   "llm_price_usd": 0.011400400000000002,
+   "rationale": "All parameter evaluations passed",
+   "agent": [
+    {
+     "message": "Секунду, проверяю.",
+     "tools": []
+    },
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "find_works_schedule",
+       "args": "{\"address\": \"Parauga iela 7\", \"apartment\": 12, \"language\": \"ru\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t18_handover_request_callback_args",
+   "status": "failed",
+   "credits_reported": 81,
+   "llm_price_usd": 0.011793099999999999,
+   "rationale": "Parameter evaluation failed",
+   "agent": [
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "request_callback",
+       "args": "{\"phone\": \"20 123 456\", \"consent\": true, \"language\": \"ru\", \"reason\": \"human_requested\", \"summary_ru\": \"\\u041a\\u043b\\u0438\\u0435\\u043d\\u0442 \\u0445\\u043e\\u0447\\u0435\\u0442 \\u043f\\u043e\\u0433\\u043e\\u0432\\u043e\\u0440\\u0438\\u0442\\u044c \\u0441 \\u0447\\u0435\\u043b\\u043e\\u0432\\u0435\\u043a\\u043e\\u043c \\u043f\\u043e \\u043f\\u043e\\u0432\\u043e\\u0434\\u0443 \\u0437\\u0430\\u043c\\u0435\\u043d\\u044b \\u0441\\u0442\\u043e\\u044f\\u043a\\u043e\\u0432 \\u0432 \\u0434\\u043e\\u043c\\u0435.\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_rework_x2",
+   "batch_note": "round-2 fixes, reworked x2",
+   "invocation": "suite_7501m41n3whxe14bxpn76kzj93y8",
+   "test": "t18_handover_request_callback_args",
+   "status": "failed",
+   "credits_reported": 81,
+   "llm_price_usd": 0.0117821,
+   "rationale": "Parameter evaluation failed",
+   "agent": [
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "request_callback",
+       "args": "{\"phone\": \"20 123 456\", \"consent\": true, \"language\": \"ru\", \"reason\": \"human_requested\", \"summary_ru\": \"\\u041a\\u043b\\u0438\\u0435\\u043d\\u0442 \\u0445\\u043e\\u0447\\u0435\\u0442 \\u043f\\u043e\\u0433\\u043e\\u0432\\u043e\\u0440\\u0438\\u0442\\u044c \\u0441 \\u0447\\u0435\\u043b\\u043e\\u0432\\u0435\\u043a\\u043e\\u043c \\u043f\\u043e \\u043f\\u043e\\u0432\\u043e\\u0434\\u0443 \\u0441\\u0442\\u043e\\u044f\\u043a\\u043e\\u0432 \\u0432 \\u0434\\u043e\\u043c\\u0435.\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_iter2_x2",
+   "batch_note": "iteration 2 (phone describe + lv-return line), failing tests x2",
+   "invocation": "suite_2201m41n6bk7erabw73hc58prcan",
+   "test": "t18_handover_request_callback_args",
+   "status": "passed",
+   "credits_reported": 81,
+   "llm_price_usd": 0.01186185,
+   "rationale": "All parameter evaluations passed",
+   "agent": [
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "request_callback",
+       "args": "{\"phone\": \"20123456\", \"consent\": true, \"language\": \"ru\", \"reason\": \"human_requested\", \"summary_ru\": \"\\u0417\\u0432\\u043e\\u043d\\u044f\\u0449\\u0438\\u0439 \\u0445\\u043e\\u0447\\u0435\\u0442 \\u043f\\u043e\\u0433\\u043e\\u0432\\u043e\\u0440\\u0438\\u0442\\u044c \\u0441 \\u0441\\u043e\\u0442\\u0440\\u0443\\u0434\\u043d\\u0438\\u043a\\u043e\\u043c \\u043f\\u043e \\u043f\\u043e\\u0432\\u043e\\u0434\\u0443 \\u0441\\u0442\\u043e\\u044f\\u043a\\u043e\\u0432 \\u0432 \\u0434\\u043e\\u043c\\u0435.\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_iter2_x2",
+   "batch_note": "iteration 2 (phone describe + lv-return line), failing tests x2",
+   "invocation": "suite_2201m41n6bk7erabw73hc58prcan",
+   "test": "t18_handover_request_callback_args",
+   "status": "passed",
+   "credits_reported": 81,
+   "llm_price_usd": 0.01186185,
+   "rationale": "All parameter evaluations passed",
+   "agent": [
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "request_callback",
+       "args": "{\"phone\": \"20123456\", \"consent\": true, \"language\": \"ru\", \"reason\": \"human_requested\", \"summary_ru\": \"\\u0417\\u0432\\u043e\\u043d\\u044f\\u0449\\u0438\\u0439 \\u0445\\u043e\\u0447\\u0435\\u0442 \\u043f\\u043e\\u0433\\u043e\\u0432\\u043e\\u0440\\u0438\\u0442\\u044c \\u0441 \\u0447\\u0435\\u043b\\u043e\\u0432\\u0435\\u043a\\u043e\\u043c \\u043f\\u043e \\u043f\\u043e\\u0432\\u043e\\u0434\\u0443 \\u0437\\u0430\\u043c\\u0435\\u043d\\u044b \\u0441\\u0442\\u043e\\u044f\\u043a\\u043e\\u0432 \\u0432 \\u0434\\u043e\\u043c\\u0435.\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_iter2_x2",
+   "batch_note": "iteration 2 (phone describe + lv-return line), failing tests x2",
+   "invocation": "suite_2201m41n6bk7erabw73hc58prcan",
+   "test": "t21_s10_switch_ru_to_lv",
+   "status": "failed",
+   "credits_reported": 77,
+   "llm_price_usd": 0.011030250000000002,
+   "rationale": "Failure",
+   "agent": [
+    {
+     "message": "Labi, tad latviski. Kāds ir jūsu mājas adrese?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_iter2_x2",
+   "batch_note": "iteration 2 (phone describe + lv-return line), failing tests x2",
+   "invocation": "suite_2201m41n6bk7erabw73hc58prcan",
+   "test": "t21_s10_switch_ru_to_lv",
+   "status": "failed",
+   "credits_reported": 77,
+   "llm_price_usd": 0.011030250000000002,
+   "rationale": "Failure",
+   "agent": [
+    {
+     "message": "Labi, tad latviski. Kāds ir jūsu mājas adrese?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t19_s9_exact_price_demand",
+   "status": "passed",
+   "credits_reported": 27,
+   "llm_price_usd": 0.00203478,
+   "rationale": "The agent correctly maintained that an exact price requires an engineer's inspection, avoided providing new speculative figures, and offered to book the appointment in Russian.",
+   "agent": [
+    {
+     "message": "Точную цену даст инженер после бесплатного осмотра — записать в ас?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t22_false_switch_street_name",
+   "status": "passed",
+   "credits_reported": 27,
+   "llm_price_usd": 0.00201828,
+   "rationale": "All parameter evaluations passed",
+   "agent": [
+    {
+     "message": "Спасибо. Сейчас проверяю.",
+     "tools": []
+    },
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "lookup_building",
+       "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t15_s8_are_you_human_ru",
+   "status": "passed",
+   "credits_reported": 26,
+   "llm_price_usd": 0.00191158,
+   "rationale": "The agent correctly identified itself as an AI, offered a callback from a staff member, and maintained the conversation in the user's language.",
+   "agent": [
+    {
+     "message": "Нет, я ИИ-ассистент, искусственный интеллект; если хотите, вам перезвонит на ш сотрудник.  Но я помогу вам с информацией о стяках и ос мотре.  Какой адрес вашего дома?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t06_s1_price_relay",
+   "status": "passed",
+   "credits_reported": 31,
+   "llm_price_usd": 0.00294888,
+   "rationale": "The agent correctly relayed the pricing information from the tool, included the required disclaimer about the engineer's inspection, and offered to book the appointment as requested.",
+   "agent": [
+    {
+     "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с Н ДС.  Точную цену даст инженер после бесплатного осмотра — записать в ас на бесплатный осмотр?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t10_s1_booking_ok_no_sms",
+   "status": "passed",
+   "credits_reported": 34,
+   "llm_price_usd": 0.00338338,
+   "rationale": "The agent correctly relayed the booking details (address, date, and time) and informed the user that this serves as the confirmation, adhering to all instructions.",
+   "agent": [
+    {
+     "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября  в 10:00.  Пожалуйста, запишите это время — это и есть ваше подтвер ждение.",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t22_false_switch_street_name_relay",
+   "status": "passed",
+   "credits_reported": 26,
+   "llm_price_usd": 0.00199628,
+   "rationale": "The agent correctly relayed the information provided by the lookup_building tool in Russian, confirming the building details as requested.",
+   "agent": [
+    {
+     "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно ?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t23_unknown_warranty",
+   "status": "passed",
+   "credits_reported": 25,
+   "llm_price_usd": 0.00185218,
+   "rationale": "The agent responded in Russian, correctly deferred the warranty question to an engineer or manager without providing specific numbers, and continued the conversation by qualifying the user's request.",
+   "agent": [
+    {
+     "message": "Спасибо за вопрос. Это уточнит наш инженер или менеджер —  гарантийные условия зависят от деталей работ.  Вы звоните по поводу своего дома или хотите узнать ц ену для осмотра?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t01_first_message_disclosure",
+   "status": "passed",
+   "credits_reported": 27,
+   "llm_price_usd": 0.00201938,
+   "rationale": "The agent correctly switched to Russian, confirmed its identity as an AI assistant for Smart Comfort Group, and asked how to help within the two-sentence limit.",
+   "agent": [
+    {
+     "message": "Да, я из Smart Comfort Group. Я ИИ-ассистент Анна; если  хотите, вам перезвонит наш сотрудник.  Чем я могу вам помочь?",
+     "tools": []
+    },
+    {
+     "message": null,
+     "tools": [
+      {
+       "name": "language_detection",
+       "args": "{\"language\": \"ru\", \"reason\": \"Caller spoke a full sentence in Russian\"}"
+      }
+     ]
+    },
+    {
+     "message": null,
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t17_handover_want_human",
+   "status": "passed",
+   "credits_reported": 25,
+   "llm_price_usd": 0.0016904799999999998,
+   "rationale": "The agent successfully switched to Russian, informed the user that a direct connection is not possible, offered a callback during working hours, and requested the user's phone number.",
+   "agent": [
+    {
+     "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит вам в р абочее время.  Какой номер вам удобен?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "reg2_crit_x1",
+   "batch_note": "final config, critical x1",
+   "invocation": "suite_8301m41n763pezmr61cb0jwzzy8m",
+   "test": "t24_cofinancing_ru",
+   "status": "passed",
+   "credits_reported": 28,
+   "llm_price_usd": 0.00228338,
+   "rationale": "The agent correctly addressed the user's query in Russian, clarified that Riga does not cover riser replacement, explained the actual 90% compensation for technical documentation, and avoided making f",
+   "agent": [
+    {
+     "message": "Здравствуйте! Рига действительно помогает, но не совсем так. Пошлите, у точню: нынешние правила Риги не включают замену внутренних стояков. Но  Рига компенсирует до 90% технической документации — обследования,  энергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия у точнит наш менеджер.  Наша цена остаётся одна и та же для всех.",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "lvp_t21_x2",
+   "batch_note": "experiment: lv language preset (base voice, LV first message, no prompt override), t21 x2",
+   "invocation": "suite_5801m41ncz0hetet2kyemqvdpbes",
+   "test": "t21_s10_switch_ru_to_lv",
+   "status": "failed",
+   "credits_reported": 25,
+   "llm_price_usd": 0.0016211799999999998,
+   "rationale": "Failure",
+   "agent": [
+    {
+     "message": "Labi, tad latviski. Kāds ir jūsu mājas adrese?",
+     "tools": []
+    }
+   ]
+  },
+  {
+   "batch": "lvp_t21_x2",
+   "batch_note": "experiment: lv language preset (base voice, LV first message, no prompt override), t21 x2",
+   "invocation": "suite_5801m41ncz0hetet2kyemqvdpbes",
+   "test": "t21_s10_switch_ru_to_lv",
+   "status": "failed",
+   "credits_reported": 25,
+   "llm_price_usd": 0.0016211799999999998,
+   "rationale": "Failure",
+   "agent": [
+    {
+     "message": "Labi, tad latviski. Kāds ir jūsu mājas adrese?",
+     "tools": []
+    }
+   ]
+  }
+ ],
+ "lv_preset_experiment": {
+  "approved_by": "orchestrator",
+  "result": "t21 0/2 (same reply «Labi, tad latviski. Kāds ir jūsu mājas adrese?», no tool call)",
+  "action": "preset reverted (build/check code and config restored), el:build pushed, el:check 67/67 PASS; t20/t22/t01 not run (only needed to keep the preset)",
+  "credits": {
+   "remaining_before": 22601,
+   "remaining_after": 22551,
+   "used": 50
+  },
+  "usd_reported_llm_price": 0.0032
+ }
+}

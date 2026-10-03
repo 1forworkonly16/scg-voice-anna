@@ -102,7 +102,7 @@ function main() {
   const candidates = [];
   const empty = [];
   for (const n of names) {
-    const v = userEnv(n);
+    const v = userEnv(n) || process.env[n] || ""; // User scope first; else the process env (env.ps1 fills it from the git-ignored .env)
     if (v) candidates.push({ name: n, values: candidateValues(v) });
     else empty.push(n);
   }

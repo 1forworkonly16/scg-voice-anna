@@ -54,3 +54,13 @@ The §6 co-financing line (RU + LV, «сданных в эксплуатацию
    - It adds a note on Latvian names in Russian text to every success condition.
    - `relayArgs()` has no defaults for the new tools. That only matters if a spec gets `reply_must` with a mock; none do.
 4. The specs in `elevenlabs/test_specs_m2/` (12, 5 critical) move to `elevenlabs/test_specs/` at merge.
+
+## WP8 prompt fix round 2 (2026-10-03), mirrored from M1
+Both prompts got the same edits, so the shared lines stay byte-identical. The table above uses pre-round-2 line numbers: from here on M1 is +1 after L24 and M2 is +1 after L27.
+- §2 L9 (both): call `language_detection` BEFORE the first word in the new language, in both directions; going back to Latvian after Russian also needs the call (lv), even though Latvian is the default.
+- §4 new routing line (M1 L25, M2 L28): a resident asking about works (when, water off, access, schedule, not being home) → flow B and `find_works_schedule`; `lookup_building` only for an inspection or a price.
+- A.3 (M1 L30, M2 L33): pass apartments only if the caller said the number or `lookup_building` returned it; otherwise ask «Сколько примерно квартир в доме?» / «Cik aptuveni dzīvokļu ir mājā?».
+- C (M1 L42, M2 L45): when the caller says yes to consent, the very next action is `request_callback`; the name is optional, never ask for it.
+- M1 §7 L76 now carries M2's data-minimisation wording (name only for a booking; only the phone for a callback), so the row «75 → 111» above is no longer a difference.
+- `tool_descriptions_m2.json` `language_detection`: + «Call it BEFORE your first word in the new language, in every direction (Latvian, Russian, English); going back to Latvian, the default, also needs this call with lv».
+- Contract descriptions (`src/contract/schemas.ts`, shared by M1 and M2): lookup_building, quote_range, find_works_schedule, request_callback, the `apartments` param (no «e.g. 144») and the `phone` param («digits only without spaces, with optional +371»). The WP13 item on the phone text for foreign numbers still stands.
