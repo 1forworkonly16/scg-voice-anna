@@ -22,7 +22,7 @@ The workspace-root `CLAUDE.md` does not load automatically here, so the rules be
 `../info/` must never be edited. Check with `PYTHONUTF8=1 python scripts/info-hash.py --check` (exit 0 = unchanged; manifest `docs/info_manifest.sha256`). Run it at every gate.
 
 ## Secrets and shell
-- Secrets live only in Windows **user env vars**. Load by dot-sourcing `. .\scripts\env.ps1` after `Set-ExecutionPolicy -Scope Process Bypass -Force` (or run `powershell -NoProfile -ExecutionPolicy Bypass -Command ". .\scripts\env.ps1; <cmd>"`). `-Check` prints names + present/missing, never values. Guide: `docs/setup_keys.md`.
+- Secrets live in Windows **user env vars** or in the user's git-ignored `DV/.env` (user vars win). Never open, print, copy or edit `.env`; `env.ps1` is its only reader. Load by dot-sourcing `. .\scripts\env.ps1` after `Set-ExecutionPolicy -Scope Process Bypass -Force` (or run `powershell -NoProfile -ExecutionPolicy Bypass -Command ". .\scripts\env.ps1; <cmd>"`). `-Check` prints names + present/missing, never values. Guide: `docs/setup_keys.md`.
 - Never write a secret value to any file, log or report. Never type a secret in a terminal. Never plain `wrangler login`; never `setx`.
 - PowerShell 5.1 mangles JSON arguments and Cyrillic: do provisioning/JSON in Python or Node. Use `npx.cmd`. No `&&`, `??`, `?.` in PowerShell.
 - Set `PYTHONUTF8=1` for Python. Never commit; the verifier commits after acceptance (`git add -- <owned paths>`).

@@ -22,3 +22,5 @@ Fixed 2026-10-03; change only with the user.
 | Voice LLM | Native in ElevenLabs. Start with `claude-opus-5-5`. If the synthetic-voice end-to-end p50 exceeds 1.5 s, switch to `claude-sonnet-5-5`, then `claude-haiku-4-5`. Measured in the spike together with cost/min |
 | Latvian risk | Spike first. If LV fails, stop and show the evidence; the user decides |
 | Old scaffold | Partial scaffold from another, now-closed session (2026-10-02 13:41–13:52): WP0 moves it to `Dima voice/_archive/2026-10-02/` (git-ignored) and deletes its node_modules. WP2 may harvest `pyround.ts`, `quote.ts`, `address.ts` + tests, `time.ts` and `works.ts` only after they pass our tests. WP0 deletes the stray `info/data/__pycache__/` it created |
+
+- 2026-10-03, user: keys may also live in the git-ignored `.env` (read by `scripts/env.ps1` when the user env var is empty; user vars win).

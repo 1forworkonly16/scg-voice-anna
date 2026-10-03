@@ -16,6 +16,9 @@ Warnings:
 - Never use `setx` (truncates long values).
 - New values are invisible to shells that are already running. That is fine: our scripts read the User scope directly.
 
+## Alternative: the `.env` file
+Instead of the clipboard command, you can paste each value into `Dima voice\.env` (already created, git-ignored) after its `NAME=`, with no quotes. Save the file. Scripts read it whenever the user env var is empty; a user env var always wins. It is a plain-text file on disk: don't share it or paste it into chat, and clear the values after the demo.
+
 Verify (prints names and present/missing only):
 `powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\env.ps1 -Check`
 
