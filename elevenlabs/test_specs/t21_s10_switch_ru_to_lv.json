@@ -1,0 +1,19 @@
+{
+  "id": "t21_s10_switch_ru_to_lv",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 10: the conversation runs in Russian; the caller then says a full Latvian sentence asking to continue in Latvian.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте, я член правления, хочу узнать про замену стояков."},
+    {"role": "agent", "message": "Здравствуйте! Подскажите, пожалуйста, адрес дома."},
+    {"role": "user", "message": "Zināt, runāsim tomēr latviski, man tā ir vieglāk."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "language_detection",
+    "args_contains": {"language": "lv"}
+  },
+  "success_condition": "The agent calls language_detection to switch to Latvian and asks for the address in Latvian only, using the formal «jūs»."
+}

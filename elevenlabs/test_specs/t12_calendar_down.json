@@ -1,0 +1,28 @@
+{
+  "id": "t12_calendar_down",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Booking error path: book_inspection returns ok:false with error calendar_down. Anna must not confirm the booking and must offer a callback.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр. Девять этажей, четыре подъезда, сто сорок четыре квартиры."},
+    {"role": "agent", "message": "Девять этажей, четыре подъезда, сто сорок четыре квартиры — верно? Как к вам обращаться?"},
+    {"role": "user", "message": "Верно. Нина Ивановна, телефон двадцать, сто двадцать три, четыреста пятьдесят шесть."},
+    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?"},
+    {"role": "user", "message": "Согласна."},
+    {"role": "agent", "message": "Сейчас посмотрю. Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?", "tool_calls": [{"name": "get_slots", "args": {}, "result": {"ok": true, "v": 1, "slots": [{"start": "2026-10-08T10:00:00+03:00", "label_ru": "четверг 8 октября в 10:00"}, {"start": "2026-10-09T14:00:00+03:00", "label_ru": "пятница 9 октября в 14:00"}, {"start": "2026-10-12T09:00:00+03:00", "label_ru": "понедельник 12 октября в 9:00"}], "say_ru": "Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?"}}]},
+    {"role": "user", "message": "Пятница, два часа."}
+  ],
+  "mocked_tools": {
+    "book_inspection": {"ok": false, "v": 1, "error": "calendar_down", "hint": "offer_callback", "say_ru": "Календарь сейчас не отвечает, поэтому время осмотра я подтвердить не могу. Хотите, мы перезвоним вам в рабочее время и согласуем день?", "say_lv": "Kalendārs šobrīd neatbild, tāpēc apsekošanas laiku apstiprināt nevaru. Vai vēlaties, lai mēs jums piezvanām darba laikā un vienojamies par dienu?"}
+  },
+  "expect": {
+    "tool": "book_inspection",
+    "reply_must": ["перезвон"],
+    "reply_must_not": ["записала бесплатный осмотр", "осмотр записан", "SMS"]
+  },
+  "success_condition": "The agent says the time cannot be confirmed right now and offers a callback in working hours (relaying say_ru). It does not claim the booking exists and does not retry book_inspection in a loop."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "t13_s3_find_works_schedule",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 3: an elderly Russian-speaking resident of the fictional ДЕМО building Parauga iela 7 will not be home on the works day. After giving the address and apartment, Anna must call find_works_schedule (and must not switch to Latvian because of the street name).",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Алло, это по ремонту труб? Меня в четверг дома не будет."},
+    {"role": "agent", "message": "Понимаю, давайте посмотрим. Подскажите, пожалуйста, адрес и номер квартиры."},
+    {"role": "user", "message": "Parauga iela, семь, квартира двенадцать."}
+  ],
+  "mocked_tools": {
+    "find_works_schedule": {"ok": true, "v": 1, "building_id": "DEMO-parauga-7", "apartment": "12", "stairwell": "2", "current": {"date": "2026-10-08", "window": "09-13", "label_ru": "четверг 8 октября, с 9 до 13", "label_lv": "ceturtdien 8. oktobrī, no 9 līdz 13"}, "options": [{"date": "2026-10-09", "window": "09-13", "label_ru": "пятница 9 октября, с 9 до 13", "label_lv": "piektdien 9. oktobrī, no 9 līdz 13"}, {"date": "2026-10-09", "window": "13-17", "label_ru": "пятница 9 октября, с 13 до 17", "label_lv": "piektdien 9. oktobrī, no 13 līdz 17"}, {"date": "2026-10-12", "window": "09-13", "label_ru": "понедельник 12 октября, с 9 до 13", "label_lv": "pirmdien 12. oktobrī, no 9 līdz 13"}], "hint": "ask_if_reschedule", "say_ru": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?", "say_lv": "Dzīvoklis 12, kāpņu telpa numur 2: darbi pēc grafika paredzēti — ceturtdien 8. oktobrī, no 9 līdz 13. Vai vēlaties šo laiku pārcelt?"}
+  },
+  "expect": {
+    "tool": "find_works_schedule",
+    "args_contains": {"apartment": "12", "address": "Parauga"}
+  },
+  "success_condition": "The agent calls find_works_schedule with apartment 12 and the Parauga iela 7 address, then relays say_ru in Russian. It does not call language_detection and does not ask for name or phone."
+}

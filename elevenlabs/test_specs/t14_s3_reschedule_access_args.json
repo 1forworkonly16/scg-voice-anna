@@ -1,0 +1,26 @@
+{
+  "id": "t14_s3_reschedule_access_args",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 3: Anna has read the options from find_works_schedule; the resident chooses Friday afternoon. Anna must call reschedule_access with that option's date and window exactly, then relay the result without promising an SMS.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Алло, это по ремонту труб? Меня в четверг дома не будет."},
+    {"role": "agent", "message": "Понимаю, давайте посмотрим. Подскажите, пожалуйста, адрес и номер квартиры."},
+    {"role": "user", "message": "Parauga iela, семь, квартира двенадцать."},
+    {"role": "agent", "message": "Секунду, проверяю. Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?", "tool_calls": [{"name": "find_works_schedule", "args": {"address": "Parauga iela 7", "apartment": "12"}, "result": {"ok": true, "v": 1, "building_id": "DEMO-parauga-7", "apartment": "12", "stairwell": "2", "options": [{"date": "2026-10-09", "window": "09-13", "label_ru": "пятница 9 октября, с 9 до 13"}, {"date": "2026-10-09", "window": "13-17", "label_ru": "пятница 9 октября, с 13 до 17"}, {"date": "2026-10-12", "window": "09-13", "label_ru": "понедельник 12 октября, с 9 до 13"}], "say_ru": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?"}}]},
+    {"role": "user", "message": "Да, перенесите, пожалуйста."},
+    {"role": "agent", "message": "Можно так: пятница 9 октября, с 9 до 13; пятница 9 октября, с 13 до 17; или понедельник 12 октября, с 9 до 13. Что вам подходит?"},
+    {"role": "user", "message": "В пятницу после обеда."}
+  ],
+  "mocked_tools": {
+    "reschedule_access": {"ok": true, "v": 1, "access_id": "ACC-TEST-0001", "hint": "read_back_then_close", "say_ru": "Готово, новое время доступа в вашу квартиру — пятница 9 октября, с 13 до 17. Я записала это в график работ.", "say_lv": "Labi, jaunais piekļuves laiks jūsu dzīvoklim — piektdien 9. oktobrī, no 13 līdz 17. Esmu to ierakstījusi darbu grafikā."}
+  },
+  "expect": {
+    "tool": "reschedule_access",
+    "args_contains": {"building_id": "DEMO-parauga-7", "apartment": "12", "new_date": "2026-10-09", "new_window": "13-17"},
+    "reply_must_not": ["SMS", "смс", "СМС", "прораб позвонит"]
+  },
+  "success_condition": "reschedule_access is called once with building_id DEMO-parauga-7, apartment 12, new_date 2026-10-09, new_window 13-17 (copied from the option, not computed). The reply relays say_ru and promises no SMS or call from the foreman."
+}

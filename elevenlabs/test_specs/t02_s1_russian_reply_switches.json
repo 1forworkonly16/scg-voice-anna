@@ -1,0 +1,17 @@
+{
+  "id": "t02_s1_russian_reply_switches",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 1, turn 1: a Russian-speaking house elder answers the Latvian opening with a full Russian sentence. Anna must switch to Russian.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "language_detection",
+    "args_contains": {"language": "ru"}
+  },
+  "success_condition": "The agent calls language_detection with Russian as the target (parameter name per the ElevenLabs system tool) and its spoken reply is in Russian, asking for the building address. It does not ask for the role again, since the caller already said she is the house elder."
+}

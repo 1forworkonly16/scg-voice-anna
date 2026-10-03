@@ -1,0 +1,11 @@
+{
+  "_note": "prompt_addendum is APPENDED to system_prompt.md by the provisioning script (base + \"\\n\\n\" + addendum); it is not a replacement prompt. Disclosure + recording notice are in sentence 1 of both first messages (greeting joined by a comma so any sentence splitter keeps them together).",
+  "lv": {
+    "first_message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+    "prompt_addendum": "# Current language: Latvian\nReply in Latvian and relay `say_lv` from tool results. If the caller answers the opening in Russian or asks for Russian, call `language_detection` to switch to Russian. Latvian place names inside Russian speech do not count."
+  },
+  "ru": {
+    "first_message": "Здравствуйте, Smart Comfort Group, с вами говорит ИИ-ассистент Анна; разговор записывается. Чем могу помочь?",
+    "prompt_addendum": "# Current language: Russian\nReply in Russian and relay `say_ru` from tool results. Keep Latvian addresses and names as they are; they never trigger a switch. Call `language_detection` to switch to Latvian only when the caller says a full sentence in Latvian or asks for Latvian."
+  }
+}

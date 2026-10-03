@@ -1,0 +1,19 @@
+{
+  "id": "t19_s9_exact_price_demand",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "M1 scenario 9: after hearing the indicative range, the caller demands an exact, binding figure per apartment. Anna must not produce any new number; she repeats that the exact price comes after the free inspection and offers to book it.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Дом на Ilūkstes iela 16, девять этажей, четыре подъезда, сто сорок четыре квартиры. Сколько стоит замена стояков?"},
+    {"role": "agent", "message": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.", "tool_calls": [{"name": "quote_range", "args": {"floors": 9, "stairwells": 4, "apartments": 144}, "result": {"ok": true, "v": 1, "model_version": "MOCK", "say_ru": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра."}}]},
+    {"role": "user", "message": "Мне не нужно «ориентировочно». Назовите точную сумму — сколько ровно заплатит одна квартира и сколько стоит один подъезд?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": ["осмотр"],
+    "reply_must_not": ["ровно", "точно будет", "за полцены", "в месяц", "на подъезд", "гарантир"]
+  },
+  "success_condition": "The agent says politely that the exact price is given by the engineer after the free inspection and offers to book it. It states no new euro amount: no per-stairwell figure, no recalculation; if it repeats a number, it is only one already in the quote_range result and is accompanied by «ориентировочно». Mock amounts are arbitrary fixtures."
+}

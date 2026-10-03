@@ -1,0 +1,26 @@
+{
+  "id": "t18_handover_request_callback_args",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Handover: the caller gave and confirmed a number and consented. Anna must call request_callback with phone, consent and a short Russian summary.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Не хочу с роботом. Хочу поговорить с человеком."},
+    {"role": "agent", "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит вам в рабочее время. Какой номер вам удобен?"},
+    {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть. Это по поводу стояков в доме."},
+    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Согласны, чтобы мы сохранили ваш телефон для этой просьбы?"},
+    {"role": "user", "message": "Да, согласен."}
+  ],
+  "mocked_tools": {
+    "request_callback": {"ok": true, "v": 1, "callback_id": "CB-TEST-0001", "hint": "read_back_then_close", "say_ru": "Хорошо, я передала вашу просьбу — вам перезвонят в рабочее время, с понедельника по пятницу с 9 до 17.", "say_lv": "Labi, jūsu lūgumu esmu nodevusi — jums piezvanīs darba laikā, no pirmdienas līdz piektdienai no 9 līdz 17."}
+  },
+  "expect": {
+    "tool": "request_callback",
+    "args_contains": {"phone": "20123456", "consent": true},
+    "reply_must_not": ["SMS", "смс", "СМС"]
+  },
+  "success_condition": "request_callback is called once with the confirmed phone (digits 20123456), consent true, a reason such as human_requested, and a short Russian summary_ru about risers with no third-party data. The reply relays say_ru."
+}

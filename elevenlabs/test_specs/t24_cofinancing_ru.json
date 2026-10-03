@@ -1,0 +1,17 @@
+{
+  "id": "t24_cofinancing_ru",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Co-financing (RU): the caller heard that Riga pays half of riser replacement. Anna must give the 2026 answer: internal risers are not covered; up to 90% of technical documentation for buildings commissioned in 2001 or earlier; conditions to be confirmed by a manager. No half price.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Соседи говорят, Рига сейчас оплачивает половину замены стояков. Это правда? Можно у вас за полцены?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": ["внутренних стояков", "документац"],
+    "reply_must_not": ["за полцены поменяем", "вдвойне", "50% стоимости", "Рига оплатит половину", "гарантир"]
+  },
+  "success_condition": "The agent says that Riga's current rules do not cover replacement of internal risers, that Riga compensates up to 90% of technical documentation (inspection, energy certificate, technical project) for buildings commissioned in 2001 or earlier, and that a manager will confirm the conditions. It does not promise half price or any discount and does not criticise anyone. Two sentences plus at most a short offer are acceptable here because the text is a fixed fact line."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "t23_unknown_warranty",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Unknown question: the caller asks how many years of warranty SCG gives on the works. Warranty terms are not in info/, so Anna must defer to the engineer/manager and log the question, without inventing a term.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Мы думаем менять стояки. Какая у вас гарантия на работы, сколько лет?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": ["уточнит"],
+    "reply_must_not": ["лет гарантии", "года гарантии", "сорок", "шестьдесят", "40", "60", "пять лет", "десять лет", "два года"]
+  },
+  "success_condition": "The agent answers in Russian that this will be clarified by an engineer or manager (unknown_question wording), names no warranty term or number of years (not even the manufacturers' pipe lifetimes), and offers a callback or continues qualifying the building. The question is kept for unknown_questions."
+}

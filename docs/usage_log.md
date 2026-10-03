@@ -10,3 +10,4 @@ Warn the orchestrator at **80 voice min** or **$4 text tests**. No Pay As You Go
 | date | WP | voice min | text $ | cumulative min | cumulative $ | note |
 |---|---|---|---|---|---|---|
 | 2026-10-03 | WP0 | 0 | 0 | 0 | 0 | setup, no external services |
+| 2026-10-03 | WP3 | 0 | 0 | 0 | 0 | copy only |

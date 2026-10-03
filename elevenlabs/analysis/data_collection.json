@@ -1,0 +1,18 @@
+[
+  {"id": "language", "type": "string", "description": "Main language the caller used for most of the call: 'lv', 'ru' or 'other'."},
+  {"id": "switched_language", "type": "boolean", "description": "True if the conversation language changed at least once during the call (Latvian to Russian or back)."},
+  {"id": "caller_role", "type": "string", "description": "Caller's role as they stated it: 'house_elder', 'board_member', 'owner', 'manager', 'resident', 'other' or 'unknown'. Do not record any name."},
+  {"id": "intent", "type": "string", "description": "Main reason for the call: 'new_building', 'resident_works', 'emergency', 'maintenance', 'b2b', 'job', 'admin', 'question_only' or 'other'."},
+  {"id": "building_address", "type": "string", "description": "Street and house number of the building discussed (e.g. 'Ilūkstes iela 16'), without apartment number, names or phone numbers. Empty if none."},
+  {"id": "floors", "type": "integer", "description": "Number of floors confirmed by the caller or by the lookup tool. Leave empty if unknown; never estimate."},
+  {"id": "stairwells", "type": "integer", "description": "Number of stairwells (подъезды / kāpņu telpas) confirmed in the call. Leave empty if unknown; never estimate."},
+  {"id": "apartments", "type": "integer", "description": "Approximate number of apartments the caller confirmed. Leave empty if unknown; never estimate."},
+  {"id": "has_manager_plan", "type": "boolean", "description": "True if the caller said the house manager has already sent a repair plan or offer for the pipes; false if they said no; empty if not discussed."},
+  {"id": "price_quoted", "type": "boolean", "description": "True if the agent relayed an indicative price range from the quote_range tool."},
+  {"id": "booked", "type": "boolean", "description": "True only if book_inspection returned ok:true during the call."},
+  {"id": "booking_id", "type": "string", "description": "The booking_id returned by a successful book_inspection call, exactly as returned. Empty if none."},
+  {"id": "wants_callback", "type": "boolean", "description": "True if the caller asked for a person or accepted a callback offer (request_callback called or offered and accepted)."},
+  {"id": "unknown_questions", "type": "string", "description": "Short list (separated by ';') of the caller's questions the agent could not answer and deferred to an engineer or manager, e.g. warranty, instalments, start date. No names or phone numbers. Empty if none."},
+  {"id": "escalation", "type": "string", "description": "'none', 'leak_now' (caller reported an active leak), 'complaint', 'angry_caller' or 'legal_question'."},
+  {"id": "outcome", "type": "string", "description": "End state: 'inspection_booked', 'access_rescheduled', 'callback_requested', 'info_only', 'referred_to_manager_emergency', 'dropped' or 'other'."}
+]

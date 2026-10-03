@@ -1,0 +1,27 @@
+{
+  "id": "t05_s1_quote_range_args",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 1: floors, stairwells and apartments are confirmed by read-back. Anna must call quote_range with exactly these values.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
+    {"role": "agent", "message": "Здравствуйте! Подскажите, пожалуйста, адрес дома."},
+    {"role": "user", "message": "Ilūkstes iela, шестнадцать."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
+    {"role": "user", "message": "Да, верно. А сколько это будет стоить?"},
+    {"role": "agent", "message": "Примерно сколько квартир в доме?"},
+    {"role": "user", "message": "Сто сорок четыре."},
+    {"role": "agent", "message": "Сто сорок четыре квартиры — верно?"},
+    {"role": "user", "message": "Да."}
+  ],
+  "mocked_tools": {
+    "quote_range": {"ok": true, "v": 1, "model_version": "MOCK", "low": {"net": 80000, "gross": 96000}, "high": {"net": 96000, "gross": 117000}, "per_apartment_gross": 740, "hint": "relay_then_offer_inspection", "say_ru": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.", "say_lv": "Orientējoši jūsu mājai — no 80 000 līdz 96 000 eiro bez PVN, tas ir no 96 000 līdz 117 000 eiro ar PVN 21%, aptuveni 740 eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas."}
+  },
+  "expect": {
+    "tool": "quote_range",
+    "args_contains": {"floors": 9, "stairwells": 4, "apartments": 144}
+  },
+  "success_condition": "quote_range is called once with floors=9, stairwells=4, apartments=144 (other parameters at their defaults). Mock amounts are arbitrary fixtures, not price-model output."
+}

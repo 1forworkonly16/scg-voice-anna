@@ -1,0 +1,23 @@
+{
+  "id": "t04_s1_asks_apartments_before_price",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 1: facts confirmed (9 floors, 4 stairwells), apartments unknown; the caller asks the price. Anna must ask for the approximate number of apartments instead of guessing it.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
+    {"role": "agent", "message": "Здравствуйте! Подскажите, пожалуйста, адрес дома."},
+    {"role": "user", "message": "Ilūkstes iela, шестнадцать."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
+    {"role": "user", "message": "Да, верно. А сколько это будет стоить?"}
+  ],
+  "mocked_tools": {
+    "quote_range": {"ok": false, "v": 1, "error": "should_not_be_called", "hint": "ask_apartments_first", "say_ru": "", "say_lv": ""}
+  },
+  "expect": {
+    "reply_must": ["квартир"],
+    "reply_must_not": ["евро", "144", "сто сорок четыре"]
+  },
+  "success_condition": "The agent does NOT call quote_range yet and does not state any amount; it asks roughly how many apartments the building has, in one short question."
+}

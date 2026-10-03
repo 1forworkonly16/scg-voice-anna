@@ -1,0 +1,28 @@
+{
+  "id": "t10_s1_booking_ok_no_sms",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "M1 scenario 1, the wow moment: book_inspection returns ok:true. Anna must read the booking back from say_ru and must not promise an SMS or e-mail.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
+    {"role": "user", "message": "Да, и квартир сто сорок четыре. Меня зовут Нина Ивановна, телефон двадцать, сто двадцать три, четыреста пятьдесят шесть."},
+    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?"},
+    {"role": "user", "message": "Согласна."},
+    {"role": "agent", "message": "Сейчас посмотрю. Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?", "tool_calls": [{"name": "get_slots", "args": {}, "result": {"ok": true, "v": 1, "slots": [{"start": "2026-10-08T10:00:00+03:00", "label_ru": "четверг 8 октября в 10:00", "label_lv": "ceturtdien 8. oktobrī plkst. 10.00"}, {"start": "2026-10-09T14:00:00+03:00", "label_ru": "пятница 9 октября в 14:00", "label_lv": "piektdien 9. oktobrī plkst. 14.00"}, {"start": "2026-10-12T09:00:00+03:00", "label_ru": "понедельник 12 октября в 9:00", "label_lv": "pirmdien 12. oktobrī plkst. 9.00"}], "say_ru": "Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?", "say_lv": "Bezmaksas apsekošanai brīvie laiki: ceturtdien 8. oktobrī plkst. 10.00, piektdien 9. oktobrī plkst. 14.00 vai pirmdien 12. oktobrī plkst. 9.00. Kurš laiks jums der?"}}]},
+    {"role": "user", "message": "Четверг, десять утра."}
+  ],
+  "mocked_tools": {
+    "book_inspection": {"ok": true, "v": 1, "booking_id": "INS-TEST-0001", "hint": "read_back_then_close", "say_ru": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10:00. Пожалуйста, запишите это время — это и есть ваше подтверждение.", "say_lv": "Esmu pierakstījusi bezmaksas apsekošanu: Ilūkstes iela 16, ceturtdien 8. oktobrī plkst. 10.00. Lūdzu, pierakstiet šo laiku — tas ir jūsu apstiprinājums."}
+  },
+  "expect": {
+    "tool": "book_inspection",
+    "reply_must": ["8 октября", "Ilūkstes"],
+    "reply_must_not": ["SMS", "смс", "СМС", "e-mail", "почт", "сообщени", "письм"]
+  },
+  "success_condition": "After book_inspection returns ok:true, the agent relays the read-back (address, Thursday 8 October 10:00) and says this is the confirmation. It does not promise any SMS, e-mail, letter or message, and names no engineer."
+}

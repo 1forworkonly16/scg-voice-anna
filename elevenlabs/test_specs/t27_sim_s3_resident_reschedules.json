@@ -1,0 +1,18 @@
+{
+  "id": "t27_sim_s3_resident_reschedules",
+  "type": "simulation",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Simulated caller (M1 scenario 3): You are an elderly Russian-speaking resident of the building Parauga iela 7, apartment 12 (a demo building). There is pipe work in your stairwell and you will not be home on Thursday. You speak only Russian, a bit confused at first («Алло, это по трубам? Меня в четверг не будет»). Give the address and apartment when asked, agree to move the time, and choose Friday afternoon. Then ask «А мне SMS придёт?» and finally thank and say goodbye. Do not give your name or phone unless asked for a callback.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."}
+  ],
+  "mocked_tools": {
+    "find_works_schedule": {"ok": true, "v": 1, "building_id": "DEMO-parauga-7", "apartment": "12", "stairwell": "2", "current": {"date": "2026-10-08", "window": "09-13", "label_ru": "четверг 8 октября, с 9 до 13", "label_lv": "ceturtdien 8. oktobrī, no 9 līdz 13"}, "options": [{"date": "2026-10-09", "window": "09-13", "label_ru": "пятница 9 октября, с 9 до 13", "label_lv": "piektdien 9. oktobrī, no 9 līdz 13"}, {"date": "2026-10-09", "window": "13-17", "label_ru": "пятница 9 октября, с 13 до 17", "label_lv": "piektdien 9. oktobrī, no 13 līdz 17"}, {"date": "2026-10-12", "window": "09-13", "label_ru": "понедельник 12 октября, с 9 до 13", "label_lv": "pirmdien 12. oktobrī, no 9 līdz 13"}], "hint": "ask_if_reschedule", "say_ru": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?", "say_lv": "Dzīvoklis 12, kāpņu telpa numur 2: darbi pēc grafika paredzēti — ceturtdien 8. oktobrī, no 9 līdz 13. Vai vēlaties šo laiku pārcelt?"},
+    "reschedule_access": {"ok": true, "v": 1, "access_id": "ACC-TEST-0001", "hint": "read_back_then_close", "say_ru": "Готово, новое время доступа в вашу квартиру — пятница 9 октября, с 13 до 17. Я записала это в график работ.", "say_lv": "Labi, jaunais piekļuves laiks jūsu dzīvoklim — piektdien 9. oktobrī, no 13 līdz 17. Esmu to ierakstījusi darbu grafikā."}
+  },
+  "expect": {
+    "reply_must_not": ["SMS придёт", "пришлём SMS", "отправим SMS", "смс придёт", "прораб позвонит"]
+  },
+  "success_condition": "Over the whole simulated call: the agent switches to Russian, asks address and apartment, calls find_works_schedule (no language switch on «Parauga iela»), relays the current date, reads the options exactly, calls reschedule_access with new_date 2026-10-09 and new_window 13-17, confirms only after ok:true, answers the SMS question with the demo line (the read-back is the confirmation) without promising any SMS, never asks for name or phone, is patient and brief, and ends with end_call. Max 16 turns."
+}

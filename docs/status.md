@@ -9,7 +9,7 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | H1 Keys | user | todo | - | see `docs/setup_keys.md` |
 | WP1 Dataset | Sonnet | todo | - | |
 | WP2 Core lib | Sonnet | todo | - | |
-| WP3 Prompt + copy | Opus | todo | - | |
+| WP3 Prompt + copy | Opus | accepted 2026-10-03 | see git log | 27 test specs (9 critical, 2 sims); LV advisory list for H3 |
 | WP4 Spike | Sonnet | todo | - | needs H1 |
 | WP5 Provision | Sonnet | todo | - | needs H1 |
 | WP6 Worker | Sonnet | todo | - | needs WP2 |

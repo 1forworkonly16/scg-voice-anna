@@ -1,0 +1,23 @@
+{
+  "id": "t22_false_switch_street_name",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "False language switch: the conversation is in Russian and the caller names a Latvian street, district and manager inside a Russian sentence. Anna must stay in Russian and look up the building.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
+    {"role": "agent", "message": "Здравствуйте! Подскажите, пожалуйста, адрес дома."},
+    {"role": "user", "message": "Ilūkstes iela шестнадцать, это в Purvciems, управляет Rīgas namu pārvaldnieks."}
+  ],
+  "mocked_tools": {
+    "lookup_building": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "ilukstes-16", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 144, "sourced": ["floors", "stairwells"]}, "candidates": [], "hint": "confirm_sourced_facts", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?", "say_lv": "Atradu: Ilūkstes iela 16 — deviņi stāvi, četras kāpņu telpas. Vai pareizi?"}
+  },
+  "expect": {
+    "tool": "lookup_building",
+    "args_contains": {"address": "Ilūkstes"},
+    "reply_must": ["Нашла"],
+    "reply_must_not": ["Atradu", "Vai pareizi", "stāvi"]
+  },
+  "success_condition": "The agent does NOT call language_detection. It calls lookup_building with the Ilūkstes iela 16 address and replies in Russian only, relaying say_ru. Mentioning RNP as the building's manager does not lead to any comment about RNP."
+}

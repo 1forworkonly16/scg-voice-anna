@@ -1,0 +1,22 @@
+{
+  "id": "t07_s1_phone_read_back",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M1 scenario 1: the elder dictates her phone number in groups. Anna must read it back digit by digit and ask for confirmation before anything else.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
+    {"role": "user", "message": "Да, и квартир сто сорок четыре."},
+    {"role": "agent", "message": "Сто сорок четыре квартиры — верно? И как к вам обращаться?"},
+    {"role": "user", "message": "Верно. Нина Ивановна."},
+    {"role": "agent", "message": "Спасибо, Нина Ивановна. Какой номер телефона для связи?"},
+    {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must_not": ["SMS", "смс"]
+  },
+  "success_condition": "The agent reads the number back digit by digit (два, ноль, один, два, три, четыре, пять, шесть — in words or digits, in small groups) and asks whether it is correct. It calls no tool and does not yet ask for a slot."
+}

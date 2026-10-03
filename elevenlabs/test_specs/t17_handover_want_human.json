@@ -1,0 +1,17 @@
+{
+  "id": "t17_handover_want_human",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Handover: the caller refuses to talk to an AI and asks for a person. There is no live transfer in the demo; Anna must offer a callback honestly.",
+  "chat_history": [
+    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "user", "message": "Не хочу с роботом. Хочу поговорить с человеком."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": ["перезвон"],
+    "reply_must_not": ["соединяю", "переключаю", "сейчас соединю", "оставайтесь на линии"]
+  },
+  "success_condition": "The agent replies in Russian, says it cannot connect directly right now, offers a callback from a staff member in working hours and asks which number to call. It does not pretend to transfer and does not push the booking flow."
+}
