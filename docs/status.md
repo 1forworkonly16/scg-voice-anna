@@ -16,7 +16,7 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | Gate S + H2 | user | done 2026-10-03 | - | GO-with-conditions; TTS eleven_v4_turbo; LLM Sonnet vs Haiku decided in WP8; voice Marina |
 | WP7 Deploy + live backend | Sonnet | accepted 2026-10-03 | d833cdc | p90 0.66 s; cold-start CPU exception plus a warm-up preflight |
 | WP8 Agent as code | Sonnet | conditionally accepted 2026-10-03 | see git log | EL regression (critical ×2 + t04/t13/t18/t21 ×2, Haiku) pending: workspace out of credits. el:check 67/67; Haiku critical 50/50 (round 1); text spend 2.54 > M1 cap 2.5 |
-| WP9 Demo kit | Opus | todo | - | needs WP8 |
+| WP9 Demo kit | Opus | accepted 2026-10-03 | see git log | run sheet 2 pages, QR verified |
 | V1 M1 verification | Opus | todo | - | needs WP9 |
 | H3 Live RU + LV tests | user | todo | - | end of M1 |
 | WP10 Handoff | Sonnet | todo | - | after H3 + rework |
