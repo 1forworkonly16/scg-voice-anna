@@ -17,7 +17,7 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | WP7 Deploy + live backend | Sonnet | accepted 2026-10-03 | d833cdc | p90 0.66 s; cold-start CPU exception plus a warm-up preflight |
 | WP8 Agent as code | Sonnet | accepted 2026-10-03 (critical 10/10; t04/t13/t18 fixed; t21 RU→LV known issue → H3) | see git log | Round 2 (Haiku, 1,274 credits): tool descriptions + 5 prompt lines (mirrored to prompt_m2), lookup mocks apartments null; t21 0/4 left for the live test. Detail elevenlabs/test_results/regression2_2026-10-03.json. el:check 67/67, 7 M1 tools, only the ru preset live, agent locked |
 | WP9 Demo kit | Opus | accepted 2026-10-03 | see git log | run sheet 2 pages, QR verified |
-| V1 M1 verification | Opus | todo | - | needs WP9 |
+| V1 M1 verification | Opus | done 2026-10-03 (all non-voice gates PASS; voice/ear items → H3; scg-judge verdict pending) | see git log | report docs/test_report_M1.md, checklist docs/live_checklist_M1.md; integration p90 608 ms; t26/t27 not run (est. 1,510 credits > 300 cap); 0 credits used (22,551 left); Works tab was empty → reset-works run, make it unconditional in preflight; t21 known issue |
 | H3 Live RU + LV tests | user | todo | - | end of M1 |
 | WP10 Handoff | Sonnet | todo | - | after H3 + rework |
 | WP11 M2 copy | Opus | accepted 2026-10-03 (staged in elevenlabs/prompt_m2; wiring in WP13) | see git log | copy-lint 0 (default targets); specs t28-t39, 5 critical; EL tests pending credits |
