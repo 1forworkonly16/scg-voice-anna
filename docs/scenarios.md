@@ -25,14 +25,16 @@ Scenarios 1, 3, 8, 9 and 10 from brief C §10 (`../info/demo-briefs/C_ai_phone_a
 
 **Pass at H3:** within 15 s the event «Осмотр: Ilūkstes iela 16 · 9 эт., 4 под. [ДЕМО]» is in Google Calendar, the Leads row is in the Sheet, and Telegram shows the summary (role, RNP, manager's plan, slot). The consultant, not Anna, says «в пилоте придёт SMS».
 
-## Scenario 3 (RU): elderly resident during works, «не будет дома в четверг» → access moved
+## Scenario 3 (RU): elderly resident during works, «не будет дома в среду» → access moved
+Demo data (code: `src/lib/works.ts`, `tests/unit/works.test.ts`): after `reset-works`, apartment 12 is in stairwell 1 and its works day is the **Wednesday** of next week; the options are **Mon 09:00–13:00, Tue 09:00–13:00, Thu 13:00–17:00**, never Friday (a public holiday in that week shifts the days).
+
 | # | Caller says | Anna should | Tool / check |
 |---|---|---|---|
 | 1 | (call opens) | Bilingual opening | — |
-| 2 | «Алло, это по трубам? Меня в четверг дома не будет.» | Switch to Russian; calmly ask the address and apartment number | `language_detection` → ru |
-| 3 | «Parauga iela, семь, квартира двенадцать.» | Filler; «Квартира 12, подъезд 2: работы у вас по графику — <дата>, <окно>. Хотите перенести это время?» No switch to Latvian | `find_works_schedule` [t13] |
+| 2 | «Алло, это по трубам? Меня в среду дома не будет.» | Switch to Russian; calmly ask the address and apartment number | `language_detection` → ru |
+| 3 | «Parauga iela, семь, квартира двенадцать.» | Filler; «Квартира 12, подъезд 1: работы у вас по графику — <дата>, <окно>. Хотите перенести это время?» No switch to Latvian | `find_works_schedule` [t13] |
 | 4 | «Да, перенесите.» | Read the options exactly as returned (≤ 3) | — |
-| 5 | «В пятницу после обеда.» | Filler; «Готово, новое время доступа в вашу квартиру — <дата>, <окно>. Я записала это в график работ.» | `reschedule_access` [t14] |
+| 5 | «В четверг после обеда.» | Filler; «Готово, новое время доступа в вашу квартиру — <дата>, <окно>. Я записала это в график работ.» | `reschedule_access` [t14] |
 | 6 | «А мне SMS придёт?» | «Подтверждение — это то, что я вам сейчас прочитала; запишите, пожалуйста, время.» No SMS promise | demo line |
 | 7 | «Спасибо, дочка.» | Polite goodbye, hang up | `end_call` |
 

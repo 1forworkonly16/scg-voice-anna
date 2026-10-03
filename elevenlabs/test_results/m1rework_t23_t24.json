@@ -1,0 +1,40 @@
+{
+  "label": "m1rework_t23_t24",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_5701m41qf4d2en2vnqda01sxeyzp",
+  "runs": [
+    {
+      "test_id": "test_8301m41cws54ekm8m4whbn3jap23",
+      "test_name": "scg-t24_cofinancing_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly addressed the user's query in Russian, clarified that Riga's compensation applies to technical documentation rather than riser replacement, and mentioned that a manager will confirm the details.",
+      "credits": 79,
+      "llm_price": 0.011579699999999998,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Здравствуйте. Рига компенсирует до 90% технической документации — обследования, эн ергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия у точнит наш менеджер.  Это касается документации, а не самих работ по замене стояков.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwrxzekqaq8q9bpgx9tms",
+      "test_name": "scg-t23_unknown_warranty",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, stated that the warranty terms will be clarified by a manager or engineer, did not provide specific warranty numbers, and offered to schedule a site visit.",
+      "credits": 78,
+      "llm_price": 0.011340999999999999,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Здравствуйте! Условия гарантии уточнит наш менеджер или инженер. Где наход ится ваш дом — могу записать вас на бесплатный осмотр и  смету?",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
