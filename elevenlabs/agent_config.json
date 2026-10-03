@@ -1,0 +1,52 @@
+{
+  "_note": "Declarative settings for the ElevenLabs agent «scg-anna». Prompt text, first messages, analysis and tools come from elevenlabs/prompt/*, elevenlabs/analysis/* and src/contract (via scripts/gen-tools.ts). build-agent.ts is idempotent (create or PATCH by name). No secrets in this file.",
+  "name": "scg-anna",
+  "tags": ["scg", "anna", "wp8"],
+  "worker_url": "https://scg-voice-demo.scg-voice-demo.workers.dev",
+  "tool_secret_name": "scg_tool_key",
+  "post_call_webhook": { "name": "scg-anna post-call", "path": "/webhooks/elevenlabs" },
+  "agent": {
+    "language": "lv",
+    "llm": "claude-haiku-4-5",
+    "temperature": 0.3,
+    "reasoning_effort": null,
+    "disable_first_message_interruptions": true,
+    "max_duration_message": {
+      "lv": "Sarunas laiks ir beidzies. Paldies par zvanu, visu labu!",
+      "ru": "Время разговора закончилось. Спасибо за звонок, всего доброго!"
+    }
+  },
+  "tts": {
+    "model_id": "eleven_v4_turbo",
+    "voice_id": "ymDCYd8puC7gYjxIamPt",
+    "_voice": "Marina; ONE voice for LV and RU (also in the ru preset, so no per-language voice override).",
+    "expressive_mode": false,
+    "stability": 0.5,
+    "speed": 1.0,
+    "similarity_boost": 0.8,
+    "text_normalisation_type": "elevenlabs"
+  },
+  "turn": {
+    "turn_eagerness": "normal",
+    "turn_timeout": 7,
+    "silence_end_call_timeout": 30,
+    "spelling_patience": "auto",
+    "speculative_turn": false,
+    "soft_timeout_seconds": 4,
+    "soft_timeout_message": { "lv": "Mirklīti, lūdzu.", "ru": "Минутку, пожалуйста." }
+  },
+  "asr": {
+    "_note": "Latvian street/district names (Gate S carry-forward #2): the RU-mode ASR writes them in Cyrillic otherwise. Names from data/buildings plus the demo address; both Tirzes (brief) and Tirzas (dataset).",
+    "keywords": [
+      "Smart Comfort", "Ilūkstes", "Tirzes", "Tirzas", "Parauga", "Velkoņu", "Balvu", "Kuldīgas", "Jūrmalas gatve",
+      "Belševicas", "Brigaderes", "Dzelzavas", "Zentenes", "Rigondas", "Kurzemes prospekts", "Anniņmuižas bulvāris",
+      "Krūmu", "Salnas", "Zemes", "Dzeņu", "Bērzupes", "Skaistkalnes", "Valdeķu", "Bauskas", "Ozolciema", "Ilmājas",
+      "Purvciems", "Imanta", "Pļavnieki", "Ziepniekkalns", "Rīgas namu pārvaldnieks"
+    ]
+  },
+  "conversation": { "max_duration_seconds": 300 },
+  "call_limits": { "daily_limit": 25, "agent_concurrency_limit": 2, "bursting_enabled": false },
+  "privacy": { "record_voice": true, "retention_days": 90 },
+  "auth": { "enable_auth": true },
+  "system_tools": ["language_detection", "end_call"]
+}

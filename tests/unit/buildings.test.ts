@@ -18,6 +18,11 @@ describe("speakableFields: only sourced fields", () => {
     expect(buildingFacts(b, "ru")).toBe("9 этажей, 4 подъезда и 141 квартира");
     expect(buildingFacts(toBuilding({ ...rec, sourced: ["floors_above", "apartments"] }), "ru")).toBe("9 этажей и 141 квартира");
   });
+  it("toBuilding returns every unsourced number as null (WP8 t04: the agent must not see it)", () => {
+    const rec: BuildingRecord = { id: "x", street_lv: "Ilūkstes iela", house: "16", korpuss: null, floors: 9, stairwells: 4, apartments: 144, sourced: ["floors_above"] };
+    expect(toBuilding(rec)).toMatchObject({ floors: 9, stairwells: null, apartments: null, sourced: ["floors"] });
+    expect(toBuilding({ ...rec, sourced: [] })).toMatchObject({ floors: null, stairwells: null, apartments: null });
+  });
   it("displayAddress handles korpuss records", () => {
     expect(displayAddress({ id: "a", street_lv: "Tirzas iela", house: "3 k-2", korpuss: "2" })).toBe("Tirzas iela 3 k-2");
     expect(displayAddress({ id: "a", address_lv: "Tirzes iela 3 k-2, Rīga" })).toBe("Tirzes iela 3 k-2");

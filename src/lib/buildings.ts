@@ -51,15 +51,16 @@ export function displayAddress(r: BuildingRecord): string {
   return (r.address_lv ?? "").split(",")[0]!.trim();
 }
 
-/** Values pass through unchanged; the sourced list decides what may be spoken (see buildingFacts in speech.ts). */
+/** Only sourced numbers leave the Worker: an unsourced floors/stairwells/apartments value is returned as null, so the agent cannot use it (WP8 t04). */
 export function toBuilding(r: BuildingRecord): SpeakableBuilding {
   const sourced = speakableFields(r.sourced);
+  const only = (field: string, v: number | null | undefined) => (sourced.includes(field) ? (v ?? null) : null);
   return {
     id: r.id,
     address: displayAddress(r),
-    floors: r.floors ?? null,
-    stairwells: r.stairwells ?? null,
-    apartments: r.apartments ?? null,
+    floors: only("floors", r.floors),
+    stairwells: only("stairwells", r.stairwells),
+    apartments: only("apartments", r.apartments),
     sourced,
   };
 }

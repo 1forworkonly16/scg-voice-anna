@@ -11,11 +11,11 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | WP2 Core lib | Sonnet | accepted 2026-10-03 | see git log | 269 tests; parity 449 cases incl. 5742/6542 + all 6 tie sites; 2 rework rounds; holidays need online check before pilot |
 | WP3 Prompt + copy | Opus | accepted 2026-10-03 | see git log | 27 test specs (9 critical, 2 sims); LV advisory list for H3 |
 | WP4 Spike | Sonnet | accepted 2026-10-03 | see git log | Gate S GO-with-conditions; 10.88 min, $0.29; LV ok on eleven_v4_turbo |
-| WP5 Provision | Sonnet | todo | - | needs H1 |
+| WP5 Provision | Sonnet | accepted 2026-10-03 | ab35c60 | Google Calendar/Sheet + Telegram provisioned (SA-only) |
 | WP6 Worker | Sonnet | accepted 2026-10-03 | see git log | 269 + 62 worker tests (mocked fetch); dry-run OK (972 KiB); holidays verified online (2027-05-03/12-27 removed); advisory: holiday note wording (law DOES shift 4 May / 18 Nov / song-festival day off a weekend), true insert-409 same-slot branch only covered by verifier probe |
 | Gate S + H2 | user | done 2026-10-03 | - | GO-with-conditions; TTS eleven_v4_turbo; LLM Sonnet vs Haiku decided in WP8; voice Marina |
-| WP7 Deploy + live backend | Sonnet | todo | - | needs WP5, WP6 |
-| WP8 Agent as code | Sonnet | todo | - | needs WP3, WP7, Gate S |
+| WP7 Deploy + live backend | Sonnet | accepted 2026-10-03 | d833cdc | p90 0.66 s; cold-start CPU exception plus a warm-up preflight |
+| WP8 Agent as code | Sonnet | conditionally accepted 2026-10-03 | see git log | EL regression (critical ×2 + t04/t13/t18/t21 ×2, Haiku) pending: workspace out of credits. el:check 67/67; Haiku critical 50/50 (round 1); text spend 2.54 > M1 cap 2.5 |
 | WP9 Demo kit | Opus | todo | - | needs WP8 |
 | V1 M1 verification | Opus | todo | - | needs WP9 |
 | H3 Live RU + LV tests | user | todo | - | end of M1 |

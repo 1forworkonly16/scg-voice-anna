@@ -1,0 +1,1194 @@
+{
+  "label": "haiku_noncrit_final",
+  "llm": "claude-haiku-4-5",
+  "repeat": 2,
+  "invocation": "suite_0001m41df279epm8n1t8mf9ty3rn",
+  "runs": [
+    {
+      "test_id": "test_5301m41cwkq1ex0b4srrmattpann",
+      "test_name": "scg-t03_s1_sourced_facts_only",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the information from the tool in Russian, confirming the building details (9 floors, 4 stairwells) and asking for confirmation without mentioning the unsourced apartment count.",
+      "credits": 26,
+      "llm_price": 0.00179663,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Вер но?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3101m41cwkfhednbmjej76va29wx",
+      "test_name": "scg-t02_s1_russian_reply_switches",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 26,
+      "llm_price": 0.00171083,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller spoke a full sentence in Russian in reply to the bilingual opening\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_9501m41cwmqdfdy8473dbrvj7jdq",
+      "test_name": "scg-t07_s1_phone_read_back",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly repeated the phone number in small groups as requested and asked for confirmation without calling a tool or asking for a new slot.",
+      "credits": 26,
+      "llm_price": 0.0019110300000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Повторяю: два-два, один-два-три, четыре-пять-шесть. Верно?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8801m41cwmybedhapft131nph5f1",
+      "test_name": "scg-t08_s1_consent_before_booking",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly asked for consent to store the user's name and phone number for the request and did not prematurely call the booking or slot tools.",
+      "credits": 26,
+      "llm_price": 0.00195393,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Согласны, чтобы мы сохранили ваше имя и телефон для эт ой заявки?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1101m41cwp0pergvfjjx8n437exk",
+      "test_name": "scg-t12_calendar_down",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly communicated the calendar error to the user and offered a callback in Russian, as required by the acceptance criteria.",
+      "credits": 31,
+      "llm_price": 0.00268543,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Календарь сейчас не отвечает, поэтому время осмотра я подтвердить не могу. Х отите, мы перезвоним вам в рабочее время и согласуем день ?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwn5be55t56yf54hscrka",
+      "test_name": "scg-t09_s1_book_inspection_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 37,
+      "llm_price": 0.00391633,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "book_inspection",
+              "args": "{\"address_spoken\": \"Il\\u016bkstes iela 16\", \"building_id\": \"ilukstes-16\", \"floors\": 9, \"stairwells\": 4, \"apartments\": 144, \"name\": \"\\u041d\\u0438\\u043d\\u0430 \\u0418\\u0432\\u0430\\u043d\\u043e\\u0432\\u043d\\u0430\", \"phone\": \"20123456\", \"slot_start\": \"2026-10-08T10:00:00+03:00\", \"caller_role\": \"manager\", \"consent\": true, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwp87ev4sr0s86ef02vcw",
+      "test_name": "scg-t13_s3_find_works_schedule",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Wrong tool called",
+      "credits": 26,
+      "llm_price": 0.00178673,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Parauga iela 7\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4101m41cwpzxfgnsjrbkvvzprfyj",
+      "test_name": "scg-t16_s8_are_you_human_lv",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified itself as an AI assistant in Latvian, offered a callback from a staff member, and maintained the language as requested.",
+      "credits": 25,
+      "llm_price": 0.00155793,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Nē, es esmu mākslīgā intelekta asistente; ja vēlaties, jums p iezvanīs mūsu darbinieks.\n \nKā varu jums palīdzēt?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3701m41cwqehe3kt6me7pk2vyc3k",
+      "test_name": "scg-t18_handover_request_callback_args",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 25,
+      "llm_price": 0.0015304300000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Спасибо. Как к вам обращаться?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0501m41cx7tzexfsxgh8vf4r9dww",
+      "test_name": "scg-t26_sim_s1_elder_books_inspection",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Evaluation succeeded",
+      "credits": 652,
+      "llm_price": 0.1065482,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller speaks Russian in a full sentence\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Здравствуйте! Чтобы дать вам ориентировочную цену, мне нужно узнать адрес вашего дома. Какой адрес?",
+          "tools": []
+        },
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"\\u0418\\u043b\\u044e\\u043a\\u0441\\u0442\\u0435\\u0441 \\u0438\\u0435\\u043b\\u0430 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?",
+          "tools": []
+        },
+        {
+          "message": "Сейчас посмотрю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"apartments\": 144, \"floors\": 9, \"stairwells\": 4, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра. Записать вас на бесплатный осмотр?",
+          "tools": []
+        },
+        {
+          "message": "Нет, это ориентировочная цена. Точную цену даст инженер после бесплатного осмотра — он посмотрит системы в подвале и в квартирах. Хотите записаться?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, смотрю свободные дни.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "get_slots",
+              "args": "{\"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?",
+          "tools": []
+        },
+        {
+          "message": "Хорошо. Как к вам обращаться?",
+          "tools": []
+        },
+        {
+          "message": "Спасибо. Повторю номер: двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?",
+          "tools": []
+        },
+        {
+          "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "book_inspection",
+              "args": "{\"address_spoken\": \"\\u0418\\u043b\\u044e\\u043a\\u0441\\u0442\\u0435\\u0441 \\u0438\\u0435\\u043b\\u0430, \\u0448\\u0435\\u0441\\u0442\\u043d\\u0430\\u0434\\u0446\\u0430\\u0442\\u044c, \\u0420\\u0438\\u0433\\u0430\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4, \"building_id\": \"ilukstes-16\", \"name\": \"\\u041d\\u0438\\u043d\\u0430 \\u0418\\u0432\\u0430\\u043d\\u043e\\u0432\\u043d\\u0430\", \"phone\": \"20123456\", \"slot_start\": \"2026-10-08T10:00:00+03:00\", \"caller_role\": \"owner\", \"consent\": true, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10:00. Пожалуйста, запишите это время — это и есть ваше подтверждение.",
+          "tools": []
+        },
+        {
+          "message": "Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "end_call",
+              "args": "{\"reason\": \"Caller said goodbye and confirmed the booking\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2901m41cwkxzenssd9gxz7a5t83m",
+      "test_name": "scg-t04_s1_asks_apartments_before_price",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent called the 'quote_range' tool immediately instead of asking the user to confirm the number of apartments as required by the acceptance criteria.",
+      "credits": 29,
+      "llm_price": 0.0022938299999999997,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"language\": \"ru\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2901m41cwkxzenssd9gxz7a5t83m",
+      "test_name": "scg-t04_s1_asks_apartments_before_price",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent called the 'quote_range' tool immediately instead of asking the user for the number of apartments as required by the acceptance criteria.",
+      "credits": 29,
+      "llm_price": 0.0022938299999999997,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"language\": \"ru\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_9501m41cwmqdfdy8473dbrvj7jdq",
+      "test_name": "scg-t07_s1_phone_read_back",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly repeated the phone number in small groups as requested and asked for confirmation without calling a tool or asking for a new slot.",
+      "credits": 26,
+      "llm_price": 0.0019110300000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Повторяю: два-два, один-два-три, четыре-пять-шесть. Верно?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0101m41cwm6pfzrbbvjtc2qv5fpn",
+      "test_name": "scg-t05_s1_quote_range_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 29,
+      "llm_price": 0.00235543,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"language\": \"ru\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwn5be55t56yf54hscrka",
+      "test_name": "scg-t09_s1_book_inspection_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 38,
+      "llm_price": 0.003927330000000001,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "book_inspection",
+              "args": "{\"address_spoken\": \"Il\\u016bkstes iela 16\", \"building_id\": \"ilukstes-16\", \"floors\": 9, \"stairwells\": 4, \"apartments\": 144, \"name\": \"\\u041d\\u0438\\u043d\\u0430 \\u0418\\u0432\\u0430\\u043d\\u043e\\u0432\\u043d\\u0430\", \"phone\": \"20123456\", \"slot_start\": \"2026-10-08T10:00:00+03:00\", \"caller_role\": \"board_member\", \"consent\": true, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwpfkfhmb8cv8rehzdaxm",
+      "test_name": "scg-t14_s3_reschedule_access_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 31,
+      "llm_price": 0.00267883,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "reschedule_access",
+              "args": "{\"apartment\": 12, \"building_id\": \"DEMO-parauga-7\", \"language\": \"ru\", \"new_date\": \"2026-10-09\", \"new_window\": \"13:00-17:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwpfkfhmb8cv8rehzdaxm",
+      "test_name": "scg-t14_s3_reschedule_access_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 31,
+      "llm_price": 0.00267883,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "reschedule_access",
+              "args": "{\"apartment\": 12, \"building_id\": \"DEMO-parauga-7\", \"language\": \"ru\", \"new_date\": \"2026-10-09\", \"new_window\": \"13:00-17:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cwqy4fvarxp5ypjdpxkz2",
+      "test_name": "scg-t20_s10_switch_lv_to_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 25,
+      "llm_price": 0.00172953,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller requested to switch to Russian for convenience\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5501m41cwr56fm8tf2z65ctd3pyq",
+      "test_name": "scg-t21_s10_switch_ru_to_lv",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 24,
+      "llm_price": 0.00143033,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labi, protams! Kāds ir jūsu mājas adrese?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7401m41cx82tekv95h0n979v9w49",
+      "test_name": "scg-t27_sim_s3_resident_reschedules",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Evaluation succeeded",
+      "credits": 391,
+      "llm_price": 0.053679670000000006,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+          "tools": []
+        },
+        {
+          "message": "Mirklīti, pārbaudu. Lai pārbaudītu jūsu pieejamības laiku četrdienas laikā, man nepieciešama jūsu adreses un dzīvokļa numurs.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller spoke a full sentence in Russian in reply to the bilingual opening\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Да, это по трубам. Какой у вас адрес и номер квартиры?",
+          "tools": []
+        },
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "find_works_schedule",
+              "args": "{\"address\": \"\\u041f\\u0430\\u0440\\u0430\\u0443\\u0433\\u0430 \\u0438\\u0435\\u043b\\u0430 7\", \"apartment\": 12, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?",
+          "tools": []
+        },
+        {
+          "message": "Сейчас перенесу.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "reschedule_access",
+              "args": "{\"apartment\": 12, \"building_id\": \"DEMO-parauga-7\", \"language\": \"ru\", \"new_date\": \"2026-10-09\", \"new_window\": \"13:00-17:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Готово, новое время доступа в вашу квартиру — пятница 9 октября, с 13 до 17. Я записала это в график работ.",
+          "tools": []
+        },
+        {
+          "message": "Подтверждение — это то, что я вам сейчас прочитала; запишите, пожалуйста, время. Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "end_call",
+              "args": "{\"reason\": \"Caller's question answered, reschedule completed, caller has nothing more to ask\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3101m41cwkfhednbmjej76va29wx",
+      "test_name": "scg-t02_s1_russian_reply_switches",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 26,
+      "llm_price": 0.00171083,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller speaks Russian in a full sentence in reply to the bilingual opening\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0101m41cwm6pfzrbbvjtc2qv5fpn",
+      "test_name": "scg-t05_s1_quote_range_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 29,
+      "llm_price": 0.00235543,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"language\": \"ru\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4201m41cwnrtemkvvckmwwb52vyj",
+      "test_name": "scg-t11_slot_taken",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly informed the user that the slot was taken, offered the two available alternatives provided by the tool, and did not confirm a booking.",
+      "credits": 31,
+      "llm_price": 0.0028427300000000003,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "К сожалению, это время только что заняли; свободно ещё: пятница  9 октября в 14:00 или понедельник 12 октября в 9: 00.  Что вам удобнее?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1101m41cwp0pergvfjjx8n437exk",
+      "test_name": "scg-t12_calendar_down",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly communicated the calendar error to the user and offered a callback in Russian, matching the required say_ru text provided by the tool.",
+      "credits": 31,
+      "llm_price": 0.00268543,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Календарь сейчас не отвечает, поэтому время осмотра я подтвердить не могу .  Хотите, мы перезвоним вам в рабочое время и согласуем день?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4101m41cwpzxfgnsjrbkvvzprfyj",
+      "test_name": "scg-t16_s8_are_you_human_lv",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified itself as an AI assistant in Latvian, offered a callback from a staff member, and maintained the language as requested.",
+      "credits": 25,
+      "llm_price": 0.00155793,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Nē, es esmu mākslīgā intelekta asistente; ja vēlaties, jums p iezvanīs mūsu darbinieks.\n \nKā varu jums palīdzēt?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5501m41cwr56fm8tf2z65ctd3pyq",
+      "test_name": "scg-t21_s10_switch_ru_to_lv",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 24,
+      "llm_price": 0.00145783,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labi, runāsim latviski. Kāds ir jūsu mājas adrese?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cwqy4fvarxp5ypjdpxkz2",
+      "test_name": "scg-t20_s10_switch_lv_to_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 25,
+      "llm_price": 0.00173503,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller explicitly requested to switch to Russian for convenience\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7401m41cx82tekv95h0n979v9w49",
+      "test_name": "scg-t27_sim_s3_resident_reschedules",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Evaluation succeeded",
+      "credits": 557,
+      "llm_price": 0.072797505,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+          "tools": []
+        },
+        {
+          "message": "Да, это Smart Comfort Group, мы занимаемся заменой стояков и труб в подвале. Вы звоните, потому что у вас идут работы в доме, или вы хотите узнать о бесплатном осмотре?",
+          "tools": []
+        },
+        {
+          "message": "Секунду, проверяю. Какой ваш адрес и номер квартиры?",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Parauga iela 7\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Сейчас посмотрю. Параuga iela 7 — это правильно?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, проверяю. К сожалению, я не нашла ваш дом в системе. Давайте попробуем ещё раз: вы уверены в адресе? Может быть, есть корпус или дополнительный номер?",
+          "tools": []
+        },
+        {
+          "message": "Да, это демонстрационная версия ассистента SCG. Понял, спасибо за уточнение. Сейчас я свяжусь с нашим менеджером, чтобы найти информацию о графике работ в вашем доме и предложить вам альтернативное время вместо четверга.\n\nМинутку, проверяю график.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "find_works_schedule",
+              "args": "{\"address\": \"Parauga iela 7\", \"apartment\": 12, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время? У вас есть три варианта: пятница 9 октября, с 9 до 13, пятница 9 октября, с 13 до 17 или понедельник 12 октября, с 9 до 13.",
+          "tools": []
+        },
+        {
+          "message": "Да, пятница 9 октября, с 13 до 17 — верно? Переношу для вас.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "reschedule_access",
+              "args": "{\"apartment\": 12, \"building_id\": \"DEMO-parauga-7\", \"language\": \"ru\", \"new_date\": \"2026-10-09\", \"new_window\": \"13:00-17:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Готово, новое время доступа в вашу квартиру — пятница 9 октября, с 13 до 17. Я записала это в график работ. Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": "Подтверждение — это то, что я вам сейчас прочитала; запишите, пожалуйста, время. Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "end_call",
+              "args": "{\"reason\": \"Caller said goodbye after successful reschedule\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5301m41cwkq1ex0b4srrmattpann",
+      "test_name": "scg-t03_s1_sourced_facts_only",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the information from the tool in Russian, confirming the building details (9 floors, 4 stairwells) and asking for confirmation without mentioning the unsourced apartment count.",
+      "credits": 26,
+      "llm_price": 0.00179663,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Вер но?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8801m41cwmybedhapft131nph5f1",
+      "test_name": "scg-t08_s1_consent_before_booking",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly asked for consent to store the user's name and phone number for the request and did not prematurely call the booking or slot tools.",
+      "credits": 26,
+      "llm_price": 0.00195393,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Согласны, чтобы мы сохранили ваше имя и телефон для эт ой заявки?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4201m41cwnrtemkvvckmwwb52vyj",
+      "test_name": "scg-t11_slot_taken",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly informed the user that the slot was taken, offered the two available alternatives provided by the tool, and did not confirm a booking.",
+      "credits": 31,
+      "llm_price": 0.0028427300000000003,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "К сожалению, это время только что заняли; свободно ещё: пятница  9 октября в 14:00 или понедельник 12 октября в 9: 00.  Что вам удобнее?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwp87ev4sr0s86ef02vcw",
+      "test_name": "scg-t13_s3_find_works_schedule",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Wrong tool called",
+      "credits": 26,
+      "llm_price": 0.00178673,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Parauga iela 7\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3701m41cwqehe3kt6me7pk2vyc3k",
+      "test_name": "scg-t18_handover_request_callback_args",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 25,
+      "llm_price": 0.0015304300000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Спасибо. Как к вам обращаться?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5201m41cwscgemaa3yqzzf4v8pfe",
+      "test_name": "scg-t25_no_manager_criticism",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, avoided validating the user's criticism of Rīgas namu pārvaldnieks, refrained from making price comparisons, and offered a free inspection to address the user's request.",
+      "credits": 25,
+      "llm_price": 0.0017691299999999998,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Я не сравниваю цены с управляющими — это уточнит на ш инженер после бесплатного осмотра.  Какой адрес вашего дома, чтобы я вас записала на ос мотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5201m41cwscgemaa3yqzzf4v8pfe",
+      "test_name": "scg-t25_no_manager_criticism",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switches to Russian, avoids validating the user's criticism of Rīgas namu pārvaldnieks, refuses to compare prices, and offers a free inspection while requesting the address.",
+      "credits": 25,
+      "llm_price": 0.0017416299999999999,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Я не сравниваю цены с управляющими — это уточнит на ш инженер после бесплатного осмотра.  Какой адрес вашего дома, чтобы я вас записала?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0501m41cx7tzexfsxgh8vf4r9dww",
+      "test_name": "scg-t26_sim_s1_elder_books_inspection",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Evaluation succeeded",
+      "credits": 795,
+      "llm_price": 0.12991753499999997,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller spoke a full sentence in Russian in reply to the bilingual opening\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Здравствуйте! Помогу вам. Сначала мне нужен адрес вашего дома — как он называется?",
+          "tools": []
+        },
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"\\u0418\\u043b\\u0443\\u043a\\u0441tes 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?",
+          "tools": []
+        },
+        {
+          "message": "Сейчас посмотрю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"apartments\": 144, \"floors\": 9, \"stairwells\": 4, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра — записать вас на бесплатный осмотр?",
+          "tools": []
+        },
+        {
+          "message": "Нет, это ориентировочная цена. Точную цену даст инженер после бесплатного осмотра — он посмотрит системы в подвале и в квартирах. Хотите записаться?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, смотрю свободные время.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "get_slots",
+              "args": "{\"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?",
+          "tools": []
+        },
+        {
+          "message": "Хорошо. Как к вам обращаться?",
+          "tools": []
+        },
+        {
+          "message": "Спасибо. Какой номер телефона вам удобен?",
+          "tools": []
+        },
+        {
+          "message": "Повторю: двадцать два, один, два, три, четыре, пять, шесть — верно?",
+          "tools": []
+        },
+        {
+          "message": "Спасибо. Повторю: два, ноль, один, два, три, четыре, пять, шесть — верно?",
+          "tools": []
+        },
+        {
+          "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "book_inspection",
+              "args": "{\"address_spoken\": \"\\u0423\\u043b\\u0438\\u0446\\u0430 \\u0418\\u043b\\u0443\\u043a\\u0441tes, \\u0434\\u043e\\u043c \\u0448\\u0435\\u0441\\u0442\\u043d\\u0430\\u0434\\u0446\\u0430\\u0442\\u044c, \\u0420\\u0438\\u0433\\u0430\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4, \"building_id\": \"ilukstes-16\", \"caller_role\": \"other\", \"name\": \"\\u041d\\u0438\\u043d\\u0430 \\u0418\\u0432\\u0430\\u043d\\u043e\\u0432\\u043d\\u0430\", \"phone\": \"20123456\", \"consent\": true, \"slot_start\": \"2026-10-08T10:00:00+03:00\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10:00. Пожалуйста, запишите это время — это и есть ваше подтверждение.",
+          "tools": []
+        },
+        {
+          "message": "Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "end_call",
+              "args": "{\"reason\": \"Caller said goodbye after booking confirmation\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

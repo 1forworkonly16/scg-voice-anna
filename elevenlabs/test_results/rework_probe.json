@@ -1,0 +1,19 @@
+{
+  "label": "rework_probe",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_8601m41e057te1f95hqqcvf4bpac",
+  "runs": [
+    {
+      "test_id": "test_7501m41cwp87ev4sr0s86ef02vcw",
+      "test_name": "scg-t13_s3_find_works_schedule",
+      "status": "failed",
+      "result": "unknown",
+      "rationale": "Test execution exception",
+      "credits": 0,
+      "llm_price": 0.00180774,
+      "analysis": null,
+      "agent": []
+    }
+  ]
+}

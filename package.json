@@ -14,7 +14,14 @@
     "test:worker": "vitest run --config tests/worker/vitest.config.ts",
     "dry-run": "wrangler deploy --dry-run --outdir .wrangler/dry",
     "secrets:set": "node scripts/secrets.mjs",
-    "integration": "node scripts/integration.ts"
+    "integration": "node scripts/integration.ts",
+    "el:tools": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/gen-tools.ts",
+    "el:build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/build-agent.ts",
+    "el:check": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/check-agent.ts",
+    "el:tests": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/tests.ts",
+    "link:unlock": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts unlock",
+    "link:lock": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts lock",
+    "link:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts status"
   },
   "dependencies": {
     "zod": "4.6.5"

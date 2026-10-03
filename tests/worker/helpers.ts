@@ -203,9 +203,15 @@ export interface Harness {
   flush: () => Promise<void>;
 }
 
+// Flake fix (WP8 rework): a test that does not flush() leaves a prewarm promise (lookup_building -> prewarmToken) running; when it finished
+// after the NEXT harness() had reset the module-level token cache, it re-filled the cache and that test saw 1 subrequest instead of 2.
+// So every harness() first settles the pending promises of all earlier worlds, then resets the cache.
+const earlierWorlds: FakeWorld[] = [];
 export async function harness(opts: FakeOptions = {}, envOver: Partial<Env> = {}): Promise<Harness> {
+  for (const w of earlierWorlds) while (w.pending.length) await Promise.allSettled(w.pending.splice(0));
   resetGoogleTokenCache();
   const world = new FakeWorld(opts);
+  earlierWorlds.push(world);
   const env = await makeEnv(envOver);
   const now = { value: NOW };
   const request = (path: string, init?: RequestInit, limits?: Partial<Limits>) =>

@@ -1,0 +1,225 @@
+// ElevenLabs Tests for «scg-anna»: builds the tests from elevenlabs/test_specs/*.json, runs them, scores them.
+//   node scripts/el/tests.ts sync                         create/update the tests, write elevenlabs/tests.json
+//   node scripts/el/tests.ts run --llm <model> --repeat N [--only crit|all|id,id] [--label x]
+//   node scripts/el/tests.ts show <label>                 re-print the scoring of a saved run
+// SAFETY: next_reply ("llm") and tool_call tests never execute tools (the platform returns "Skipping tool call in test mode");
+// simulations mock EVERY tool (mocking_strategy all, fallback raise_error, mocks from the specs), so nothing reaches the live Worker,
+// the Calendar, the Sheet or Telegram. check_no_live_calls() proves it afterwards from the tool-execution log.
+// Scoring = platform verdict AND deterministic substring checks (expect.reply_must_not on every agent turn; expect.reply_must on text tests).
+import { readdirSync, existsSync, mkdirSync } from 'node:fs';
+import { el, sleep } from './api.ts';
+import { agentId, cfg, p, readJson, writeJson } from './common.ts';
+
+const toolsFile = readJson(p('elevenlabs', 'tools.json'));
+const toolId = (n: string): { id: string; type: string } => n === 'language_detection' ? { id: 'language_detection', type: 'system' } : { id: toolsFile.tools[n].id, type: 'webhook' };
+const SPEC_DIR = p('elevenlabs', 'test_specs');
+const OUT_DIR = p('elevenlabs', 'test_results');
+
+type Spec = any;
+const LOOKUP_MOCK = readJson(p('elevenlabs', 'test_specs', 't03_s1_sourced_facts_only.json')).mocked_tools.lookup_building;
+const loadSpecs = (): Spec[] => readdirSync(SPEC_DIR).filter((f) => f.endsWith('.json')).sort().map((f) => readJson(p('elevenlabs', 'test_specs', f)));
+
+// ---------- history conversion ----------
+let reqN = 0;
+const callEntry = (tool: string, args: unknown, message: string | null, t: number) => {
+  const rid = `toolu_test_${++reqN}`;
+  const sys = tool === 'language_detection';
+  return { rid, entry: { role: 'agent', message, tool_calls: [{ type: sys ? 'system' : 'webhook', request_id: rid, tool_name: tool, params_as_json: JSON.stringify(args), tool_has_been_called: true, tool_details: null }], tool_results: [], time_in_call_secs: t } };
+};
+const resultEntry = (rid: string, tool: string, result: unknown, t: number) => ({
+  role: 'agent', message: null, tool_calls: [],
+  tool_results: [{ request_id: rid, tool_name: tool, result_value: JSON.stringify(result), is_error: false, is_blocked: false, tool_has_been_called: true, tool_latency_secs: 0.6, error_type: '', raw_error_message: '', dynamic_variable_updates: [], type: tool === 'language_detection' ? 'system' : 'webhook' }],
+  time_in_call_secs: t,
+});
+
+function convertHistory(hist: any[]): any[] {
+  const out: any[] = []; let t = 0;
+  for (const m of hist) {
+    t += 4;
+    if (m.role === 'agent' && !m.tool_calls?.length && /^Нашла: Ilūkstes iela 16/.test(m.message ?? '')) { // the specs write the lookup answer without the call; add it so the history is realistic
+      const { rid, entry } = callEntry('lookup_building', { language: 'ru', address: 'Ilūkstes iela 16' }, null, t);
+      out.push(entry); out.push(resultEntry(rid, 'lookup_building', LOOKUP_MOCK, t)); t += 1;
+    }
+    if (m.tool_calls?.length) { // spec format {name,args,result} -> platform format (call entry + result entry)
+      const first = m.tool_calls[0];
+      const { rid, entry } = callEntry(first.name, first.args ?? {}, 'Секунду, проверяю.', t);
+      out.push(entry); out.push(resultEntry(rid, first.name, first.result ?? {}, t));
+      out.push({ role: 'agent', message: m.message, tool_calls: [], tool_results: [], time_in_call_secs: t + 1 });
+    } else out.push({ role: m.role, message: m.message, tool_calls: [], tool_results: [], time_in_call_secs: t });
+  }
+  return out;
+}
+
+// Plausible arguments for the injected (already executed) call, so the next-reply test judges the RELAY of the mocked result.
+function relayArgs(spec: Spec, tool: string): any {
+  const base = { language: 'ru' };
+  if (tool === 'quote_range') return { ...base, floors: 9, stairwells: 4, apartments: 144 };
+  if (tool === 'lookup_building') return { ...base, address: 'Ilūkstes iela 16' };
+  if (tool === 'book_inspection') return { ...base, slot_start: spec.id.startsWith('t12') ? '2026-10-09T14:00:00+03:00' : '2026-10-08T10:00:00+03:00', address_spoken: 'Ilūkstes iela 16', floors: 9, stairwells: 4, apartments: 144, caller_role: 'other', name: 'Нина Ивановна', phone: '20123456', consent: true };
+  return base;
+}
+
+const hasCyr = (s: string) => /[Ѐ-ӿ]/.test(s ?? '');
+/** After the LV greeting the first Russian reply makes Anna call language_detection(ru) and answer in Russian; the next-reply tests start from that state. */
+function needsLangSwitchInjection(spec: Spec): boolean {
+  if (spec.expect?.tool === 'language_detection' || spec.language !== 'ru' || spec.id.startsWith('t01') || spec.type === 'simulation') return false;
+  const agentTurns = spec.chat_history.filter((m: any) => m.role === 'agent');
+  return agentTurns.length === 1 && spec.chat_history.at(-1).role === 'user' && hasCyr(spec.chat_history.at(-1).message);
+}
+
+function buildHistory(spec: Spec, injectTool?: string): any[] {
+  const h = convertHistory(spec.chat_history);
+  let t = (h.at(-1)?.time_in_call_secs ?? 0);
+  if (needsLangSwitchInjection(spec)) {
+    const { rid, entry } = callEntry('language_detection', { reason: 'Caller answered in Russian', language: 'ru' }, null, ++t);
+    h.push(entry); h.push(resultEntry(rid, 'language_detection', { result_type: 'language_detection_success', status: 'success', reason: 'Caller answered in Russian', language: 'ru' }, ++t));
+  }
+  if (injectTool) {
+    const { rid, entry } = callEntry(injectTool, relayArgs(spec, injectTool), 'Секунду, проверяю.', t + 1);
+    h.push(entry); h.push(resultEntry(rid, injectTool, spec.mocked_tools[injectTool], t + 2));
+  }
+  return h;
+}
+
+// ---------- test request builders ----------
+function conditionText(spec: Spec, relay: boolean): string {
+  const e = spec.expect ?? {};
+  // t01: the static half (config check) is verified by check-agent; the LLM judges only the dynamic half.
+  const parts = [spec.id.startsWith('t01') ? spec.success_condition.replace(/^.*?Dynamic part:\s*/s, '') : spec.success_condition];
+  // reply_must / reply_must_not are enforced deterministically in detChecks(); the LLM judge only gets the semantic condition (it hallucinated matches of forbidden Latvian phrases).
+  if (relay) parts.push('The tool call and its result are already in the conversation: judge only the agent\'s reply that follows the result, which must relay the tool\'s say_ru text.');
+  parts.push('Latvian names (Ilūkstes iela, Purvciems, Rīgas namu pārvaldnieks, Parauga iela) are fine inside Russian text. Replying in Russian is correct for a Russian-speaking caller.');
+  return parts.join(' ');
+}
+// WP3 spec drift vs the contract: new_window enum is '09:00-13:00' | '13:00-17:00' (src/lib/works.ts ACCESS_WINDOWS), the specs say '13-17'.
+function fixSpecValue(k: string, v: unknown): unknown {
+  if (k === 'new_window' && typeof v === 'string' && /^\d{2}-\d{2}$/.test(v)) return v.split('-').map((h) => `${h}:00`).join('-');
+  return v;
+}
+const escRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function paramEval(v: unknown) {
+  if (typeof v === 'boolean') return { type: 'regex', pattern: `(?i)^${v}$` };
+  if (typeof v === 'number') return { type: 'exact', expected_value: String(v) };
+  const s = String(v);
+  if (/^\d+$/.test(s)) return { type: 'exact', expected_value: s };
+  if (/^\d{4}-\d{2}-\d{2}/.test(s) || /^\d{2}-\d{2}$/.test(s)) return { type: 'exact', expected_value: s };
+  return { type: 'regex', pattern: `(?i)${escRe(s)}` };
+}
+function maxTurns(spec: Spec): number { const m = /Max (\d+) turns/i.exec(spec.success_condition + ' ' + spec.scenario); return m ? Number(m[1]) : 16; }
+
+interface Built { key: string; spec: Spec; critical: boolean; derived: boolean; body: any; }
+function buildAll(): Built[] {
+  const list: Built[] = [];
+  for (const spec of loadSpecs()) {
+    const e = spec.expect ?? {};
+    const name = `scg-${spec.id}`;
+    if (spec.type === 'next_reply') {
+      const inject = e.tool && spec.mocked_tools?.[e.tool] ? e.tool : undefined;
+      list.push({ key: spec.id, spec, critical: !!spec.critical, derived: false, body: { type: 'llm', name, chat_history: buildHistory(spec, inject), success_condition: conditionText(spec, !!inject), success_examples: [], failure_examples: [], dynamic_variables: {} } });
+    } else if (spec.type === 'tool_call') {
+      const params = Object.entries(e.args_contains ?? {}).map(([k, v]) => ({ path: e.tool === 'language_detection' ? k : `body.${k}`, eval: paramEval(fixSpecValue(k, v)) }));
+      list.push({ key: spec.id, spec, critical: !!spec.critical, derived: false, body: { type: 'tool', name, chat_history: buildHistory(spec), tool_call_parameters: { referenced_tool: toolId(e.tool), parameters: params, verify_absence: false }, check_any_tool_matches: false, dynamic_variables: {} } });
+      if (e.reply_must?.length && spec.mocked_tools?.[e.tool]) { // t22: also test the relay of the mocked result in Russian
+        const rel = { ...spec, id: spec.id + '_relay' };
+        list.push({ key: rel.id, spec: rel, critical: !!spec.critical, derived: true, body: { type: 'llm', name: `scg-${rel.id}`, chat_history: buildHistory(spec, e.tool), success_condition: conditionText(spec, true), success_examples: [], failure_examples: [], dynamic_variables: {} } });
+      }
+    } else if (spec.type === 'simulation') {
+      const ids = Object.keys(spec.mocked_tools).map((n) => toolId(n).id);
+      const overrides: Record<string, any[]> = {};
+      for (const [n, v] of Object.entries(spec.mocked_tools)) overrides[toolId(n).id] = [{ parameter_conditions: [], mock_result: JSON.stringify(v), is_error: false }];
+      list.push({ key: spec.id, spec, critical: !!spec.critical, derived: false, body: {
+        type: 'simulation', name, chat_history: buildHistory(spec), success_conditions: [conditionText(spec, false)], simulation_scenario: spec.scenario, simulation_max_turns: maxTurns(spec),
+        tool_mock_config: { mocking_strategy: 'all', fallback_strategy: 'raise_error', mocked_tool_ids: ids }, tool_mock_overrides: overrides,
+        dynamic_variables: {} } }); // simulated user + evaluator use the platform default (claude-sonnet-4-6; haiku is not supported for simulations)
+    } else throw new Error('unknown spec type ' + spec.type);
+  }
+  return list;
+}
+
+// ---------- sync ----------
+async function sync() {
+  const f = p('elevenlabs', 'tests.json');
+  const prev = existsSync(f) ? readJson(f) : { tests: {} };
+  const existing = new Map<string, string>();
+  let cursor: string | null = null;
+  do { const j: any = await el('GET', `/v1/convai/agent-testing?page_size=100${cursor ? '&cursor=' + cursor : ''}`); for (const t of j.tests ?? []) existing.set(t.name, t.id); cursor = j.has_more ? j.next_cursor : null; } while (cursor);
+  const out: Record<string, any> = {};
+  for (const b of buildAll()) {
+    let id: string | undefined = prev.tests?.[b.key]?.test_id ?? existing.get(b.body.name);
+    if (id) { try { await el('PUT', `/v1/convai/agent-testing/${id}`, b.body); } catch (e: any) { if (e.status === 404) id = undefined; else throw e; } }
+    if (!id) id = (await el('POST', '/v1/convai/agent-testing/create', b.body)).id;
+    out[b.key] = { test_id: id, name: b.body.name, type: b.spec.type, critical: b.critical, derived: b.derived, language: b.spec.language };
+  }
+  writeJson(f, { _note: 'GENERATED by scripts/el/tests.ts sync from elevenlabs/test_specs/*.json. Ids only.', agent: 'scg-anna', tests: out });
+  console.log(`tests.json: ${Object.keys(out).length} tests (${Object.values<any>(out).filter((t) => t.critical).length} critical)`);
+}
+
+// ---------- run + score ----------
+async function run(a: Map<string, string>) {
+  const tj = readJson(p('elevenlabs', 'tests.json')).tests as Record<string, any>;
+  const only = a.get('only') ?? 'all';
+  const keys = Object.keys(tj).filter((k) => only === 'all' ? true : only === 'crit' ? tj[k].critical : only === 'noncrit' ? !tj[k].critical : only.split(',').some((x) => k.startsWith(x)));
+  const llm = a.get('llm'); const repeat = Number(a.get('repeat') ?? 1); const label = a.get('label') ?? `${llm ?? 'cur'}_${only}_${Date.now()}`;
+  const id = agentId(cfg().name);
+  if (llm) await el('PATCH', `/v1/convai/agents/${id}`, { conversation_config: { agent: { prompt: { llm } } } });
+  const cur = (await el('GET', `/v1/convai/agents/${id}`)).conversation_config.agent.prompt.llm;
+  console.log(`running ${keys.length} tests x${repeat} on ${cur}`);
+  const body: any = { tests: keys.map((k) => ({ test_id: tj[k].test_id })), repeat_count: repeat };
+  const inv = await el('POST', `/v1/convai/agents/${id}/run-tests`, body);
+  const invId = inv.id as string;
+  let res: any;
+  for (let i = 0; i < 120; i++) {
+    await sleep(5000);
+    res = await el('GET', `/v1/convai/test-invocations/${invId}`);
+    const pend = (res.test_runs ?? []).filter((r: any) => r.status === 'pending').length;
+    if ((res.test_runs ?? []).length && !pend) break;
+  }
+  mkdirSync(OUT_DIR, { recursive: true });
+  writeJson(p('elevenlabs', 'test_results', `${label}.json`), { label, llm: cur, repeat, invocation: invId, runs: slim(res) });
+  score(label, slim(res), tj, cur, repeat);
+}
+
+function slim(res: any) {
+  return (res.test_runs ?? []).map((r: any) => ({ test_id: r.test_id, test_name: r.test_name, status: r.status, result: r.condition_result?.result, rationale: (r.condition_result?.rationale?.summary ?? JSON.stringify(r.condition_result?.rationale ?? '')).slice(0, 500),
+    credits: r.credits_used, llm_price: r.charging?.llm_price ?? null, analysis: r.charging?.analysis ?? null,
+    agent: (r.agent_responses ?? []).filter((m: any) => m.role === 'agent').map((m: any) => ({ message: m.message, tools: (m.tool_calls ?? []).map((c: any) => ({ name: c.tool_name, args: c.params_as_json })) })) }));
+}
+
+function detChecks(key: string, spec: Spec, agent: { message: string | null; tools: any[] }[]): string[] {
+  const ns = (x: string) => x.toLowerCase().replace(/\s+/g, ''); // the platform joins streamed chunks with stray spaces («Н ДС»): compare whitespace-free
+  const text = ns(agent.map((m) => m.message ?? '').join(' '));
+  const issues: string[] = [];
+  for (const s of spec.expect?.reply_must_not ?? []) if (text.includes(ns(String(s)))) issues.push(`MUST_NOT «${s}»`);
+  // reply_must is a lexical check only for verbatim tool relays (expect.tool set); free-text answers are judged by the LLM (paraphrases are fine)
+  if (spec.type !== 'tool_call' && spec.expect?.tool) for (const s of spec.expect?.reply_must ?? []) if (!text.includes(ns(String(s)))) issues.push(`missing «${s}»`);
+  return issues;
+}
+
+function score(label: string, runs: any[], tj: Record<string, any>, llm: string, repeat: number) {
+  const byId = new Map(Object.entries(tj).map(([k, v]) => [v.test_id, k]));
+  const specs = new Map<string, Spec>(); for (const s of loadSpecs()) specs.set(s.id, s);
+  const per: Record<string, { pass: number; n: number; notes: string[] }> = {};
+  let usd = 0, credits = 0;
+  for (const r of runs) {
+    const key = byId.get(r.test_id) ?? r.test_name; const base = key.replace(/_relay$/, '');
+    const spec = specs.get(base) ?? {};
+    const det = detChecks(key, key.endsWith('_relay') ? { ...spec, type: 'next_reply' } : spec, r.agent);
+    const ok = r.status === 'passed' && !det.length;
+    const e = (per[key] ??= { pass: 0, n: 0, notes: [] }); e.n++; if (ok) e.pass++; else e.notes.push(`${r.status}${det.length ? ' det:' + det.join(',') : ''} | ${String(r.rationale).slice(0, 220)}`);
+    usd += r.llm_price ?? 0; credits += r.credits ?? 0;
+  }
+  const crit = Object.keys(per).filter((k) => tj[k]?.critical);
+  const lines = Object.entries(per).sort().map(([k, v]) => `${v.pass === v.n ? 'PASS' : v.pass ? 'PART' : 'FAIL'} ${v.pass}/${v.n} ${tj[k]?.critical ? '[CRIT]' : '      '} ${k}${v.notes.length ? '\n      ' + v.notes.slice(0, 2).join('\n      ') : ''}`);
+  console.log(lines.join('\n'));
+  const cp = crit.reduce((s, k) => s + per[k]!.pass, 0), cn = crit.reduce((s, k) => s + per[k]!.n, 0);
+  const ap = Object.values(per).reduce((s, v) => s + v.pass, 0), an = Object.values(per).reduce((s, v) => s + v.n, 0);
+  console.log(`\n[${label}] model ${llm} x${repeat}: critical ${cp}/${cn}, all ${ap}/${an}; reported llm_price $${usd.toFixed(4)}, credits ${credits}`);
+}
+
+const [cmd, ...rest] = process.argv.slice(2);
+const a = new Map<string, string>(); for (let i = 0; i < rest.length; i += 2) a.set((rest[i] ?? '').replace(/^--/, ''), rest[i + 1] ?? '');
+if (cmd === 'sync') await sync();
+else if (cmd === 'run') await run(a);
+else if (cmd === 'rescore') { const j = readJson(p('elevenlabs', 'test_results', `${rest[0]}.json`)); score(j.label, j.runs, readJson(p('elevenlabs', 'tests.json')).tests, j.llm, j.repeat); }
+else if (cmd === 'show') { const j = readJson(p('elevenlabs', 'test_results', `${rest[0]}.json`)); console.log(JSON.stringify(j.runs.map((r: any) => ({ t: r.test_name, s: r.status, usd: r.llm_price, cr: r.credits })), null, 0)); }
+else { console.error('usage: tests.ts sync | run --llm M --repeat N [--only crit|all|noncrit|t01,t05] | show <label>'); process.exit(2); }

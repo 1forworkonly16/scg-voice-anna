@@ -1,0 +1,1057 @@
+{
+  "label": "sonnet_crit_r5b",
+  "llm": "claude-sonnet-5-5",
+  "repeat": 5,
+  "invocation": "suite_6301m41d6gnse9pa72tdyrnt4xyh",
+  "runs": [
+    {
+      "test_id": "test_7901m41cwk3yed9v72dpej1nx3ey",
+      "test_name": "scg-t01_first_message_disclosure",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the user's language as Russian and is prepared to respond in the requested language while maintaining its identity as an AI assistant for Smart Comfort Group.",
+      "credits": 156,
+      "llm_price": 0.02558985,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in a full Russian sentence\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4801m41cwmf3e8vrs4ew3k0857gs",
+      "test_name": "scg-t06_s1_price_relay",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the tool's Russian text, included all required price figures, mentioned the engineer's inspection, and offered to book the appointment.",
+      "credits": 166,
+      "llm_price": 0.02724865,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с  НДС.  Точную цену даст инженер после бесплатного осмотра. Записать вас на  осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1201m41cwprkekrthkgb5evrysjb",
+      "test_name": "scg-t15_s8_are_you_human_ru",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The conversation ended before the agent could provide the required honest disclosure about being an AI and offer further assistance.",
+      "credits": 38,
+      "llm_price": 0.0039303,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in full Russian sentences\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1201m41cwprkekrthkgb5evrysjb",
+      "test_name": "scg-t15_s8_are_you_human_ru",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The conversation ended before the agent could answer the user's question about whether it is a human, meaning the agent failed to provide the required honest disclosure and offer for a callback.",
+      "credits": 38,
+      "llm_price": 0.0039193000000000006,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7601m41cwq70exxr6t8fxchzmrhd",
+      "test_name": "scg-t17_handover_want_human",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, informed the user that an immediate connection is not possible, offered a callback during working hours, and requested the user's phone number.",
+      "credits": 34,
+      "llm_price": 0.0031933,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит в ам в рабочее время.  Какой номер вам удобен?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3401m41cwrcgf5dvrsdta3xnp8tn",
+      "test_name": "scg-t22_false_switch_street_name",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 50,
+      "llm_price": 0.0062556999999999995,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied with full Russian sentences\", \"language\": \"ru\"}"
+            },
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3401m41cwrcgf5dvrsdta3xnp8tn",
+      "test_name": "scg-t22_false_switch_street_name",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 47,
+      "llm_price": 0.0057057,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied with full Russian sentences\", \"language\": \"ru\"}"
+            },
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwrxzekqaq8q9bpgx9tms",
+      "test_name": "scg-t23_unknown_warranty",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, avoided providing a specific warranty term, deferred the question to an engineer, and requested the address to continue the qualification process.",
+      "credits": 35,
+      "llm_price": 0.0034837,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Это уточнит наш инженер или менеджер. Могу записать вас на бесплат ный осмотр, где инженер ответит на этот вопрос — под скажите, пожалуйста, адрес вашего дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwrxzekqaq8q9bpgx9tms",
+      "test_name": "scg-t23_unknown_warranty",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly responded in Russian, stated that the warranty details will be clarified by an engineer or manager, provided no specific warranty terms, and proceeded to qualify the building by asking for the address.",
+      "credits": 34,
+      "llm_price": 0.0033077000000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Условия гарантии уточнит наш инженер или менеджер. Если хотите, зап ишу вас на бесплатный осмотр — как называется улица и  номер дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwk3yed9v72dpej1nx3ey",
+      "test_name": "scg-t01_first_message_disclosure",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the user's language as Russian and the initial greeting already established the agent's identity as an AI assistant for Smart Comfort Group.",
+      "credits": 156,
+      "llm_price": 0.025600849999999998,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in Russian with a full sentence\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4801m41cwmf3e8vrs4ew3k0857gs",
+      "test_name": "scg-t06_s1_price_relay",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the tool's Russian response, included all required price figures, mentioned the engineer's inspection, and offered to book the appointment.",
+      "credits": 166,
+      "llm_price": 0.02730365,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с  НДС.  Точную цену даст инженер после бесплатного осмотра. Записать вас на  бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1201m41cwprkekrthkgb5evrysjb",
+      "test_name": "scg-t15_s8_are_you_human_ru",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent has not yet provided a response to the user's question about whether it is a human, failing to meet the requirement of identifying itself as an AI assistant.",
+      "credits": 38,
+      "llm_price": 0.0038643,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in full Russian sentences\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2501m41cwqppfgn8yg1qsdgtpwe4",
+      "test_name": "scg-t19_s9_exact_price_demand",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to provide a response to the user's request, instead attempting to call a language detection tool that was not requested by the instructions.",
+      "credits": 50,
+      "llm_price": 0.0060797,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3401m41cwrcgf5dvrsdta3xnp8tn",
+      "test_name": "scg-t22_false_switch_street_name",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 40,
+      "llm_price": 0.0043197,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in full Russian sentences\", \"language\": \"ru\"}"
+            },
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5701m41cwrkhfjqbrx2n5ve1kfc0",
+      "test_name": "scg-t22_false_switch_street_name_relay",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to follow the instructions by calling the language_detection tool, which was explicitly forbidden by the acceptance criteria.",
+      "credits": 44,
+      "llm_price": 0.0051381000000000005,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller spoke full Russian sentences\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5701m41cwrkhfjqbrx2n5ve1kfc0",
+      "test_name": "scg-t22_false_switch_street_name_relay",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to follow the instructions by calling the language_detection tool, which was explicitly prohibited by the acceptance criteria.",
+      "credits": 44,
+      "llm_price": 0.005094100000000001,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller spoke full Russian sentences\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwrxzekqaq8q9bpgx9tms",
+      "test_name": "scg-t23_unknown_warranty",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly responded in Russian, deferred the specific warranty question to an engineer or manager, and requested the address to proceed with the qualification process.",
+      "credits": 35,
+      "llm_price": 0.0033737000000000003,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Условия гарантии уточнит наш инженер или менеджер. Если хотите, зап ишу вас на бесплатный осмотр — назовите,  пожалуйста, адрес дома.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cws54ekm8m4whbn3jap23",
+      "test_name": "scg-t24_cofinancing_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly addressed the user's query in Russian, clarified that riser replacement is not covered, explained the actual 90% compensation for technical documentation, and offered to have a manager confirm the details.",
+      "credits": 38,
+      "llm_price": 0.0040381,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нынешние правила Риги не включают замену внутренних стояков. Но Рига компенсирует  до 90% технической документации — обследования,  энергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия уточ нит наш менеджер.  Хотите, запишу вас на бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cws54ekm8m4whbn3jap23",
+      "test_name": "scg-t24_cofinancing_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly addressed the user's query in Russian, clarified that riser replacement is not covered, explained the actual 90% compensation for technical documentation, and included a professional offer for a manager's follow-up.",
+      "credits": 38,
+      "llm_price": 0.0040381,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нынешние правила Риги не включают замену внутренних стояков. Но Рига компенсирует  до 90% технической документации — обследования,  энергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия уточнит  наш менеджер.  Хотите, запишу вас на бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwk3yed9v72dpej1nx3ey",
+      "test_name": "scg-t01_first_message_disclosure",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to provide a response to the user's question after the language detection tool was called, leaving the conversation incomplete.",
+      "credits": 156,
+      "llm_price": 0.02558985,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied with a full Russian sentence\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4801m41cwmf3e8vrs4ew3k0857gs",
+      "test_name": "scg-t06_s1_price_relay",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the tool's Russian response, included all required price figures, mentioned the engineer's inspection, and offered to book the appointment.",
+      "credits": 166,
+      "llm_price": 0.02730365,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с  НДС.  Точную цену даст инженер после бесплатного осмотра. Записать вас на  бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4801m41cwmf3e8vrs4ew3k0857gs",
+      "test_name": "scg-t06_s1_price_relay",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the tool's Russian response, included all required price figures, mentioned the engineer's inspection, and offered to book the appointment.",
+      "credits": 166,
+      "llm_price": 0.02730365,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с  НДС.  Точную цену даст инженер после бесплатного осмотра. Записать вас на  бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_4801m41cwmf3e8vrs4ew3k0857gs",
+      "test_name": "scg-t06_s1_price_relay",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the tool's Russian response, included all required price figures, mentioned the engineer's inspection, and offered to book the appointment.",
+      "credits": 166,
+      "llm_price": 0.02730365,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с  НДС.  Точную цену даст инженер после бесплатного осмотра. Записать вас на  бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0301m41cwnf9f6wbbqkd2jp0tbzc",
+      "test_name": "scg-t10_s1_booking_ok_no_sms",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the booking confirmation details (address and time) as provided by the tool and instructed the user to note the time as confirmation, without mentioning any additional notifications or engineers.",
+      "credits": 50,
+      "llm_price": 0.0061369,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10 :00.  Пожалуйста, запишите это время — это и есть ваше подтверждение.  Могу ещё чем-то помочь?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7601m41cwq70exxr6t8fxchzmrhd",
+      "test_name": "scg-t17_handover_want_human",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, informed the user that an immediate connection is not possible, offered a callback during working hours, and requested the user's phone number.",
+      "credits": 34,
+      "llm_price": 0.0031933,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит в ам в рабочее время.  Какой номер вам удобен?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7601m41cwq70exxr6t8fxchzmrhd",
+      "test_name": "scg-t17_handover_want_human",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, acknowledged the user's request, explained that a direct connection is not possible, offered a callback, and asked for the contact number.",
+      "credits": 35,
+      "llm_price": 0.0032813,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Понимаю вас. Соединить прямо сейчас не могу, но наш сотруд ник перезвонит вам в рабочее время. Какой номер вам удоб ен?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7601m41cwq70exxr6t8fxchzmrhd",
+      "test_name": "scg-t17_handover_want_human",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, informed the user that an immediate connection is not possible, offered a callback during working hours, and requested the user's phone number.",
+      "credits": 34,
+      "llm_price": 0.0031933,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит в ам в рабочее время.  Какой номер вам удобен?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2501m41cwqppfgn8yg1qsdgtpwe4",
+      "test_name": "scg-t19_s9_exact_price_demand",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the need to defer to an engineer for exact pricing and offered to book an inspection, adhering to the requirement to avoid providing new, non-estimated figures.",
+      "credits": 46,
+      "llm_price": 0.0052657,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3401m41cwrcgf5dvrsdta3xnp8tn",
+      "test_name": "scg-t22_false_switch_street_name",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 40,
+      "llm_price": 0.0043197,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in full Russian sentences\", \"language\": \"ru\"}"
+            },
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2501m41cwqppfgn8yg1qsdgtpwe4",
+      "test_name": "scg-t19_s9_exact_price_demand",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the need to respond in Russian and provided the required explanation that an exact price can only be determined by an engineer after an inspection, while offering to book an appointment.",
+      "credits": 47,
+      "llm_price": 0.0054967,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2501m41cwqppfgn8yg1qsdgtpwe4",
+      "test_name": "scg-t19_s9_exact_price_demand",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the user's language as Russian and is preparing to follow the protocol of offering an engineer's inspection instead of providing an exact price.",
+      "credits": 48,
+      "llm_price": 0.0057277000000000005,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5701m41cwrkhfjqbrx2n5ve1kfc0",
+      "test_name": "scg-t22_false_switch_street_name_relay",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed the acceptance criteria by calling the language_detection tool, which was explicitly prohibited.",
+      "credits": 44,
+      "llm_price": 0.0050721,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller spoke full Russian sentences\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5701m41cwrkhfjqbrx2n5ve1kfc0",
+      "test_name": "scg-t22_false_switch_street_name_relay",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to follow the instructions because it called the language_detection tool, which was explicitly prohibited by the acceptance criteria.",
+      "credits": 44,
+      "llm_price": 0.0050721,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3401m41cwrcgf5dvrsdta3xnp8tn",
+      "test_name": "scg-t22_false_switch_street_name",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "Failure",
+      "credits": 40,
+      "llm_price": 0.0043857,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller spoke full Russian sentence in reply to opening\", \"language\": \"ru\"}"
+            },
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwrxzekqaq8q9bpgx9tms",
+      "test_name": "scg-t23_unknown_warranty",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, avoided providing a specific warranty term, stated that an engineer or manager would clarify the details, and requested the address to proceed with the inquiry.",
+      "credits": 35,
+      "llm_price": 0.0034617000000000003,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Это уточнит наш инженер или менеджер. Могу записать вас на б есплатный осмотр, где инженер ответит на этот вопрос,  — подскажите, пожалуйста, адрес дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cws54ekm8m4whbn3jap23",
+      "test_name": "scg-t24_cofinancing_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly addressed the user's query in Russian, clarified that Riga does not cover riser replacement, explained the actual 90% compensation for technical documentation, and offered to have a manager confirm the details.",
+      "credits": 38,
+      "llm_price": 0.0040381,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нынешние правила Риги не включают замену внутренних стояков. Но Рига комп енсирует до 90% технической документации — обследования,  энергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия уточн ит наш менеджер.  Хотите, запишу вас на бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cws54ekm8m4whbn3jap23",
+      "test_name": "scg-t24_cofinancing_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly addressed the user's query in Russian, clarified that riser replacement is not covered, explained the actual 90% compensation for technical documentation, and offered to have a manager confirm the details.",
+      "credits": 38,
+      "llm_price": 0.0040381,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нынешние правила Риги не включают замену внутренних стояков. Но Рига компенсирует  до 90% технической документации — обследования,  энергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия уточ нит наш менеджер.  Хотите, запишу вас на бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwk3yed9v72dpej1nx3ey",
+      "test_name": "scg-t01_first_message_disclosure",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the user's language as Russian and initiated the language switch process to accommodate the user's request.",
+      "credits": 157,
+      "llm_price": 0.02567785,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied with a full Russian sentence to the bilingual opening\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwk3yed9v72dpej1nx3ey",
+      "test_name": "scg-t01_first_message_disclosure",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the user's language as Russian and maintained its identity as an AI assistant for Smart Comfort Group while offering assistance.",
+      "credits": 156,
+      "llm_price": 0.02558985,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in a full Russian sentence\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0301m41cwnf9f6wbbqkd2jp0tbzc",
+      "test_name": "scg-t10_s1_booking_ok_no_sms",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the booking details (address and time) and confirmed that this information serves as the appointment confirmation, adhering to all instructions.",
+      "credits": 50,
+      "llm_price": 0.0061699,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10 :00.  Пожалуйста, запишите это время — это и есть ваше подтверждение.  Могу ли я чем-то ещё помочь?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0301m41cwnf9f6wbbqkd2jp0tbzc",
+      "test_name": "scg-t10_s1_booking_ok_no_sms",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the booking confirmation details (address and time) as provided by the tool and instructed the user to note the time as confirmation, without mentioning any additional notifications or engineers.",
+      "credits": 50,
+      "llm_price": 0.0061369,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10 :00.  Пожалуйста, запишите это время — это и есть ваше подтверждение.  Могу ещё чем-то помочь?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0301m41cwnf9f6wbbqkd2jp0tbzc",
+      "test_name": "scg-t10_s1_booking_ok_no_sms",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the booking confirmation details (address and time) as provided by the tool and instructed the user to note the time as confirmation, without mentioning any additional notifications or engineers.",
+      "credits": 50,
+      "llm_price": 0.0061369,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10 :00.  Пожалуйста, запишите это время — это и есть ваше подтверждение.  Могу ещё чем-то помочь?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1201m41cwprkekrthkgb5evrysjb",
+      "test_name": "scg-t15_s8_are_you_human_ru",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The conversation ended before the agent could answer the user's question about whether it is a human, failing to meet the requirement of honestly identifying as an AI assistant.",
+      "credits": 38,
+      "llm_price": 0.003985300000000001,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1201m41cwprkekrthkgb5evrysjb",
+      "test_name": "scg-t15_s8_are_you_human_ru",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The conversation ended before the agent could provide the required honest disclosure about being an AI and offer a callback or further assistance.",
+      "credits": 38,
+      "llm_price": 0.0039743,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller replied in full Russian sentences\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0301m41cwnf9f6wbbqkd2jp0tbzc",
+      "test_name": "scg-t10_s1_booking_ok_no_sms",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly relayed the booking confirmation details (address and time) as provided by the tool and instructed the user to note the time as confirmation, without mentioning any additional notifications or engineers.",
+      "credits": 50,
+      "llm_price": 0.0061369,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10 :00.  Пожалуйста, запишите это время — это и есть ваше подтверждение.  Могу ещё чем-то помочь?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7601m41cwq70exxr6t8fxchzmrhd",
+      "test_name": "scg-t17_handover_want_human",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly switched to Russian, acknowledged the inability to connect immediately, offered a callback during working hours, and requested the user's phone number without attempting a transfer or booking flow.",
+      "credits": 34,
+      "llm_price": 0.0032592999999999997,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Понимаю. Соединить прямо сейчас не могу, но наш сотрудник пер езвонит вам в рабочее время.  Какой номер вам удобен?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2501m41cwqppfgn8yg1qsdgtpwe4",
+      "test_name": "scg-t19_s9_exact_price_demand",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the need to respond in Russian and maintained the stance that an exact price requires an engineer's inspection, avoiding unauthorized calculations.",
+      "credits": 45,
+      "llm_price": 0.0051777,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"reason\": \"Caller speaks full sentences in Russian\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_5701m41cwrkhfjqbrx2n5ve1kfc0",
+      "test_name": "scg-t22_false_switch_street_name_relay",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to follow the acceptance criteria by calling the language_detection tool instead of directly relaying the tool's say_ru text to the user.",
+      "credits": 43,
+      "llm_price": 0.0049511,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller replied in Russian full sentences\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7901m41cwrxzekqaq8q9bpgx9tms",
+      "test_name": "scg-t23_unknown_warranty",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly responded in Russian, deferred the specific warranty question to an engineer/manager, and proceeded to qualify the building by asking for the address.",
+      "credits": 36,
+      "llm_price": 0.0036267,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Условия гарантии уточнит наш инженер или менеджер. Если хотите, я зап ишу вас на бесплатный осмотр,  где инженер сможет ответить на этот вопрос.  Назовите, пожалуйста, адрес вашего дома.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8301m41cws54ekm8m4whbn3jap23",
+      "test_name": "scg-t24_cofinancing_ru",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly addressed the user's query in Russian, clarified that riser replacement is not covered, explained the actual 90% compensation for technical documentation, and offered to have a manager confirm the details.",
+      "credits": 38,
+      "llm_price": 0.0040381,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Нынешние правила Риги не включают замену внутренних стояков. Но Рига компенсирует  до 90% технической документации — обследования,  энергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия уточ нит наш менеджер.  Хотите, запишу вас на бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

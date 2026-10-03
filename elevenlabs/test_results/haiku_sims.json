@@ -1,0 +1,270 @@
+{
+  "label": "haiku_sims",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_8201m41d9hkgeg0b25nwfv6htpch",
+  "runs": [
+    {
+      "test_id": "test_0501m41cx7tzexfsxgh8vf4r9dww",
+      "test_name": "scg-t26_sim_s1_elder_books_inspection",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Evaluation succeeded",
+      "credits": 1068,
+      "llm_price": 0.15115628,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+          "tools": []
+        },
+        {
+          "message": "Здравствуйте! Спасибо за звонок. Чтобы дать вам ориентировочную цену, мне нужно узнать адрес вашего дома и его параметры.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller responded in Russian to the bilingual opening\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Какой адрес вашего дома?",
+          "tools": []
+        },
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?",
+          "tools": []
+        },
+        {
+          "message": "Сейчас посмотрю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"apartments\": 144, \"floors\": 9, \"stairwells\": 4, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра. Хотите записаться на бесплатный осмотр?",
+          "tools": []
+        },
+        {
+          "message": "Нет, это ориентировочная цена. Точную цену даст инженер после бесплатного осмотра — он посмотрит системы в подвале и в квартирах. Хотите записаться?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, смотрю свободные время.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "get_slots",
+              "args": "{\"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Для бесплатного осмотра свободно: четверг 8 октября в 10:00, пятница 9 октября в 14:00 или понедельник 12 октября в 9:00. Какое время вам удобнее?",
+          "tools": []
+        },
+        {
+          "message": "Четверг 8 октября в 10:00 — это первый вариант. Вы согласны с этим временем?",
+          "tools": []
+        },
+        {
+          "message": "Да, нужно ваше имя. Как к вам обращаться?",
+          "tools": []
+        },
+        {
+          "message": "Спасибо. Теперь ваш телефон, пожалуйста.",
+          "tools": []
+        },
+        {
+          "message": "Повторяю: двадцать два, один два три, четыре пять шесть. Верно?",
+          "tools": []
+        },
+        {
+          "message": "Спасибо за уточнение. Повторяю: два ноль, один два три, четыре пять шесть — то есть 20 123 456. Верно?",
+          "tools": []
+        },
+        {
+          "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "book_inspection",
+              "args": "{\"address_spoken\": \"\\u0418\\u043b\\u044e\\u043a\\u0441\\u0442\\u0435\\u0441 \\u0438\\u0435\\u043b\\u0430, \\u0448\\u0435\\u0441\\u0442\\u043d\\u0430\\u0434\\u0446\\u0430\\u0442\\u044c, \\u0420\\u0438\\u0433\\u0430\", \"apartments\": 144, \"building_id\": \"ilukstes-16\", \"caller_role\": \"owner\", \"consent\": true, \"floors\": 9, \"language\": \"ru\", \"name\": \"\\u041d\\u0438\\u043d\\u0430 \\u0418\\u0432\\u0430\\u043d\\u043e\\u0432\\u043d\\u0430 \\u0421\\u043c\\u0438\\u0440\\u043d\\u043e\\u0432\\u0430\", \"phone\": \"20123456\", \"slot_start\": \"2026-10-08T10:00:00+03:00\", \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября в 10:00. Пожалуйста, запишите это время — это и есть ваше подтверждение.",
+          "tools": []
+        },
+        {
+          "message": "Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "end_call",
+              "args": "{\"reason\": \"Caller said goodbye after booking confirmation\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7401m41cx82tekv95h0n979v9w49",
+      "test_name": "scg-t27_sim_s3_resident_reschedules",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Evaluation succeeded",
+      "credits": 442,
+      "llm_price": 0.060244305,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+          "tools": []
+        },
+        {
+          "message": "Да, мы занимаемся заменой водопроводных и канализационных стояков. Чтобы помочь вам перенести доступ в квартиру, мне нужны адрес дома и номер вашей квартиры.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "language_detection",
+              "args": "{\"language\": \"ru\", \"reason\": \"Caller responded in Russian to the bilingual opening\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "find_works_schedule",
+              "args": "{\"address\": \"\\u041f\\u0430\\u0440\\u0430\\u0443\\u0433a \\u0438\\u0435\\u043b\\u0430 7\", \"apartment\": 12, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?",
+          "tools": []
+        },
+        {
+          "message": "Пятница 9 октября, с 13 до 17 — подходит?",
+          "tools": []
+        },
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "reschedule_access",
+              "args": "{\"apartment\": 12, \"building_id\": \"DEMO-parauga-7\", \"language\": \"ru\", \"new_date\": \"2026-10-09\", \"new_window\": \"13:00-17:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        },
+        {
+          "message": "Готово, новое время доступа в вашу квартиру — пятница 9 октября, с 13 до 17. Я записала это в график работ. Подтверждение — это то, что я вам сейчас прочитала; запишите, пожалуйста, время.",
+          "tools": []
+        },
+        {
+          "message": "Спасибо за звонок, всего доброго!",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "end_call",
+              "args": "{\"reason\": \"Caller said goodbye after successful reschedule\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

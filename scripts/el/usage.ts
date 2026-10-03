@@ -26,7 +26,7 @@ const mine = (c: any) => prefix === '' && ids.size === 0 ? true : (prefix !== ''
 const per: Record<string, { n: number; secs: number; llm: number; total: number; mine: boolean }> = {};
 let secs = 0, llm = 0, total = 0, nMine = 0, secsAll = 0, llmAll = 0, totalAll = 0;
 for (const c of convs) {
-  const d = await get(`/v1/convai/conversations/${c.conversation_id}`);
+  let d: any; try { d = await get(`/v1/convai/conversations/${c.conversation_id}`); } catch { continue; } // conversation of a deleted agent (404): not countable
   const m = d.metadata ?? {};
   const s = m.call_duration_secs ?? c.call_duration_secs ?? 0, l = m.charging?.llm_price ?? 0, t = m.cost_fiat ?? 0;
   const k = c.agent_name ?? c.agent_id; (per[k] ??= { n: 0, secs: 0, llm: 0, total: 0, mine: mine(c) });

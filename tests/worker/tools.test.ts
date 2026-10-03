@@ -56,6 +56,15 @@ describe("success path of every M1 tool", () => {
     expect(h.world.count).toBeLessThanOrEqual(MAX_SUBREQUESTS);
   });
 
+  it("lookup_building: a number that is not in `sourced` comes back as null (Parauga iela 7 has unsourced apartments)", async () => {
+    const h = await harness();
+    const r = await h.call("lookup_building", { ...base("c1"), address: "Parauga iela 7" });
+    parseResponse("lookup_building", r.body);
+    expect(r.body.building.address).toBe("Parauga iela 7");
+    for (const f of ["floors", "stairwells", "apartments"]) if (!r.body.building.sourced.includes(f)) expect(r.body.building[f], f).toBeNull();
+    expect(r.body.building.apartments).toBeNull();
+  });
+
   it("lookup_building: need_house and not_found", async () => {
     const h = await harness();
     const a = await h.call("lookup_building", { ...base("c1"), address: "Ilūkstes iela" });
