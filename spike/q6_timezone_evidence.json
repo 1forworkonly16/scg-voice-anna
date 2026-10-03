@@ -1,0 +1,17 @@
+{
+ "talk_to_link_react_sdk (pre-existing, other agent)": {
+  "conversation_id": "conv_9401m3pkgdv5eajs0w2va51vw8sg",
+  "source": "react_sdk",
+  "metadata.timezone": "Europe/Tallinn",
+  "system__timezone": "Europe/Tallinn",
+  "system__time": "Tuesday, 15:51 29 September 2026",
+  "system__time_utc_present": true
+ },
+ "raw_websocket (spike run langswitch_v3_B, from saved file)": {
+  "conversation_id": "conv_9401m40acdrgechtfv4kvsvhyq97",
+  "metadata.timezone": null,
+  "system__timezone": null,
+  "system__time": "Saturday, 07:25 03 October 2026",
+  "system__time_utc_present": true
+ }
+}

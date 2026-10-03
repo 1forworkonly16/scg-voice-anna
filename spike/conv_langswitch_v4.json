@@ -1,0 +1,1076 @@
+{
+ "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+ "agent_name": "scg-spike-q1-v4_turbo",
+ "conversation_product": "agent",
+ "status": "done",
+ "user_id": null,
+ "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+ "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj",
+ "metadata": {
+  "start_time_unix_secs": 1791012365,
+  "accepted_time_unix_secs": 1791012365,
+  "call_duration_secs": 60,
+  "queue_wait_secs": null,
+  "cost": 347,
+  "deletion_settings": {
+   "deletion_time_unix_secs": null,
+   "deleted_logs_at_time_unix_secs": null,
+   "deleted_audio_at_time_unix_secs": null,
+   "deleted_transcript_at_time_unix_secs": null,
+   "delete_transcript_and_pii": false,
+   "delete_audio": false
+  },
+  "feedback": {
+   "type": null,
+   "overall_score": null,
+   "likes": 0,
+   "dislikes": 0,
+   "rating": null,
+   "comment": null
+  },
+  "authorization_method": "public",
+  "charging": {
+   "dev_discount": false,
+   "is_burst": false,
+   "tier": "creator",
+   "llm_usage": {
+    "irreversible_generation": {
+     "model_usage": {
+      "claude-sonnet-5-5": {
+       "input": {
+        "tokens": 1438,
+        "price": 0.0031636
+       },
+       "input_cache_read": {
+        "tokens": 4653,
+        "price": 0.00102366
+       },
+       "input_cache_write": {
+        "tokens": 4869,
+        "price": 0.01338975
+       },
+       "output_total": {
+        "tokens": 457,
+        "price": 0.005027
+       }
+      }
+     },
+     "detailed_model_usage": [
+      {
+       "config": {
+        "model": "claude-sonnet-5-5",
+        "service_tier": "standard"
+       },
+       "usage": {
+        "input": {
+         "tokens": 1438,
+         "price": 0.0031636
+        },
+        "input_cache_read": {
+         "tokens": 4653,
+         "price": 0.00102366
+        },
+        "input_cache_write": {
+         "tokens": 4869,
+         "price": 0.01338975
+        },
+        "output_total": {
+         "tokens": 457,
+         "price": 0.005027
+        }
+       }
+      }
+     ]
+    },
+    "initiated_generation": {
+     "model_usage": {
+      "claude-sonnet-5-5": {
+       "input": {
+        "tokens": 1632,
+        "price": 0.0035904
+       },
+       "input_cache_read": {
+        "tokens": 4653,
+        "price": 0.00102366
+       },
+       "input_cache_write": {
+        "tokens": 7250,
+        "price": 0.019937499999999997
+       },
+       "output_total": {
+        "tokens": 482,
+        "price": 0.005301999999999999
+       }
+      }
+     },
+     "detailed_model_usage": [
+      {
+       "config": {
+        "model": "claude-sonnet-5-5",
+        "service_tier": "standard"
+       },
+       "usage": {
+        "input": {
+         "tokens": 1632,
+         "price": 0.0035904
+        },
+        "input_cache_read": {
+         "tokens": 4653,
+         "price": 0.00102366
+        },
+        "input_cache_write": {
+         "tokens": 7250,
+         "price": 0.019937499999999997
+        },
+        "output_total": {
+         "tokens": 482,
+         "price": 0.005301999999999999
+        }
+       }
+      }
+     ]
+    }
+   },
+   "llm_price": 0.029853559999999994,
+   "llm_charge": 165,
+   "call_charge": 182,
+   "platform_charge": 182,
+   "platform_usage": {
+    "category_usage": {
+     "voice": {
+      "credits": 182,
+      "price": 0.03285270486266183,
+      "quantity": 1.0010461528630306
+     }
+    }
+   },
+   "platform_price": 0.03285270486266183,
+   "free_minutes_consumed": 0,
+   "free_llm_dollars_consumed": 0,
+   "tts_usage": {
+    "primary_tts_model": "eleven_v4_turbo",
+    "total_audio_output_seconds": 36.72000000000003,
+    "total_characters": 471,
+    "per_voice_usage": [
+     {
+      "voice_id": "4nP0MRk3S5Qj1fGfXf51",
+      "audio_output_seconds": 36.72000000000003
+     }
+    ]
+   },
+   "asr_usage": {
+    "asr_model": "scribe_realtime",
+    "total_transcription_calls": 102,
+    "total_audio_input_seconds": 17.81600000000001
+   },
+   "analysis": null
+  },
+  "phone_call": null,
+  "batch_call": null,
+  "termination_reason": "Conversation has exceeded maximum duration",
+  "error": null,
+  "warnings": [
+   "Call ended due to maximum call duration limit."
+  ],
+  "main_language": "lv",
+  "rag_usage": null,
+  "text_only": false,
+  "features_usage": {
+   "language_detection": {
+    "enabled": true,
+    "used": true
+   },
+   "transfer_to_agent": {
+    "enabled": false,
+    "used": false
+   },
+   "transfer_to_number": {
+    "enabled": false,
+    "used": false
+   },
+   "multivoice": {
+    "enabled": false,
+    "used": false
+   },
+   "dtmf_tones": {
+    "enabled": false,
+    "used": false
+   },
+   "external_mcp_servers": {
+    "enabled": false,
+    "used": false
+   },
+   "pii_zrm_workspace": false,
+   "pii_zrm_agent": false,
+   "tool_dynamic_variable_updates": {
+    "enabled": false,
+    "used": false
+   },
+   "is_livekit": false,
+   "voicemail_detection": {
+    "enabled": false,
+    "used": false
+   },
+   "dtmf_input": {
+    "enabled": false,
+    "used": false
+   },
+   "workflow": {
+    "enabled": false,
+    "tool_node": {
+     "enabled": false,
+     "used": false
+    },
+    "standalone_agent_node": {
+     "enabled": false,
+     "used": false
+    },
+    "phone_number_node": {
+     "enabled": false,
+     "used": false
+    },
+    "end_node": {
+     "enabled": false,
+     "used": false
+    },
+    "override_agent_node": {
+     "enabled": false,
+     "used": false
+    },
+    "say_node": {
+     "enabled": false,
+     "used": false
+    },
+    "update_state_node": {
+     "enabled": false,
+     "used": false
+    },
+    "subgraph_node": {
+     "enabled": false,
+     "used": false
+    },
+    "transfer_to_genesys_node": {
+     "enabled": false,
+     "used": false
+    }
+   },
+   "agent_testing": {
+    "enabled": false,
+    "tests_ran_after_last_modification": false,
+    "tests_ran_in_last_7_days": false
+   },
+   "versioning": {
+    "enabled": true,
+    "used": false
+   },
+   "file_input": {
+    "enabled": true,
+    "used": false
+   },
+   "freeform_procedure": {
+    "enabled": false,
+    "used": false
+   },
+   "structured_procedure": {
+    "enabled": false,
+    "used": false
+   }
+  },
+  "eleven_assistant": {
+   "is_eleven_assistant": false
+  },
+  "initiator_id": null,
+  "conversation_initiation_source": "unknown",
+  "conversation_initiation_source_version": null,
+  "timezone": null,
+  "async_metadata": null,
+  "whatsapp": null,
+  "sms": null,
+  "agent_created_from": "api",
+  "agent_last_updated_from": "api",
+  "voice_rewards": [
+   {
+    "voice_id": "4nP0MRk3S5Qj1fGfXf51",
+    "reward_usd_cents": 0.13568596363636373
+   }
+  ],
+  "cost_fiat": 0.06270626486266181
+ },
+ "analysis": {
+  "evaluation_criteria_results": {},
+  "data_collection_results": {},
+  "evaluation_criteria_results_list": [],
+  "data_collection_results_list": [],
+  "call_successful": "success",
+  "call_success_score": null,
+  "transcript_summary": "The conversation began with the user requesting riser replacement in Latvian. The agent confirmed services for water, sewage, and heating risers, offering a free inspection. The user then switched to Russian, inquiring about the inspection process. The agent explained the free on-site assessment and subsequent cost confirmation. The user provided their address (Ilukstes iela) and building height (nine floors), which the agent acknowledged while asking for clarification on the specific risers to be replaced.",
+  "call_summary_title": "Riser Replacement Inquiry",
+  "scoped": [],
+  "sentiment_analysis": {
+   "overall_label": "neutral",
+   "overall_sentiment_score": 0,
+   "overall_frustration_score": 0,
+   "min_user_sentiment_score": 0,
+   "max_user_frustration_score": 0,
+   "num_scored_user_turns": 3
+  }
+ },
+ "visited_agents": [
+  {
+   "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+   "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf"
+  }
+ ],
+ "conversation_initiation_client_data": {
+  "conversation_config_override": {
+   "asr": null,
+   "turn": null,
+   "tts": null,
+   "conversation": null,
+   "agent": null
+  },
+  "custom_llm_extra_body": {},
+  "user_id": null,
+  "source_info": {
+   "source": null,
+   "version": null
+  },
+  "branch_id": null,
+  "environment": null,
+  "starting_workflow_node_id": null,
+  "experiments": [],
+  "procedure_ids": null,
+  "dynamic_variables": {
+   "system__agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+   "system__agent_turns": 4,
+   "system__current_agent_turns": 4,
+   "system__current_subagent_turns": 4,
+   "system__current_agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+   "system__conversation_id": "conv_5001m40afs20e83v1yeypckq0v0t",
+   "system__call_duration_secs": 60,
+   "system__time_utc": "2026-10-03T07:27:05.543798+00:00",
+   "system__timezone": null,
+   "system__time": "Saturday, 07:27 03 October 2026",
+   "system__time_hour": 7,
+   "system__time_minute": 27,
+   "system__time_second": 5,
+   "system__is_text_only": false,
+   "system__channel": "unknown",
+   "system__caller_id": null,
+   "system__called_number": null,
+   "system__call_sid": null,
+   "system__call_id": null,
+   "system__conversation_history": "{\"x-elevenlabs-history\": true, \"entries\": [{\"role\": \"agent\", \"message\": \"Labdien, Smart Comfort Group, j\\u016bs run\\u0101jat ar m\\u0101ksl\\u012bg\\u0101 intelekta asistenti Annu; saruna tiek ierakst\\u012bta. K\\u0101 varu pal\\u012bdz\\u0113t? \\u041c\\u043e\\u0436\\u043d\\u043e \\u043f\\u043e-\\u0440\\u0443\\u0441\\u0441\\u043a\\u0438.\"}, {\"role\": \"user\", \"message\": \"Labdien! Man vajag nomain\\u012bt st\\u0101vadus.\"}, {\"role\": \"agent\", \"message\": \"[happy] Labdien! M\\u0113s nomain\\u0101m \\u016bdens, kanaliz\\u0101cijas un apkures st\\u0101vvadus, un in\\u017eenieris bez maksas veiks apskati.\"}, {\"role\": \"user\", \"message\": \"\\u0414\\u0430\\u0432\\u0430\\u0439\\u0442\\u0435 \\u043b\\u0443\\u0447\\u0448\\u0435 \\u043f\\u043e-\\u0440\\u0443\\u0441\\u0441\\u043a\\u0438. \\u041a\\u0430\\u043a \\u043f\\u0440\\u043e\\u0445\\u043e\\u0434\\u0438\\u0442 \\u043e\\u0441\\u043c\\u043e\\u0442\\u0440?\"}, {\"role\": \"agent\", \"tool_requests\": [{\"tool_name\": \"language_detection\", \"params_as_json\": {\"reason\": \"User asked to switch to Russian with a full sentence\", \"language\": \"ru\"}}]}, {\"role\": \"agent\", \"tool_results\": [{\"tool_name\": \"language_detection\", \"result_value\": \"{\\\"result_type\\\":\\\"language_detection_success\\\",\\\"status\\\":\\\"success\\\",\\\"reason\\\":\\\"User asked to switch to Russian with a full sentence\\\",\\\"language\\\":\\\"ru\\\"}\"}]}, {\"role\": \"agent\", \"message\": \"\\u0418\\u043d\\u0436\\u0435\\u043d\\u0435\\u0440 \\u0431\\u0435\\u0441\\u043f\\u043b\\u0430\\u0442\\u043d\\u043e \\u043e\\u0441\\u043c\\u043e\\u0442\\u0440\\u0438\\u0442 \\u0441\\u0442\\u043e\\u044f\\u043a\\u0438 \\u043d\\u0430 \\u043c\\u0435\\u0441\\u0442\\u0435, \\u0430 \\u0442\\u043e\\u0447\\u043d\\u044b\\u0435 \\u0434\\u0435\\u0442\\u0430\\u043b\\u0438 \\u0438 \\u0441\\u0442\\u043e\\u0438\\u043c\\u043e\\u0441\\u0442\\u044c \\u043e\\u043d \\u043f\\u043e\\u0434\\u0442\\u0432\\u0435\\u0440\\u0434\\u0438\\u0442 \\u043f\\u043e\\u0441\\u043b\\u0435 \\u043e\\u0441\\u043c\\u043e\\u0442\\u0440\\u0430.\"}, {\"role\": \"user\", \"message\": \"\\u041c\\u043e\\u0439 \\u0434\\u043e\\u043c \\u043d\\u0430 \\u0415\\u043b\\u0443\\u043a\\u0441\\u0442\\u0435\\u0441 \\u0419\\u0435\\u043b\\u0430, \\u0434\\u0435\\u0432\\u044f\\u0442\\u044c \\u044d\\u0442\\u0430\\u0436\\u0435\\u0439.\"}, {\"role\": \"agent\", \"message\": \"\\u0421\\u043f\\u0430\\u0441\\u0438\\u0431\\u043e, \\u0437\\u0430\\u043f\\u0438\\u0441\\u0430\\u043b\\u0430: \\u0434\\u043e\\u043c \\u043d\\u0430 \\u0418\\u043b\\u0443\\u043a\\u0441\\u0442\\u0435\\u0441 \\u0438\\u0435\\u043b\\u0430, \\u0434\\u0435\\u0432\\u044f\\u0442\\u044c \\u044d\\u0442\\u0430\\u0436\\u0435\\u0439. \\u041a\\u0430\\u043a\\u0438\\u0435 \\u0441\\u0442\\u043e\\u044f\\u043a\\u0438 \\u043d\\u0443\\u0436\\u043d\\u043e \\u043c\\u0435\\u043d\\u044f\\u0442\\u044c: \\u0432\\u043e\\u0434\\u043e\\u043f\\u0440\\u043e\\u0432\\u043e\\u0434, \\u043a\\u0430\\u043d\\u0430\\u043b\\u0438\\u0437\\u0430\\u0446\\u0438\\u044e \\u0438\\u043b\\u0438 ...\"}]}",
+   "system__user_id": null,
+   "system__initiator_id": null,
+   "system__environment": "production"
+  },
+  "tool_mock_config": {
+   "mocking_strategy": "none",
+   "fallback_strategy": "raise_error",
+   "mocked_tool_names": []
+  },
+  "tool_mock_overrides": {}
+ },
+ "environment": "production",
+ "experiment_assignments": null,
+ "hiding_reason": null,
+ "smb_metadata": null,
+ "conversation_id": "conv_5001m40afs20e83v1yeypckq0v0t",
+ "has_audio": true,
+ "has_user_audio": true,
+ "has_response_audio": true,
+ "has_auxiliary_audio": false,
+ "transcript": [
+  {
+   "role": "agent",
+   "agent_metadata": {
+    "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+    "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+    "workflow_node_id": null,
+    "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj"
+   },
+   "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": "claude-sonnet-5-5",
+   "time_in_call_secs": 0,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_tts_service_ttfb": {
+      "elapsed_time": 0.07836814923211932
+     },
+     "convai_ttf_audio_since_silence": {
+      "elapsed_time": 0.0887015089392662
+     },
+     "convai_turn_silence_before_initiation": {
+      "elapsed_time": 0
+     }
+    },
+    "convai_asr_provider": null,
+    "convai_tts_model": "eleven_v4_turbo",
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": null,
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": null,
+   "source_event_id": 1,
+   "used_static_kb_document_ids": [],
+   "analysis": null,
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "user",
+   "agent_metadata": null,
+   "message": "Labdien! Man vajag nomainīt stāvadus.",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": null,
+   "time_in_call_secs": 11,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_asr_trailing_service_latency": {
+      "elapsed_time": 0.030558008700609207
+     }
+    },
+    "convai_asr_provider": "Scribe v2 Realtime",
+    "convai_tts_model": null,
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": null,
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": "audio",
+   "source_event_id": 101,
+   "used_static_kb_document_ids": [],
+   "analysis": {
+    "user_sentiment_score": 0,
+    "user_frustration_score": 0
+   },
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "agent",
+   "agent_metadata": {
+    "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+    "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+    "workflow_node_id": null,
+    "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj"
+   },
+   "message": "[happy] Labdien! Mēs nomainām ūdens, kanalizācijas un apkures stāvvadus, un inženieris bez maksas veiks apskati.",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": "claude-sonnet-5-5",
+   "time_in_call_secs": 17,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_llm_service_ttf_sentence": {
+      "elapsed_time": 1.0366935869678855
+     },
+     "convai_llm_service_ttfb": {
+      "elapsed_time": 0.6261693881824613
+     },
+     "convai_llm_service_tt_last_sentence": {
+      "elapsed_time": 1.271552796009928
+     },
+     "convai_tts_service_ttfb": {
+      "elapsed_time": 0.09496703883633018
+     },
+     "convai_ttf_audio_since_silence": {
+      "elapsed_time": 3.2356464341059326
+     },
+     "convai_turn_silence_before_initiation": {
+      "elapsed_time": 1.824
+     },
+     "convai_turn_asr_latency": {
+      "elapsed_time": 0.030558008700609207
+     }
+    },
+    "convai_asr_provider": null,
+    "convai_tts_model": "eleven_v4_turbo",
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": {
+    "model_usage": {
+     "claude-sonnet-5-5": {
+      "input": {
+       "tokens": 194,
+       "price": 0.0004268
+      },
+      "input_cache_read": {
+       "tokens": 2381,
+       "price": 0.00052382
+      },
+      "input_cache_write": {
+       "tokens": 0,
+       "price": 0
+      },
+      "output_total": {
+       "tokens": 59,
+       "price": 0.000649
+      }
+     }
+    },
+    "detailed_model_usage": [
+     {
+      "config": {
+       "model": "claude-sonnet-5-5",
+       "service_tier": "standard"
+      },
+      "usage": {
+       "input": {
+        "tokens": 194,
+        "price": 0.0004268
+       },
+       "input_cache_read": {
+        "tokens": 2381,
+        "price": 0.00052382
+       },
+       "input_cache_write": {
+        "tokens": 0,
+        "price": 0
+       },
+       "output_total": {
+        "tokens": 59,
+        "price": 0.000649
+       }
+      }
+     }
+    ]
+   },
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": null,
+   "source_event_id": 101,
+   "used_static_kb_document_ids": [],
+   "analysis": null,
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "user",
+   "agent_metadata": null,
+   "message": "Давайте лучше по-русски. Как проходит осмотр?",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": null,
+   "time_in_call_secs": 27,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_asr_trailing_service_latency": {
+      "elapsed_time": 0.02481647999957204
+     }
+    },
+    "convai_asr_provider": "Scribe v2 Realtime",
+    "convai_tts_model": null,
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": null,
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": "audio",
+   "source_event_id": 184,
+   "used_static_kb_document_ids": [],
+   "analysis": {
+    "user_sentiment_score": 0,
+    "user_frustration_score": 0
+   },
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "agent",
+   "agent_metadata": {
+    "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+    "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+    "workflow_node_id": null,
+    "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj"
+   },
+   "message": null,
+   "multivoice_message": null,
+   "tool_calls": [
+    {
+     "type": "system",
+     "request_id": "toolu_vrtx_01CKBS7s4c83LJ6zHKKvzRcj",
+     "tool_name": "language_detection",
+     "params_as_json": "{\"reason\": \"User asked to switch to Russian with a full sentence\", \"language\": \"ru\"}",
+     "tool_has_been_called": true,
+     "tool_details": null
+    }
+   ],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": "claude-sonnet-5-5",
+   "time_in_call_secs": 31,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_llm_service_ttfb": {
+      "elapsed_time": 1.0067592258565128
+     },
+     "convai_llm_tool_request_generation_latency": {
+      "elapsed_time": 1.0072885360568762
+     }
+    },
+    "convai_asr_provider": null,
+    "convai_tts_model": null,
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": {
+    "model_usage": {
+     "claude-sonnet-5-5": {
+      "input": {
+       "tokens": 277,
+       "price": 0.0006094000000000001
+      },
+      "input_cache_read": {
+       "tokens": 0,
+       "price": 0
+      },
+      "input_cache_write": {
+       "tokens": 2381,
+       "price": 0.00654775
+      },
+      "output_total": {
+       "tokens": 86,
+       "price": 0.000946
+      }
+     }
+    },
+    "detailed_model_usage": [
+     {
+      "config": {
+       "model": "claude-sonnet-5-5",
+       "service_tier": "standard"
+      },
+      "usage": {
+       "input": {
+        "tokens": 277,
+        "price": 0.0006094000000000001
+       },
+       "input_cache_read": {
+        "tokens": 0,
+        "price": 0
+       },
+       "input_cache_write": {
+        "tokens": 2381,
+        "price": 0.00654775
+       },
+       "output_total": {
+        "tokens": 86,
+        "price": 0.000946
+       }
+      }
+     }
+    ]
+   },
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": null,
+   "source_event_id": 184,
+   "used_static_kb_document_ids": [],
+   "analysis": null,
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "agent",
+   "agent_metadata": {
+    "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+    "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+    "workflow_node_id": null,
+    "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj"
+   },
+   "message": null,
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [
+    {
+     "request_id": "toolu_vrtx_01CKBS7s4c83LJ6zHKKvzRcj",
+     "tool_name": "language_detection",
+     "result_value": "{\"result_type\":\"language_detection_success\",\"status\":\"success\",\"reason\":\"User asked to switch to Russian with a full sentence\",\"language\":\"ru\"}",
+     "is_error": false,
+     "is_blocked": false,
+     "tool_has_been_called": true,
+     "tool_latency_secs": 0.0020841900259256363,
+     "error_type": "",
+     "raw_error_message": "",
+     "dynamic_variable_updates": [],
+     "type": "system",
+     "result": {
+      "result_type": "language_detection_success",
+      "status": "success",
+      "reason": "User asked to switch to Russian with a full sentence",
+      "language": "ru"
+     }
+    }
+   ],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": null,
+   "time_in_call_secs": 31,
+   "conversation_turn_metrics": null,
+   "rag_retrieval_info": null,
+   "llm_usage": null,
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": null,
+   "source_event_id": 184,
+   "used_static_kb_document_ids": [],
+   "analysis": null,
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "agent",
+   "agent_metadata": {
+    "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+    "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+    "workflow_node_id": null,
+    "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj"
+   },
+   "message": "Инженер бесплатно осмотрит стояки на месте, а точные детали и стоимость он подтвердит после осмотра.",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": "claude-sonnet-5-5",
+   "time_in_call_secs": 33,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_llm_service_ttf_sentence": {
+      "elapsed_time": 1.3756326353177428
+     },
+     "convai_llm_service_ttfb": {
+      "elapsed_time": 1.3741506151854992
+     },
+     "convai_llm_service_tt_last_sentence": {
+      "elapsed_time": 1.3820788152515888
+     },
+     "convai_tts_service_ttfb": {
+      "elapsed_time": 0.0856580501422286
+     },
+     "convai_ttf_audio_since_silence": {
+      "elapsed_time": 3.1373467910960318
+     },
+     "convai_turn_silence_before_initiation": {
+      "elapsed_time": 0.608
+     }
+    },
+    "convai_asr_provider": null,
+    "convai_tts_model": "eleven_v4_turbo",
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": {
+    "model_usage": {
+     "claude-sonnet-5-5": {
+      "input": {
+       "tokens": 415,
+       "price": 0.0009130000000000001
+      },
+      "input_cache_read": {
+       "tokens": 0,
+       "price": 0
+      },
+      "input_cache_write": {
+       "tokens": 2380,
+       "price": 0.006545
+      },
+      "output_total": {
+       "tokens": 112,
+       "price": 0.001232
+      }
+     }
+    },
+    "detailed_model_usage": [
+     {
+      "config": {
+       "model": "claude-sonnet-5-5",
+       "service_tier": "standard"
+      },
+      "usage": {
+       "input": {
+        "tokens": 415,
+        "price": 0.0009130000000000001
+       },
+       "input_cache_read": {
+        "tokens": 0,
+        "price": 0
+       },
+       "input_cache_write": {
+        "tokens": 2380,
+        "price": 0.006545
+       },
+       "output_total": {
+        "tokens": 112,
+        "price": 0.001232
+       }
+      }
+     }
+    ]
+   },
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [
+    {
+     "summary": null,
+     "provider_redact": false
+    }
+   ],
+   "source_medium": null,
+   "source_event_id": 184,
+   "used_static_kb_document_ids": [],
+   "analysis": null,
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": true
+  },
+  {
+   "role": "user",
+   "agent_metadata": null,
+   "message": "Мой дом на Елукстес Йела, девять этажей.",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": null,
+   "time_in_call_secs": 42,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_asr_trailing_service_latency": {
+      "elapsed_time": 0.02185918018221855
+     }
+    },
+    "convai_asr_provider": "Scribe v2 Realtime",
+    "convai_tts_model": null,
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": null,
+   "interrupted": false,
+   "ignored_as_backchannel": false,
+   "original_message": null,
+   "reasoning": [],
+   "source_medium": "audio",
+   "source_event_id": 273,
+   "used_static_kb_document_ids": [],
+   "analysis": {
+    "user_sentiment_score": 0,
+    "user_frustration_score": 0
+   },
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": false
+  },
+  {
+   "role": "agent",
+   "agent_metadata": {
+    "agent_id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+    "branch_id": "agtbrch_1801m40a6mk0es6b94tp6cf55xtf",
+    "workflow_node_id": null,
+    "version_id": "agtvrsn_0501m40afmfsexev8rrt8gazn3pj"
+   },
+   "message": "Спасибо, записала: дом на Илукстес иела, девять этажей. Какие стояки нужно менять: водопровод, канализацию или ...",
+   "multivoice_message": null,
+   "tool_calls": [],
+   "tool_results": [],
+   "feedback": null,
+   "llm_override": null,
+   "producing_llm": "claude-sonnet-5-5",
+   "time_in_call_secs": 48,
+   "conversation_turn_metrics": {
+    "metrics": {
+     "convai_llm_service_ttf_sentence": {
+      "elapsed_time": 2.1261721830815077
+     },
+     "convai_llm_service_ttfb": {
+      "elapsed_time": 1.8939694929867983
+     },
+     "convai_llm_service_tt_last_sentence": {
+      "elapsed_time": 2.30870429193601
+     },
+     "convai_tts_service_ttfb": {
+      "elapsed_time": 0.08587836008518934
+     },
+     "convai_ttf_audio_since_silence": {
+      "elapsed_time": 3.618186721686274
+     },
+     "convai_turn_silence_before_initiation": {
+      "elapsed_time": 1.184
+     },
+     "convai_turn_asr_latency": {
+      "elapsed_time": 0.02185918018221855
+     }
+    },
+    "convai_asr_provider": null,
+    "convai_tts_model": "eleven_v4_turbo",
+    "convai_tts_cascade": null
+   },
+   "rag_retrieval_info": null,
+   "llm_usage": {
+    "model_usage": {
+     "claude-sonnet-5-5": {
+      "input": {
+       "tokens": 552,
+       "price": 0.0012144
+      },
+      "input_cache_read": {
+       "tokens": 2272,
+       "price": 0.00049984
+      },
+      "input_cache_write": {
+       "tokens": 108,
+       "price": 0.000297
+      },
+      "output_total": {
+       "tokens": 200,
+       "price": 0.0022
+      }
+     }
+    },
+    "detailed_model_usage": [
+     {
+      "config": {
+       "model": "claude-sonnet-5-5",
+       "service_tier": "standard"
+      },
+      "usage": {
+       "input": {
+        "tokens": 552,
+        "price": 0.0012144
+       },
+       "input_cache_read": {
+        "tokens": 2272,
+        "price": 0.00049984
+       },
+       "input_cache_write": {
+        "tokens": 108,
+        "price": 0.000297
+       },
+       "output_total": {
+        "tokens": 200,
+        "price": 0.0022
+       }
+      }
+     }
+    ]
+   },
+   "interrupted": true,
+   "ignored_as_backchannel": false,
+   "original_message": "Спасибо, записала: дом на Илукстес иела, девять этажей. Какие стояки нужно менять: водопровод, канализацию или отопление?",
+   "reasoning": [
+    {
+     "summary": null,
+     "provider_redact": false
+    }
+   ],
+   "source_medium": null,
+   "source_event_id": 273,
+   "used_static_kb_document_ids": [],
+   "analysis": null,
+   "user_identifier": null,
+   "id": null,
+   "compaction": null,
+   "triggered_guardrails": [],
+   "file_input": null,
+   "file_inputs": [],
+   "contextual_update_info": null,
+   "config_snapshot_id": null,
+   "reasoned": true
+  }
+ ],
+ "tag_ids": [],
+ "realtime_config_snapshots": null,
+ "orchestrator": "conversational",
+ "otlp_traces": null
+}

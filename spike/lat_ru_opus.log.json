@@ -1,0 +1,127 @@
+{
+ "label": "lat_ru_opus",
+ "agentId": "agent_6401m40awh39fbxty2b7zd9z0pam",
+ "turns": [
+  {
+   "i": 0,
+   "text": "Здравствуйте, мне нужно заменить стояки канализации.",
+   "lang": "ru",
+   "speech_ms": 3743,
+   "latency_ms": 2548,
+   "done": true
+  },
+  {
+   "i": 1,
+   "text": "Примерно сколько это стоит?",
+   "lang": "ru",
+   "speech_ms": 2152,
+   "latency_ms": 1918,
+   "done": true
+  },
+  {
+   "i": 2,
+   "text": "А сколько времени это занимает?",
+   "lang": "ru",
+   "speech_ms": 2165,
+   "latency_ms": 1818,
+   "done": true
+  },
+  {
+   "i": 3,
+   "text": "Хорошо, спасибо. Как записаться на бесплатный осмотр?",
+   "lang": "ru",
+   "speech_ms": 3868,
+   "latency_ms": 1333,
+   "done": true
+  }
+ ],
+ "note": "latency_ms = first agent audio chunk received minus end of caller speech (continuous silence streamed after)",
+ "greeting_first_audio_ms": null,
+ "greeting_done": true,
+ "latency": {
+  "n": 4,
+  "p50": 1818,
+  "p90": 2548,
+  "min": 1333,
+  "max": 2548,
+  "all": [
+   2548,
+   1918,
+   1818,
+   1333
+  ]
+ },
+ "conversation_id": "conv_1501m40b4w0ve5fbgtkp5pke3xb2",
+ "duration_ms_wall": 50995,
+ "audio_formats": {
+  "in": "pcm_16000",
+  "out": "pcm_16000"
+ },
+ "events": [
+  {
+   "t": 302,
+   "type": "conversation_initiation_metadata",
+   "turn": -1,
+   "meta": {
+    "conversation_id": "conv_1501m40b4w0ve5fbgtkp5pke3xb2",
+    "agent_output_audio_format": "pcm_16000",
+    "user_input_audio_format": "pcm_16000",
+    "persistent_session_token": null
+   }
+  },
+  {
+   "t": 7391,
+   "type": "user_transcript",
+   "turn": 0,
+   "user_transcript": "Здравствуйте! Мне нужно заменить стояки канализации."
+  },
+  {
+   "t": 7398,
+   "type": "agent_response",
+   "turn": 0,
+   "agent_response": "[friendly] Здравствуйте, подскажите, пожалуйста, ваш адрес, и мы назначим бесплатный осмотр инженера."
+  },
+  {
+   "t": 19104,
+   "type": "user_transcript",
+   "turn": 1,
+   "user_transcript": "Примерно сколько это стоит?"
+  },
+  {
+   "t": 19112,
+   "type": "agent_response",
+   "turn": 1,
+   "agent_response": "[calm] Точную цену назовёт инженер после бесплатного осмотра, поэтому сейчас могу говорить только приблизительно."
+  },
+  {
+   "t": 31257,
+   "type": "user_transcript",
+   "turn": 2,
+   "user_transcript": "А сколько времени это занимает?"
+  },
+  {
+   "t": 31257,
+   "type": "agent_response",
+   "turn": 2,
+   "agent_response": "[calm] Сроки работ зависят от дома, их точно назовёт инженер на бесплатном осмотре."
+  },
+  {
+   "t": 43452,
+   "type": "user_transcript",
+   "turn": 3,
+   "user_transcript": "Хорошо, спасибо. Как записаться на бесплатный осмотр?"
+  },
+  {
+   "t": 43457,
+   "type": "agent_response",
+   "turn": 3,
+   "agent_response": "[friendly] Назовите, пожалуйста, ваш адрес и удобное время, и я запишу вас на осмотр."
+  },
+  {
+   "t": 50721,
+   "type": "ws_close",
+   "code": 1000,
+   "reason": ""
+  }
+ ]
+}

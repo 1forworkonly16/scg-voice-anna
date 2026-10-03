@@ -1,0 +1,14 @@
+import { el } from './el.ts';
+import { writeFileSync } from 'node:fs';
+const id = 'agent_0901m40a6k63fcf8rj5td666m6vz'; const out: any = {};
+const r = await el('PATCH', `/v1/convai/agents/${id}`, { platform_settings: { auth: { enable_auth: true } } });
+out.patch_auth_true_version = r.version_id;
+const probe = () => new Promise<any>((res) => { const t0 = Date.now(); const ws = new WebSocket(`wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${id}`); const ev: any[] = [];
+  ws.onopen = () => { ev.push('open'); ws.send(JSON.stringify({ type: 'conversation_initiation_client_data' })); };
+  ws.onmessage = (m: any) => { const d = JSON.parse(String(m.data)); ev.push(d.type + (d.conversation_initiation_metadata_event ? ':meta' : '')); if (ev.length > 3) { ws.close(); } };
+  ws.onclose = (e: any) => res({ ev, code: e.code, reason: String(e.reason).slice(0, 200), ms: Date.now() - t0 });
+  ws.onerror = () => ev.push('error'); setTimeout(() => { try { ws.close(); } catch {} }, 6000); });
+out.public_ws_with_auth_on = await probe();
+const r2 = await el('PATCH', `/v1/convai/agents/${id}`, { platform_settings: { auth: { enable_auth: false } } });
+out.patch_auth_false_version = r2.version_id;
+writeFileSync('spike/q4c_auth_lock.json', JSON.stringify(out, null, 1)); console.log(JSON.stringify(out));

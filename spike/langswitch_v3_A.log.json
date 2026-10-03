@@ -1,0 +1,99 @@
+{
+ "label": "langswitch_v3_A",
+ "agentId": "agent_7401m40a6hdjfa4vn78g1g76mdr8",
+ "turns": [
+  {
+   "i": 0,
+   "text": "Labdien, man vajag nomainīt ūdensvada stāvvadus mājā.",
+   "lang": "lv",
+   "note": "LV start",
+   "speech_ms": 4015,
+   "latency_ms": 4035,
+   "done": true
+  },
+  {
+   "i": 1,
+   "text": "Извините, давайте лучше по-русски, мне так удобнее. Скажите, как проходит осмотр?",
+   "lang": "ru",
+   "note": "full RU sentence -> must switch to RU",
+   "speech_ms": 6800,
+   "latency_ms": 3180,
+   "done": false
+  }
+ ],
+ "note": "latency_ms = first agent audio chunk received minus end of caller speech (continuous silence streamed after)",
+ "greeting_first_audio_ms": 647,
+ "greeting_done": true,
+ "latency": {
+  "n": 2,
+  "p50": 3180,
+  "p90": 4035,
+  "min": 3180,
+  "max": 4035,
+  "all": [
+   4035,
+   3180
+  ]
+ },
+ "conversation_id": "conv_9501m40a8xmwe8v9ymycgr3apwn7",
+ "duration_ms_wall": 61048,
+ "audio_formats": {
+  "in": "pcm_16000",
+  "out": "pcm_16000"
+ },
+ "events": [
+  {
+   "t": 296,
+   "type": "conversation_initiation_metadata",
+   "turn": -1,
+   "meta": {
+    "conversation_id": "conv_9501m40a8xmwe8v9ymycgr3apwn7",
+    "agent_output_audio_format": "pcm_16000",
+    "user_input_audio_format": "pcm_16000",
+    "persistent_session_token": null
+   }
+  },
+  {
+   "t": 2826,
+   "type": "agent_response",
+   "turn": -1,
+   "agent_response": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+  },
+  {
+   "t": 20902,
+   "type": "user_transcript",
+   "turn": 0,
+   "user_transcript": "Labdien! Mani vērš no mani tūdeņs vadis tāvadis mājā."
+  },
+  {
+   "t": 23703,
+   "type": "agent_response",
+   "turn": 0,
+   "agent_response": "[friendly] Es laikam sapratu, ka jūs interesē ūdens stāvvadu nomaiņa jūsu mājā, bet skaņa bija nedaudz traucēta. Vai varat, lūdzu, atkārtot, kas tieši jums vajadzīgs?"
+  },
+  {
+   "t": 41047,
+   "type": "user_transcript",
+   "turn": 1,
+   "user_transcript": "Izvinīti, davajti luši paruski, mne tak udobnije. Skaziti, kak prohodit asmotar?"
+  },
+  {
+   "t": 41047,
+   "type": "agent_tool_response",
+   "turn": 1,
+   "raw": "{\"agent_tool_response\":{\"tool_name\":\"language_detection\",\"tool_call_id\":\"toolu_vrtx_01RCkgd1oAx8UsHCS7gfr9Ej\",\"tool_type\":\"system\",\"is_error\":false,\"is_blocked\":false,\"event_id\":226,\"is_called\":true,\"status\":\"success\"},\"type\":\"agent_tool_response\"}"
+  },
+  {
+   "t": 47923,
+   "type": "agent_response",
+   "turn": 1,
+   "agent_response": "Хорошо, продолжим по-русски. Осмотр бесплатный: к вам приходит инженер, смотрит состояние стояков и после этого подтверждает объём работ и примерную стоимость. Подробный порядок и сроки визита я сейчас назвать не могу, чтобы не ошибиться. Хотите оставить заявку на осмотр?"
+  },
+  {
+   "t": 60521,
+   "type": "ws_close",
+   "code": 1000,
+   "reason": "Max call duration exceeded"
+  }
+ ]
+}

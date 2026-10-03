@@ -1,0 +1,2 @@
+cd "/c/Users/Banknote/Desktop/Dima smartcomfort/Dima voice"
+for A in agent_6401m40awh39fbxty2b7zd9z0pam:opus agent_5301m40awjttfx8vps7vqk7j8pcd:sonnet agent_5401m40awm69e50asq80fac7d2k6:haiku; do ID=${A%%:*}; L=${A##*:}; powershell -NoProfile -ExecutionPolicy Bypass -Command ". .\scripts\env.ps1; node scripts/el/voice-caller.ts --agent $ID --turns spike/turns/lat_ru.json --out lat_ru_$L --caller-voice tOo2BJ74frmnPadsDNIi --caller-model eleven_v4_turbo --no-greeting 1"; done

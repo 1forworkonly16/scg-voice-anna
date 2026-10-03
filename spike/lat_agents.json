@@ -1,0 +1,17 @@
+{
+ "claude-opus-5-5": {
+  "agent_id": "agent_6401m40awh39fbxty2b7zd9z0pam",
+  "main_branch_id": "agtbrch_6401m40awj9rff3s69d7wydas410",
+  "initial_version_id": "agtvrsn_2601m40awjcye2x816wt5f3snk77"
+ },
+ "claude-sonnet-5-5": {
+  "agent_id": "agent_5301m40awjttfx8vps7vqk7j8pcd",
+  "main_branch_id": "agtbrch_0501m40awkshe4886e98kapqt2bt",
+  "initial_version_id": "agtvrsn_8501m40awkw8ex69krv4sfdwpxsh"
+ },
+ "claude-haiku-4-5": {
+  "agent_id": "agent_5401m40awm69e50asq80fac7d2k6",
+  "main_branch_id": "agtbrch_1801m40awnb6ea1t7n2bb1azh45s",
+  "initial_version_id": "agtvrsn_8001m40awne6f6gr5h3n52b264aa"
+ }
+}

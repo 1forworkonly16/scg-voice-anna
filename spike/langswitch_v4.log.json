@@ -1,0 +1,121 @@
+{
+ "label": "langswitch_v4",
+ "agentId": "agent_0901m40a6k63fcf8rj5td666m6vz",
+ "turns": [
+  {
+   "i": 0,
+   "text": "Labdien, man vajag nomainīt stāvvadus.",
+   "lang": "lv",
+   "note": "LV start",
+   "speech_ms": 2833,
+   "latency_ms": 3564,
+   "done": true
+  },
+  {
+   "i": 1,
+   "text": "Давайте лучше по-русски. Как проходит осмотр?",
+   "lang": "ru",
+   "note": "full RU sentence -> must switch to RU",
+   "speech_ms": 2816,
+   "latency_ms": 3415,
+   "done": true
+  },
+  {
+   "i": 2,
+   "text": "Мой дом на Ilūkstes iela, девять этажей.",
+   "lang": "ru",
+   "note": "RU sentence with LV street name -> must NOT switch (agent already RU)",
+   "speech_ms": 2868,
+   "latency_ms": 3939,
+   "done": false
+  }
+ ],
+ "note": "latency_ms = first agent audio chunk received minus end of caller speech (continuous silence streamed after)",
+ "greeting_first_audio_ms": 618,
+ "greeting_done": true,
+ "latency": {
+  "n": 3,
+  "p50": 3564,
+  "p90": 3939,
+  "min": 3415,
+  "max": 3939,
+  "all": [
+   3564,
+   3415,
+   3939
+  ]
+ },
+ "conversation_id": "conv_5001m40afs20e83v1yeypckq0v0t",
+ "duration_ms_wall": 61022,
+ "audio_formats": {
+  "in": "pcm_16000",
+  "out": "pcm_16000"
+ },
+ "events": [
+  {
+   "t": 356,
+   "type": "conversation_initiation_metadata",
+   "turn": -1,
+   "meta": {
+    "conversation_id": "conv_5001m40afs20e83v1yeypckq0v0t",
+    "agent_output_audio_format": "pcm_16000",
+    "user_input_audio_format": "pcm_16000",
+    "persistent_session_token": null
+   }
+  },
+  {
+   "t": 601,
+   "type": "agent_response",
+   "turn": -1,
+   "agent_response": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+  },
+  {
+   "t": 19336,
+   "type": "user_transcript",
+   "turn": 0,
+   "user_transcript": "Labdien! Man vajag nomainīt stāvadus."
+  },
+  {
+   "t": 19340,
+   "type": "agent_response",
+   "turn": 0,
+   "agent_response": "[happy] Labdien! Mēs nomainām ūdens, kanalizācijas un apkures stāvvadus, un inženieris bez maksas veiks apskati."
+  },
+  {
+   "t": 33462,
+   "type": "user_transcript",
+   "turn": 1,
+   "user_transcript": "Давайте лучше по-русски. Как проходит осмотр?"
+  },
+  {
+   "t": 33467,
+   "type": "agent_tool_response",
+   "turn": 1,
+   "raw": "{\"agent_tool_response\":{\"tool_name\":\"language_detection\",\"tool_call_id\":\"toolu_vrtx_01CKBS7s4c83LJ6zHKKvzRcj\",\"tool_type\":\"system\",\"is_error\":false,\"is_blocked\":false,\"event_id\":184,\"is_called\":true,\"status\":\"success\"},\"type\":\"agent_tool_response\"}"
+  },
+  {
+   "t": 34880,
+   "type": "agent_response",
+   "turn": 1,
+   "agent_response": "Инженер бесплатно осмотрит стояки на месте, а точные детали и стоимость он подтвердит после осмотра."
+  },
+  {
+   "t": 50444,
+   "type": "user_transcript",
+   "turn": 2,
+   "user_transcript": "Мой дом на Елукстес Йела, девять этажей."
+  },
+  {
+   "t": 50447,
+   "type": "agent_response",
+   "turn": 2,
+   "agent_response": "Спасибо, записала: дом на Илукстес иела, девять этажей. Какие стояки нужно менять: водопровод, канализацию или отопление?"
+  },
+  {
+   "t": 60408,
+   "type": "ws_close",
+   "code": 1000,
+   "reason": "Max call duration exceeded"
+  }
+ ]
+}

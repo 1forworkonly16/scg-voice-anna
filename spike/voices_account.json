@@ -1,0 +1,802 @@
+[
+ {
+  "id": "2wP8BdKwYp0tZqqoNvMa",
+  "name": "Anna ET (Kodukliima)",
+  "cat": "generated",
+  "labels": {},
+  "verified_langs": []
+ },
+ {
+  "id": "DqxytKNFqOw7mkrURtr9",
+  "name": "Anna-ru-9-Angelina - Clear & F",
+  "cat": "professional",
+  "labels": {
+   "gender": "female",
+   "accent": "standard",
+   "language": "ru",
+   "age": "middle_aged",
+   "use_case": "narrative_story",
+   "descriptive": "pleasant"
+  },
+  "verified_langs": [
+   "ru:eleven_turbo_v2_5",
+   "ru:eleven_v2_5_flash",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_multilingual_v2",
+   "uk:eleven_multilingual_v2",
+   "uk:eleven_flash_v2_5",
+   "uk:eleven_turbo_v2_5",
+   "pt:eleven_turbo_v2_5",
+   "ru:eleven_multilingual_v2",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_turbo_v2_5",
+   "tr:eleven_multilingual_v2",
+   "tr:eleven_flash_v2_5",
+   "tr:eleven_turbo_v2_5",
+   "id:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "de:eleven_flash_v2_5",
+   "de:eleven_turbo_v2_5",
+   "ar:eleven_multilingual_v2",
+   "ar:eleven_flash_v2_5",
+   "es:eleven_turbo_v2_5",
+   "it:eleven_multilingual_v2",
+   "el:eleven_multilingual_v2",
+   "el:eleven_flash_v2_5",
+   "el:eleven_turbo_v2_5",
+   "sv:eleven_multilingual_v2",
+   "sv:eleven_flash_v2_5",
+   "sv:eleven_turbo_v2_5",
+   "ko:eleven_turbo_v2_5",
+   "ko:eleven_flash_v2_5",
+   "no:eleven_multilingual_v2",
+   "no:eleven_flash_v2_5",
+   "no:eleven_turbo_v2_5",
+   "cs:eleven_multilingual_v2",
+   "cs:eleven_flash_v2_5",
+   "vi:eleven_flash_v2_5",
+   "vi:eleven_turbo_v2_5"
+  ]
+ },
+ {
+  "id": "BE01v3e9mZOvL75SsISY",
+  "name": "Anna-ru-7-Nataly Vershinina - ",
+  "cat": "professional",
+  "labels": {
+   "gender": "female",
+   "accent": "standard",
+   "language": "ru",
+   "age": "middle_aged",
+   "use_case": "advertisement",
+   "descriptive": "calm"
+  },
+  "verified_langs": [
+   "ru:eleven_turbo_v2_5",
+   "ru:eleven_v2_5_flash",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "ycbyWsnf4hqZgdpKHqiU",
+  "name": "Anna-ru-3-Rina - Soft , Clear ",
+  "cat": "professional",
+  "labels": {
+   "age": "young",
+   "accent": "standard",
+   "language": "ru",
+   "gender": "female",
+   "descriptive": "confident",
+   "use_case": "narrative_story"
+  },
+  "verified_langs": [
+   "ru:eleven_multilingual_v2",
+   "ru:eleven_turbo_v2_5",
+   "ru:eleven_v2_5_flash",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_multilingual_sts_v2",
+   "fr:eleven_turbo_v2_5",
+   "el:eleven_multilingual_v2",
+   "el:eleven_flash_v2_5",
+   "el:eleven_turbo_v2_5",
+   "id:eleven_flash_v2_5",
+   "uk:eleven_flash_v2_5",
+   "uk:eleven_turbo_v2_5",
+   "no:eleven_multilingual_v2",
+   "no:eleven_flash_v2_5",
+   "no:eleven_turbo_v2_5",
+   "ko:eleven_multilingual_v2",
+   "ko:eleven_flash_v2_5",
+   "ko:eleven_turbo_v2_5",
+   "sv:eleven_multilingual_v2",
+   "sv:eleven_flash_v2_5",
+   "sv:eleven_turbo_v2_5",
+   "es:eleven_multilingual_v2",
+   "es:eleven_flash_v2_5",
+   "es:eleven_turbo_v2_5",
+   "ar:eleven_flash_v2_5",
+   "nl:eleven_turbo_v2_5",
+   "fi:eleven_multilingual_v2",
+   "fi:eleven_flash_v2_5",
+   "fi:eleven_turbo_v2_5",
+   "da:eleven_multilingual_v2",
+   "da:eleven_flash_v2_5",
+   "da:eleven_turbo_v2_5",
+   "tr:eleven_multilingual_v2",
+   "tr:eleven_flash_v2_5",
+   "tr:eleven_turbo_v2_5",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_turbo_v2_5",
+   "ro:eleven_multilingual_v2",
+   "ro:eleven_flash_v2_5",
+   "ro:eleven_turbo_v2_5",
+   "de:eleven_multilingual_v2",
+   "de:eleven_flash_v2_5",
+   "de:eleven_turbo_v2_5",
+   "pl:eleven_flash_v2_5",
+   "pt:eleven_turbo_v2_5"
+  ]
+ },
+ {
+  "id": "ymDCYd8puC7gYjxIamPt",
+  "name": "Anna-ru-0-Marina - Soft, Clear",
+  "cat": "professional",
+  "labels": {
+   "accent": "standard",
+   "descriptive": "calm",
+   "gender": "female",
+   "language": "ru",
+   "age": "middle_aged",
+   "use_case": "narrative_story"
+  },
+  "verified_langs": [
+   "ru:eleven_turbo_v2_5",
+   "ru:eleven_multilingual_sts_v2",
+   "ru:eleven_multilingual_v2",
+   "ru:eleven_v2_5_flash",
+   "ru:eleven_flash_v2_5",
+   "hi:eleven_multilingual_v2",
+   "fil:eleven_turbo_v2_5",
+   "ro:eleven_turbo_v2_5",
+   "hr:eleven_turbo_v2_5",
+   "pt:eleven_turbo_v2_5",
+   "sk:eleven_turbo_v2_5",
+   "sv:eleven_turbo_v2_5",
+   "fr:eleven_turbo_v2_5",
+   "da:eleven_turbo_v2_5",
+   "el:eleven_turbo_v2_5",
+   "fr:eleven_flash_v2_5",
+   "ms:eleven_flash_v2_5",
+   "ms:eleven_turbo_v2_5",
+   "id:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2",
+   "cs:eleven_flash_v2_5",
+   "cs:eleven_turbo_v2_5",
+   "no:eleven_multilingual_v2",
+   "no:eleven_flash_v2_5",
+   "no:eleven_turbo_v2_5",
+   "vi:eleven_flash_v2_5",
+   "vi:eleven_turbo_v2_5",
+   "it:eleven_multilingual_v2",
+   "it:eleven_flash_v2_5",
+   "it:eleven_turbo_v2_5",
+   "uk:eleven_multilingual_v2",
+   "uk:eleven_flash_v2_5",
+   "uk:eleven_turbo_v2_5",
+   "ko:eleven_multilingual_v2",
+   "ko:eleven_flash_v2_5",
+   "ar:eleven_multilingual_v2",
+   "tr:eleven_multilingual_v2",
+   "tr:eleven_flash_v2_5",
+   "tr:eleven_turbo_v2_5",
+   "es:eleven_multilingual_v2",
+   "es:eleven_flash_v2_5",
+   "es:eleven_turbo_v2_5",
+   "nl:eleven_multilingual_v2",
+   "nl:eleven_flash_v2_5",
+   "nl:eleven_turbo_v2_5",
+   "ru:eleven_multilingual_v2",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2_5",
+   "de:eleven_multilingual_v2",
+   "de:eleven_flash_v2_5",
+   "de:eleven_turbo_v2_5",
+   "pt:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "tOo2BJ74frmnPadsDNIi",
+  "name": "Anna-ru-8-Kate - Calm, Friendl",
+  "cat": "professional",
+  "labels": {
+   "descriptive": "casual",
+   "accent": "standard",
+   "language": "ru",
+   "gender": "female",
+   "use_case": "conversational",
+   "age": "young"
+  },
+  "verified_langs": [
+   "ru:eleven_multilingual_v2",
+   "ru:eleven_flash_v2_5",
+   "ru:eleven_multilingual_sts_v2",
+   "ru:eleven_turbo_v2_5",
+   "ru:eleven_v2_5_flash",
+   "no:eleven_multilingual_v2",
+   "no:eleven_flash_v2_5",
+   "no:eleven_turbo_v2_5",
+   "vi:eleven_flash_v2_5",
+   "vi:eleven_turbo_v2_5",
+   "ms:eleven_multilingual_v2",
+   "ms:eleven_flash_v2_5",
+   "ms:eleven_turbo_v2_5",
+   "ro:eleven_flash_v2_5",
+   "ar:eleven_multilingual_v2",
+   "ar:eleven_turbo_v2_5",
+   "cs:eleven_multilingual_v2",
+   "cs:eleven_flash_v2_5",
+   "cs:eleven_turbo_v2_5",
+   "tr:eleven_multilingual_v2",
+   "tr:eleven_flash_v2_5",
+   "tr:eleven_turbo_v2_5",
+   "ko:eleven_flash_v2_5",
+   "ko:eleven_turbo_v2_5",
+   "zh:eleven_turbo_v2_5",
+   "nl:eleven_multilingual_v2",
+   "nl:eleven_flash_v2_5",
+   "nl:eleven_turbo_v2_5"
+  ]
+ },
+ {
+  "id": "hpp4J3VqNfWAUOO0d1Us",
+  "name": "Bella - Professional, Bright, Warm",
+  "cat": "premade",
+  "labels": {
+   "use_case": "informative_educational",
+   "accent": "american",
+   "gender": "female",
+   "descriptive": "professional",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_turbo_v2_5",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "CwhRBWXzGAHq8TQ4Fs17",
+  "name": "Roger - Laid-Back, Casual, Resonant",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "classy",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "nl:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "EXAVITQu4vr4xnSDxMaL",
+  "name": "Sarah - Mature, Reassuring, Confident",
+  "cat": "premade",
+  "labels": {
+   "use_case": "entertainment_tv",
+   "accent": "american",
+   "gender": "female",
+   "descriptive": "professional",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_turbo_v2",
+   "en:eleven_multilingual_v2",
+   "en:eleven_turbo_v2_5",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "FGY2WhTYpPnrIDTdsKH5",
+  "name": "Laura - Enthusiast, Quirky Attitude",
+  "cat": "premade",
+  "labels": {
+   "use_case": "social_media",
+   "accent": "american",
+   "gender": "female",
+   "descriptive": "sassy",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "IKne3meq5aSn9XLyUdCD",
+  "name": "Charlie - Deep, Confident, Energetic",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "australian",
+   "gender": "male",
+   "descriptive": "hyped",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:promade_v1",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "zh:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "fil:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "JBFqnCBsd6RMkjVDRZzb",
+  "name": "George - Warm, Captivating Storyteller",
+  "cat": "premade",
+  "labels": {
+   "use_case": "narrative_story",
+   "accent": "british",
+   "gender": "male",
+   "descriptive": "mature",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "ja:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2",
+   "fil:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "N2lVS1w4EtoT3dr4eOWO",
+  "name": "Callum - Husky Trickster",
+  "cat": "premade",
+  "labels": {
+   "use_case": "characters_animation",
+   "gender": "male",
+   "accent": "american",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:promade_v1",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "SAz9YHcvj6GT2YYXdXww",
+  "name": "River - Relaxed, Neutral, Informative",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "american",
+   "gender": "neutral",
+   "descriptive": "calm",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_sts_v2",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "it:eleven_multilingual_v2",
+   "fr:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "SOYHLrjzK2X1ezoPC6cr",
+  "name": "Harry - Fierce Warrior",
+  "cat": "premade",
+  "labels": {
+   "use_case": "characters_animation",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "rough",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:promade_v1",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2"
+  ]
+ },
+ {
+  "id": "TX3LPaxmHKxFdv7VOQHJ",
+  "name": "Liam - Energetic, Social Media Creator",
+  "cat": "premade",
+  "labels": {
+   "use_case": "social_media",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "confident",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:promade_v1",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "de:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2",
+   "pl:eleven_multilingual_v2",
+   "tr:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "Xb7hH8MSUJpSbSDYk0k2",
+  "name": "Alice - Clear, Engaging Educator",
+  "cat": "premade",
+  "labels": {
+   "use_case": "informative_educational",
+   "accent": "british",
+   "gender": "female",
+   "descriptive": "professional",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "it:eleven_multilingual_v2",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "ja:eleven_multilingual_v2",
+   "pl:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "XrExE9yKIg1WjnnlVkGX",
+  "name": "Matilda - Knowledgable, Professional",
+  "cat": "premade",
+  "labels": {
+   "use_case": "informative_educational",
+   "accent": "american",
+   "gender": "female",
+   "descriptive": "upbeat",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:promade_v1",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "it:eleven_multilingual_v2",
+   "fr:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "bIHbv24MWmeRgasZH58o",
+  "name": "Will - Relaxed Optimist",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "chill",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2",
+   "fil:eleven_multilingual_v2",
+   "sk:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2",
+   "sv:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "cgSgspJ2msm6clMCkdW9",
+  "name": "Jessica - Playful, Bright, Warm",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "american",
+   "gender": "female",
+   "descriptive": "cute",
+   "language": "en",
+   "age": "young"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "ja:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "cjVigY5qzO86Huf0OWal",
+  "name": "Eric - Smooth, Trustworthy",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "classy",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "sk:eleven_multilingual_v2",
+   "es:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "iP95p4xoKVk53GoZ742B",
+  "name": "Chris - Charming, Down-to-Earth",
+  "cat": "premade",
+  "labels": {
+   "use_case": "conversational",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "casual",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "sv:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "nPczCjzI2devNBz1zQrb",
+  "name": "Brian - Deep, Resonant and Comforting",
+  "cat": "premade",
+  "labels": {
+   "use_case": "social_media",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "classy",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "ar:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "pt:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "nl:eleven_multilingual_v2",
+   "sk:eleven_multilingual_v2",
+   "ro:eleven_multilingual_v2",
+   "hi:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "onwK4e9ZLuTAKqWW03F9",
+  "name": "Daniel - Steady Broadcaster",
+  "cat": "premade",
+  "labels": {
+   "use_case": "informative_educational",
+   "accent": "british",
+   "gender": "male",
+   "descriptive": "formal",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:promade_v1",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "de:eleven_multilingual_v2",
+   "tr:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "pFZP5JQG7iQjIQuC4Bku",
+  "name": "Lily - Velvety Actress",
+  "cat": "premade",
+  "labels": {
+   "use_case": "informative_educational",
+   "accent": "british",
+   "gender": "female",
+   "descriptive": "confident",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "it:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2",
+   "nl:eleven_multilingual_v2",
+   "pl:eleven_multilingual_v2"
+  ]
+ },
+ {
+  "id": "pNInz6obpgDQGcFmaJgB",
+  "name": "Adam - Dominant, Firm",
+  "cat": "premade",
+  "labels": {
+   "use_case": "social_media",
+   "gender": "male",
+   "accent": "american",
+   "language": "en",
+   "age": "middle_aged"
+  },
+  "verified_langs": []
+ },
+ {
+  "id": "pqHfZKP75CvOlQylNhV4",
+  "name": "Bill - Wise, Mature, Balanced",
+  "cat": "premade",
+  "labels": {
+   "use_case": "advertisement",
+   "accent": "american",
+   "gender": "male",
+   "descriptive": "crisp",
+   "language": "en",
+   "age": "old"
+  },
+  "verified_langs": [
+   "en:eleven_v2_flash",
+   "en:eleven_flash_v2",
+   "en:eleven_turbo_v2_5",
+   "en:eleven_multilingual_v2",
+   "en:eleven_v2_5_flash",
+   "en:eleven_flash_v2_5",
+   "en:eleven_turbo_v2",
+   "fr:eleven_multilingual_v2",
+   "ar:eleven_multilingual_v2",
+   "zh:eleven_multilingual_v2",
+   "de:eleven_multilingual_v2",
+   "cs:eleven_multilingual_v2"
+  ]
+ }
+]

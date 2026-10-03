@@ -1,0 +1,66 @@
+[
+ {
+  "id": "4nP0MRk3S5Qj1fGfXf51",
+  "pub": "64cbc624eb5aab4e95a968e1f41d75402277cca6e549036ed17e56ea33bbbc9e",
+  "name": "Ilze - Calm, Warm, Unhurried",
+  "gender": "female",
+  "age": "young",
+  "accent": "standard",
+  "descr": "Ilze narrates the way a favourite teacher explains things twice: unhurried, warm",
+  "use": "narrative_story",
+  "langs": [
+   "lv::standard"
+  ],
+  "usage7d": 0,
+  "free": true,
+  "notice": 365
+ },
+ {
+  "id": "6H9DAoiqXpVkBN5eOmIS",
+  "pub": "64cbc624eb5aab4e95a968e1f41d75402277cca6e549036ed17e56ea33bbbc9e",
+  "name": "Signe - Playful, Upbeat, Bright",
+  "gender": "female",
+  "age": "young",
+  "accent": "standard",
+  "descr": "Fast, bright, and full of energy. Signe's Riga-standard Latvian punches through ",
+  "use": "social_media",
+  "langs": [
+   "lv::standard"
+  ],
+  "usage7d": 0,
+  "free": true,
+  "notice": 365
+ },
+ {
+  "id": "Xi5LaSIxpOwjOzRqTEG1",
+  "pub": "64cbc624eb5aab4e95a968e1f41d75402277cca6e549036ed17e56ea33bbbc9e",
+  "name": "Elza - Upbeat, Playful, Light",
+  "gender": "female",
+  "age": "young",
+  "accent": "standard",
+  "descr": "Elza doesn't hold back -- bright, light, and quick on her feet, with the kind of",
+  "use": "social_media",
+  "langs": [
+   "lv::standard"
+  ],
+  "usage7d": 0,
+  "free": true,
+  "notice": 365
+ },
+ {
+  "id": "azBQdzUwIzEtXS9PGiGX",
+  "pub": "64cbc624eb5aab4e95a968e1f41d75402277cca6e549036ed17e56ea33bbbc9e",
+  "name": "Baiba - Calm, Warm, Mellow",
+  "gender": "female",
+  "age": "young",
+  "accent": "standard",
+  "descr": "A low, mellow voice that settles into long pauses without ever feeling slow for ",
+  "use": "narrative_story",
+  "langs": [
+   "lv::standard"
+  ],
+  "usage7d": 0,
+  "free": true,
+  "notice": 365
+ }
+]

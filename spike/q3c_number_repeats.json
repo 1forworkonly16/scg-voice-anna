@@ -1,0 +1,146 @@
+[
+ {
+  "model": "eleven_v3",
+  "lang": "lv",
+  "text": "Orientējoši 90 320 eiro bez PVN, aptuven",
+  "rep": 0,
+  "stt": "Orientējoši 90 000 līdz 320 000 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā.",
+  "ok": false
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "lv",
+  "text": "Orientējoši 90 320 eiro bez PVN, aptuven",
+  "rep": 1,
+  "stt": "Orientējoši 93 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā.",
+  "ok": false
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "lv",
+  "text": "Orientējoši 90 320 eiro bez PVN, aptuven",
+  "rep": 2,
+  "stt": "Orientējoši 93 220 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā.",
+  "ok": false
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "lv",
+  "text": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "rep": 0,
+  "stt": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "lv",
+  "text": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "rep": 1,
+  "stt": "Divas iespējas: 5742 eiro vai 6542 eiro",
+  "ok": true
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "lv",
+  "text": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "rep": 2,
+  "stt": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "ru",
+  "text": "Ориентировочно 90 320 евро без НДС, окол",
+  "rep": 0,
+  "stt": "Ориентировочно 90 320€ без НДС, около 109 280€ с НДС",
+  "ok": false
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "ru",
+  "text": "Ориентировочно 90 320 евро без НДС, окол",
+  "rep": 1,
+  "stt": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС",
+  "ok": true
+ },
+ {
+  "model": "eleven_v3",
+  "lang": "ru",
+  "text": "Ориентировочно 90 320 евро без НДС, окол",
+  "rep": 2,
+  "stt": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "lv",
+  "text": "Orientējoši 90 320 eiro bez PVN, aptuven",
+  "rep": 0,
+  "stt": "Orientējoši 90 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "lv",
+  "text": "Orientējoši 90 320 eiro bez PVN, aptuven",
+  "rep": 1,
+  "stt": "Orientējoši 90 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "lv",
+  "text": "Orientējoši 90 320 eiro bez PVN, aptuven",
+  "rep": 2,
+  "stt": "Orientējoši 90 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "lv",
+  "text": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "rep": 0,
+  "stt": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "lv",
+  "text": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "rep": 1,
+  "stt": "Divas iespējas: pieci tūkstoši septiņi simti četrdesmit divi eiro vai seši tūkstoši pieci simti četrdesmit divi eiro.",
+  "ok": false
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "lv",
+  "text": "Divas iespējas: 5742 eiro vai 6542 eiro.",
+  "rep": 2,
+  "stt": "Divas iespējas: 5742 eiro vai 6542 eiro",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "ru",
+  "text": "Ориентировочно 90 320 евро без НДС, окол",
+  "rep": 0,
+  "stt": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "ru",
+  "text": "Ориентировочно 90 320 евро без НДС, окол",
+  "rep": 1,
+  "stt": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС.",
+  "ok": true
+ },
+ {
+  "model": "eleven_v4_turbo",
+  "lang": "ru",
+  "text": "Ориентировочно 90 320 евро без НДС, окол",
+  "rep": 2,
+  "stt": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС.",
+  "ok": true
+ }
+]

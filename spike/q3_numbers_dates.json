@@ -1,0 +1,206 @@
+{
+ "texts": {
+  "lv_price": {
+   "lang": "lv",
+   "text": "Orientējoši 90 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21 procentu apmērā."
+  },
+  "lv_date": {
+   "lang": "lv",
+   "text": "Bezmaksas apskate varētu notikt 2026. gada 14. oktobrī plkst. 10:30."
+  },
+  "lv_floors": {
+   "lang": "lv",
+   "text": "Ēkā ir 9 stāvi un 4 kāpņu telpas, Ilūkstes ielā 12, dzīvoklis 37."
+  },
+  "lv_phone": {
+   "lang": "lv",
+   "text": "Tālrunis 22 84 81 44, darba laiks no pirmdienas līdz piektdienai, no 9:00 līdz 17:00."
+  },
+  "lv_small": {
+   "lang": "lv",
+   "text": "Divas iespējas: 5742 eiro vai 6542 eiro, kopā ar 3 pagrabiem un 1 kāpņu telpu."
+  },
+  "ru_price": {
+   "lang": "ru",
+   "text": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС 21 процент."
+  },
+  "ru_date": {
+   "lang": "ru",
+   "text": "Бесплатный осмотр может пройти 14 октября 2026 года в 10:30."
+  },
+  "ru_floors": {
+   "lang": "ru",
+   "text": "В доме 9 этажей и 4 лестничные клетки, Ilūkstes iela 12, квартира 37."
+  }
+ },
+ "results": [
+  {
+   "vn": "v3",
+   "k": "lv_price",
+   "ms": 5293,
+   "bytes": 115818,
+   "stt": "Orientējoši 9320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā."
+  },
+  {
+   "vn": "v3",
+   "k": "lv_date",
+   "ms": 3777,
+   "bytes": 74231,
+   "stt": "Bezmaksas apskate varētu notikt 2026. gada 14. oktobrī pulksten 10:30."
+  },
+  {
+   "vn": "v3",
+   "k": "lv_floors",
+   "ms": 2722,
+   "bytes": 69634,
+   "stt": "Ēkā ir deviņi stāvi un četri skāpņa telpas. Ilūkstes ielā divpadsmit, dzīvoklis trīsdesmit septiņas."
+  },
+  {
+   "vn": "v3",
+   "k": "lv_phone",
+   "ms": 3732,
+   "bytes": 97846,
+   "stt": "Tālrunis divdesmit divi astoņdesmit četri astoņdesmit viens četrdesmit četri. Darba laiks no pirmdienas līdz piektdienai no deviņi līdz septiņpadsmit."
+  },
+  {
+   "vn": "v3",
+   "k": "lv_small",
+   "ms": 4179,
+   "bytes": 103697,
+   "stt": "Divas iespējas: 5742 eiro vai 6542 eiro kopā ar trīs pagrabiem un vienu kāpņutelpu"
+  },
+  {
+   "vn": "v3",
+   "k": "ru_price",
+   "ms": 3980,
+   "bytes": 100981,
+   "stt": "Ориентировочно 900 320 евро без НДС, около 109 287 евро с НДС 21%."
+  },
+  {
+   "vn": "v3",
+   "k": "ru_date",
+   "ms": 2102,
+   "bytes": 57513,
+   "stt": "Бесплатный осмотр может пройти 14 октября 2026 года в 10:30."
+  },
+  {
+   "vn": "v3",
+   "k": "ru_floors",
+   "ms": 2205,
+   "bytes": 60648,
+   "stt": "В доме девять этажей и четыре лестничные клетки. И Лукстас Иела двенадцать, квартира тридцать семь"
+  },
+  {
+   "vn": "v4t",
+   "k": "lv_price",
+   "ms": 1884,
+   "bytes": 118326,
+   "stt": "Orientējoši 90 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā."
+  },
+  {
+   "vn": "v4t",
+   "k": "lv_date",
+   "ms": 1686,
+   "bytes": 72977,
+   "stt": "Bezmaksas apskate varētu notikt 2026. gada 14. oktobrī pulksten 10.30."
+  },
+  {
+   "vn": "v4t",
+   "k": "lv_floors",
+   "ms": 1103,
+   "bytes": 66499,
+   "stt": "Ēkā ir deviņi stāvi un četras kāpņu telpas. Ilūkstes ielā divpadsmit, dzīvoklis trīsdesmit septiņi."
+  },
+  {
+   "vn": "v4t",
+   "k": "lv_phone",
+   "ms": 1574,
+   "bytes": 104324,
+   "stt": "Tālrunis 22848144. Darba laiks no pirmdienas līdz piektdienai no 9.00 līdz 17.00."
+  },
+  {
+   "vn": "v4t",
+   "k": "lv_small",
+   "ms": 1869,
+   "bytes": 109340,
+   "stt": "Divas iespējas: pieci tūkstoši septiņi simti četrdesmit divi eiro vai seši tūkstoši pieci simti četrdesmit divi eiro kopā ar trīs pagrabiem un vienu kāpņu telpu."
+  },
+  {
+   "vn": "v4t",
+   "k": "ru_price",
+   "ms": 1876,
+   "bytes": 97219,
+   "stt": "Ориентировочно 90 320 евро без НДС, около 109 287 евро с НДС 21%."
+  },
+  {
+   "vn": "v4t",
+   "k": "ru_date",
+   "ms": 3703,
+   "bytes": 55005,
+   "stt": "Бесплатный осмотр может пройти 14 октября 2026 года в 10:30."
+  },
+  {
+   "vn": "v4t",
+   "k": "ru_floors",
+   "ms": 1001,
+   "bytes": 61275,
+   "stt": "В доме девять этажей и четыре лестничные клетки. Ilukstes iela 12, квартира 37"
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "lv_price",
+   "ms": 1916,
+   "bytes": 113937,
+   "stt": "Orientējoši 90 320 eiro bez PVN, aptuveni 109 287 eiro ar PVN 21% apmērā."
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "lv_date",
+   "ms": 1223,
+   "bytes": 72977,
+   "stt": "Bezmaksas apskate varētu notikt 2026. gada 14. oktobrī pulksten 10:30."
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "lv_floors",
+   "ms": 1127,
+   "bytes": 66499,
+   "stt": "Ēkā ir deviņi stāvi un četras kāpņu telpas. Ilūkstes ielā divpadsmit, dzīvoklis trīsdesmit septiņi."
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "lv_phone",
+   "ms": 1637,
+   "bytes": 103697,
+   "stt": "Tālrunis 22848144. Darba laiks no pirmdienas līdz piektdienai no 9.00 līdz 17.00."
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "lv_small",
+   "ms": 1655,
+   "bytes": 109967,
+   "stt": "Divas iespējas 5742 eiro vai 6542 eiro kopā ar trīs pagrabiem un vienu kāpņu telpu"
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "ru_price",
+   "ms": 1547,
+   "bytes": 95965,
+   "stt": "Ориентировочно 90 320 евро без НДС около 109 287 евро с НДС 21%."
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "ru_date",
+   "ms": 975,
+   "bytes": 54378,
+   "stt": "Бесплатный осмотр может пройти 14 октября 2026 года в 10:30."
+  },
+  {
+   "vn": "v4t_normON",
+   "k": "ru_floors",
+   "ms": 2396,
+   "bytes": 60648,
+   "stt": "В доме девять этажей и четыре лестничные клетки. Ilūkstes iela 12, квартира 37"
+  }
+ ]
+}

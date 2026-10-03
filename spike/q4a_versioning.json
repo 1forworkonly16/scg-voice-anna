@@ -1,0 +1,42 @@
+{
+ "agent": "agent_7401m40a6hdjfa4vn78g1g76mdr8",
+ "before": {
+  "version_id": "agtvrsn_7101m40a6jk8f9tvq2gxeg8rkbwj",
+  "branch_id": "agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1",
+  "main_branch_id": "agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1",
+  "prompt_len": 697
+ },
+ "GET /v1/convai/agents/<id>/branches": "{\"meta\":{\"total\":1,\"page\":1,\"page_size\":1},\"results\":[{\"id\":\"agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1\",\"name\":\"Main\",\"agent_id\":\"agent_7401m40a6hdjfa4vn78g1g76mdr8\",\"description\":\"The default branch for your agent.\",\"created_at\":1791012063,\"last_committed_at\":1791012063,\"is_archived\":false,\"protection_status\":\"writer_perms_required\",\"access_info\":{\"is_creator\":true,\"creator_name\":\"[redacted-name]\",\"creator_email\":\"[redacted-email]\",\"role\":\"admin\",\"anonymous_access_level_override\":null,\"access_source\":\"creator\"},\"current_live_percentage\":100,\"parent_branch_id\":null,\"draft_exists\":false,\"draft_created_at\":null,\"draft_is_behind_tip\":false,\"calls_7d\":1,\"commits_ahead\":null,\"commits_behind\":null,\"merged_into_branch_id\":null}]}",
+ "GET /v1/convai/agents/<id>/versions": "Error: GET /v1/convai/agents/agent_7401m40a6hdjfa4vn78g1g76mdr8/versions -> 404: {\"detail\":\"Not Found\"}",
+ "GET /v1/convai/agents/<id>/branches/agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1": "{\"id\":\"agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1\",\"name\":\"Main\",\"agent_id\":\"agent_7401m40a6hdjfa4vn78g1g76mdr8\",\"description\":\"The default branch for your agent.\",\"created_at\":1791012063,\"last_committed_at\":1791012063,\"is_archived\":false,\"protection_status\":\"writer_perms_required\",\"access_info\":{\"is_creator\":true,\"creator_name\":\"[redacted-name]\",\"creator_email\":\"[redacted-email]\",\"role\":\"admin\",\"anonymous_access_level_override\":null,\"access_source\":\"creator\"},\"current_live_percentage\":0,\"parent_branch\":null,\"most_recent_versions\":[{\"id\":\"agtvrsn_7101m40a6jk8f9tvq2gxeg8rkbwj\",\"agent_id\":\"agent_7401m40a6hdjfa4vn78g1g76mdr8\",\"branch_id\":\"agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1\",\"version_description\":\"The first version of your agent.\",\"seq_no_in_branch\":1,\"time_committed_secs\":1791012063,\"parents\":{\"in_branch_parent_id\":null,\"out_of_branch_parent_id\":null,\"merged_into_branch_id\":null,\"merged_from_branch_id\":null,\"merged_from_version_id\":null,\"rebased_from_version_id\":null},\"access_info\":{\"is_creator\":true,\"creator_name\":\"[redacted-name]\",\"creator_email\":\"[redacted-email]\",\"role\":\"admin\",\"anonymous_access_level_override\":null,\"access_source\":\"creator\"},\"merged_authors\":null}]}",
+ "patch_resp_keys": [
+  "agent_id",
+  "name",
+  "conversation_config",
+  "metadata",
+  "platform_settings",
+  "phone_numbers",
+  "whatsapp_accounts",
+  "workflow",
+  "access_info",
+  "access_permissions",
+  "tags",
+  "version_id",
+  "branch_id",
+  "main_branch_id",
+  "procedures",
+  "trust_context",
+  "default_hold_audio_url"
+ ],
+ "patch_resp_ids": {
+  "version_id": "agtvrsn_0501m40abtgmf218x3nkxcvgsx0k",
+  "branch_id": "agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1",
+  "main_branch_id": "agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1"
+ },
+ "after": {
+  "version_id": "agtvrsn_0501m40abtgmf218x3nkxcvgsx0k",
+  "branch_id": "agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1",
+  "main_branch_id": "agtbrch_3101m40a6jg1fs1avgdm1e7e1vg1",
+  "prompt_len": 708
+ }
+}

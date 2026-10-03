@@ -1,0 +1,12 @@
+{
+ "patch_auth_true_version": "agtvrsn_2301m40bbctdew7ar5mnmkge8eka",
+ "public_ws_with_auth_on": {
+  "ev": [
+   "open"
+  ],
+  "code": 3000,
+  "reason": "This agent requires conversations to be authorized. Please generate a signed link for conversation starting using /v1/co...",
+  "ms": 532
+ },
+ "patch_auth_false_version": "agtvrsn_7801m40bbf9wex2rk8f0m7qt75zf"
+}

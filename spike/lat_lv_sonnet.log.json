@@ -1,0 +1,127 @@
+{
+ "label": "lat_lv_sonnet",
+ "agentId": "agent_5301m40awjttfx8vps7vqk7j8pcd",
+ "turns": [
+  {
+   "i": 0,
+   "text": "Labdien, man vajag nomainīt kanalizācijas stāvvadus.",
+   "lang": "lv",
+   "speech_ms": 4284,
+   "latency_ms": 1580,
+   "done": true
+  },
+  {
+   "i": 1,
+   "text": "Cik aptuveni tas maksā?",
+   "lang": "lv",
+   "speech_ms": 1887,
+   "latency_ms": 1471,
+   "done": true
+  },
+  {
+   "i": 2,
+   "text": "Un cik ilgi tas aizņem?",
+   "lang": "lv",
+   "speech_ms": 2128,
+   "latency_ms": 1602,
+   "done": true
+  },
+  {
+   "i": 3,
+   "text": "Labi, paldies. Kā pieteikt bezmaksas apskati?",
+   "lang": "lv",
+   "speech_ms": 3964,
+   "latency_ms": 2916,
+   "done": true
+  }
+ ],
+ "note": "latency_ms = first agent audio chunk received minus end of caller speech (continuous silence streamed after)",
+ "greeting_first_audio_ms": null,
+ "greeting_done": true,
+ "latency": {
+  "n": 4,
+  "p50": 1580,
+  "p90": 2916,
+  "min": 1471,
+  "max": 2916,
+  "all": [
+   1580,
+   1471,
+   1602,
+   2916
+  ]
+ },
+ "conversation_id": "conv_3301m40ayr6ee79938sv51rh43af",
+ "duration_ms_wall": 56903,
+ "audio_formats": {
+  "in": "pcm_16000",
+  "out": "pcm_16000"
+ },
+ "events": [
+  {
+   "t": 347,
+   "type": "conversation_initiation_metadata",
+   "turn": -1,
+   "meta": {
+    "conversation_id": "conv_3301m40ayr6ee79938sv51rh43af",
+    "agent_output_audio_format": "pcm_16000",
+    "user_input_audio_format": "pcm_16000",
+    "persistent_session_token": null
+   }
+  },
+  {
+   "t": 7011,
+   "type": "user_transcript",
+   "turn": 0,
+   "user_transcript": "Labdien! Man vajag nomainīt kanalizācijas stāvvadus."
+  },
+  {
+   "t": 7016,
+   "type": "agent_response",
+   "turn": 0,
+   "agent_response": "[happy] Labdien! Mēs varam palīdzēt, un inženieris pēc bezmaksas apskates precizēs darbu apjomu un cenu."
+  },
+  {
+   "t": 19222,
+   "type": "user_transcript",
+   "turn": 1,
+   "user_transcript": "Cik aptuveni tas maksā?"
+  },
+  {
+   "t": 19241,
+   "type": "agent_response",
+   "turn": 1,
+   "agent_response": "Cena ir tikai aptuvena, un precīzu summu inženieris apstiprinās pēc bezmaksas apskates."
+  },
+  {
+   "t": 31273,
+   "type": "user_transcript",
+   "turn": 2,
+   "user_transcript": "Un cik ilgi tas aizņem?"
+  },
+  {
+   "t": 31274,
+   "type": "agent_response",
+   "turn": 2,
+   "agent_response": "Precīzu termiņu es nevaru nosaukt, to inženieris noteiks bezmaksas apskatē pēc jūsu mājas apstākļiem."
+  },
+  {
+   "t": 47108,
+   "type": "user_transcript",
+   "turn": 3,
+   "user_transcript": "Labi, paldies! Kā pieteikt bezmaksas apskati?"
+  },
+  {
+   "t": 47114,
+   "type": "agent_response",
+   "turn": 3,
+   "agent_response": "Man šobrīd nav pieteikšanās detaļu, lūdzu, sazinieties ar Smart Comfort Group tieši, un viņi vienosies par apskati."
+  },
+  {
+   "t": 56596,
+   "type": "ws_close",
+   "code": 1000,
+   "reason": ""
+  }
+ ]
+}

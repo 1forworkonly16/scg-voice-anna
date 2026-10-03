@@ -1,0 +1,40 @@
+{
+ "deleted": [
+  {
+   "name": "scg-spike-lat-haiku-4-5",
+   "id": "agent_5401m40awm69e50asq80fac7d2k6",
+   "status": 204
+  },
+  {
+   "name": "scg-spike-lat-sonnet-5-5",
+   "id": "agent_5301m40awjttfx8vps7vqk7j8pcd",
+   "status": 204
+  },
+  {
+   "name": "scg-spike-lat-opus-5-5",
+   "id": "agent_6401m40awh39fbxty2b7zd9z0pam",
+   "status": 204
+  },
+  {
+   "name": "scg-spike-q1-v4_turbo",
+   "id": "agent_0901m40a6k63fcf8rj5td666m6vz",
+   "status": 204
+  },
+  {
+   "name": "scg-spike-q1-v3_conversational",
+   "id": "agent_7401m40a6hdjfa4vn78g1g76mdr8",
+   "status": 204
+  }
+ ],
+ "remaining_agents": [
+  {
+   "name": "Anna - Kodukliima demo",
+   "id": "agent_1701m3a6001cebc8r1n6saqxmqn6"
+  },
+  {
+   "name": "My Agent",
+   "id": "agent_8901m39n8yvjfsyv2bzxchja1k48"
+  }
+ ],
+ "remaining_scg_spike": 0
+}

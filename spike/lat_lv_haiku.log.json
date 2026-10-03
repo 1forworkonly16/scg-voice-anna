@@ -1,0 +1,127 @@
+{
+ "label": "lat_lv_haiku",
+ "agentId": "agent_5401m40awm69e50asq80fac7d2k6",
+ "turns": [
+  {
+   "i": 0,
+   "text": "Labdien, man vajag nomainīt kanalizācijas stāvvadus.",
+   "lang": "lv",
+   "speech_ms": 4310,
+   "latency_ms": 1419,
+   "done": true
+  },
+  {
+   "i": 1,
+   "text": "Cik aptuveni tas maksā?",
+   "lang": "lv",
+   "speech_ms": 1884,
+   "latency_ms": 2254,
+   "done": true
+  },
+  {
+   "i": 2,
+   "text": "Un cik ilgi tas aizņem?",
+   "lang": "lv",
+   "speech_ms": 2096,
+   "latency_ms": 1534,
+   "done": true
+  },
+  {
+   "i": 3,
+   "text": "Labi, paldies. Kā pieteikt bezmaksas apskati?",
+   "lang": "lv",
+   "speech_ms": 4093,
+   "latency_ms": 1567,
+   "done": true
+  }
+ ],
+ "note": "latency_ms = first agent audio chunk received minus end of caller speech (continuous silence streamed after)",
+ "greeting_first_audio_ms": null,
+ "greeting_done": true,
+ "latency": {
+  "n": 4,
+  "p50": 1534,
+  "p90": 2254,
+  "min": 1419,
+  "max": 2254,
+  "all": [
+   1419,
+   2254,
+   1534,
+   1567
+  ]
+ },
+ "conversation_id": "conv_5201m40b0m12fewazmt00v6cg8df",
+ "duration_ms_wall": 57449,
+ "audio_formats": {
+  "in": "pcm_16000",
+  "out": "pcm_16000"
+ },
+ "events": [
+  {
+   "t": 313,
+   "type": "conversation_initiation_metadata",
+   "turn": -1,
+   "meta": {
+    "conversation_id": "conv_5201m40b0m12fewazmt00v6cg8df",
+    "agent_output_audio_format": "pcm_16000",
+    "user_input_audio_format": "pcm_16000",
+    "persistent_session_token": null
+   }
+  },
+  {
+   "t": 6842,
+   "type": "user_transcript",
+   "turn": 0,
+   "user_transcript": "Labdien! Man vajag nomainīt kanalizācijas stāvvadus."
+  },
+  {
+   "t": 6843,
+   "type": "agent_response",
+   "turn": 0,
+   "agent_response": "Labdien! [happy] Mēs varam jums palīdzēt ar kanalizācijas stāvvadu nomaiņu. Kāda ir jūsu adreses un mājas numurs?"
+  },
+  {
+   "t": 20803,
+   "type": "user_transcript",
+   "turn": 1,
+   "user_transcript": "Cik aptuveni tas maksā?"
+  },
+  {
+   "t": 20813,
+   "type": "agent_response",
+   "turn": 1,
+   "agent_response": "Cena ir aptuvena, inženieris to apstiprinās pēc bezmaksas apskates. Kāda ir jūsu adreses?"
+  },
+  {
+   "t": 33061,
+   "type": "user_transcript",
+   "turn": 2,
+   "user_transcript": "Un cik Ilgita saizņem?"
+  },
+  {
+   "t": 33066,
+   "type": "agent_response",
+   "turn": 2,
+   "agent_response": "Apskate ir bezmaksas un ātri notiek. Lūdzu norādiet savu adresi, lai mēs varētu organizēt vizīti."
+  },
+  {
+   "t": 47506,
+   "type": "user_transcript",
+   "turn": 3,
+   "user_transcript": "Labi, paldies! Kā pieteikt bezmaksas apskati?"
+  },
+  {
+   "t": 47516,
+   "type": "agent_response",
+   "turn": 3,
+   "agent_response": "Varat zvanīt mums vai aizpildīt pieprasījumu mūsu vietnē. Kāda ir jūsu kontakttālrunis vai adrese?"
+  },
+  {
+   "t": 57096,
+   "type": "ws_close",
+   "code": 1000,
+   "reason": ""
+  }
+ ]
+}

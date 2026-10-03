@@ -1,0 +1,17 @@
+{
+ "create_lv_with_eleven_flash_v2_5": {
+  "error": "Error: POST /v1/convai/agents/create -> 422: {\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"conversation_config\"],\"msg\":\"Value error, Language lv is not supported for model eleven_flash_v2_5\",\"input\":{\"agent\":{\"language\":\"lv\",\"first_message\":\"Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.\",\"prompt\":{\"prompt\":\"You are Anna, a voice assistant of Smart Comfort Group (a Riga company replacing water, sewer an"
+ },
+ "create_lv_with_eleven_multilingual_v2": {
+  "error": "Error: POST /v1/convai/agents/create -> 422: {\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"conversation_config\"],\"msg\":\"Value error, Language lv is not supported for model eleven_multilingual_v2\",\"input\":{\"agent\":{\"language\":\"lv\",\"first_message\":\"Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.\",\"prompt\":{\"prompt\":\"You are Anna, a voice assistant of Smart Comfort Group (a Riga company replacing water, sew"
+ },
+ "patch_v3_to_v4": {
+  "after": "eleven_v4_turbo",
+  "version_id": "agtvrsn_9801m40b4fnnfbtarw104kzrsmjj"
+ },
+ "patch_back_v3": {
+  "after": "eleven_v3_conversational",
+  "version_id": "agtvrsn_2501m40b4hhwf859ame87kk3q7zp"
+ },
+ "bogus_language": "Error: PATCH /v1/convai/agents/agent_7401m40a6hdjfa4vn78g1g76mdr8 -> 400: {\"detail\":{\"type\":\"validation_error\",\"code\":\"invalid_parameters\",\"message\":\"Invalid conversation config: Value error, Language must be one of en, zh, es, hi, pt, fr, de, ja, ar, ko, id, it, nl, tr, pl, ru, sv, tl, ms, ro, uk, "
+}

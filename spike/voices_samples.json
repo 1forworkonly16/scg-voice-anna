@@ -1,0 +1,272 @@
+[
+ {
+  "name": "Ilze",
+  "id": "4nP0MRk3S5Qj1fGfXf51",
+  "kind": "lv-lib",
+  "tk": "lv",
+  "ms": 1974,
+  "sec": 9.7,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Ilze",
+  "id": "4nP0MRk3S5Qj1fGfXf51",
+  "kind": "lv-lib",
+  "tk": "ru",
+  "ms": 1752,
+  "sec": 8.7,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Ilze",
+  "id": "4nP0MRk3S5Qj1fGfXf51",
+  "kind": "lv-lib",
+  "tk": "bi",
+  "ms": 1391,
+  "sec": 11,
+  "sim": 0.95,
+  "stt": "Labdien! Smart Comfort Group. Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+ },
+ {
+  "name": "Signe",
+  "id": "6H9DAoiqXpVkBN5eOmIS",
+  "kind": "lv-lib",
+  "tk": "lv",
+  "ms": 1351,
+  "sec": 9.1,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Signe",
+  "id": "6H9DAoiqXpVkBN5eOmIS",
+  "kind": "lv-lib",
+  "tk": "ru",
+  "ms": 929,
+  "sec": 8.2,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Signe",
+  "id": "6H9DAoiqXpVkBN5eOmIS",
+  "kind": "lv-lib",
+  "tk": "bi",
+  "ms": 2304,
+  "sec": 10.3,
+  "sim": 0.95,
+  "stt": "Labdien! Smart Comfort Group. Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+ },
+ {
+  "name": "Elza",
+  "id": "Xi5LaSIxpOwjOzRqTEG1",
+  "kind": "lv-lib",
+  "tk": "lv",
+  "ms": 8632,
+  "sec": 8.9,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group. Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Elza",
+  "id": "Xi5LaSIxpOwjOzRqTEG1",
+  "kind": "lv-lib",
+  "tk": "ru",
+  "ms": 1107,
+  "sec": 8.2,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Elza",
+  "id": "Xi5LaSIxpOwjOzRqTEG1",
+  "kind": "lv-lib",
+  "tk": "bi",
+  "ms": 1911,
+  "sec": 10.5,
+  "sim": 0.95,
+  "stt": "Labdien, Smart Comfort Group. Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+ },
+ {
+  "name": "Baiba",
+  "id": "azBQdzUwIzEtXS9PGiGX",
+  "kind": "lv-lib",
+  "tk": "lv",
+  "ms": 6718,
+  "sec": 9.6,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Baiba",
+  "id": "azBQdzUwIzEtXS9PGiGX",
+  "kind": "lv-lib",
+  "tk": "ru",
+  "ms": 1463,
+  "sec": 8.5,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Baiba",
+  "id": "azBQdzUwIzEtXS9PGiGX",
+  "kind": "lv-lib",
+  "tk": "bi",
+  "ms": 1278,
+  "sec": 11,
+  "sim": 0.95,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+ },
+ {
+  "name": "Marina-ru",
+  "id": "ymDCYd8puC7gYjxIamPt",
+  "kind": "ru-acct",
+  "tk": "lv",
+  "ms": 1088,
+  "sec": 9.1,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Marina-ru",
+  "id": "ymDCYd8puC7gYjxIamPt",
+  "kind": "ru-acct",
+  "tk": "ru",
+  "ms": 956,
+  "sec": 8.2,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Marina-ru",
+  "id": "ymDCYd8puC7gYjxIamPt",
+  "kind": "ru-acct",
+  "tk": "bi",
+  "ms": 1184,
+  "sec": 10.6,
+  "sim": 0.95,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+ },
+ {
+  "name": "Kate-ru",
+  "id": "tOo2BJ74frmnPadsDNIi",
+  "kind": "ru-acct",
+  "tk": "lv",
+  "ms": 997,
+  "sec": 8.3,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Kate-ru",
+  "id": "tOo2BJ74frmnPadsDNIi",
+  "kind": "ru-acct",
+  "tk": "ru",
+  "ms": 1063,
+  "sec": 7.2,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Kate-ru",
+  "id": "tOo2BJ74frmnPadsDNIi",
+  "kind": "ru-acct",
+  "tk": "bi",
+  "ms": 1162,
+  "sec": 9.4,
+  "sim": 0.95,
+  "stt": "Labdien! Smart Comfort Group. Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски?"
+ },
+ {
+  "name": "Rina-ru",
+  "id": "ycbyWsnf4hqZgdpKHqiU",
+  "kind": "ru-acct",
+  "tk": "lv",
+  "ms": 1096,
+  "sec": 9,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Rina-ru",
+  "id": "ycbyWsnf4hqZgdpKHqiU",
+  "kind": "ru-acct",
+  "tk": "ru",
+  "ms": 1028,
+  "sec": 7.9,
+  "sim": 1,
+  "stt": "Здравствуйте, Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Rina-ru",
+  "id": "ycbyWsnf4hqZgdpKHqiU",
+  "kind": "ru-acct",
+  "tk": "bi",
+  "ms": 1223,
+  "sec": 10.5,
+  "sim": 0.95,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски?"
+ },
+ {
+  "name": "Alice-premade",
+  "id": "Xb7hH8MSUJpSbSDYk0k2",
+  "kind": "premade",
+  "tk": "lv",
+  "ms": 1127,
+  "sec": 8.9,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Alice-premade",
+  "id": "Xb7hH8MSUJpSbSDYk0k2",
+  "kind": "premade",
+  "tk": "ru",
+  "ms": 1090,
+  "sec": 7.8,
+  "sim": 1,
+  "stt": "Здравствуйте. Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Alice-premade",
+  "id": "Xb7hH8MSUJpSbSDYk0k2",
+  "kind": "premade",
+  "tk": "bi",
+  "ms": 1215,
+  "sec": 10.4,
+  "sim": 0.95,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски?"
+ },
+ {
+  "name": "Sarah-premade",
+  "id": "EXAVITQu4vr4xnSDxMaL",
+  "kind": "premade",
+  "tk": "lv",
+  "ms": 1172,
+  "sec": 9.3,
+  "sim": 0.94,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt?"
+ },
+ {
+  "name": "Sarah-premade",
+  "id": "EXAVITQu4vr4xnSDxMaL",
+  "kind": "premade",
+  "tk": "ru",
+  "ms": 1016,
+  "sec": 8,
+  "sim": 1,
+  "stt": "Здравствуйте! Smart Comfort Group. С вами говорит ИИ-ассистент Анна. Разговор записывается. Чем могу помочь?"
+ },
+ {
+  "name": "Sarah-premade",
+  "id": "EXAVITQu4vr4xnSDxMaL",
+  "kind": "premade",
+  "tk": "bi",
+  "ms": 1203,
+  "sec": 10.6,
+  "sim": 0.95,
+  "stt": "Labdien, Smart Comfort Group! Jūs runājat ar mākslīgā intelekta asistentu Annu. Saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+ }
+]

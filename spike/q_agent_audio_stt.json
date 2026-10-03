@@ -1,0 +1,22 @@
+{
+ "langswitch_v4.agent.t1": {
+  "lang": "lav",
+  "text": "Labdien! Mēs nomainām ūdens, kanalizācijas un apkures stāvvadus, un inženieris bez maksas veiks apskati."
+ },
+ "langswitch_v3_B.agent.t1": {
+  "lang": "lav",
+  "text": "Labdien! Mēs nomainām ūdens, kanalizācijas un apkures stāvvadus, un inženieris veiks bezmaksas apskati."
+ },
+ "langswitch_v4.agent.t2": {
+  "lang": "rus",
+  "text": "Инженер бесплатно осмотрит стояки на месте, а точные детали и стоимость он подтвердит после осмотра"
+ },
+ "langswitch_v4.agent.t3": {
+  "lang": "rus",
+  "text": "Спасибо, записала. Дом на Ilukstes iela, девять этажей. Какие стояки нужно менять: водопровод, канализацию или отопление?"
+ },
+ "langswitch_v3_B.agent.t3": {
+  "lang": "rus",
+  "text": "Дом на Элюксте Йела, девять этажей. Инженер подтвердит все после бесплатного осмотра. Какой у вас номер дома?"
+ }
+}

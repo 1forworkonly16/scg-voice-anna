@@ -1,0 +1,5 @@
+[
+ {"text":"Labdien, man vajag nomainīt stāvvadus.","lang":"lv","note":"LV start","voice":"6H9DAoiqXpVkBN5eOmIS"},
+ {"text":"Давайте лучше по-русски. Как проходит осмотр?","lang":"ru","note":"full RU sentence -> must switch to RU","voice":"tOo2BJ74frmnPadsDNIi"},
+ {"text":"Мой дом на Ilūkstes iela, девять этажей.","lang":"ru","note":"RU sentence with LV street name -> must NOT switch (agent already RU)","voice":"tOo2BJ74frmnPadsDNIi"}
+]
