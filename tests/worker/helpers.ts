@@ -62,7 +62,9 @@ export interface FakeOptions {
 
 export class FakeWorld {
   events = new Map<string, CalEvent>();
-  tabs: Record<string, unknown[][]> & { Leads: unknown[][]; Calls: unknown[][]; Works: unknown[][]; Access: unknown[][]; Callbacks: unknown[][] } = { Leads: [], Calls: [], Works: [], Access: [], Callbacks: [] };
+  tabs: Record<string, unknown[][]> & { Leads: unknown[][]; Calls: unknown[][]; Works: unknown[][]; Access: unknown[][]; Callbacks: unknown[][]; Tickets: unknown[][]; Requests: unknown[][] } = {
+    Leads: [], Calls: [], Works: [], Access: [], Callbacks: [], Tickets: [], Requests: [],
+  };
   telegram: { chat_id: string; text: string }[] = [];
   urls: string[] = [];
   opts: FakeOptions;

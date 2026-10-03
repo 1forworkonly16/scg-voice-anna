@@ -74,7 +74,7 @@ function entryById(id: string | undefined): AddressEntry | undefined {
 const asRecord = (e: AddressEntry): BuildingRecord => e as unknown as BuildingRecord;
 
 /** Google failures: the calendar-flavoured tools tell the caller the calendar is down; others a generic hiccup. */
-function googleFailure(e: unknown, calendar: boolean): Body {
+export function googleFailure(e: unknown, calendar: boolean): Body {
   const kind = e instanceof GoogleError ? e.kind : "network";
   const message = e instanceof Error ? e.message.slice(0, 120) : "error";
   if (calendar) {

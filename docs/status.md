@@ -20,8 +20,8 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | V1 M1 verification | Opus | todo | - | needs WP9 |
 | H3 Live RU + LV tests | user | todo | - | end of M1 |
 | WP10 Handoff | Sonnet | todo | - | after H3 + rework |
-| WP11 M2 copy | Opus | todo | - | |
-| WP12 M2 backend | Sonnet | todo | - | |
+| WP11 M2 copy | Opus | accepted 2026-10-03 (staged in elevenlabs/prompt_m2; wiring in WP13) | see git log | copy-lint 0 (default targets); specs t28-t39, 5 critical; EL tests pending credits |
+| WP12 M2 backend | Sonnet | accepted 2026-10-03 (not deployed; Tickets/Requests tabs live; deploy in WP13) | see git log | unit 326 + worker 94; allowlist keeps M1 7 tools; el:check 67/67; WP13: «пятно после протечки» still escalates |
 | WP13 M2 agent update | Sonnet | todo | - | |
 | V2 M2 verification | Opus | todo | - | |
 | H4 Live tests 2, 4-7 | user | todo | - | end of M2 |

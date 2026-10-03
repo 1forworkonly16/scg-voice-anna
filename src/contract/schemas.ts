@@ -195,7 +195,38 @@ export const requestCallbackOutput = success({
   callback_id: z.string(),
 });
 
-// TODO(M2): create_ticket {type, urgency, description, address} and log_request {kind, summary_ru}.
+// ---------- M2 ----------
+export const TICKET_TYPES = ["complaint", "warranty", "maintenance", "leak"] as const;
+export const TICKET_URGENCIES = ["normal", "urgent"] as const;
+export const createTicketInput = z.object({
+  ...requestBase,
+  type: z.enum(TICKET_TYPES).describe("complaint (damage, mess, noise), warranty (a problem after works), maintenance (service request) or leak (water is leaking now or after the works)."),
+  urgency: z.enum(TICKET_URGENCIES).describe("urgent if water is leaking or flooding now, otherwise normal. A leak is always treated as urgent."),
+  description: z.string().min(1).max(600).describe("One to three sentences in Russian: what happened, which system, access. No names and no phone numbers."),
+  address: z.string().min(1).max(300).describe("Building address as the caller said it."),
+  apartment: z.number().int().min(1).max(2000).optional().describe("The caller's apartment number, if given."),
+});
+export const createTicketOutput = success({
+  ticket_id: z.string(),
+  /** TRUE when the building is a known SCG works site, FALSE when it is not on the list, null when the address could not be matched or the list was unreachable. */
+  scg_site: z.boolean().nullable(),
+  /** True when a leak or urgent ticket sent the «СРОЧНО» alert to the team. */
+  escalated: z.boolean(),
+  /** True when the same conversation re-sent the same ticket (idempotent replay); nothing is written or sent again. */
+  replayed: z.boolean(),
+});
+
+export const REQUEST_KINDS = ["b2b", "job_candidate", "emergency_referral", "admin_message", "other"] as const;
+export const logRequestInput = z.object({
+  ...requestBase,
+  kind: z.enum(REQUEST_KINDS).describe("b2b (company or project inquiry, e.g. Sweden/Norway), job_candidate (applicant), emergency_referral (emergency at a building that is not an SCG client), admin_message (supplier, sales, office message) or other."),
+  summary_ru: z.string().min(1).max(600).describe("Two or three sentences in Russian: who (company or trade, not a person's name), what, when. No names and no phone numbers."),
+});
+export const logRequestOutput = success({
+  request_id: z.string(),
+  /** True when the same conversation re-sent the same request (idempotent replay). */
+  replayed: z.boolean(),
+});
 
 // ---------- registry ----------
 export const TOOLS = {
@@ -240,6 +271,18 @@ export const TOOLS = {
     timeoutSecs: 8,
     input: requestCallbackInput,
     output: requestCallbackOutput,
+  },
+  create_ticket: {
+    description: "Record a service ticket from a resident or maintenance client (complaint, warranty case, maintenance request or leak). A leak or urgent ticket alerts the team at once. Read say_ru / say_lv aloud; confirm only when ok is true.",
+    timeoutSecs: 8,
+    input: createTicketInput,
+    output: createTicketOutput,
+  },
+  log_request: {
+    description: "Log a non-sales request for the team: B2B inquiry, job candidate, emergency at a non-client building, or an admin message. Read say_ru / say_lv aloud.",
+    timeoutSecs: 8,
+    input: logRequestInput,
+    output: logRequestOutput,
   },
 } as const;
 

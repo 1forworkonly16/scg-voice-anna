@@ -31,7 +31,15 @@ export async function loadContract(): Promise<{ toElevenLabsTool: (n: string, o?
   const { build } = await import('esbuild');
   const r = await build({ entryPoints: [p('src', 'contract', 'index.ts')], bundle: true, write: false, format: 'esm', platform: 'node', target: 'node24', logLevel: 'silent' });
   const code = r.outputFiles[0]!.text;
-  return import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'));
+  const mod = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'));
+  // Allowlist (agent_config.json "tools"): only these contract tools are generated, attached and checked. Absent = all.
+  const allow: string[] | undefined = cfg().tools;
+  if (allow) {
+    const unknown = allow.filter((n) => !mod.TOOL_NAMES.includes(n));
+    if (unknown.length) throw new Error(`agent_config.json tools: not in the contract: ${unknown.join(', ')}`);
+    return { ...mod, TOOL_NAMES: mod.TOOL_NAMES.filter((n: string) => allow.includes(n)) };
+  }
+  return mod;
 }
 
 /** Pushes a Worker secret through `wrangler secret put` with the value on STDIN (never on a command line, never printed). */

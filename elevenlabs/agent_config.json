@@ -48,5 +48,7 @@
   "call_limits": { "daily_limit": 25, "agent_concurrency_limit": 2, "bursting_enabled": false },
   "privacy": { "record_voice": true, "retention_days": 90 },
   "auth": { "enable_auth": true },
+  "tools": ["lookup_building", "quote_range", "get_slots", "book_inspection", "find_works_schedule", "reschedule_access", "request_callback"],
+  "_tools_note": "Allowlist of contract tools that gen-tools / build-agent / check-agent handle. M1 = these 7. WP13 adds create_ticket and log_request together with the M2 prompt; until then el:build must not attach them to the live agent.",
   "system_tools": ["language_detection", "end_call"]
 }

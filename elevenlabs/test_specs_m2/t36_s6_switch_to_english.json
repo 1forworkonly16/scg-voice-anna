@@ -1,0 +1,25 @@
+{
+  "id": "t36_s6_switch_to_english",
+  "type": "tool_call",
+  "language": "en",
+  "critical": true,
+  "scenario": "M2 scenario 6: a Swedish contractor answers the Latvian opening in English. Anna must call language_detection to switch to English.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Hello, sorry, I don't speak Latvian. I'm calling from a construction company in Stockholm, we need welders for a project. Can we speak English?"
+    }
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "language_detection",
+    "args_contains": {
+      "language": "en"
+    }
+  },
+  "success_condition": "The agent calls language_detection to switch to English and then answers in English only, formally, asking one short question about the company, project or crew need. It promises no crews, rates or availability."
+}

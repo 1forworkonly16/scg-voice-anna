@@ -1,0 +1,58 @@
+{
+  "id": "t30_s4_leak_create_ticket_args",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "M2 scenario 4: a resident of a building where SCG replaced the risers calls: water is running from the ceiling right now and reaching the neighbours below. Anna already gave the safety line and got the address. She must call create_ticket at once with type leak, urgency urgent, the address and the apartment, before asking for any phone number.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Алло! Вы нам в сентябре меняли стояки, а теперь в туалете с потолка льёт, прямо сейчас, уже к соседям снизу протекло!"
+    },
+    {
+      "role": "agent",
+      "message": "Если сейчас течёт, перекройте вводной кран в квартире и позвоните в аварийную службу вашего управляющего. Подскажите, пожалуйста, адрес и номер квартиры."
+    },
+    {
+      "role": "user",
+      "message": "Parauga iela, семь, квартира двенадцать. Льёт сверху по стояку, уже полчаса."
+    }
+  ],
+  "mocked_tools": {
+    "create_ticket": {
+      "ok": true,
+      "v": 1,
+      "ticket_id": "T-0a1b2c",
+      "scg_site": true,
+      "escalated": true,
+      "replayed": false,
+      "hint": "offer_callback",
+      "say_ru": "Это срочная заявка, я сразу передала её нашему менеджеру. Если сейчас течёт — перекройте вводной кран в квартире. Назовите, пожалуйста, номер телефона, чтобы с вами можно было связаться.",
+      "say_lv": "Šis ir steidzams pieteikums, es to uzreiz nodevu mūsu menedžerim. Ja šobrīd tek ūdens, lūdzu, aizgrieziet ūdens ievada krānu dzīvoklī. Lūdzu, nosauciet tālruņa numuru, lai ar jums varētu sazināties."
+    }
+  },
+  "expect": {
+    "tool": "create_ticket",
+    "args_contains": {
+      "type": "leak",
+      "urgency": "urgent",
+      "address": "Parauga iela 7",
+      "apartment": 12
+    },
+    "reply_must_not": [
+      "112",
+      "SMS",
+      "смс",
+      "СМС",
+      "фото",
+      "приедет через",
+      "Как к вам обращаться",
+      "ваше имя"
+    ]
+  },
+  "success_condition": "create_ticket is called once, straight away, with type leak, urgency urgent (water running now and reaching another apartment), address Parauga iela 7, apartment 12 and a short Russian description (water running from the ceiling along the riser in the toilet for half an hour, reaching the apartment below) with no names or phone numbers. It passes no name, phone or consent to this tool. The agent does not ask for a name, does not mention 112 (nobody is in danger), and promises no SMS, photo link or arrival time."
+}

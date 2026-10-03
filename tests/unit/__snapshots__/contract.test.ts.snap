@@ -495,5 +495,134 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
     "name": "request_callback",
     "response_timeout_secs": 8,
   },
+  {
+    "api_schema": {
+      "content_type": "application/json",
+      "method": "POST",
+      "request_body_schema": {
+        "description": "Request body of create_ticket.",
+        "properties": {
+          "address": {
+            "description": "Building address as the caller said it.",
+            "type": "string",
+          },
+          "apartment": {
+            "description": "The caller's apartment number, if given.",
+            "type": "integer",
+          },
+          "conversation_id": {
+            "description": "Conversation id. Filled automatically by the platform; never ask the caller.",
+            "dynamic_variable": "system__conversation_id",
+            "type": "string",
+          },
+          "description": {
+            "description": "One to three sentences in Russian: what happened, which system, access. No names and no phone numbers.",
+            "type": "string",
+          },
+          "language": {
+            "description": "Language the caller is speaking right now: ru, lv or en.",
+            "enum": [
+              "ru",
+              "lv",
+              "en",
+            ],
+            "type": "string",
+          },
+          "type": {
+            "description": "complaint (damage, mess, noise), warranty (a problem after works), maintenance (service request) or leak (water is leaking now or after the works).",
+            "enum": [
+              "complaint",
+              "warranty",
+              "maintenance",
+              "leak",
+            ],
+            "type": "string",
+          },
+          "urgency": {
+            "description": "urgent if water is leaking or flooding now, otherwise normal. A leak is always treated as urgent.",
+            "enum": [
+              "normal",
+              "urgent",
+            ],
+            "type": "string",
+          },
+        },
+        "required": [
+          "conversation_id",
+          "language",
+          "type",
+          "urgency",
+          "description",
+          "address",
+        ],
+        "type": "object",
+      },
+      "request_headers": {
+        "x-scg-key": {
+          "secret_id": "{secret_id}",
+        },
+      },
+      "url": "{base_url}/tools/create_ticket",
+    },
+    "description": "Record a service ticket from a resident or maintenance client (complaint, warranty case, maintenance request or leak). A leak or urgent ticket alerts the team at once. Read say_ru / say_lv aloud; confirm only when ok is true.",
+    "name": "create_ticket",
+    "response_timeout_secs": 8,
+  },
+  {
+    "api_schema": {
+      "content_type": "application/json",
+      "method": "POST",
+      "request_body_schema": {
+        "description": "Request body of log_request.",
+        "properties": {
+          "conversation_id": {
+            "description": "Conversation id. Filled automatically by the platform; never ask the caller.",
+            "dynamic_variable": "system__conversation_id",
+            "type": "string",
+          },
+          "kind": {
+            "description": "b2b (company or project inquiry, e.g. Sweden/Norway), job_candidate (applicant), emergency_referral (emergency at a building that is not an SCG client), admin_message (supplier, sales, office message) or other.",
+            "enum": [
+              "b2b",
+              "job_candidate",
+              "emergency_referral",
+              "admin_message",
+              "other",
+            ],
+            "type": "string",
+          },
+          "language": {
+            "description": "Language the caller is speaking right now: ru, lv or en.",
+            "enum": [
+              "ru",
+              "lv",
+              "en",
+            ],
+            "type": "string",
+          },
+          "summary_ru": {
+            "description": "Two or three sentences in Russian: who (company or trade, not a person's name), what, when. No names and no phone numbers.",
+            "type": "string",
+          },
+        },
+        "required": [
+          "conversation_id",
+          "language",
+          "kind",
+          "summary_ru",
+        ],
+        "type": "object",
+      },
+      "request_headers": {
+        "x-scg-key": {
+          "secret_id": "{secret_id}",
+        },
+      },
+      "url": "{base_url}/tools/log_request",
+    },
+    "description": "Log a non-sales request for the team: B2B inquiry, job candidate, emergency at a non-client building, or an admin message. Read say_ru / say_lv aloud.",
+    "name": "log_request",
+    "response_timeout_secs": 8,
+  },
 ]
 `;

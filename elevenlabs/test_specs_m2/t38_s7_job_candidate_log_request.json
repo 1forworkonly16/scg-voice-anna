@@ -1,0 +1,59 @@
+{
+  "id": "t38_s7_job_candidate_log_request",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M2 scenario 7: a welder applies in Russian; Anna has asked trade, certificates, languages and availability. She must call log_request with kind job_candidate (no phone in it) and must not promise a job.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Здравствуйте. Я сварщик, ищу работу. Вам нужны люди?"
+    },
+    {
+      "role": "agent",
+      "message": "Я передам ваши данные. Какая у вас специальность и какие сертификаты?"
+    },
+    {
+      "role": "user",
+      "message": "Сварщик TIG и MMA, есть сертификат EN ISO девяносто шестьсот шесть."
+    },
+    {
+      "role": "agent",
+      "message": "Спасибо. Какими языками владеете и когда можете начать?"
+    },
+    {
+      "role": "user",
+      "message": "Русский, латышский, немного английский. Могу с ноября, в том числе в Швеции."
+    }
+  ],
+  "mocked_tools": {
+    "log_request": {
+      "ok": true,
+      "v": 1,
+      "request_id": "R-2f3a4b",
+      "replayed": false,
+      "hint": "offer_callback",
+      "say_ru": "Хорошо, я передала ваше сообщение нашим сотрудникам. Если хотите, чтобы вам перезвонили, назовите номер телефона.",
+      "say_lv": "Labi, esmu nodevusi jūsu ziņu mūsu darbiniekiem. Ja vēlaties, lai jums piezvana, nosauciet tālruņa numuru."
+    }
+  },
+  "expect": {
+    "tool": "log_request",
+    "args_contains": {
+      "kind": "job_candidate"
+    },
+    "reply_must_not": [
+      "вы приняты",
+      "зарплата",
+      "вакансия есть",
+      "гарантир",
+      "SMS",
+      "смс"
+    ]
+  },
+  "success_condition": "log_request is called once with kind job_candidate, language ru and a short Russian summary_ru (TIG and MMA welder, EN ISO 9606 certificate, Russian, Latvian, some English, available from November, also in Sweden) with no personal name or phone number. It passes no name, phone or consent to this tool. Nothing promises a job, a salary or a vacancy."
+}

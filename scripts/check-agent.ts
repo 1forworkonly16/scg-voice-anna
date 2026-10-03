@@ -18,7 +18,7 @@ const a = await el('GET', `/v1/convai/agents/${id}`);
 const cc = a.conversation_config, ps = a.platform_settings, pr = cc.agent.prompt;
 const state = readAgents().agents[c.name];
 const toolsFile = readJson(p('elevenlabs', 'tools.json'));
-const toolIds: string[] = Object.values<any>(toolsFile.tools).map((t) => t.id);
+const toolIds: string[] = Object.entries<any>(toolsFile.tools).filter(([n]) => !c.tools || c.tools.includes(n)).map(([, t]) => t.id); // allowlist from agent_config.json
 
 // agent identity and model
 eq('agent name', a.name, c.name);

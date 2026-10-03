@@ -1,4 +1,4 @@
-# Tool contract (M1), version 1
+# Tool contract (M1 + M2 backend), version 1
 
 Single source: `src/contract/schemas.ts` (zod v4). `toElevenLabsTool(name, {baseUrl, secretId})` in `src/contract/elevenlabs.ts` emits the ElevenLabs webhook-tool definition; `tests/unit/__snapshots__/contract.test.ts.snap` pins it. This file is written from the schemas and a test keeps tool, field and error names in step.
 
@@ -65,8 +65,24 @@ Timeouts on the ElevenLabs side: 10 s for `book_inspection`, 8 s for the others.
 - Errors: `invalid_phone`, `consent_required`.
 - Side effects: Callbacks row, Telegram message. Replaces brief A's `handoff(summary)`.
 
-## M2 (not built)
-TODO: `create_ticket` (type, urgency, description, address) and `log_request` (kind, summary_ru).
+## M2 tools (backend built, not yet wired into the agent: WP13)
+`create_ticket` and `log_request` live in the same zod source and Worker, but the live agent still has the 7 M1 tools until `npm run el:tools` / `el:build` run in WP13. Phrases: `src/copy/phrases_m2.ts` (6 keys: `ticket_ok`, `ticket_urgent`, `ticket_urgent_other`, `ticket_alert_failed`, `request_ok`, `request_emergency_referral`). Neither tool takes a name or phone number; the agent takes a number only through `request_callback` (with consent).
+Both tools: id derived from `conversation_id`, so a re-sent call returns the stored result with `replayed: true` and writes nothing; `[TEST]` conversations are flagged `is_test` and notify only `TELEGRAM_TEST_CHAT_ID`; free text has phone-like digit runs replaced by `[номер скрыт]`.
+
+Known limitation (accepted for the demo): the replay check reads the tab before it appends, so two identical calls from the same conversation at the same instant can both write a row (and send two alerts). Sequential retries are safe.
+
+### `create_ticket`
+- In (required): `type` (`complaint` / `warranty` / `maintenance` / `leak`), `urgency` (`normal` / `urgent`), `description` (Russian, no names or phones), `address` (as spoken); optional `apartment` (integer).
+- Out: `ticket_id` (`T-` + 6 hex of SHA-256 of `conversation_id|ticket|type|urgency`), `scg_site` (true: the matched building is in the Works tab; false: matched but not on the list; null: address not matched or Sheet unreachable), `escalated`, `replayed`.
+- Escalation: a `leak` type, a leak word in the description (ru/lv/en safety net; a negation within 2 words before it, e.g. «не течёт», «nav sūces», cancels the match), or `urgency: urgent` sets `escalated` true and sends the «СРОЧНО» Telegram alert; otherwise a plain notice. The alert shows `Дежурный мастер: [уточнить]` (on-call contact is unknown, never invented). Speech: `ticket_urgent`; `ticket_urgent_other` when `scg_site` is false (refer to the manager's emergency service); `ticket_alert_failed` when the alert was not delivered.
+- Side effects: Tickets row (`escalated`, `scg_site` as TRUE/FALSE/empty) and Telegram, in parallel. Sheet read failure only makes `scg_site` null and disables the replay check.
+- Errors: `invalid_input`, `internal_error` (Sheet and Telegram both failed).
+
+### `log_request`
+- In: `kind` (`b2b` / `job_candidate` / `emergency_referral` / `admin_message` / `other`), `summary_ru` (no names or phones).
+- Out: `request_id` (`R-` + 6 hex of SHA-256 of `conversation_id|request|kind`), `replayed`.
+- Side effects: Requests row and a short Telegram notice. `emergency_referral` speaks `request_emergency_referral` (valve + the manager's emergency service; no transfer, no visit promised).
+- Errors: `invalid_input`, `internal_error`.
 
 ## Phrase keys used for `say_*`
-`price_range`, `building_found`, `building_confirm`, `building_need_house`, `building_not_found`, `slots_offer`, `no_slots`, `booking_ok`, `slot_taken`, `invalid_phone`, `calendar_down`, `works_found`, `works_not_found`, `access_rescheduled`, `callback_ok`, `tool_error_generic`, `unknown_question`, `consent_required`, `invalid_reschedule`, `slots_offer_two`, `slots_offer_one` (21 keys). Placeholder sets are fixed in `PHRASE_SPEC` (`src/lib/render.ts`).
+`price_range`, `building_found`, `building_confirm`, `building_need_house`, `building_not_found`, `slots_offer`, `no_slots`, `booking_ok`, `slot_taken`, `invalid_phone`, `calendar_down`, `works_found`, `works_not_found`, `access_rescheduled`, `callback_ok`, `tool_error_generic`, `unknown_question`, `consent_required`, `invalid_reschedule`, `slots_offer_two`, `slots_offer_one` (21 keys), plus the 6 M2 keys above. Placeholder sets are fixed in `PHRASE_SPEC` (`src/lib/render.ts`).

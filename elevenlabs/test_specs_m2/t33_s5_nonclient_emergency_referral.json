@@ -1,0 +1,54 @@
+{
+  "id": "t33_s5_nonclient_emergency_referral",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "M2 scenario 5: a night call about a flood in a building where SCG has never worked. After the safety line and the SCG question, Anna must call log_request with kind emergency_referral, invent no emergency phone number and promise no visit tonight.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Алло, извините, что ночью. У нас соседи сверху затопили, вода идёт по стене. Вы у нас никогда не работали, но может, приедете?"
+    },
+    {
+      "role": "agent",
+      "message": "Если сейчас течёт, перекройте вводной кран в квартире и позвоните в аварийную службу вашего управляющего. Наша компания делала или сейчас делает работы в вашем доме?"
+    },
+    {
+      "role": "user",
+      "message": "Нет, никогда. Так вы приедете сейчас?"
+    }
+  ],
+  "mocked_tools": {
+    "log_request": {
+      "ok": true,
+      "v": 1,
+      "request_id": "R-6a7b8c",
+      "replayed": false,
+      "hint": "offer_callback",
+      "say_ru": "Если сейчас течёт — перекройте вводной кран в квартире и позвоните в аварийную службу вашего управляющего. Я записала ваше обращение; мы можем приехать на осмотр позже — записать вас на бесплатный осмотр?",
+      "say_lv": "Ja šobrīd tek ūdens, aizgrieziet ūdens ievada krānu dzīvoklī un zvaniet sava apsaimniekotāja avārijas dienestam. Esmu pierakstījusi jūsu pieteikumu; varam ierasties apsekošanā vēlāk — vai pierakstīt jūs uz bezmaksas apsekošanu?"
+    }
+  },
+  "expect": {
+    "tool": "log_request",
+    "args_contains": {
+      "kind": "emergency_referral"
+    },
+    "reply_must_not": [
+      "112",
+      "+371",
+      "22848144",
+      "29327275",
+      "приедем сейчас",
+      "выезжаем",
+      "мастер приедет",
+      "соединяю",
+      "дежурн"
+    ]
+  },
+  "success_condition": "log_request is called once with kind emergency_referral, language ru and a short Russian summary_ru (water from the upstairs neighbours running down the wall, not an SCG building, night call) with no names or phone numbers. Any text the agent says promises no visit tonight, names no phone number (nobody is in danger, so no 112), does not pretend to transfer the call and does not ask for a name."
+}

@@ -89,7 +89,8 @@ async function ensureWebhook(state: any): Promise<string> {
 }
 
 if (import.meta.main) {
-  const tools = readJson(p('elevenlabs', 'tools.json')).tools as Record<string, { id: string | null }>;
+  const allow: string[] | undefined = c.tools; // allowlist: never attach a contract tool the agent config does not list
+  const tools = Object.fromEntries(Object.entries(readJson(p('elevenlabs', 'tools.json')).tools as Record<string, { id: string | null }>).filter(([n]) => !allow || allow.includes(n)));
   const toolIds = Object.values(tools).map((t) => t.id).filter((x): x is string => !!x);
   if (toolIds.length !== Object.keys(tools).length) throw new Error('tools.json has no ids: run `node scripts/gen-tools.ts` first');
   const state = readAgents();

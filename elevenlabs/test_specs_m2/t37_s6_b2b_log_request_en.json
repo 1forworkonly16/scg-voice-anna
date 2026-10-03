@@ -1,0 +1,61 @@
+{
+  "id": "t37_s6_b2b_log_request_en",
+  "type": "tool_call",
+  "language": "en",
+  "critical": true,
+  "scenario": "M2 scenario 6: in English, a Swedish general contractor needs four TIG welders for a project in Uppsala from March. Anna has asked her questions; she must call log_request with kind b2b and a Russian summary before any phone number, and must not promise availability or rates.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Hello, can we speak English? I'm calling from a Swedish general contractor."
+    },
+    {
+      "role": "agent",
+      "message": "Of course. How can I help?"
+    },
+    {
+      "role": "user",
+      "message": "We need four TIG welders for a residential project in Uppsala."
+    },
+    {
+      "role": "agent",
+      "message": "Thank you. For which dates do you need them?"
+    },
+    {
+      "role": "user",
+      "message": "From the beginning of March, for about three months. Can you pass this on to your management?"
+    }
+  ],
+  "mocked_tools": {
+    "log_request": {
+      "ok": true,
+      "v": 1,
+      "request_id": "R-9c0d1e",
+      "replayed": false,
+      "hint": "offer_callback",
+      "say_ru": "Хорошо, я передала ваше сообщение нашим сотрудникам. Если хотите, чтобы вам перезвонили, назовите номер телефона.",
+      "say_lv": "Labi, esmu nodevusi jūsu ziņu mūsu darbiniekiem. Ja vēlaties, lai jums piezvana, nosauciet tālruņa numuru."
+    }
+  },
+  "expect": {
+    "tool": "log_request",
+    "args_contains": {
+      "kind": "b2b",
+      "language": "en"
+    },
+    "reply_must_not": [
+      "we have welders available",
+      "guarantee",
+      "SMS",
+      "e-mail",
+      "per hour",
+      "Dima",
+      "Širkins"
+    ]
+  },
+  "success_condition": "log_request is called once with kind b2b, language en and a short Russian summary_ru (Swedish general contractor, four TIG welders, residential project in Uppsala, from early March for about three months) with no personal names or phone numbers. It passes no name, phone or consent to this tool. The agent speaks English only, names no staff member, and confirms no crews, availability, rates or dates; it may then offer a call back."
+}

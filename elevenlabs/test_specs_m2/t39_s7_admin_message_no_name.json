@@ -1,0 +1,30 @@
+{
+  "id": "t39_s7_admin_message_no_name",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M2 scenario 7: a pipe supplier's sales rep wants to leave a message. Anna must take the message (company, what it is about) without asking for a personal name and without promising a meeting.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Добрый день. Я из компании, которая поставляет полипропиленовые трубы. Хотели бы предложить вашему отделу закупок сотрудничество."
+    }
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must_not": [
+      "Как к вам обращаться",
+      "ваше имя",
+      "Как вас зовут",
+      "ваша фамилия",
+      "встречу назначим",
+      "директор",
+      "Dima"
+    ]
+  },
+  "success_condition": "The agent answers in Russian, offers to pass the message on, and asks one short question such as the company name or a phone number for a reply. It does not ask for the caller's personal name, promises no meeting, purchase or reply time, and names no staff member."
+}

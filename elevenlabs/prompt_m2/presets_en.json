@@ -1,0 +1,9 @@
+{
+  "_note": "WP11 (M2, scenario 6): addition for elevenlabs/prompt/presets.json, merged by WP13. Same shape as the ru preset: first_message + language, plus the max-duration and soft-timeout messages for agent_config.json (keys agent.max_duration_message.en and turn.soft_timeout_message.en). No prompt_addendum: preset prompt overrides are not applied at runtime (docs/agent_report.md, finding 1); English handling lives in the main prompt §2. Disclosure + recording notice are in sentence 1 (greeting joined by a comma), as in lv/ru. Voice: the same Marina voice (no per-language override).",
+  "en": {
+    "language": "en",
+    "first_message": "Hello, Smart Comfort Group, you are speaking with Anna, an AI assistant; this call is recorded. How can I help?",
+    "max_duration_message": "The call time is over. Thank you for calling, goodbye!",
+    "soft_timeout_message": "One moment, please."
+  }
+}

@@ -111,6 +111,72 @@ export function callbackMessage(m: CallbackMsg): string {
   ].join("\n");
 }
 
+export const TICKET_TYPE_RU: Record<string, string> = {
+  complaint: "жалоба / повреждение",
+  warranty: "случай после работ (гарантия)",
+  maintenance: "заявка на обслуживание",
+  leak: "течь / протечка",
+};
+
+/** Visible placeholder for facts SCG has not given us (on-call contact). Never replaced by an invented value. */
+export const UNKNOWN = "[уточнить]";
+
+export interface TicketMsg {
+  id: string;
+  isTest: boolean;
+  type: string;
+  /** Urgent ticket or leak: the «СРОЧНО» alert. */
+  escalated: boolean;
+  address: string;
+  apartment?: number;
+  /** true = known SCG works site, false = not on the list, null = could not be checked. */
+  scgSite: boolean | null;
+  description: string;
+}
+
+/** «СРОЧНО» alert for urgent / leak tickets; a plain notice otherwise (brief C §7: complaint -> ticket + Telegram). */
+export function ticketMessage(m: TicketMsg): string {
+  const typeRu = TICKET_TYPE_RU[m.type] ?? m.type;
+  const site = m.scgSite === true ? "да (есть в списке объектов)" : m.scgSite === false ? "нет в списке объектов" : "не удалось проверить";
+  const lines = [
+    m.escalated ? `${head(m.isTest)}<b>СРОЧНО</b>: ${esc(typeRu)}` : `${head(m.isTest)}<b>Новая заявка (обращение)</b>: ${esc(typeRu)}`,
+    `Адрес: ${esc(m.address)}${m.apartment ? `, кв. ${m.apartment}` : ""}`,
+    `Что случилось: ${esc(m.description)}`,
+    `Объект SCG: ${site}`,
+  ];
+  if (m.escalated) {
+    lines.push(`Дежурный мастер: ${UNKNOWN} (в пилоте — звонок и SMS дежурному)`);
+    lines.push("Телефон жильца — в заявке на перезвон, если он его оставил.");
+  }
+  lines.push(FOOTER(m.id));
+  return lines.join("\n");
+}
+
+export const REQUEST_KIND_RU: Record<string, string> = {
+  b2b: "запрос B2B / проект",
+  job_candidate: "кандидат на работу",
+  emergency_referral: "аварийный звонок (не клиент SCG, направлен в аварийную службу управляющего)",
+  admin_message: "сообщение для офиса",
+  other: "другое",
+};
+
+export interface RequestMsg {
+  id: string;
+  isTest: boolean;
+  kind: string;
+  summary: string;
+}
+
+/** Short notice for a logged request. */
+export function requestMessage(m: RequestMsg): string {
+  return [
+    `${head(m.isTest)}<b>Новое обращение</b>: ${esc(REQUEST_KIND_RU[m.kind] ?? m.kind)}`,
+    esc(m.summary),
+    "Контакт — в заявке на перезвон, если он его оставил.",
+    FOOTER(m.id),
+  ].join("\n");
+}
+
 export interface DigestStats {
   date: string;
   calls: number;
@@ -119,6 +185,11 @@ export interface DigestStats {
   callbacks: number;
   accessChanges: number;
   unknownQuestions: number;
+  /** M2: service tickets of the day, of which urgent / leak («СРОЧНО»). */
+  tickets: number;
+  escalatedTickets: number;
+  /** M2: logged requests (B2B, candidates, emergency referrals, admin). */
+  requests: number;
   newBuildings: string[];
   isTest: boolean;
 }
@@ -129,6 +200,10 @@ export function digestMessage(s: DigestStats): string {
   lines.push(`Звонков: ${s.calls}${s.calls ? ` (вне рабочего времени: ${s.callsOutsideHours})` : ""}`);
   lines.push(`Записано осмотров: ${s.inspections}`);
   lines.push(`Просьб перезвонить: ${s.callbacks}`);
+  // M2 lines only when there is something to report, urgent tickets first; the M1 digest text stays unchanged on quiet days
+  if (s.escalatedTickets) lines.push(`СРОЧНЫХ заявок (течь / аварии): ${s.escalatedTickets}`);
+  if (s.tickets) lines.push(`Заявок на обслуживание и жалоб: ${s.tickets}`);
+  if (s.requests) lines.push(`Прочих обращений (B2B, кандидаты, сообщения): ${s.requests}`);
   lines.push(`Переносов доступа жильцов: ${s.accessChanges}`);
   if (s.unknownQuestions) lines.push(`Вопросов для инженера: ${s.unknownQuestions}`);
   if (s.newBuildings.length) lines.push(`Дома в заявках: ${s.newBuildings.map(esc).join("; ")}`);

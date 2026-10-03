@@ -5,13 +5,16 @@
             The SA adds the missing tabs (SHEET_TABS), writes header rows from src/google/sheet_schema.ts (RAW),
             reads them back, and removes the default empty Sheet1/Лист1.
 Idempotent; ids go to state.json. The SA key comes from the user env var GOOGLE_SA_KEY_JSON (never printed).
-Run: PYTHONUTF8=1 python scripts/provision/03_calendar_sheet.py [--calendar-only] [--sheet-url URL | --sheet-id ID]"""
+Run: PYTHONUTF8=1 python scripts/provision/03_calendar_sheet.py [--calendar-only] [--sheet-only] [--new-tabs-only] [--sheet-url URL | --sheet-id ID]
+  --sheet-only      skip the calendar step (no calendar or ACL call at all).
+  --new-tabs-only   ADDITIVE mode for a live Sheet: only the tabs created in THIS run get frozen row + header row; existing tabs are
+                    only read back and compared (never written). Fails if a tab that already existed has different headers."""
 import json, os, re, sys, urllib.error, urllib.parse, urllib.request
 from _common import *
 
 CAL_NAME = "SCG — Бесплатный осмотр"
 OLD_CAL_NAMES = ["SCG — Осмотры (демо)"]
-TABS = ["Leads", "Calls", "Works", "Access", "Callbacks"]
+TABS = ["Leads", "Calls", "Works", "Access", "Callbacks", "Tickets", "Requests"]
 DEFAULT_TABS = {"Sheet1", "Лист1", "Sheet 1", "Лист 1"}
 SCOPES = "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/spreadsheets"
 NODE = shutil.which("node")
@@ -124,7 +127,7 @@ def calendar(st, owner):
     assert any(r[1] == "writer" and r[2] == "owner-account" for r in roles)
 
 
-def sheet(st, sid):
+def sheet(st, sid, new_only=False):
     hdr = headers()
     q = f"{SHEETS}/{sid}"
     meta = api("GET", q, params={"fields": "sheets.properties(sheetId,title)"})
@@ -145,11 +148,14 @@ def sheet(st, sid):
             else:
                 print("default tab", p["title"], "not empty or only tab: kept")
     ids = {x["properties"]["title"]: x["properties"]["sheetId"] for x in api("GET", q, params={"fields": "sheets.properties(sheetId,title)"})["sheets"]}
-    api("POST", q + ":batchUpdate", {"requests": [
-        {"updateSheetProperties": {"properties": {"sheetId": ids[t], "gridProperties": {"frozenRowCount": 1}},
-                                   "fields": "gridProperties.frozenRowCount"}} for t in TABS]})
-    api("POST", f"{q}/values:batchUpdate", {"valueInputOption": "RAW",
-        "data": [{"range": f"{t}!A1", "values": [hdr[t]]} for t in TABS]})
+    write_tabs = missing if new_only else TABS  # additive mode: never write to a tab that already existed
+    if write_tabs:
+        api("POST", q + ":batchUpdate", {"requests": [
+            {"updateSheetProperties": {"properties": {"sheetId": ids[t], "gridProperties": {"frozenRowCount": 1}},
+                                       "fields": "gridProperties.frozenRowCount"}} for t in write_tabs]})
+        api("POST", f"{q}/values:batchUpdate", {"valueInputOption": "RAW",
+            "data": [{"range": f"{t}!A1", "values": [hdr[t]]} for t in write_tabs]})
+        print("headers written for:", write_tabs)
     url = f"{q}/values:batchGet?" + urllib.parse.urlencode([("ranges", f"{t}!1:1") for t in TABS])
     r = api("GET", url)
     ok = True
@@ -170,11 +176,12 @@ def main():
         raise SystemExit("run 01_gcp.py first")
     a = sys.argv[1:]
     owner = a[a.index("--owner") + 1] if "--owner" in a else ACCOUNT
-    try:
-        calendar(st, owner)
-    except ApiError as e:
-        raise SystemExit(f"CALENDAR FAILED ({e.reason}): {e}")
-    print("calendar_id:", st["calendar_id"])
+    if "--sheet-only" not in a:
+        try:
+            calendar(st, owner)
+        except ApiError as e:
+            raise SystemExit(f"CALENDAR FAILED ({e.reason}): {e}")
+        print("calendar_id:", st["calendar_id"])
     sid = None
     if "--sheet-id" in a:
         sid = a[a.index("--sheet-id") + 1]
@@ -191,7 +198,7 @@ def main():
     st["sheet_url"] = f"https://docs.google.com/spreadsheets/d/{sid}/edit"
     save_state(st)
     try:
-        sheet(st, sid)
+        sheet(st, sid, new_only="--new-tabs-only" in a)
     except ApiError as e:
         raise SystemExit(f"SHEET FAILED ({e.reason}): {e}\n-> is the sheet shared with {st['sa_email']} as Editor?")
     print("sheet:", sid, st["sheet_url"])

@@ -8,8 +8,8 @@ const base = { conversation_id: "conv_1", language: "ru" as const };
 const env = { v: 1 as const, say_ru: "р", say_lv: "l", hint: "h" };
 
 describe("contract: inputs", () => {
-  it("has the 7 M1 tools", () => {
-    expect([...TOOL_NAMES].sort()).toEqual(["book_inspection", "find_works_schedule", "get_slots", "lookup_building", "quote_range", "request_callback", "reschedule_access"]);
+  it("has the 7 M1 tools plus the 2 M2 tools", () => {
+    expect([...TOOL_NAMES].sort()).toEqual(["book_inspection", "create_ticket", "find_works_schedule", "get_slots", "log_request", "lookup_building", "quote_range", "request_callback", "reschedule_access"]);
   });
   it("every request needs conversation_id and language", () => {
     for (const n of TOOL_NAMES) {

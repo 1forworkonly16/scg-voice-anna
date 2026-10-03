@@ -10,6 +10,7 @@ import {
   requestCallback,
   rescheduleAccess,
 } from "./handlers";
+import { createTicket, logRequest } from "./handlers_m2";
 import type { Channel, Deps } from "./types";
 import { TimeoutError, cleanSecret, json, safeEqual, withTimeout } from "./util";
 
@@ -24,6 +25,8 @@ const HANDLERS: { [N in ToolName]: (c: { deps: Deps; channel: Channel }, input: 
   find_works_schedule: findWorksSchedule as never,
   reschedule_access: rescheduleAccess as never,
   request_callback: requestCallback as never,
+  create_ticket: createTicket as never,
+  log_request: logRequest as never,
 };
 
 /** Which channel does this key belong to? null = not a valid key. */

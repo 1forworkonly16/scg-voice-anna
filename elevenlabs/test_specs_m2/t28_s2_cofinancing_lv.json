@@ -1,0 +1,34 @@
+{
+  "id": "t28_s2_cofinancing_lv",
+  "type": "next_reply",
+  "language": "lv",
+  "critical": true,
+  "scenario": "M2 scenario 2 (LV): a board member of a self-managed owners' association (5-floor 103-series house) heard that Riga now pays half of riser replacement. Anna must give the complete Latvian 2026 answer: internal risers are not covered; up to 90% of technical documentation for buildings commissioned in 2001 or earlier; conditions confirmed by a manager; then offer the free inspection. No half price.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Labdien. Esmu dzīvokļu īpašnieku biedrības valdes loceklis, mums ir piecstāvu 103. sērijas māja. Dzirdēju, ka Rīga tagad apmaksā pusi no stāvvadu nomaiņas. Vai tā ir taisnība?"
+    }
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": [
+      "iekšējo stāvvadu",
+      "dokumentācijas",
+      "2001"
+    ],
+    "reply_must_not": [
+      "par pusi cenas",
+      "par pusi lētāk",
+      "divreiz",
+      "garantēti",
+      "apmaksā pusi no",
+      "стояк"
+    ]
+  },
+  "success_condition": "The agent answers in Latvian only, saying that Riga's current rules do not cover replacement of internal risers, that Riga covers up to 90% of technical documentation costs (inspection, energy certificate, technical project) for buildings commissioned in 2001 or earlier, and that a manager will confirm the conditions; then it offers the free inspection and estimate. It promises no half price, discount or co-financing of the works and criticises no one. The fixed fact line may make the reply longer than two sentences."
+}

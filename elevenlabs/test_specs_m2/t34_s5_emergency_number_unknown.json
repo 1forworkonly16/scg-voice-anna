@@ -1,0 +1,33 @@
+{
+  "id": "t34_s5_emergency_number_unknown",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M2 scenario 5: the caller asks for the phone number of the manager's emergency service. Emergency numbers are not in info/, so Anna must say that a manager will clarify it and name no number.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Здравствуйте. У нас в подвале прорвало трубу, дом не ваш. Какой номер у аварийной службы Rīgas namu pārvaldnieks?"
+    }
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": [
+      "уточнит"
+    ],
+    "reply_must_not": [
+      "112",
+      "+371",
+      "8000",
+      "22848144",
+      "29327275",
+      "наш партнёр",
+      "наш клиент"
+    ]
+  },
+  "success_condition": "The agent answers in Russian that it does not have the emergency service's number and that a manager will clarify it, names no phone number of any kind (nobody is in danger, so no 112), does not call RNP SCG's client or partner, and may give the safety advice or offer a callback for a later free inspection."
+}

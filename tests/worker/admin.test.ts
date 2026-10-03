@@ -14,7 +14,7 @@ describe("sheet schema (single source for WP5)", () => {
       "price_range", "decision_stage", "timing", "name", "phone", "email", "consent", "booked_slot", "status", "notes",
     ]);
     for (const h of Object.values(SHEET_TABS)) expect(h[h.length - 1]).toBe("is_test");
-    expect(Object.keys(SHEET_TABS)).toEqual(["Leads", "Calls", "Works", "Access", "Callbacks"]);
+    expect(Object.keys(SHEET_TABS)).toEqual(["Leads", "Calls", "Works", "Access", "Callbacks", "Tickets", "Requests"]);
     expect([CALLS_HEADERS, WORKS_HEADERS, ACCESS_HEADERS, CALLBACKS_HEADERS].every((h) => new Set(h).size === h.length)).toBe(true);
   });
   it("column letters and header ranges", () => {
@@ -90,6 +90,24 @@ describe("digest from real rows only", () => {
     expect(h.world.telegram[0]!.chat_id).toBe("-100111");
     expect(h.world.telegram[0]!.text).toContain("Записано осмотров: 1");
     expect(h.world.telegram[0]!.text.endsWith("ДЕМО · D-2026-10-05")).toBe(true);
+  });
+
+  it("M2 lines: urgent tickets first, then tickets, then other requests; test rows excluded; quiet days unchanged", async () => {
+    const h = await harness();
+    const quiet = (await (await admin(h, "/admin/digest", "GET")).json()) as any;
+    expect(quiet.text).not.toContain("заявок");
+    expect(quiet.stats).toMatchObject({ tickets: 0, escalatedTickets: 0, requests: 0 });
+    const t = { ...base("real-t"), type: "leak", urgency: "urgent", description: "Течёт", address: "Parauga iela 7" };
+    await h.call("create_ticket", t);
+    await h.call("create_ticket", { ...t, conversation_id: "real-t2", type: "maintenance", urgency: "normal", description: "Нужен мастер" });
+    await h.call("create_ticket", { ...t, conversation_id: "[TEST]-t3" });
+    await h.call("log_request", { ...base("real-r"), kind: "b2b", summary_ru: "Шведский подрядчик" });
+    const d = (await (await admin(h, "/admin/digest", "GET")).json()) as any;
+    expect(d.stats).toMatchObject({ tickets: 2, escalatedTickets: 1, requests: 1 });
+    const text: string = d.text;
+    expect(text.indexOf("СРОЧНЫХ заявок")).toBeGreaterThan(-1);
+    expect(text.indexOf("СРОЧНЫХ заявок")).toBeLessThan(text.indexOf("Заявок на обслуживание"));
+    expect(text.indexOf("Заявок на обслуживание")).toBeLessThan(text.indexOf("Прочих обращений"));
   });
 
   it("GET is a dry run; ?test=1 goes to the test chat; cron 0 15 * * 1-5 sends", async () => {

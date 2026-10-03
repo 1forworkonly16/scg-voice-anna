@@ -14,12 +14,13 @@ function onDate(ts: unknown, date: string): boolean {
 
 export async function computeDigest(deps: Deps, date?: string, isTest = false): Promise<DigestStats> {
   const day = date ?? rigaYmd(deps.now());
-  const tabs = await readTabs(deps, ["Leads", "Calls", "Callbacks", "Access"]);
+  const tabs = await readTabs(deps, ["Leads", "Calls", "Callbacks", "Access", "Tickets", "Requests"]);
   const real = (name: string) => (tabs[name] ?? []).filter((r) => !isTestRow(r) && onDate(name === "Access" ? r.created_at : r.timestamp, day));
   const leads = real("Leads");
   const calls = real("Calls");
   const booked = leads.filter((r) => String(r.status) === "inspection_booked");
   const buildings = [...new Set(booked.map((r) => String(r.address ?? "")).filter(Boolean))];
+  const tickets = real("Tickets");
   return {
     date: day,
     calls: calls.length,
@@ -28,6 +29,9 @@ export async function computeDigest(deps: Deps, date?: string, isTest = false): 
     callbacks: real("Callbacks").length,
     accessChanges: real("Access").length,
     unknownQuestions: leads.filter((r) => String(r.unknown_questions ?? "").trim() !== "").length,
+    tickets: tickets.length,
+    escalatedTickets: tickets.filter((r) => String(r.escalated ?? "").toUpperCase() === "TRUE").length,
+    requests: real("Requests").length,
     newBuildings: buildings,
     isTest,
   };

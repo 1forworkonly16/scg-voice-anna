@@ -1,0 +1,41 @@
+{
+  "id": "t29_s2_cofinancing_followup_unknown_lv",
+  "type": "next_reply",
+  "language": "lv",
+  "critical": false,
+  "scenario": "M2 scenario 2 (LV) follow-up: after the co-financing answer the caller asks how much Riga pays for the technical project and whether SCG will prepare the documents. Neither is a stated fact, so Anna must defer to the engineer/manager without numbers or promises.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Labdien. Vai Rīga palīdz apmaksāt stāvvadu nomaiņu? Mums ir biedrība, pārvaldām māju paši."
+    },
+    {
+      "role": "agent",
+      "message": "Pašreizējie Rīgas noteikumi iekšējo stāvvadu nomaiņu neparedz. Taču mājām, kas nodotas ekspluatācijā 2001. gadā vai agrāk, Rīga sedz līdz 90% no tehniskās dokumentācijas — apsekošanas, energosertifikāta, tehniskā projekta — izmaksām; nosacījumus precizēs mūsu menedžeris. Vai pierakstīt jūs uz bezmaksas apsekošanu un tāmi?"
+    },
+    {
+      "role": "user",
+      "message": "Pagaidiet. Cik tieši eiro Rīga samaksās par tehnisko projektu, un vai jūs paši sagatavosiet tos dokumentus?"
+    }
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": [
+      "precizēs"
+    ],
+    "reply_must_not": [
+      "1200",
+      "1 200",
+      "15 000",
+      "15000",
+      "tūkstoš",
+      "jā, mēs sagatavosim",
+      "garantēti"
+    ]
+  },
+  "success_condition": "The agent answers in Latvian that these details will be clarified by an engineer or manager (unknown-question wording), names no euro amount or cap, does not promise that SCG prepares the documents, and offers the free inspection or a callback."
+}

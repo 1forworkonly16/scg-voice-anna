@@ -1,0 +1,25 @@
+{
+  "_note": "WP11 (M2), aligned with WP12's final contract (docs/tool_contract.md L69-84, src/contract/schemas.ts TICKET_TYPES / TICKET_URGENCIES / REQUEST_KINDS). Proposed tool-level descriptions for create_ticket and log_request (WP13 may replace the shorter TOOLS[...].description in schemas.ts with these, or keep WP12's); param texts are given for review only, the zod .describe() strings in schemas.ts stay the source. Neither tool takes a name, phone or consent: a call back goes through request_callback (M1, with consent). language_detection: the updated system-tool description for elevenlabs/prompt/tool_descriptions.json (adds English). conversation_id and language come from requestBase.",
+  "create_ticket": {
+    "description": "Record a leak, a problem after SCG's works, a complaint or a maintenance request at a building where SCG works or has worked. Call once per issue, after the address and what happened are known, before asking for any phone number. Choose type and urgency honestly from what the caller said: urgent only when water is running or flooding now, reaches other apartments or electrics, or people are in danger. Never promise an arrival time, SMS or photo link. Read say_ru / say_lv aloud; confirm only when ok is true. If scg_site is false, advise the caller to call their house manager's emergency service.",
+    "timeoutSecs": 8,
+    "params": {
+      "type": "One of: leak (water is leaking or dripping now), warranty (a problem after SCG's works that is not leaking now: stain, damp spot, a drip that stopped, a loose fitting), complaint (damage, mess, noise or behaviour during or after works), maintenance (service request from a maintenance client).",
+      "urgency": "One of: urgent (water running or flooding now, reaching other apartments or electrics, or people in danger), normal (everything else, including a slow drip the caller can catch or stop with the valve).",
+      "description": "One to three Russian sentences: what happened, where in the building, since when, and plainly whether it is leaking now («сейчас не течёт» when it is not). No names, no phone numbers, no neighbours' data.",
+      "address": "Building address as the caller said it, e.g. 'Parauga iela 7'.",
+      "apartment": "Optional. The caller's apartment number as an integer, if given."
+    },
+    "output": "ticket_id, scg_site (true / false / null when the address was not matched), escalated, replayed, say_ru, say_lv, hint."
+  },
+  "log_request": {
+    "description": "Pass on a request that is not an inspection booking or a ticket: a company or Swedish/Norwegian contractor asking about crews or subcontracting (b2b), a job seeker (job_candidate), an emergency at a building SCG does not serve (emergency_referral), a supplier, sales or office message (admin_message), or anything else (other). Call once, after at most four short questions. Never ask for names. Read say_ru / say_lv aloud; confirm only when ok is true. If the caller wants a call back, use request_callback afterwards with phone and consent.",
+    "timeoutSecs": 8,
+    "params": {
+      "kind": "One of: b2b, job_candidate, emergency_referral, admin_message, other.",
+      "summary_ru": "Two or three Russian sentences for SCG: who (company name or trade, never a personal name), what (project, trades and number of people, certificates, languages, what leaks), when and where. No phone numbers."
+    },
+    "output": "request_id, replayed, say_ru, say_lv, hint."
+  },
+  "language_detection": "Switch the conversation between Latvian (lv), Russian (ru) and English (en). Call it ONLY when the caller speaks a complete sentence in another language, or explicitly asks to switch (e.g. 'Можно по-русски?', 'Runāsim latviski', 'Can we speak English?'). A Russian or English sentence in reply to the bilingual opening counts. Do NOT call it for Latvian street, district or company names inside Russian speech (e.g. 'Ilūkstes iela шестнадцать', 'Rīgas namu pārvaldnieks'), for single words such as 'labi', 'paldies', 'да', 'OK', for numbers, or for an address dictated in Latvian form. If unsure, stay in the current language."
+}

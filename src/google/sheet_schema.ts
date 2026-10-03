@@ -88,12 +88,47 @@ export const CALLBACKS_HEADERS = [
   "is_test",
 ] as const;
 
+/**
+ * M2: service tickets (create_ticket). Data minimisation: no caller name and NO phone number here (a callback number lives in
+ * Callbacks); `apartment` is the same detail the Access tab already holds. scg_site: TRUE / FALSE / empty (unknown).
+ */
+export const TICKETS_HEADERS = [
+  "timestamp",
+  "ticket_id",
+  "conversation_id",
+  "language",
+  "type",
+  "urgency",
+  "escalated",
+  "address",
+  "building_id",
+  "apartment",
+  "scg_site",
+  "description",
+  "status",
+  "is_test",
+] as const;
+
+/** M2: other logged requests (log_request): B2B, job candidates, emergency referrals, admin messages. No names, no phones. */
+export const REQUESTS_HEADERS = [
+  "timestamp",
+  "request_id",
+  "conversation_id",
+  "language",
+  "kind",
+  "summary_ru",
+  "status",
+  "is_test",
+] as const;
+
 export const SHEET_TABS = {
   Leads: LEADS_HEADERS,
   Calls: CALLS_HEADERS,
   Works: WORKS_HEADERS,
   Access: ACCESS_HEADERS,
   Callbacks: CALLBACKS_HEADERS,
+  Tickets: TICKETS_HEADERS,
+  Requests: REQUESTS_HEADERS,
 } as const;
 
 export type TabName = keyof typeof SHEET_TABS;

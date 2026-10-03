@@ -1,0 +1,65 @@
+{
+  "id": "t31_s4_warranty_normal_ticket_args",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "M2 scenario 4 (not urgent): after SCG's works a resident reports a damp stain on the ceiling near the new riser; it is not dripping now. Anna must choose honestly: type warranty, urgency normal, and must not ask for a phone before the ticket.",
+  "chat_history": [
+    {
+      "role": "agent",
+      "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."
+    },
+    {
+      "role": "user",
+      "message": "Здравствуйте. Ваша бригада в августе меняла у нас стояки, а теперь на потолке в ванной у стояка мокрое пятно."
+    },
+    {
+      "role": "agent",
+      "message": "Понимаю, я запишу это. Подскажите, пожалуйста, адрес и номер квартиры."
+    },
+    {
+      "role": "user",
+      "message": "Ilūkstes iela шестнадцать, квартира сорок."
+    },
+    {
+      "role": "agent",
+      "message": "Ilūkstes iela 16, квартира сорок. Что и где течёт, и течёт ли прямо сейчас?"
+    },
+    {
+      "role": "user",
+      "message": "Нет, сейчас не капает, просто пятно, появилось где-то неделю назад."
+    }
+  ],
+  "mocked_tools": {
+    "create_ticket": {
+      "ok": true,
+      "v": 1,
+      "ticket_id": "T-3d4e5f",
+      "scg_site": true,
+      "escalated": false,
+      "replayed": false,
+      "hint": "offer_callback",
+      "say_ru": "Я записала вашу заявку и передала её нашему менеджеру. Если хотите, чтобы вам перезвонили, назовите номер телефона.",
+      "say_lv": "Esmu pierakstījusi jūsu pieteikumu un nodevusi to mūsu menedžerim. Ja vēlaties, lai jums piezvana, nosauciet tālruņa numuru."
+    }
+  },
+  "expect": {
+    "tool": "create_ticket",
+    "args_contains": {
+      "type": "warranty",
+      "urgency": "normal",
+      "address": "Ilūkstes iela 16",
+      "apartment": 40
+    },
+    "reply_must_not": [
+      "SMS",
+      "смс",
+      "СМС",
+      "гарантийный ремонт",
+      "компенсир",
+      "бесплатно заменим",
+      "112"
+    ]
+  },
+  "success_condition": "create_ticket is called once with type warranty, urgency normal, address Ilūkstes iela 16, apartment 40 and a short Russian description (damp stain on the bathroom ceiling near the new riser, about a week, not leaking now, e.g. «сейчас не течёт»). It passes no name, phone or consent to this tool. The agent did not upgrade the call to leak or urgent and promises no compensation, warranty repair or SMS."
+}

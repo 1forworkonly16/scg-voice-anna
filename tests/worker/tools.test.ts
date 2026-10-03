@@ -275,6 +275,8 @@ describe("subrequest budget: every tool stays within 6 fetches per call (cold to
     find_works_schedule: (h) => h.call("find_works_schedule", { ...base("s1"), apartment: 3, address: "Parauga iela 7" }),
     reschedule_access: (h) => h.call("reschedule_access", { ...base("s1"), building_id: "demo-parauga-iela-7", apartment: 3, new_date: "2026-10-13", new_window: "09:00-13:00" }),
     request_callback: (h) => h.call("request_callback", { ...base("s1"), reason: "x", summary_ru: "y", phone: "29327275", consent: true }),
+    create_ticket: (h) => h.call("create_ticket", { ...base("s1"), type: "leak", urgency: "urgent", description: "Течёт с потолка", address: "Parauga iela 7", apartment: 3 }),
+    log_request: (h) => h.call("log_request", { ...base("s1"), kind: "b2b", summary_ru: "Шведский подрядчик, нужны сварщики" }),
   };
   for (const name of TOOL_NAMES) {
     it(name, async () => {
