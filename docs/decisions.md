@@ -25,3 +25,4 @@ Fixed 2026-10-03; change only with the user.
 
 - 2026-10-03, user: keys may also live in the git-ignored `.env` (read by `scripts/env.ps1` when the user env var is empty; user vars win).
 - 2026-10-03, user (H2, after Gate S GO-with-conditions): TTS model eleven_v4_turbo. Opus 5.5 dropped as voice LLM. WP8 runs the critical tests on both claude-sonnet-5-5 and claude-haiku-4-5 with the real prompt; V1 times both with the greeting, turn_eagerness eager and minimal reasoning if the platform allows; the faster model that passes every critical test is chosen. Voice: pending the user's ear check (shortlist in spike/REPORT.md).
+- 2026-10-03, user (H2): voice = Marina (ymDCYd8puC7gYjxIamPt), one voice for LV and RU (no per-language voice override); already in the account, so no library add needed.

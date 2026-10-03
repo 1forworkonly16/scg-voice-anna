@@ -13,7 +13,7 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | WP4 Spike | Sonnet | accepted 2026-10-03 | see git log | Gate S GO-with-conditions; 10.88 min, $0.29; LV ok on eleven_v4_turbo |
 | WP5 Provision | Sonnet | todo | - | needs H1 |
 | WP6 Worker | Sonnet | accepted 2026-10-03 | see git log | 269 + 62 worker tests (mocked fetch); dry-run OK (972 KiB); holidays verified online (2027-05-03/12-27 removed); advisory: holiday note wording (law DOES shift 4 May / 18 Nov / song-festival day off a weekend), true insert-409 same-slot branch only covered by verifier probe |
-| Gate S + H2 | user | in progress | - | Gate S done; LLM decided (Sonnet vs Haiku in WP8); voice pick pending |
+| Gate S + H2 | user | done 2026-10-03 | - | GO-with-conditions; TTS eleven_v4_turbo; LLM Sonnet vs Haiku decided in WP8; voice Marina |
 | WP7 Deploy + live backend | Sonnet | todo | - | needs WP5, WP6 |
 | WP8 Agent as code | Sonnet | todo | - | needs WP3, WP7, Gate S |
 | WP9 Demo kit | Opus | todo | - | needs WP8 |
