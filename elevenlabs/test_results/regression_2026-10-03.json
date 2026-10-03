@@ -1,0 +1,332 @@
+{
+  "_note": "WP8 regression (independent verifier). EL Tests, agent scg-anna (agent_4801m41cmf0ge7er75wzv5nj3pn1), live config, x1 each. No secrets, no personal data (test phone/address are fictional spec data).",
+  "date": "2026-10-03",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "result": "FAIL",
+  "summary": {
+    "critical": "10/10",
+    "reworked": "0/4",
+    "skipped": []
+  },
+  "credits": {
+    "method": "GET /v1/user/subscription (character_limit - character_count)",
+    "remaining_before": 24398,
+    "remaining_after": 23825,
+    "used": 573,
+    "per_run_first_test_t04": 79,
+    "avg_per_reworked_test": 75,
+    "avg_per_critical_test": 27,
+    "stop_line": "used>=6000 or remaining<18000; not reached"
+  },
+  "usd_reported_llm_price": 0.0632,
+  "safety": "Tool-execution logs (GET /v1/convai/tools/{id}/executions) of all 7 webhook tools: 0 executions before and after every batch.",
+  "doubt": "Reworked tests t04/t13/t18/t21 have Russian agent turns in the history without a recorded language_detection(ru) call; t13's Latvian filler suggests the platform still treats the call as LV. Realism gap in the test histories (same in round 1).",
+  "runs": [
+    {
+      "test": "t04_s1_asks_apartments_before_price",
+      "critical": false,
+      "reworked": true,
+      "batch": "reg_t04",
+      "invocation": "suite_5301m41mm33qfyar8t9r2s6t20b1",
+      "status": "failed",
+      "pass": false,
+      "credits_reported": 79,
+      "llm_price_usd": 0.0112651,
+      "failure_reason": "Called quote_range with apartments=144 taken from the injected lookup result (apartments not in sourced) instead of asking the apartment count.",
+      "proposed_fix_not_applied": "Test-side first: the injected lookup mock (t03 spec) still returns apartments=144 unsourced, which the reworked Worker now returns as null; align the mock to apartments:null. Prompt (step 3): 'Pass apartments to quote_range only if the caller said the number in this call; otherwise ask «Сколько примерно квартир в доме?» first.'",
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"language\": \"ru\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t13_s3_find_works_schedule",
+      "critical": false,
+      "reworked": true,
+      "batch": "reg_rework3",
+      "invocation": "suite_3901m41mnkd3fevs114acma47vc3",
+      "status": "failed",
+      "pass": false,
+      "credits_reported": 76,
+      "llm_price_usd": 0.010768999999999999,
+      "failure_reason": "Resident gave address + apartment for a works date; agent called lookup_building (with a Latvian filler) instead of find_works_schedule.",
+      "proposed_fix_not_applied": "Prompt: make it a routing rule at the top of the scenarios: 'Caller gives an apartment number or talks about being home/away for works = resident -> find_works_schedule; lookup_building only for price or inspection.'",
+      "agent": [
+        {
+          "message": "Mirklīti, pārbaudu.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Parauga iela 7\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t21_s10_switch_ru_to_lv",
+      "critical": false,
+      "reworked": true,
+      "batch": "reg_rework3",
+      "invocation": "suite_3901m41mnkd3fevs114acma47vc3",
+      "status": "failed",
+      "pass": false,
+      "credits_reported": 74,
+      "llm_price_usd": 0.010401599999999999,
+      "failure_reason": "Answered in Latvian («Labi, protams. Kāds ir jūsu mājas adrese?») without calling language_detection(lv).",
+      "proposed_fix_not_applied": "Prompt (language rule): 'Before your first Latvian word, call language_detection with language lv; never reply in Latvian without that call.'",
+      "agent": [
+        {
+          "message": "Labi, protams. Kāds ir jūsu mājas adrese?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t18_handover_request_callback_args",
+      "critical": false,
+      "reworked": true,
+      "batch": "reg_rework3",
+      "invocation": "suite_3901m41mnkd3fevs114acma47vc3",
+      "status": "failed",
+      "pass": false,
+      "credits_reported": 75,
+      "llm_price_usd": 0.0105017,
+      "failure_reason": "After phone read-back + consent the agent asked «Как к вам обращаться?» instead of calling request_callback.",
+      "proposed_fix_not_applied": "Prompt (handover line): 'When the caller says yes to consent, your next action is request_callback; the name is optional, never ask for it.'",
+      "agent": [
+        {
+          "message": "Спасибо. Как к вам обращаться?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t17_handover_want_human",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 25,
+      "llm_price_usd": 0.00165154,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит вам в р абочее время.  Какой номер вам удобен?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t19_s9_exact_price_demand",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 26,
+      "llm_price_usd": 0.0018704400000000001,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Точную цену даст инженер после бесплатного осмотра — записать в ас?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t06_s1_price_relay",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 31,
+      "llm_price_usd": 0.0027900400000000006,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Ориентировочно для вашего дома — от 80 000 до 96  000 евро без НДС, то есть от 96 000 до 117 000  евро с НДС 21%, примерно 740 евро на квартиру с Н ДС.  Точную цену даст инженер после бесплатного осмотра.  Записать вас на бесплатный осмотр?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t24_cofinancing_ru",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 27,
+      "llm_price_usd": 0.00211244,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Здравствуйте! Рига компенсирует до 90% технической документации — обследования, эн ергосертификата, техпроекта — для домов,  сданных в эксплуатацию в 2001 году или раньше; условия у точнит наш менеджер.  Цена работ самих стояков остаётся за счёт собственников,  но инженер подробнее расскажет при бесплатном осмотре.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t10_s1_booking_ok_no_sms",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 33,
+      "llm_price_usd": 0.00322014,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Готово, я записала бесплатный осмотр: Ilūkstes iela 16, четверг 8 октября  в 10:00.  Пожалуйста, запишите это время — это и есть ваше подтвер ждение.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t01_first_message_disclosure",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 25,
+      "llm_price_usd": 0.00156794,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Да, я из Smart Comfort Group. Я ИИ-ассистент Анна; если  хотите, вам перезвонит наш сотрудник.  Чем я могу вам помочь?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t23_unknown_warranty",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 25,
+      "llm_price_usd": 0.00172524,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Спасибо за интерес. Это уточнит наш инженер или менеджер —  гарантийные условия обсуждаются после осмотра.  Какой адрес вашего дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t15_s8_are_you_human_ru",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 25,
+      "llm_price_usd": 0.00165374,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Нет, я ИИ-ассистент, искусственный интеллект; если хотите, вам перезвонит на ш сотрудник.  Теперь адрес дома, пожалуйста?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t22_false_switch_street_name",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 26,
+      "llm_price_usd": 0.00182094,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Секунду, проверяю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test": "t22_false_switch_street_name_relay",
+      "critical": true,
+      "reworked": false,
+      "batch": "reg_crit",
+      "invocation": "suite_1801m41mpf64f588b9dwbyfhqekx",
+      "status": "passed",
+      "pass": true,
+      "credits_reported": 26,
+      "llm_price_usd": 0.0018319400000000002,
+      "failure_reason": null,
+      "proposed_fix_not_applied": null,
+      "agent": [
+        {
+          "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Вер но?",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
