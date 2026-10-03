@@ -7,7 +7,7 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | H0 | user | done (2026-10-03) | - | VS Code opened in `Dima voice/`, edit-automatically mode |
 | WP0 Setup | Sonnet | accepted 2026-10-03 | initial commit | scaffold archived, git init, 2 rework rounds (setup_keys.md) |
 | H1 Keys | user | todo | - | see `docs/setup_keys.md` |
-| WP1 Dataset | Sonnet | todo | - | |
+| WP1 Dataset | Sonnet | accepted 2026-10-03 | see git log | 30 records (6 SCG, 23 typical, 1 ДЕМО); per-field provenance VZD 2026-09-26 + OSM 2026-10-02 + INFO; prices only Ilūkstes 16 + ДЕМО |
 | WP2 Core lib | Sonnet | todo | - | |
 | WP3 Prompt + copy | Opus | accepted 2026-10-03 | see git log | 27 test specs (9 critical, 2 sims); LV advisory list for H3 |
 | WP4 Spike | Sonnet | todo | - | needs H1 |

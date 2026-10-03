@@ -1,0 +1,77 @@
+{
+ "license": "Creative Commons Attribution 4.0",
+ "metadata_modified": "2026-09-28T19:02:14.937814",
+ "resources": [
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T18:58:26.241282",
+   "name": "1. Nekustamo īpašumu un tā sastāvu raksturojošie dati ",
+   "size": 74775310,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/931e6299-61ba-477b-ba8d-f0fb30db9667/download/property.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T18:58:57.585333",
+   "name": "3. Zemes vienību raksturojošie dati",
+   "size": 52762937,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/1618f19a-c818-4966-8183-a2e3c108597a/download/parcel.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T18:59:10.749308",
+   "name": "4. Zemes vienības daļu raksturojošie dati",
+   "size": 553737,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/58635c63-8c04-4193-a9f2-ec674c57ae93/download/parcelpart.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T18:59:26.321963",
+   "name": "5. Būves raksturojošie dati",
+   "size": 241742957,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/9fe29b57-07cd-4458-b22c-b0b9f2bc8915/download/building.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T19:01:06.991914",
+   "name": "6. Telpu grupu raksturojošie dati",
+   "size": 65896492,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/5d8b1cfa-1e67-4b77-a6ac-b4e37eba0d7e/download/premisegroup.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T19:01:22.022116",
+   "name": "7. Kadastra objektam reģistrētās adreses",
+   "size": 39306534,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/2aeea249-6948-4713-92c2-e01543ea0f33/download/address.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T19:01:36.666447",
+   "name": "8. Kadastra objektam reģistrētie apgrūtinājumi",
+   "size": 56348926,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/ca8a415c-a894-427f-b14d-d1e44c582620/download/encumbrance.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T19:01:48.895582",
+   "name": "9. Atzīmi raksturojošie dati",
+   "size": 574902,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/9417c9f2-5961-492d-8606-ca84a5b41386/download/mark.zip"
+  },
+  {
+   "format": "XML",
+   "last_modified": "2026-09-28T19:02:14.908035",
+   "name": "10. Objekta novērtējums un kadastrālās vērtības",
+   "size": 230624990,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/35a2dbfa-e4b9-41d5-88d0-e1393115dcb1/download/valuation.zip"
+  },
+  {
+   "format": "ZIP",
+   "last_modified": "2026-04-18T21:17:58.082961",
+   "name": "AD_XSD shemas",
+   "size": 22938,
+   "url": "https://data.gov.lv/dati/dataset/be841486-4af9-4d38-aa14-6502a2ddb517/resource/dc113f7a-80a3-4e4c-8975-a8ac7424cdc7/download/ad_xsdshemas_05032026.zip"
+  }
+ ],
+ "url": "https://data.gov.lv/dati/api/3/action/package_show?id=kadastra-informacijas-sistemas-atvertie-dati"
+}

@@ -1,0 +1,26 @@
+{
+ "build_date": "2026-10-02",
+ "build_date_note": "latest source snapshot date found in the provenance strings (keeps the build reproducible)",
+ "counts": {
+  "demo": 1,
+  "records": 30,
+  "scg_published": 6,
+  "search_keys": 244,
+  "with_apartments": 30,
+  "with_floors": 29,
+  "with_price": 2,
+  "with_stairwells": 2,
+  "with_year": 30
+ },
+ "price_model": {
+  "price_model_json_sha256": "164c57d296a10372d872a16bb28826dc765a0012cbd07ff74bf65851b71a4642",
+  "reference_py_sha256": "793d66ab69399289252cb3f1f56e0c4e46be7dda4fde5200ce262223de5f20a1",
+  "version": "2026-10-01-a"
+ },
+ "seed_sha256": "a176a1fe82fb4640df3182dd4892f1db00734863e992957245b63bf8a613ef1c",
+ "selftest": "passed",
+ "sha256": {
+  "riga_buildings.json": "51929bdd352d8538ed636ecc0add0218fc85cb84ea413f6b093ec222e60a7405",
+  "riga_buildings_search.json": "cfcb691a6a22869130b63670fa1a3b643415fa691e1dcc33b19509e7e45ac94c"
+ }
+}
