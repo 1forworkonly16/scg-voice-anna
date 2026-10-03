@@ -1,11 +1,11 @@
 {
-  "_verification_needed": "VERIFICATION NEEDED: this list was written WITHOUT a network check (from the builder's knowledge). It needs one verification pass against likumi.lv and the Cabinet working-day-transfer orders for 2026-2027 (WP6 / V1) before the pilot.",
+  "_verification_needed": "Verified online 2026-10-03 by WP6 (see law.published and working_day_transfers.sources). Re-check likumi.lv / mk.gov.lv for the 2027 transfer order before the pilot: as of 2026-10-03 it was NOT approved (decision postponed).",
   "_about": "Latvian public holidays used by get_slots and the works logic. Statutory days are cited from the law; anything not verified against an official source is marked assumption:true and is treated as NON-working (the safe side: Anna never offers a slot on a day the office may be closed).",
   "law": {
     "title_lv": "Par svētku, atceres un atzīmējamām dienām",
     "title_en": "Law on Holidays, Remembrance Days and Celebration Days",
     "kind": "likums (Saeima)",
-    "published": "likumi.lv (official consolidated text); cited from the builder's knowledge, not re-fetched (no network access during the build)",
+    "published": "likumi.lv (official consolidated text); fixed days and Easter days re-checked against calendars published 2026-09 (2027: 252 working days, 113 non-working days = 104 weekend days + 9 weekday holidays)",
     "scope": "Lists the public holidays: 1 Jan; Good Friday, Easter Sunday and Easter Monday (Easter is computed in code); 1 May; 4 May; 23 and 24 Jun; 18 Nov; 24, 25, 26 and 31 Dec."
   },
   "fixed": [
@@ -90,30 +90,37 @@
       "source": "law"
     }
   ],
-  "extra_days": [
-    {
-      "date": "2027-05-03",
-      "name_lv": "Brīvdiena (1. maijs sestdienā)",
-      "name_ru": "Выходной (1 мая в субботу)",
-      "source": "assumption: weekend-shift rule (a holiday on a weekend moves the day off to the next working day); not verified",
-      "assumption": true
-    },
-    {
-      "date": "2027-12-27",
-      "name_lv": "Brīvdiena (26. decembris svētdienā)",
-      "name_ru": "Выходной (26 декабря в воскресенье)",
-      "source": "assumption: same weekend-shift rule; not verified",
-      "assumption": true
-    }
-  ],
+  "extra_days": [],
   "working_day_transfers": {
     "included": [],
-    "note": "Cabinet of Ministers orders that move a working day to another date (for example a Saturday worked for a bridge day) are NOT known to the builder and are not applied. Check likumi.lv for the 2026 and 2027 orders before the pilot.",
-    "assumption": true
+    "note": "Cabinet orders that move a working day to a Saturday bind only state-budget institutions; other employers are only encouraged to follow. They are NOT applied here (Anna works Mon-Fri; the 2026 transfers are in the past). A holiday on Saturday or Sunday does NOT create an extra day off today (3 May 2027 and 27 Dec 2027 are working days; the older Sunday rule appears only in a 2006 amendment draft).",
+    "assumption": false,
+    "known_orders": [
+      {
+        "year": 2026,
+        "order": "MK rikojums Nr. 330, 2025-06-12 'Par darba dienu parcelsanu 2026. gada'",
+        "moves": [
+          "2026-01-02 (Fri) -> 2026-01-17 (Sat)",
+          "2026-06-22 (Mon) -> 2026-06-27 (Sat)"
+        ],
+        "source": "https://www.vestnesis.lv/op/2025/113.23"
+      },
+      {
+        "year": 2027,
+        "order": "no approved order as of 2026-10-03; draft moved 2027-06-25 -> 2027-06-19 and 2027-11-19 -> 2027-11-13, Cabinet decision postponed (protocol 26-TA-1023)",
+        "moves": [],
+        "source": "https://diena.lv/raksts/latvija/zinas-71/nav-skaidribas-ar-svetku-dienam"
+      }
+    ],
+    "sources": [
+      "https://www.vestnesis.lv/op/2025/113.23",
+      "https://www.vdi.gov.lv/lv/jaunums/parceltas-darba-dienas-2026-gada",
+      "https://diena.lv/raksts/latvija/zinas-71/nav-skaidribas-ar-svetku-dienam"
+    ]
   },
   "coverage": {
     "from": 2026,
     "to": 2027,
-    "note": "Statutory fixed days and Easter are computed for any year; extra_days only cover 2026-2027."
+    "note": "Statutory fixed days and Easter are computed for any year; extra_days is empty (no verified extra days off in 2026-2027)."
   }
 }

@@ -13,3 +13,4 @@ Warn the orchestrator at **80 voice min** or **$4 text tests**. No Pay As You Go
 | 2026-10-03 | WP3 | 0 | 0 | 0 | 0 | copy only |
 | 2026-10-03 | WP1 | 0 | 0 | 0 | 0 | dataset; VZD+OSM free downloads |
 | 2026-10-03 | WP2 | 0 | 0 | 0 | 0 | core lib, no external services |
+| 2026-10-03 | WP6 | 0 | 0 | 0 | 0 | Worker, mocked tests + dry-run only; no deploy, no external calls |

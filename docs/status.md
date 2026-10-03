@@ -12,7 +12,7 @@ Updated by the verifier on ACCEPT. Plan: `docs/plan.md`.
 | WP3 Prompt + copy | Opus | accepted 2026-10-03 | see git log | 27 test specs (9 critical, 2 sims); LV advisory list for H3 |
 | WP4 Spike | Sonnet | todo | - | needs H1 |
 | WP5 Provision | Sonnet | todo | - | needs H1 |
-| WP6 Worker | Sonnet | todo | - | needs WP2 |
+| WP6 Worker | Sonnet | accepted 2026-10-03 | see git log | 269 + 62 worker tests (mocked fetch); dry-run OK (972 KiB); holidays verified online (2027-05-03/12-27 removed); advisory: holiday note wording (law DOES shift 4 May / 18 Nov / song-festival day off a weekend), true insert-409 same-slot branch only covered by verifier probe |
 | Gate S + H2 | user | todo | - | after WP4: LV verdict, voice pick |
 | WP7 Deploy + live backend | Sonnet | todo | - | needs WP5, WP6 |
 | WP8 Agent as code | Sonnet | todo | - | needs WP3, WP7, Gate S |

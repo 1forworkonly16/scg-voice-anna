@@ -148,7 +148,8 @@ export function holidaysOfYear(year: number): Map<string, Holiday> {
     const date = addDaysYmd(easter, h.offset);
     out.set(date, { date, name_lv: h.name_lv, name_ru: h.name_ru, source: h.source, assumption: false });
   }
-  for (const h of holidayData.extra_days) {
+  // extra_days may be empty (typed never[] by JSON import): widen it
+  for (const h of holidayData.extra_days as { date: string; name_lv: string; name_ru: string; source: string; assumption?: boolean }[]) {
     if (h.date.startsWith(`${year}-`)) {
       out.set(h.date, { date: h.date, name_lv: h.name_lv, name_ru: h.name_ru, source: h.source, assumption: Boolean(h.assumption) });
     }

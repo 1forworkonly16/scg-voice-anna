@@ -58,19 +58,18 @@ describe("Easter (computed) and holidays", () => {
     expect(isWorkingDay("2027-03-30")).toBe(true);
   });
 
-  it("weekend-shift days are marked as assumptions and treated as non-working (safe side)", () => {
-    for (const d of ["2027-05-03", "2027-12-27"]) {
-      expect(holidayOn(d)?.assumption, d).toBe(true);
-      expect(isWorkingDay(d), d).toBe(false);
-    }
+  it("weekend holidays create no extra day off (verified 2026-10-03); only the verified fixed days exist", () => {
+    for (const d of ["2027-05-03", "2027-12-27"]) expect(isWorkingDay(d), d).toBe(true);
     expect(holidayOn("2026-11-18")?.assumption).toBe(false);
+    expect(holidaysOfYear(2027).size).toBe(13); // 10 fixed days + Good Friday, Easter Sunday, Easter Monday
   });
 
-  it("the holiday file cites the law and flags what it does not know", () => {
+  it("the holiday file cites the law and the verified Cabinet orders", () => {
     const j = JSON.parse(readFileSync(fromRoot("src/data/holidays_lv.json"), "utf8"));
     expect(j.law.title_lv).toBe("Par svētku, atceres un atzīmējamām dienām");
-    expect(j.working_day_transfers.assumption).toBe(true);
-    for (const x of j.extra_days) expect(x.assumption).toBe(true);
+    expect(j.extra_days).toEqual([]);
+    expect(j.working_day_transfers.assumption).toBe(false);
+    expect(j.working_day_transfers.known_orders[0].source).toContain("vestnesis.lv");
     expect(holidaysOfYear(2026).size).toBeGreaterThanOrEqual(13);
   });
 

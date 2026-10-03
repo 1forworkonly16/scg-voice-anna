@@ -1,0 +1,26 @@
+{
+  // Demo C «Anna»: Cloudflare Worker backend for the ElevenLabs agent. Deploy is WP7's job (never run `wrangler login`; token via CLOUDFLARE_API_TOKEN).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "scg-voice-demo",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": true,
+  "observability": { "enabled": true },
+
+  // Non-secret ids: WP7 fills them from docs/resources.md (WP5). Empty = feature reports "not configured".
+  "vars": {
+    "CALENDAR_ID": "",
+    "SHEET_ID": "",
+    "TELEGRAM_CHAT_ID": "",
+    "TELEGRAM_TEST_CHAT_ID": "",
+    "ELEVENLABS_AGENT_ID": "",
+    "NUMBER_MODE": "digits"
+  },
+
+  // UTC. 15:00 Mon-Fri = 17:00/18:00 Riga: daily digest. 04:00 daily = 06:00/07:00 Riga: roll the demo Works dates forward.
+  "triggers": { "crons": ["0 15 * * 1-5", "0 4 * * *"] }
+
+  // SECRETS (names only; set with `$v | npx wrangler secret put NAME`, values never in files):
+  //   GOOGLE_SA_KEY_JSON, SCG_TOOL_KEY, SCG_ADMIN_KEY, ELEVENLABS_WEBHOOK_SECRET, TELEGRAM_BOT_TOKEN
+  //   optional later: SCG_TOOL_KEY_WEB (web channel for demo A)
+}
