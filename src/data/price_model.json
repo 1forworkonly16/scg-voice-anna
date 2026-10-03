@@ -1,0 +1,74 @@
+{
+  "_about": "ASSUMED 2026 price model for demos only - NOT SCG's real price book. Built from SCG's own published 2016-2019 prices (S12, S13, S14, S15), the 2019 kopaa.lv comparison (S38) and an inflation assumption. Two consistent layers: (1) 'parametric' for the instant calculator (demo A), (2) 'lbn_501_17' line items for the detailed estimate (demo B). Both agree within +-5% for complete riser scope. Reference implementation + self-test: data/price_model_reference.py. In any client-facing UI label results 'ориентировочно / indicative, final price after free inspection'.",
+  "version": "2026-10-01-a",
+  "currency": "EUR",
+  "vat_rate": 0.21,
+  "price_basis": "All rates are NET of VAT (bez PVN / без НДС). Show both net and incl. VAT 21%.",
+  "inflation_assumption": {"from": 2019, "to": 2026, "low": 0.35, "high": 0.50, "note": "Construction cost growth assumption; verify against CSP construction cost index before showing to SCG as fact."},
+
+  "parametric": {
+    "unit_rates": {
+      "risers_complete":      {"unit": "apartment", "low": 420, "base": 520, "high": 620, "label": {"ru": "Стояки ХВС + ГВС (+циркуляция) + канализация (кухня + санузел)", "lv": "Aukstā + karstā ūdens (+cirkulācija) un kanalizācijas stāvvadi (virtuve + sanmezgls)", "en": "Cold + hot (+circ) water and sewer risers, kitchen + bathroom"}, "includes": "dismantling old steel/cast-iron risers, new PPR/multilayer water + PP sewer (kitchen 50->75 mm), branch valves, meter reconnection, supports, slab penetrations + fire-stopping, shaft open/close (no tiling), towel-rail reconnection", "anchor": "SCG 2016-2019: 200-370 EUR per apartment-floor (S12, S14); Ilūkstes 16 one 9-floor stairwell 14,000 EUR in 2017-18 (S13)"},
+      "risers_water_only":    {"unit": "apartment", "low": 270, "base": 330, "high": 400, "label": {"ru": "Только стояки ХВС + ГВС (+циркуляция)", "lv": "Tikai ūdens stāvvadi", "en": "Water risers only"}, "anchor": "Tirzes 3 k-2: 4-floor stairwell water risers 4,200 EUR in 2016 (S13)"},
+      "risers_sewer_only":    {"unit": "apartment", "low": 210, "base": 260, "high": 320, "label": {"ru": "Только канализационные стояки", "lv": "Tikai kanalizācijas stāvvadi", "en": "Sewer risers only"}},
+      "risers_kitchen_only":  {"unit": "apartment", "low": 250, "base": 310, "high": 380, "label": {"ru": "Только кухонные стояки (ХВС + ГВС + канализация)", "lv": "Tikai virtuves stāvvadi", "en": "Kitchen risers only"}, "anchor": "SCG: lower bound of 200-370 EUR/floor applies to kitchen-only scope (S14)"},
+      "heating_risers":       {"unit": "apartment", "low": 240, "base": 320, "high": 420, "label": {"ru": "Стояки отопления (однотрубная система)", "lv": "Apkures stāvvadi", "en": "Heating risers"}, "confidence": "low"},
+      "fixed_per_stairwell":  {"unit": "stairwell", "low": 700, "base": 900, "high": 1200, "label": {"ru": "Подготовка подъезда, отключения, испытания, вывоз мусора", "en": "Per-stairwell shut-offs, testing, flushing, waste"}},
+      "basement_horizontals": {"unit": "stairwell", "low": 2400, "base": 3200, "high": 4500, "label": {"ru": "Лежаки в подвале (ХВС/ГВС/циркуляция, с изоляцией)", "lv": "Guļvadi pagrabā (ar izolāciju)", "en": "Basement horizontals with insulation"}, "anchor": "Tirzes 3 k-2 basement distribution >= 7,000 EUR in 2016 (S13)"},
+      "sewer_outlet":         {"unit": "stairwell", "low": 2600, "base": 3200, "high": 4200, "label": {"ru": "Замена канализационного выпуска", "lv": "Kanalizācijas izvada nomaiņa", "en": "Sewer outlet replacement"}, "anchor": "SCG 2019: 1,900-3,000 EUR per stairwell (S15)"},
+      "pump_station":         {"unit": "building",  "low": 8000, "base": 12000, "high": 20000, "label": {"ru": "Насосная станция", "en": "Booster pump station"}, "confidence": "low"},
+      "mobilisation":         {"unit": "building",  "low": 400, "base": 600, "high": 1000, "label": {"ru": "Организация работ на объекте", "en": "Site mobilisation"}},
+      "opt_sound_fire_wrap":  {"unit": "apartment", "low": 25, "base": 35, "high": 50, "label": {"ru": "Шумоизоляция и противопожарная лента на канализации", "en": "Sound insulation + fire tape on sewer risers"}, "anchor": "Option offered by SCG (S16)"},
+      "opt_new_towel_rail":   {"unit": "apartment", "low": 90, "base": 130, "high": 190, "label": {"ru": "Новый полотенцесушитель", "en": "New towel rail"}, "note": "In-apartment upsell"}
+    },
+    "formula": "net = mobilisation + sum over stairwells [ fixed_per_stairwell + apartments_in_stairwell * rate(scope) + (horizontals? basement_horizontals) + (outlet? sewer_outlet) ] + (pump? pump_station) + options * apartments. Range: compute with low/base/high rates. gross = net * 1.21.",
+    "derived_outputs": ["net low/base/high", "gross low/base/high", "per-apartment average (gross)", "monthly per apartment for 6 / 12 month installments", "duration estimate", "indicative per riser set"],
+    "schedule": {"bathrooms_per_crew_day": 2.5, "default_crews": 2, "source": "SCG: one crew does 2-3 bathrooms per day (S04)", "decision_to_start_weeks": 6},
+    "installments": {"months_options": [6, 12], "note": "SCG historically offered up to 6 months (S12); Enesan up to 12 (S40); Ūdens Rīgai 6 months at 0%. Demo shows simple division, no interest."},
+    "savings_claim": {"vs_manager_pct": [20, 40], "source": "S06", "display_rule": "Show as SCG's own experience ('по опыту SCG экономия 20-40% по сравнению с ценой управляющего'). Never compute or display a fake 'manager price'."}
+  },
+
+  "calibration": {
+    "anchors_2019_eur": {"scg_per_riser_set": 4500, "manager_per_riser_set": 7500, "src": "S38"},
+    "check_9floor_4sets_complete_plus_horizontals_per_riser_set_eur": 5742,
+    "check_ilukstes16_one_stairwell_2026_model_eur": 20220,
+    "check_ilukstes16_actual_2017_inflated_eur": [18900, 21000],
+    "lbn_vs_parametric_diff": "-2% to -3% across 5/9/12-floor samples",
+    "acceptance_rule": "9-floor x 4 riser sets, complete scope + basement horizontals, base rates: per riser set must be within 4,500-7,500 EUR"
+  },
+
+  "lbn_501_17": {
+    "_about": "Line-item price book for demo B, structured like LBN 501-17 Annex 5 'Lokālā tāme' (S47): per item labour norm (c/h), wage rate, materials, mechanisms; footer: overheads %, profit %, employer social tax % (on wages), VAT. Quantities come from qty_rules + inspection data. ALL VALUES ASSUMED.",
+    "wage_rate_eur_h": 13.5,
+    "overheads_pct": 0.10,
+    "profit_pct": 0.08,
+    "employer_social_tax_pct": 0.2359,
+    "vat_pct": 0.21,
+    "footer_order_lv": ["Tiešās izmaksas kopā", "Virsizdevumi (10%)", "Peļņa (8%)", "Darba devēja sociālais nodoklis (23.59% no darba algas)", "Kopā bez PVN", "PVN 21%", "Pavisam kopā"],
+    "footer_order_ru": ["Прямые затраты", "Накладные расходы (10%)", "Прибыль (8%)", "Соц. налог работодателя (23,59% от зарплаты)", "Итого без НДС", "НДС 21%", "Всего"],
+    "qty_rules": {
+      "floor_height_m": 2.8,
+      "basement_riser_m": 2.5,
+      "riser_len_m": "floors * floor_height_m + basement_riser_m",
+      "water_pipes_per_set": 3,
+      "sewer_stacks_per_set": 2,
+      "branch_valves_per_apartment": 2
+    },
+    "items": [
+      {"code": "D-01", "key": "dem_water_m",       "unit": {"lv": "m", "ru": "м"},          "labour_ch": 0.28, "materials": 0.0,   "mechanisms": 0.40,  "name": {"lv": "Veco tērauda ūdensvada stāvvadu demontāža", "ru": "Демонтаж старых стальных стояков водопровода"}, "qty": "3 * riser_len * sets"},
+      {"code": "D-02", "key": "dem_sewer_m",       "unit": {"lv": "m", "ru": "м"},          "labour_ch": 0.50, "materials": 0.0,   "mechanisms": 0.60,  "name": {"lv": "Veco čuguna kanalizācijas stāvvadu demontāža", "ru": "Демонтаж старых чугунных канализационных стояков"}, "qty": "2 * riser_len * sets"},
+      {"code": "M-01", "key": "ppr_m",             "unit": {"lv": "m", "ru": "м"},          "labour_ch": 0.34, "materials": 5.60,  "mechanisms": 0.20,  "name": {"lv": "PPR/daudzslāņu ūdensvada stāvvadu montāža ar veidgabaliem", "ru": "Монтаж стояков водопровода PPR/многослойная труба с фитингами"}, "qty": "3 * riser_len * sets"},
+      {"code": "M-02", "key": "pp110_m",           "unit": {"lv": "m", "ru": "м"},          "labour_ch": 0.45, "materials": 8.50,  "mechanisms": 0.20,  "name": {"lv": "PP kanalizācijas stāvvada Ø110 montāža", "ru": "Монтаж канализационного стояка PP Ø110"}, "qty": "riser_len * sets"},
+      {"code": "M-03", "key": "pp75_m",            "unit": {"lv": "m", "ru": "м"},          "labour_ch": 0.40, "materials": 5.80,  "mechanisms": 0.20,  "name": {"lv": "Virtuves kanalizācijas stāvvada Ø75 montāža (Ø50 vietā)", "ru": "Монтаж кухонного канализационного стояка Ø75 (вместо Ø50)"}, "qty": "riser_len * sets"},
+      {"code": "M-04", "key": "branch_valve",      "unit": {"lv": "gab.", "ru": "шт."},       "labour_ch": 0.50, "materials": 13.0,  "mechanisms": 0.0,   "name": {"lv": "Atzara pievienojums ar lodveida krānu", "ru": "Подключение отвода с шаровым краном"}, "qty": "2 * apartments"},
+      {"code": "M-05", "key": "meter_reconn",      "unit": {"lv": "dz.", "ru": "кв."},        "labour_ch": 0.40, "materials": 4.50,  "mechanisms": 0.0,   "name": {"lv": "Ūdens skaitītāju pārslēgšana", "ru": "Переподключение счётчиков воды"}, "qty": "apartments"},
+      {"code": "M-06", "key": "supports",          "unit": {"lv": "stāvs/stāvvads", "ru": "этаж/стояк"}, "labour_ch": 0.17, "materials": 4.00, "mechanisms": 0.0, "name": {"lv": "Stiprinājumu uzstādīšana", "ru": "Установка креплений"}, "qty": "2 * floors * sets"},
+      {"code": "M-07", "key": "slab_firestop",     "unit": {"lv": "stāvs/stāvvads", "ru": "этаж/стояк"}, "labour_ch": 0.80, "materials": 6.00, "mechanisms": 0.20, "name": {"lv": "Pārseguma šķērsojums, blīvēšana un ugunsdrošā aizsardzība", "ru": "Проход через перекрытие, заделка и противопожарная защита"}, "qty": "2 * floors * sets"},
+      {"code": "M-08", "key": "shaft_open_close",  "unit": {"lv": "dz.", "ru": "кв."},        "labour_ch": 1.15, "materials": 10.0,  "mechanisms": 0.0,   "name": {"lv": "Šahtas atvēršana un aizdare (bez flīzēšanas)", "ru": "Вскрытие и закрытие шахты (без плитки)"}, "qty": "apartments"},
+      {"code": "M-09", "key": "towel_rail_reconn", "unit": {"lv": "dz.", "ru": "кв."},        "labour_ch": 0.50, "materials": 9.00,  "mechanisms": 0.0,   "name": {"lv": "Dvieļu žāvētāja pievienošana", "ru": "Подключение полотенцесушителя"}, "qty": "apartments"},
+      {"code": "P-01", "key": "test_flush",        "unit": {"lv": "kāpņu telpa", "ru": "подъезд"}, "labour_ch": 6.0, "materials": 20.0,  "mechanisms": 15.0,  "name": {"lv": "Hidrauliskā pārbaude, skalošana", "ru": "Гидравлическое испытание, промывка"}, "qty": "1 per stairwell"},
+      {"code": "P-02", "key": "waste",             "unit": {"lv": "kāpņu telpa", "ru": "подъезд"}, "labour_ch": 2.0, "materials": 0.0,   "mechanisms": 160.0, "name": {"lv": "Būvgružu izvešana", "ru": "Вывоз строительного мусора"}, "qty": "1 per stairwell"},
+      {"code": "P-03", "key": "mobilisation",      "unit": {"lv": "objekts", "ru": "объект"},    "labour_ch": 8.0,  "materials": 120.0, "mechanisms": 200.0, "name": {"lv": "Objekta sagatavošana", "ru": "Подготовка объекта"}, "qty": "1 per building (split across stairwells)"}
+    ]
+  }
+}

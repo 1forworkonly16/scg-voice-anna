@@ -23,3 +23,6 @@ __pycache__/
 
 # local Claude Code settings (agents/ and handoffs/ stay trackable)
 .claude/settings.local.json
+
+# vitest local output
+.vitest/

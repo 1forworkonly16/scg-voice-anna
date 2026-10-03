@@ -1,0 +1,20 @@
+// FIXTURE for tests only (never shipped): a stand-in for src/copy/phrases.ts with the agreed keys and placeholders.
+export const PHRASES = {
+  price_range: { ru: "Ориентировочно от {low_net} до {high_net} евро без НДС, от {low_gross} до {high_gross} с НДС 21%, около {per_apt_gross} на квартиру.", lv: "Orientējoši no {low_net} līdz {high_net} eiro bez PVN, no {low_gross} līdz {high_gross} ar PVN 21%, ap {per_apt_gross} uz dzīvokli." },
+  building_found: { ru: "Нашла: {address}, {facts}.", lv: "Atradu: {address}, {facts}." },
+  building_confirm: { ru: "Это {address}?", lv: "Vai tas ir {address}?" },
+  building_need_house: { ru: "{street}, какой номер дома?", lv: "{street}, kāds mājas numurs?" },
+  building_not_found: { ru: "Адрес не нашла.", lv: "Adresi neatradu." },
+  slots_offer: { ru: "Свободно: {slot1}, {slot2} или {slot3}.", lv: "Brīvi: {slot1}, {slot2} vai {slot3}." },
+  no_slots: { ru: "Свободного времени нет.", lv: "Brīva laika nav." },
+  booking_ok: { ru: "Записала: {address}, {slot}.", lv: "Pierakstīju: {address}, {slot}." },
+  slot_taken: { ru: "Занято; свободно {alt1} или {alt2}.", lv: "Aizņemts; brīvi {alt1} vai {alt2}." },
+  invalid_phone: { ru: "Номер неверный.", lv: "Numurs nepareizs." },
+  calendar_down: { ru: "Календарь не отвечает.", lv: "Kalendārs neatbild." },
+  works_found: { ru: "Квартира {apartment}, подъезд {stairwell}, {date}, {window}.", lv: "Dzīvoklis {apartment}, kāpņu telpa {stairwell}, {date}, {window}." },
+  works_not_found: { ru: "Работ не нашла.", lv: "Darbus neatradu." },
+  access_rescheduled: { ru: "Перенесла на {date}, {window}.", lv: "Pārcēlu uz {date}, {window}." },
+  callback_ok: { ru: "Передала.", lv: "Nodevu." },
+  tool_error_generic: { ru: "Сбой.", lv: "Kļūda." },
+  unknown_question: { ru: "Это уточнит инженер.", lv: "To precizēs inženieris." },
+} as const;

@@ -1,0 +1,71 @@
+[
+  {
+    "id": "fx-01",
+    "address_lv": "Ilūkstes iela 16, Rīga",
+    "address_ru": "ул. Илукстес, 16",
+    "floors": 9,
+    "stairwells": 4,
+    "apartments": 144,
+    "sourced": [
+      "floors",
+      "stairwells"
+    ],
+    "source": "FIXTURE for tests only, hand-made, never shipped. Floors/stairwells as in plan L33; apartments 144 is an assumption"
+  },
+  {
+    "id": "fx-02",
+    "address_lv": "Tirzes iela 3 k-2, Rīga",
+    "address_ru": "ул. Тирзес, 3 корпус 2",
+    "floors": 4,
+    "stairwells": null,
+    "apartments": null,
+    "sourced": [
+      "floors"
+    ],
+    "source": "FIXTURE for tests only, hand-made, never shipped"
+  },
+  {
+    "id": "fx-03",
+    "address_lv": "Tirzes iela 3 k-1, Rīga",
+    "address_ru": "ул. Тирзес, 3 корпус 1",
+    "floors": null,
+    "stairwells": null,
+    "apartments": null,
+    "sourced": [],
+    "source": "FIXTURE for tests only, FICTIONAL second korpuss to test ambiguity, never shipped"
+  },
+  {
+    "id": "fx-04",
+    "address_lv": "Velkoņu iela 2, Rīga",
+    "address_ru": "ул. Велконю, 2",
+    "floors": null,
+    "stairwells": null,
+    "apartments": null,
+    "sourced": [],
+    "source": "FIXTURE for tests only, hand-made, never shipped"
+  },
+  {
+    "id": "fx-05",
+    "address_lv": "Jūrmalas gatve 59, Rīga",
+    "address_ru": "Юрмалас гатве, 59",
+    "floors": null,
+    "stairwells": null,
+    "apartments": null,
+    "sourced": [],
+    "source": "FIXTURE for tests only, hand-made, never shipped"
+  },
+  {
+    "id": "fx-06",
+    "address_lv": "Parauga iela 7, Rīga",
+    "address_ru": "ул. Парауга, 7",
+    "floors": 5,
+    "stairwells": 3,
+    "apartments": 90,
+    "sourced": [
+      "floors",
+      "stairwells",
+      "apartments"
+    ],
+    "source": "FIXTURE for tests only. FICTIONAL ДЕМО building (parauga = sample), never a real address"
+  }
+]

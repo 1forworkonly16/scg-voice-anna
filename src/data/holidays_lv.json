@@ -1,0 +1,119 @@
+{
+  "_verification_needed": "VERIFICATION NEEDED: this list was written WITHOUT a network check (from the builder's knowledge). It needs one verification pass against likumi.lv and the Cabinet working-day-transfer orders for 2026-2027 (WP6 / V1) before the pilot.",
+  "_about": "Latvian public holidays used by get_slots and the works logic. Statutory days are cited from the law; anything not verified against an official source is marked assumption:true and is treated as NON-working (the safe side: Anna never offers a slot on a day the office may be closed).",
+  "law": {
+    "title_lv": "Par svētku, atceres un atzīmējamām dienām",
+    "title_en": "Law on Holidays, Remembrance Days and Celebration Days",
+    "kind": "likums (Saeima)",
+    "published": "likumi.lv (official consolidated text); cited from the builder's knowledge, not re-fetched (no network access during the build)",
+    "scope": "Lists the public holidays: 1 Jan; Good Friday, Easter Sunday and Easter Monday (Easter is computed in code); 1 May; 4 May; 23 and 24 Jun; 18 Nov; 24, 25, 26 and 31 Dec."
+  },
+  "fixed": [
+    {
+      "md": "01-01",
+      "name_lv": "Jaunais gads",
+      "name_ru": "Новый год",
+      "source": "law"
+    },
+    {
+      "md": "05-01",
+      "name_lv": "Darba svētki",
+      "name_ru": "Праздник труда",
+      "source": "law"
+    },
+    {
+      "md": "05-04",
+      "name_lv": "Latvijas Republikas Neatkarības atjaunošanas diena",
+      "name_ru": "День восстановления независимости",
+      "source": "law"
+    },
+    {
+      "md": "06-23",
+      "name_lv": "Līgo diena",
+      "name_ru": "Лиго",
+      "source": "law"
+    },
+    {
+      "md": "06-24",
+      "name_lv": "Jāņu diena",
+      "name_ru": "Янов день",
+      "source": "law"
+    },
+    {
+      "md": "11-18",
+      "name_lv": "Latvijas Republikas proklamēšanas diena",
+      "name_ru": "День провозглашения Латвийской Республики",
+      "source": "law"
+    },
+    {
+      "md": "12-24",
+      "name_lv": "Ziemassvētku vakars",
+      "name_ru": "Сочельник",
+      "source": "law"
+    },
+    {
+      "md": "12-25",
+      "name_lv": "Ziemassvētki",
+      "name_ru": "Рождество",
+      "source": "law"
+    },
+    {
+      "md": "12-26",
+      "name_lv": "Otrie Ziemassvētki",
+      "name_ru": "Второй день Рождества",
+      "source": "law"
+    },
+    {
+      "md": "12-31",
+      "name_lv": "Vecgada diena",
+      "name_ru": "Канун Нового года",
+      "source": "law"
+    }
+  ],
+  "easter_based": [
+    {
+      "offset": -2,
+      "name_lv": "Lielā piektdiena",
+      "name_ru": "Страстная пятница",
+      "source": "law"
+    },
+    {
+      "offset": 0,
+      "name_lv": "Pirmās Lieldienas",
+      "name_ru": "Пасха",
+      "source": "law"
+    },
+    {
+      "offset": 1,
+      "name_lv": "Otrās Lieldienas",
+      "name_ru": "Второй день Пасхи",
+      "source": "law"
+    }
+  ],
+  "extra_days": [
+    {
+      "date": "2027-05-03",
+      "name_lv": "Brīvdiena (1. maijs sestdienā)",
+      "name_ru": "Выходной (1 мая в субботу)",
+      "source": "assumption: weekend-shift rule (a holiday on a weekend moves the day off to the next working day); not verified",
+      "assumption": true
+    },
+    {
+      "date": "2027-12-27",
+      "name_lv": "Brīvdiena (26. decembris svētdienā)",
+      "name_ru": "Выходной (26 декабря в воскресенье)",
+      "source": "assumption: same weekend-shift rule; not verified",
+      "assumption": true
+    }
+  ],
+  "working_day_transfers": {
+    "included": [],
+    "note": "Cabinet of Ministers orders that move a working day to another date (for example a Saturday worked for a bridge day) are NOT known to the builder and are not applied. Check likumi.lv for the 2026 and 2027 orders before the pilot.",
+    "assumption": true
+  },
+  "coverage": {
+    "from": 2026,
+    "to": 2027,
+    "note": "Statutory fixed days and Easter are computed for any year; extra_days only cover 2026-2027."
+  }
+}
