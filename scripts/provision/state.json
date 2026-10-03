@@ -1,0 +1,13 @@
+{
+  "project_id": "scg-voice-demo-694465",
+  "sa_email": "scg-voice-worker@scg-voice-demo-694465.iam.gserviceaccount.com",
+  "tg_group_id": -5579985990,
+  "tg_test_chat_id": 1010766038,
+  "tg_test_messages": {
+    "group": 5,
+    "test_chat": 6
+  },
+  "calendar_id": "8b868c3728630911dcf1e56659548c03498d351b5315ce1b07c4264dc0f294e5@group.calendar.google.com",
+  "sheet_id": "1-BkNS8pby3NQf3CKKw-9O79u8MXtamYpNuN3xHXreGI",
+  "sheet_url": "https://docs.google.com/spreadsheets/d/1-BkNS8pby3NQf3CKKw-9O79u8MXtamYpNuN3xHXreGI/edit"
+}
