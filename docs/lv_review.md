@@ -14,6 +14,7 @@ The meeting demo is Russian-only and the LV polish comes after Dima agrees (`doc
 | phone: a digit missing | Šķiet, nesadzirdēju vienu ciparu — lūdzu, atkārtojiet numuru? | Кажется, я не расслышала одну цифру — повторите, пожалуйста, номер? | CHECK: an imperative ending in «?» mirrors the RU; alternative «Šķiet, vienu ciparu nesadzirdēju. Vai varat, lūdzu, atkārtot numuru?» |
 | after the price | Vai pierakstīt jūs uz apsekošanu? | Записать вас на осмотр? | CHECK «uz apsekošanu» against the dative in booking_ok («pierakstījusi bezmaksas apsekošanai»); pick one form for both. Alternative «Vai pierakstīt jūs apsekošanai?» |
 | acknowledgements | Labi. / Sapratu. / Lieliski. / Protams. | Хорошо. / Поняла. / Отлично. / Конечно. | CHECK: natural on the phone? «Lieliski» may sound too eager if repeated. «Sapratu» has no gender, so it fits Anna |
+| asked who is speaking | Jā, šī ir Smart Comfort Group, es esmu Anna — mākslīgā intelekta asistente. Kā varu palīdzēt? | Да, это Smart Comfort Group, я Анна — ИИ-ассистент. Чем могу помочь? | CHECK: «šī ir» for a company on the phone (alternative «Jā, jūs esat sazvanījuši Smart Comfort Group …»); nominative «asistente» as in the greeting |
 
 ## Opening (`elevenlabs/prompt/first_message.md`, `presets.json` lv)
 | Key | LV | RU meaning | Note |

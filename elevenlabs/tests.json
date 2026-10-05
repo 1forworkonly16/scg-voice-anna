@@ -10,11 +10,11 @@
       "derived": false,
       "language": "ru"
     },
-    "t02_s1_russian_reply_switches": {
-      "test_id": "test_3101m41cwkfhednbmjej76va29wx",
-      "name": "scg-t02_s1_russian_reply_switches",
-      "type": "tool_call",
-      "critical": false,
+    "t02_s1_ru_reply_no_switch": {
+      "test_id": "test_0201m45zx72hefwt9e22t19va2m8",
+      "name": "scg-t02_s1_ru_reply_no_switch",
+      "type": "next_reply",
+      "critical": true,
       "derived": false,
       "language": "ru"
     },
@@ -53,6 +53,14 @@
     "t07_s1_phone_read_back": {
       "test_id": "test_9501m41cwmqdfdy8473dbrvj7jdq",
       "name": "scg-t07_s1_phone_read_back",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t07b_s1_phone_seven_digits": {
+      "test_id": "test_0801m45zx8g7fz29p9fb4qpntr4w",
+      "name": "scg-t07b_s1_phone_seven_digits",
       "type": "next_reply",
       "critical": false,
       "derived": false,
@@ -125,7 +133,7 @@
     "t16_s8_are_you_human_lv": {
       "test_id": "test_4101m41cwpzxfgnsjrbkvvzprfyj",
       "name": "scg-t16_s8_are_you_human_lv",
-      "type": "next_reply",
+      "type": "tool_call",
       "critical": false,
       "derived": false,
       "language": "lv"
