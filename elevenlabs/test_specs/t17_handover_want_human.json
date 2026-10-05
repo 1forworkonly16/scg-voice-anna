@@ -5,7 +5,7 @@
   "critical": true,
   "scenario": "Handover: the caller refuses to talk to an AI and asks for a person. There is no live transfer in the demo; Anna must offer a callback honestly.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Не хочу с роботом. Хочу поговорить с человеком."}
   ],
   "mocked_tools": {},

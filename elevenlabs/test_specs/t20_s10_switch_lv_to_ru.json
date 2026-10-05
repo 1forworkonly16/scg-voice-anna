@@ -3,9 +3,9 @@
   "type": "tool_call",
   "language": "lv",
   "critical": false,
-  "scenario": "M1 scenario 10: the call starts in Latvian; mid-call the caller asks in a full Russian sentence to continue in Russian.",
+  "scenario": "M1 scenario 10, back to Russian: the call opens with the Russian greeting, the caller answers in Latvian and Anna has switched to Latvian (the runner records that language_detection lv call before her Latvian reply, because this spec's language is lv). Mid-call the caller asks in a full Russian sentence to continue in Russian. Going back to Russian after Latvian needs the call (language ru), even though Russian is the default.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Labdien, gribu uzzināt par stāvvadu nomaiņu mūsu mājā."},
     {"role": "agent", "message": "Labprāt palīdzēšu. Kāda ir mājas adrese?"},
     {"role": "user", "message": "Извините, давайте лучше по-русски, мне так проще."}
@@ -15,5 +15,5 @@
     "tool": "language_detection",
     "args_contains": {"language": "ru"}
   },
-  "success_condition": "The agent calls language_detection to switch to Russian and then asks for the building address in Russian only (no Latvian in that reply)."
+  "success_condition": "The agent calls language_detection with Russian (ru) as the target before its first Russian word. One assertion only: the switch back to Russian."
 }

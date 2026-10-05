@@ -5,11 +5,11 @@
   "critical": false,
   "scenario": "Booking error path: book_inspection returns ok:false with error calendar_down. Anna must not confirm the booking and must offer a callback.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр. Девять этажей, четыре подъезда, сто сорок четыре квартиры."},
     {"role": "agent", "message": "Девять этажей, четыре подъезда, сто сорок четыре квартиры — верно? Как к вам обращаться?"},
     {"role": "user", "message": "Верно. Нина Ивановна, телефон двадцать, сто двадцать три, четыреста пятьдесят шесть."},
-    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
     {"role": "user", "message": "Да."},
     {"role": "agent", "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?"},
     {"role": "user", "message": "Согласна."},

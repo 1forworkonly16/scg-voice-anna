@@ -4,10 +4,21 @@ Every Latvian line Anna can say, written by WP3 (Opus). Please read them aloud o
 
 Design rule: tool placeholders (`{address}`, `{slot}`, `{date}` …) arrive in the nominative or as ready-made labels, so the phrases put them after a colon or a dash, where no case ending is needed.
 
+## New lines 2026-10-05 (H3 call-1 feedback): all CHECK
+The meeting demo is Russian-only and the LV polish comes after Dima agrees (`docs/decisions.md`, 2026-10-05), so Dima does not hear these lines. Where: the LV greeting is the `lv` preset (`presets.json`); the other lines are in `elevenlabs/prompt/system_prompt.md`.
+
+| Key | LV | RU meaning | Note |
+|---|---|---|---|
+| greeting (lv preset) | Labdien! Esmu Anna, Smart Comfort Group mākslīgā intelekta asistente. Kā varu palīdzēt? | Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь? | CHECK. Nominative «asistente», so there is no accusative ending to mishear (the spike heard «asistentu» 27 of 27 times). No recording notice: audio recording is off. Alternative: «Labdien! Esmu Anna, uzņēmuma Smart Comfort Group mākslīgā intelekta asistente. Kā varu palīdzēt?» |
+| asked about recording | Skaņa netiek ierakstīta; sarunas teksts tiek saglabāts jūsu pieteikumam. | Звук не записывается, текст разговора сохраняется для вашей заявки. | CHECK the dative «jūsu pieteikumam»; alternative «… tiek saglabāts jūsu pieteikuma vajadzībām.» Said only when asked |
+| phone: a digit missing | Šķiet, nesadzirdēju vienu ciparu — lūdzu, atkārtojiet numuru? | Кажется, я не расслышала одну цифру — повторите, пожалуйста, номер? | CHECK: an imperative ending in «?» mirrors the RU; alternative «Šķiet, vienu ciparu nesadzirdēju. Vai varat, lūdzu, atkārtot numuru?» |
+| after the price | Vai pierakstīt jūs uz apsekošanu? | Записать вас на осмотр? | CHECK «uz apsekošanu» against the dative in booking_ok («pierakstījusi bezmaksas apsekošanai»); pick one form for both. Alternative «Vai pierakstīt jūs apsekošanai?» |
+| acknowledgements | Labi. / Sapratu. / Lieliski. / Protams. | Хорошо. / Поняла. / Отлично. / Конечно. | CHECK: natural on the phone? «Lieliski» may sound too eager if repeated. «Sapratu» has no gender, so it fits Anna |
+
 ## Opening (`elevenlabs/prompt/first_message.md`, `presets.json` lv)
 | Key | LV | RU meaning | Note |
 |---|---|---|---|
-| first_message | Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски. | Здравствуйте, Smart Comfort Group, вы говорите с ИИ-ассистентом Анной; разговор записывается. Чем могу помочь? | Feminine accusative after «ar»: «asistenti Annu». The greeting ends in a comma (not «!») so that sentence 1 holds the disclosure for any sentence splitter. CHECK: «Labdien, Smart Comfort Group, …» reads naturally on the phone? EAR CHECK at H3: the text is correct (feminine accusative after «ar»), but speech-to-text heard the masculine «asistentu» in 27 of 27 spike samples; listen whether Marina says «asistenti». If it still sounds masculine, use the nominative, where the ending is clearer: «… Smart Comfort Group, es esmu mākslīgā intelekta asistente Anna; saruna tiek ierakstīta.» |
+| first_message | Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски. | Здравствуйте, Smart Comfort Group, вы говорите с ИИ-ассистентом Анной; разговор записывается. Чем могу помочь? | **Superseded 2026-10-05** by the new greeting above (no recording notice, no «Можно по-русски», nominative «asistente»); kept for the record. Feminine accusative after «ar»: «asistenti Annu». The greeting ends in a comma (not «!») so that sentence 1 holds the disclosure for any sentence splitter. CHECK: «Labdien, Smart Comfort Group, …» reads naturally on the phone? EAR CHECK at H3: the text is correct (feminine accusative after «ar»), but speech-to-text heard the masculine «asistentu» in 27 of 27 spike samples; listen whether Marina says «asistenti». If it still sounds masculine, use the nominative, where the ending is clearer: «… Smart Comfort Group, es esmu mākslīgā intelekta asistente Anna; saruna tiek ierakstīta.» |
 
 ## System prompt (`elevenlabs/prompt/system_prompt.md`)
 | Key | LV | RU meaning | Note |
@@ -75,6 +86,8 @@ English instructions only; the Latvian examples there («Runāsim latviski», «
 | t20 history | Labprāt palīdzēšu. Kāda ir mājas adrese? | Anna line in test history |
 
 ## Voice
+2026-10-05: Elena Gromova replaces Marina (`docs/decisions.md`). CHECK in the LV polish: how her Latvian sounds, since she was chosen for Russian. The note below is from WP3.
+
 One voice (Marina) speaks both languages. Checked: no line in `system_prompt.md`, `first_message.md`, `presets.json` or `tool_descriptions.json` hands the caller to another speaker or colleague on a language switch; both presets introduce the same Anna. Nothing changed.
 
 ## WP3 polish changes, 2026-10-03 (verifier fixes + moved phrases)

@@ -5,11 +5,11 @@
   "critical": false,
   "scenario": "Handover: the caller gave and confirmed a number and consented. Anna must call request_callback with phone, consent and a short Russian summary.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Не хочу с роботом. Хочу поговорить с человеком."},
     {"role": "agent", "message": "Соединить прямо сейчас не могу, но наш сотрудник перезвонит вам в рабочее время. Какой номер вам удобен?"},
     {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть. Это по поводу стояков в доме."},
-    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
     {"role": "user", "message": "Да."},
     {"role": "agent", "message": "Согласны, чтобы мы сохранили ваш телефон для этой просьбы?"},
     {"role": "user", "message": "Да, согласен."}

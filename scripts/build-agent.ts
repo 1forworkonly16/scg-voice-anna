@@ -1,6 +1,10 @@
 // Builds / updates the ElevenLabs agent «scg-anna» from config (idempotent: PATCH when the agent exists, create otherwise).
-//   node scripts/build-agent.ts [--llm claude-sonnet-5-5] [--no-webhook] [--rotate-webhook] [--dry]
+//   node scripts/build-agent.ts [--llm claude-sonnet-5-5] [--no-webhook] [--rotate-webhook] [--dry [--full]]
+// --dry: prints the request body and sends NOTHING (no webhook call, no PATCH/POST, no file write); the prompt text and
+//        the analysis descriptions are abbreviated unless --full.
 // Inputs: elevenlabs/agent_config.json, elevenlabs/prompt/*, elevenlabs/analysis/*, elevenlabs/tools.json (run gen-tools first).
+// Languages: agent.language is the default (first_message.md must equal presets.json[default].first_message); a language
+// preset is built for EVERY code in agent.language_presets (the default included, so a stale preset is overwritten).
 // Post-call webhook: a workspace webhook (HMAC) attached to THIS agent only via platform_settings.workspace_overrides.webhooks;
 // the workspace-wide setting (post_call_webhook_id) is never touched. Its secret goes to the Worker via stdin (ELEVENLABS_WEBHOOK_SECRET)
 // and the Windows user env; it is never printed or written to a file.
@@ -20,9 +24,15 @@ export function buildBody(webhookId: string | null, toolIds: string[]) {
   const toolDesc = readJson(p('elevenlabs', 'prompt', 'tool_descriptions.json'));
   const data = readJson(p('elevenlabs', 'analysis', 'data_collection.json')) as any[];
   const crit = readJson(p('elevenlabs', 'analysis', 'evaluation_criteria.json')) as any[];
+  const def: string = c.agent.language;
+  const langs: string[] = c.agent.language_presets ?? [];
+  // every language used (default + presets) needs its first message, max-duration and soft-timeout message: fail before sending anything
+  for (const l of new Set([def, ...langs])) {
+    const miss = [!presets[l]?.first_message && `presets.json ${l}.first_message`, !c.agent.max_duration_message?.[l] && `agent.max_duration_message.${l}`, !c.turn.soft_timeout_message?.[l] && `turn.soft_timeout_message.${l}`].filter(Boolean);
+    if (miss.length) throw new Error(`language ${l}: missing ${miss.join(', ')}`);
+  }
   const first = readText(p('elevenlabs', 'prompt', 'first_message.md')).trim();
-  if (first !== presets.lv.first_message.trim()) throw new Error('first_message.md differs from presets.json lv.first_message');
-  const prompt = (lang: 'lv' | 'ru') => `${base}\n\n${presets[lang].prompt_addendum}`;
+  if (first !== presets[def].first_message.trim()) throw new Error(`first_message.md differs from presets.json ${def}.first_message`);
   const builtIn: Record<string, any> = {};
   for (const t of c.system_tools as string[]) builtIn[t] = { type: 'system', name: t, description: toolDesc[t] ?? '', params: { system_tool_type: t } };
   const turn = c.turn;
@@ -41,10 +51,10 @@ export function buildBody(webhookId: string | null, toolIds: string[]) {
     tags: c.tags,
     conversation_config: {
       agent: {
-        language: c.agent.language,
+        language: def,
         first_message: first,
         disable_first_message_interruptions: c.agent.disable_first_message_interruptions,
-        max_conversation_duration_message: c.agent.max_duration_message.lv,
+        max_conversation_duration_message: c.agent.max_duration_message[def],
         prompt: { prompt: base, llm, temperature: c.agent.temperature, ...(c.agent.reasoning_effort ? { reasoning_effort: c.agent.reasoning_effort } : {}), tool_ids: toolIds, built_in_tools: builtIn },
       },
       asr: { keywords: c.asr.keywords },
@@ -52,15 +62,14 @@ export function buildBody(webhookId: string | null, toolIds: string[]) {
       turn: {
         turn_eagerness: turn.turn_eagerness, turn_timeout: turn.turn_timeout, silence_end_call_timeout: turn.silence_end_call_timeout,
         spelling_patience: turn.spelling_patience, speculative_turn: turn.speculative_turn,
-        soft_timeout_config: { timeout_seconds: turn.soft_timeout_seconds, message: turn.soft_timeout_message.lv },
+        soft_timeout_config: { timeout_seconds: turn.soft_timeout_seconds, message: turn.soft_timeout_message[def] },
       },
       conversation: { max_duration_seconds: c.conversation.max_duration_seconds },
-      language_presets: {
-        ru: { overrides: {
-          agent: { language: 'ru', first_message: presets.ru.first_message, max_conversation_duration_message: c.agent.max_duration_message.ru },
-          turn: { soft_timeout_config: { message: turn.soft_timeout_message.ru } },
-        } },
-      },
+      // same keys as the former ru-only preset, one entry per configured language (no prompt or voice override: see docs/agent_report.md finding 1)
+      language_presets: Object.fromEntries(langs.map((l) => [l, { overrides: {
+        agent: { language: l, first_message: presets[l].first_message, max_conversation_duration_message: c.agent.max_duration_message[l] },
+        turn: { soft_timeout_config: { message: turn.soft_timeout_message[l] } },
+      } }])),
     },
     platform_settings: ps,
   };
@@ -95,7 +104,20 @@ if (import.meta.main) {
   if (toolIds.length !== Object.keys(tools).length) throw new Error('tools.json has no ids: run `node scripts/gen-tools.ts` first');
   const state = readAgents();
   const cur = state.agents[c.name] ?? {};
-  if (flag('--dry')) { console.log(JSON.stringify(buildBody(null, toolIds)).length, 'bytes (dry)'); process.exit(0); }
+  if (flag('--dry')) { // print only: this branch exits before ensureWebhook() and before any PATCH/POST or file write
+    const body: any = buildBody(null, toolIds);
+    let show = body;
+    if (!flag('--full')) {
+      show = structuredClone(body);
+      const pr = show.conversation_config.agent.prompt;
+      pr.prompt = `<${pr.prompt.length} chars from elevenlabs/prompt/system_prompt.md; --full prints it>`;
+      show.platform_settings.data_collection = `<${Object.keys(body.platform_settings.data_collection).length} fields: ${Object.keys(body.platform_settings.data_collection).join(', ')}>`;
+      show.platform_settings.evaluation = `<${body.platform_settings.evaluation.criteria.length} criteria: ${body.platform_settings.evaluation.criteria.map((x: any) => x.id).join(', ')}>`;
+    }
+    console.log(JSON.stringify(show, null, 2));
+    console.log(`\n${JSON.stringify(body).length} bytes (dry: nothing sent; a real run adds platform_settings.workspace_overrides.webhooks)`);
+    process.exit(0);
+  }
   const webhookId = flag('--no-webhook') ? null : await ensureWebhook(cur);
   const body = buildBody(webhookId, toolIds);
   let id: string | null = cur.agent_id ?? (await findAgentByName(c.name));

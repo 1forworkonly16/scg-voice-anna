@@ -19,6 +19,7 @@
     "el:build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/build-agent.ts",
     "el:check": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/check-agent.ts",
     "el:credits": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/credits.ts",
+    "el:metrics": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/call-metrics.ts",
     "el:tests": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/tests.ts",
     "link:unlock": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts unlock",
     "link:lock": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts lock",

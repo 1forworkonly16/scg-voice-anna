@@ -6,34 +6,36 @@
   "tool_secret_name": "scg_tool_key",
   "post_call_webhook": { "name": "scg-anna post-call", "path": "/webhooks/elevenlabs" },
   "agent": {
-    "language": "lv",
+    "language": "ru",
+    "language_presets": ["ru", "lv"],
+    "_language_note": "Default ru (the caller hears the RU greeting). A preset is pushed for EVERY listed language, the default included: the live agent still holds a stale ru preset (old greeting) that must be overwritten. Each preset: language, first_message (presets.json), max-duration and soft-timeout messages; no prompt or voice override.",
     "llm": "claude-haiku-4-5",
     "temperature": 0.3,
     "reasoning_effort": null,
     "disable_first_message_interruptions": true,
     "max_duration_message": {
-      "lv": "Sarunas laiks ir beidzies. Paldies par zvanu, visu labu!",
-      "ru": "Время разговора закончилось. Спасибо за звонок, всего доброго!"
+      "ru": "Время разговора закончилось. Спасибо за звонок, всего доброго!",
+      "lv": "Sarunas laiks ir beidzies. Paldies par zvanu, visu labu!"
     }
   },
   "tts": {
     "model_id": "eleven_v4_turbo",
-    "voice_id": "ymDCYd8puC7gYjxIamPt",
-    "_voice": "Marina; ONE voice for LV and RU (also in the ru preset, so no per-language voice override).",
+    "voice_id": "0ArNnoIAWKlT4WweaVMY",
+    "_voice": "Elena Gromova (Voice Library voice 0ArNnoIAWKlT4WweaVMY, public_owner_id 18bb7017de812f7caa40ebbe9059def999a627a113e50e82fb819f0ea77a497d). The live-push step adds her to the account first (POST /v1/voices/add/{public_owner_id}/{voice_id}, free, 1 of 30 slots). ONE voice for RU and LV (no per-language voice override). Fallback: Marusya G sNQyZH8Wfcnv7zh3rHxR.",
     "expressive_mode": false,
-    "stability": 0.5,
-    "speed": 1.0,
-    "similarity_boost": 0.8,
+    "stability": 0.4,
+    "speed": 1.1,
+    "similarity_boost": 0.75,
     "text_normalisation_type": "elevenlabs"
   },
   "turn": {
-    "turn_eagerness": "normal",
+    "turn_eagerness": "eager",
     "turn_timeout": 7,
     "silence_end_call_timeout": 30,
     "spelling_patience": "auto",
-    "speculative_turn": false,
+    "speculative_turn": true,
     "soft_timeout_seconds": 4,
-    "soft_timeout_message": { "lv": "Mirklīti, lūdzu.", "ru": "Минутку, пожалуйста." }
+    "soft_timeout_message": { "ru": "Минутку, пожалуйста.", "lv": "Mirklīti, lūdzu." }
   },
   "asr": {
     "_note": "Latvian street/district names (Gate S carry-forward #2): the RU-mode ASR writes them in Cyrillic otherwise. Names from data/buildings plus the demo address; both Tirzes (brief) and Tirzas (dataset).",
@@ -46,7 +48,7 @@
   },
   "conversation": { "max_duration_seconds": 300 },
   "call_limits": { "daily_limit": 25, "agent_concurrency_limit": 2, "bursting_enabled": false },
-  "privacy": { "record_voice": true, "retention_days": 90 },
+  "privacy": { "record_voice": false, "retention_days": 90, "_note": "Audio is not stored; transcripts are kept 90 days (latency metrics still work)." },
   "auth": { "enable_auth": true },
   "tools": ["lookup_building", "quote_range", "get_slots", "book_inspection", "find_works_schedule", "reschedule_access", "request_callback"],
   "_tools_note": "Allowlist of contract tools that gen-tools / build-agent / check-agent handle. M1 = these 7. WP13 adds create_ticket and log_request together with the M2 prompt; until then el:build must not attach them to the live agent.",

@@ -5,11 +5,11 @@
   "critical": true,
   "scenario": "M1 scenario 1, the wow moment: book_inspection returns ok:true. Anna must read the booking back from say_ru and must not promise an SMS or e-mail.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
     {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
     {"role": "user", "message": "Да, и квартир сто сорок четыре. Меня зовут Нина Ивановна, телефон двадцать, сто двадцать три, четыреста пятьдесят шесть."},
-    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
     {"role": "user", "message": "Да."},
     {"role": "agent", "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?"},
     {"role": "user", "message": "Согласна."},

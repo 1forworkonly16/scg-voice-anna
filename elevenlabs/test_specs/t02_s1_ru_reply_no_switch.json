@@ -1,0 +1,17 @@
+{
+  "id": "t02_s1_ru_reply_no_switch",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "M1 scenario 1, turn 1: the call opens in Russian, the default. A Russian-speaking house elder answers the greeting, says her role and asks about replacing risers. Anna must stay in Russian without any tool call and go straight to the address.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must_not": ["член правления", "владел", "что именно", "цена или", "цену или", "стоимость или", "или записаться", "adrese", "lūdzu"]
+  },
+  "success_condition": "The agent answers in Russian and asks for the building address, in one short turn. It does not ask for the caller's role again (she already said she is the house elder), asks no question about what exactly she wants (for example price or inspection), and makes no language_detection or other tool call."
+}

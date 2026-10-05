@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 1: consent given, slots offered from get_slots (shown as a tool call in the history). The caller picks Thursday 10:00. Anna must call book_inspection with the exact slot start and the confirmed facts.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
     {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?", "tool_calls": [{"name": "lookup_building", "args": {"address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "building": {"building_id": "ilukstes-16", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": null, "sourced": ["floors", "stairwells"]}, "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?", "say_lv": "Atradu: Ilūkstes iela 16 — deviņi stāvi, četras kāpņu telpas. Vai pareizi?"}}]},
     {"role": "user", "message": "Да, и квартир сто сорок четыре."},
@@ -13,7 +13,7 @@
     {"role": "user", "message": "Верно. Нина Ивановна."},
     {"role": "agent", "message": "Спасибо, Нина Ивановна. Какой номер телефона для связи?"},
     {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть."},
-    {"role": "agent", "message": "Два, ноль, один, два, три, четыре, пять, шесть — верно?"},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
     {"role": "user", "message": "Да, верно."},
     {"role": "agent", "message": "Согласны, чтобы мы сохранили ваше имя и телефон для этой заявки?"},
     {"role": "user", "message": "Да, согласна."},

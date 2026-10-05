@@ -3,11 +3,11 @@
   "type": "next_reply",
   "language": "ru",
   "critical": false,
-  "scenario": "M1 scenario 1: the caller gives Ilūkstes iela 16. The building record holds 9 floors and 4 stairwells (sourced) and an unsourced apartment count, which the live Worker returns as null (it is not in sourced[]). Anna must state only the sourced facts.",
+  "scenario": "M1 scenario 1: the caller gives Ilūkstes iela 16. The mock models a record with 9 floors and 4 stairwells sourced and no sourced apartment count (apartments null, not in sourced[]). Anna must state only the sourced facts. (The live record has 141 sourced apartments since 2026-10-05, docs/decisions.md; this test covers a building without a sourced count.)",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
-    {"role": "agent", "message": "Здравствуйте! Подскажите, пожалуйста, адрес дома."},
+    {"role": "agent", "message": "Подскажите, пожалуйста, адрес дома."},
     {"role": "user", "message": "Ilūkstes iela, шестнадцать."}
   ],
   "mocked_tools": {

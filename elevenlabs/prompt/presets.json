@@ -1,11 +1,11 @@
 {
-  "_note": "prompt_addendum is APPENDED to system_prompt.md by the provisioning script (base + \"\\n\\n\" + addendum); it is not a replacement prompt. Disclosure + recording notice are in sentence 1 of both first messages (greeting joined by a comma so any sentence splitter keeps them together).",
+  "_note": "Russian is the default language (decision 2026-10-05): first_message.md holds the default greeting and must equal ru.first_message; lv is a preset. The AI disclosure is in the first message, before any question; there is no recording notice because audio recording is off (decision 2026-10-05). prompt_addendum is not pushed live (preset prompt overrides are not applied at runtime, docs/agent_report.md finding 1); language handling lives in system_prompt.md section 2.",
   "lv": {
-    "first_message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски.",
+    "first_message": "Labdien! Esmu Anna, Smart Comfort Group mākslīgā intelekta asistente. Kā varu palīdzēt?",
     "prompt_addendum": "# Current language: Latvian\nReply in Latvian and relay `say_lv` from tool results. If the caller answers the opening in Russian or asks for Russian, call `language_detection` to switch to Russian. Latvian place names inside Russian speech do not count."
   },
   "ru": {
-    "first_message": "Здравствуйте, Smart Comfort Group, с вами говорит ИИ-ассистент Анна; разговор записывается. Чем могу помочь?",
+    "first_message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?",
     "prompt_addendum": "# Current language: Russian\nReply in Russian and relay `say_ru` from tool results. Keep Latvian addresses and names as they are; they never trigger a switch. Call `language_detection` to switch to Latvian only when the caller says a full sentence in Latvian or asks for Latvian."
   }
 }

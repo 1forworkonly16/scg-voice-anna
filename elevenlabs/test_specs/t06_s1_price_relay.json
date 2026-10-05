@@ -3,11 +3,11 @@
   "type": "next_reply",
   "language": "ru",
   "critical": true,
-  "scenario": "M1 scenario 1: quote_range returns an indicative range. Anna must relay say_ru word for word (ориентировочно, net and with VAT 21%, per apartment, exact price after the free inspection) and offer the inspection, without computing anything.",
+  "scenario": "M1 scenario 1: quote_range returns an indicative range. Anna must relay say_ru word for word (ориентировочно, net and with VAT 21%, per apartment, exact price after the free inspection), then at most ask «Записать вас на осмотр?», without computing anything and without repeating that the inspection is free.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
-    {"role": "agent", "message": "Здравствуйте! Подскажите, пожалуйста, адрес дома."},
+    {"role": "agent", "message": "Подскажите, пожалуйста, адрес дома."},
     {"role": "user", "message": "Ilūkstes iela, шестнадцать."},
     {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
     {"role": "user", "message": "Да, верно. А сколько это будет стоить?"},
@@ -22,7 +22,7 @@
   "expect": {
     "tool": "quote_range",
     "reply_must": ["Ориентировочно", "НДС", "бесплатного осмотра"],
-    "reply_must_not": ["за полцены", "в месяц", "рабочих дней", "рассрочк", "гарантир"]
+    "reply_must_not": ["за полцены", "в месяц", "рабочих дней", "рассрочк", "гарантир", "записаться на бесплатный осмотр"]
   },
-  "success_condition": "The reply contains the tool's amounts exactly (80 000, 96 000, 117 000, 740) and no other euro amount; it starts the price with «Ориентировочно», gives net and with VAT 21%, says the exact price comes from the engineer after the free inspection, and offers to book the free inspection. No monthly instalment, duration or discount is mentioned. Mock amounts are arbitrary fixtures."
+  "success_condition": "The agent relays say_ru word for word: the tool's amounts exactly (80 000, 96 000, 117 000, 740) and no other euro amount, the price starting with «Ориентировочно», net and with VAT 21%, and that the exact price comes from the engineer after the free inspection. After that it adds at most the question «Записать вас на осмотр?» and does not repeat that the inspection is free. No monthly instalment, duration or discount is mentioned. Mock amounts are arbitrary fixtures."
 }

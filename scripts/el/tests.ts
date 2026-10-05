@@ -1,14 +1,20 @@
 // ElevenLabs Tests for «scg-anna»: builds the tests from elevenlabs/test_specs/*.json, runs them, scores them.
+//   node scripts/el/tests.ts dry [--only "t01,t02"]       OFFLINE: build the tests and print one line per test (zero API calls)
 //   node scripts/el/tests.ts sync                         create/update the tests, write elevenlabs/tests.json
-//   node scripts/el/tests.ts run --llm <model> --repeat N [--only crit|all|id,id] [--label x]
+//   node scripts/el/tests.ts run --llm <model> --repeat N [--only crit|all|noncrit|"id,id"] [--label x]
 //   node scripts/el/tests.ts show <label>                 re-print the scoring of a saved run
+// --only: ids or id prefixes ("t07" = t07_*, not t07b_*). Quote a comma list in PowerShell 5.1 («--only "t01,t02"»);
+// an unquoted list arrives split («--only t01 t02») and is joined back.
+// Language: the agent starts in agent_config.json agent.language (DEF). A recorded language_detection(<caller language>)
+// turn is injected into a history only when the spec's caller language differs from DEF (with DEF=lv: ru after the LV greeting).
 // SAFETY: next_reply ("llm") and tool_call tests never execute tools (the platform returns "Skipping tool call in test mode");
 // simulations mock EVERY tool (mocking_strategy all, fallback raise_error, mocks from the specs), so nothing reaches the live Worker,
 // the Calendar, the Sheet or Telegram. check_no_live_calls() proves it afterwards from the tool-execution log.
-// Scoring = platform verdict AND deterministic substring checks (expect.reply_must_not on every agent turn; expect.reply_must on text tests).
+// Scoring = platform verdict AND deterministic checks (expect.reply_must_not on every agent turn; expect.reply_must on text tests;
+// expect.no_tools: the reply contains no tool call).
 import { readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { el, sleep } from './api.ts';
-import { agentId, cfg, p, readJson, writeJson } from './common.ts';
+import { agentId, cfg, p, readJson, readText, writeJson } from './common.ts';
 
 const toolsFile = readJson(p('elevenlabs', 'tools.json'));
 const toolId = (n: string): { id: string; type: string } => n === 'language_detection' ? { id: 'language_detection', type: 'system' } : { id: toolsFile.tools[n].id, type: 'webhook' };
@@ -32,19 +38,26 @@ const resultEntry = (rid: string, tool: string, result: unknown, t: number) => (
   time_in_call_secs: t,
 });
 
-/** The recorded language_detection(ru) call + result that a real call holds before Anna's first Russian reply. */
-function ruSwitch(t: number): any[] {
-  const { rid, entry } = callEntry('language_detection', { reason: 'Caller answered in Russian', language: 'ru' }, null, t);
-  return [entry, resultEntry(rid, 'language_detection', { result_type: 'language_detection_success', status: 'success', reason: 'Caller answered in Russian', language: 'ru' }, t + 1)];
+/** The default language of the agent (the session starts in it) and the language of a text (Cyrillic = ru, else lv). */
+const DEF: string = cfg().agent.language;
+const langOf = (s: string) => (hasCyr(s) ? 'ru' : 'lv');
+const LANG_NAME: Record<string, string> = { ru: 'Russian', lv: 'Latvian', en: 'English' };
+
+/** The recorded language_detection(lang) call + result that a real call holds before Anna's first reply in a language other than DEF. */
+function langSwitch(lang: string, t: number): any[] {
+  const reason = `Caller answered in ${LANG_NAME[lang] ?? lang}`;
+  const { rid, entry } = callEntry('language_detection', { reason, language: lang }, null, t);
+  return [entry, resultEntry(rid, 'language_detection', { result_type: 'language_detection_success', status: 'success', reason, language: lang }, t + 1)];
 }
 
-function convertHistory(hist: any[]): any[] {
+function convertHistory(hist: any[], callerLang: string): any[] {
   const out: any[] = []; let t = 0; let agentTurns = 0;
   let switched = hist.some((m) => m.tool_calls?.some((c: any) => c.name === 'language_detection'));
   for (const m of hist) {
     t += 4;
-    // After the LV greeting, a real call switches to Russian (language_detection ru) before Anna's first Russian reply; add it so the history is realistic.
-    if (m.role === 'agent' && agentTurns++ > 0 && !switched && hasCyr(m.message ?? '')) { out.push(...ruSwitch(t)); switched = true; t += 2; }
+    // The session starts in DEF; before Anna's first reply in another language a real call holds language_detection(<that language>);
+    // add it so the history is realistic (DEF=lv: ru before the first Russian reply after the LV greeting). Only for callers whose language is not DEF.
+    if (m.role === 'agent' && agentTurns++ > 0 && !switched && callerLang !== DEF && langOf(m.message ?? '') !== DEF) { out.push(...langSwitch(langOf(m.message ?? ''), t)); switched = true; t += 2; }
     if (m.role === 'agent' && !m.tool_calls?.length && /^Нашла: Ilūkstes iela 16/.test(m.message ?? '')) { // the specs write the lookup answer without the call; add it so the history is realistic
       const { rid, entry } = callEntry('lookup_building', { language: 'ru', address: 'Ilūkstes iela 16' }, null, t);
       out.push(entry); out.push(resultEntry(rid, 'lookup_building', LOOKUP_MOCK, t)); t += 1;
@@ -68,18 +81,19 @@ function relayArgs(spec: Spec, tool: string): any {
   return base;
 }
 
-const hasCyr = (s: string) => /[Ѐ-ӿ]/.test(s ?? '');
-/** After the LV greeting the first Russian reply makes Anna call language_detection(ru) and answer in Russian; the next-reply tests start from that state. */
+function hasCyr(s: string) { return /[Ѐ-ӿ]/.test(s ?? ''); }
+/** A caller whose language differs from DEF answers the greeting in it: Anna calls language_detection(<caller language>) first;
+ *  the next-reply tests start from that state (DEF=lv: a Russian answer to the LV greeting). Callers in DEF get no switch. */
 function needsLangSwitchInjection(spec: Spec): boolean {
-  if (spec.expect?.tool === 'language_detection' || spec.language !== 'ru' || spec.id.startsWith('t01') || spec.type === 'simulation') return false;
+  if (spec.expect?.tool === 'language_detection' || spec.language === DEF || spec.id.startsWith('t01') || spec.type === 'simulation') return false;
   const agentTurns = spec.chat_history.filter((m: any) => m.role === 'agent');
-  return agentTurns.length === 1 && spec.chat_history.at(-1).role === 'user' && hasCyr(spec.chat_history.at(-1).message);
+  return agentTurns.length === 1 && spec.chat_history.at(-1).role === 'user' && langOf(spec.chat_history.at(-1).message) === spec.language;
 }
 
 function buildHistory(spec: Spec, injectTool?: string): any[] {
-  const h = convertHistory(spec.chat_history);
+  const h = convertHistory(spec.chat_history, spec.language);
   let t = (h.at(-1)?.time_in_call_secs ?? 0);
-  if (needsLangSwitchInjection(spec)) { h.push(...ruSwitch(t + 1)); t += 2; }
+  if (needsLangSwitchInjection(spec)) { h.push(...langSwitch(spec.language, t + 1)); t += 2; }
   if (injectTool) {
     const { rid, entry } = callEntry(injectTool, relayArgs(spec, injectTool), 'Секунду, проверяю.', t + 1);
     h.push(entry); h.push(resultEntry(rid, injectTool, spec.mocked_tools[injectTool], t + 2));
@@ -160,11 +174,40 @@ async function sync() {
   console.log(`tests.json: ${Object.keys(out).length} tests (${Object.values<any>(out).filter((t) => t.critical).length} critical)`);
 }
 
+// ---------- dry (offline) ----------
+/** --only filter: all | crit | noncrit | a comma (or space) list of ids or id prefixes; a prefix matches the id or «<prefix>_…» (t07 ≠ t07b). */
+function picked(key: string, critical: boolean, only: string): boolean {
+  if (only === 'all') return true;
+  if (only === 'crit') return critical;
+  if (only === 'noncrit') return !critical;
+  return only.split(/[\s,]+/).filter(Boolean).some((x) => key === x || key.startsWith(x + '_'));
+}
+
+/** Prints one line per built test: id, spec type, caller language, injected language_detection, first agent message. No API call. */
+function dry(a: Map<string, string>) {
+  const only = a.get('only') || 'all';
+  const greeting = readText(p('elevenlabs', 'prompt', 'first_message.md')).trim();
+  const ldCalls = (h: any[], k: 'name' | 'tool_name') => h.flatMap((m) => (m.tool_calls ?? []).filter((c: any) => c[k] === 'language_detection'));
+  const all = buildAll();
+  const list = all.filter((b) => picked(b.key, b.critical, only));
+  console.log(`DEF=${DEF} (agent_config.json agent.language); ${list.length} of ${all.length} tests (filter: ${only}); greet = first agent message equals first_message.md`);
+  console.log(['id'.padEnd(40), 'type'.padEnd(12), 'lang', 'inject'.padEnd(7), 'expect'.padEnd(30), 'greet', 'first agent message (60)'].join(' '));
+  for (const b of list) {
+    const spec = b.spec;
+    const injected = ldCalls(b.body.chat_history, 'tool_name').slice(ldCalls(spec.chat_history, 'name').length).map((c: any) => JSON.parse(c.params_as_json).language);
+    const e = spec.expect ?? {};
+    const exp = [e.tool, e.no_tools ? 'no_tools' : '', e.reply_must?.length ? 'must' : '', e.reply_must_not?.length ? 'must_not' : ''].filter(Boolean).join(' ') || '-';
+    const first = String(spec.chat_history.find((m: any) => m.role === 'agent')?.message ?? '');
+    console.log([b.key.padEnd(40), `${spec.type}${b.derived ? '*' : ''}`.padEnd(12), String(spec.language).padEnd(4), (injected.join(',') || '-').padEnd(7), exp.padEnd(30), (first.trim() === greeting ? 'ok' : 'DIFF').padEnd(5), first.slice(0, 60).replace(/\s+/g, ' ')].join(' '));
+  }
+  console.log('* derived test (relay of the mocked result). Zero API calls were made.');
+}
+
 // ---------- run + score ----------
 async function run(a: Map<string, string>) {
   const tj = readJson(p('elevenlabs', 'tests.json')).tests as Record<string, any>;
-  const only = a.get('only') ?? 'all';
-  const keys = Object.keys(tj).filter((k) => only === 'all' ? true : only === 'crit' ? tj[k].critical : only === 'noncrit' ? !tj[k].critical : only.split(',').some((x) => k.startsWith(x)));
+  const only = a.get('only') || 'all';
+  const keys = Object.keys(tj).filter((k) => picked(k, !!tj[k].critical, only));
   const llm = a.get('llm'); const repeat = Number(a.get('repeat') ?? 1); const label = a.get('label') ?? `${llm ?? 'cur'}_${only}_${Date.now()}`;
   const id = agentId(cfg().name);
   if (llm) await el('PATCH', `/v1/convai/agents/${id}`, { conversation_config: { agent: { prompt: { llm } } } });
@@ -198,6 +241,8 @@ function detChecks(key: string, spec: Spec, agent: { message: string | null; too
   for (const s of spec.expect?.reply_must_not ?? []) if (text.includes(ns(String(s)))) issues.push(`MUST_NOT «${s}»`);
   // reply_must is a lexical check only for verbatim tool relays (expect.tool set); free-text answers are judged by the LLM (paraphrases are fine)
   if (spec.type !== 'tool_call' && spec.expect?.tool) for (const s of spec.expect?.reply_must ?? []) if (!text.includes(ns(String(s)))) issues.push(`missing «${s}»`);
+  // expect.no_tools: the reply must not contain any tool call (e.g. no language_detection for a caller who already speaks DEF)
+  if (spec.expect?.no_tools) { const used = agent.flatMap((m) => (m.tools ?? []).map((c: any) => c.name)); if (used.length) issues.push(`NO_TOOLS: called ${used.join(',')}`); }
   return issues;
 }
 
@@ -223,9 +268,12 @@ function score(label: string, runs: any[], tj: Record<string, any>, llm: string,
 }
 
 const [cmd, ...rest] = process.argv.slice(2);
-const a = new Map<string, string>(); for (let i = 0; i < rest.length; i += 2) a.set((rest[i] ?? '').replace(/^--/, ''), rest[i + 1] ?? '');
-if (cmd === 'sync') await sync();
+// --key value [value …]: values up to the next --flag are joined with commas (PowerShell 5.1 splits an unquoted «t01,t02»)
+const a = new Map<string, string>(); let flagKey: string | null = null;
+for (const x of rest) { if (x.startsWith('--')) { flagKey = x.slice(2); a.set(flagKey, ''); } else if (flagKey !== null) a.set(flagKey, a.get(flagKey) ? `${a.get(flagKey)},${x}` : x); }
+if (cmd === 'dry') dry(a);
+else if (cmd === 'sync') await sync();
 else if (cmd === 'run') await run(a);
 else if (cmd === 'rescore') { const j = readJson(p('elevenlabs', 'test_results', `${rest[0]}.json`)); score(j.label, j.runs, readJson(p('elevenlabs', 'tests.json')).tests, j.llm, j.repeat); }
 else if (cmd === 'show') { const j = readJson(p('elevenlabs', 'test_results', `${rest[0]}.json`)); console.log(JSON.stringify(j.runs.map((r: any) => ({ t: r.test_name, s: r.status, usd: r.llm_price, cr: r.credits })), null, 0)); }
-else { console.error('usage: tests.ts sync | run --llm M --repeat N [--only crit|all|noncrit|t01,t05] | show <label>'); process.exit(2); }
+else { console.error('usage: tests.ts dry [--only "t01,t05"] | sync | run --llm M --repeat N [--only crit|all|noncrit|"t01,t05"] | rescore <label> | show <label>'); process.exit(2); }

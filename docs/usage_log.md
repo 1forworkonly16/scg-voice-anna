@@ -6,6 +6,10 @@ Warn the orchestrator at **80 voice min** or **$4 text tests**. No Pay As You Go
 - ElevenLabs voice **<= 100 min** in total: spike 15, V1 10, H3 25, M2 synth 5, H4 20, contingency 25.
 - Automated text tests **<= $5**: spike 0.5, M1 2.5, M2 1.5, reserve 0.5.
 
+Note (2026-10-03): ElevenLabs credits are now measured via the subscription API (`GET /v1/user/subscription`, remaining = character_limit - character_count; the key has user_read). The balance lags the test run by ~1 min; it matched the per-run `credits_used` sum exactly.
+
+Note (2026-10-05): `scripts/el/usage.ts --log <WP>` appends its row at the end of this file, so the Log table must stay last. Keep the default `--since 2026-10-03`: the `api=min:X,usd:Y` marker in the last row is the API total for that `--since`, and the next delta is computed from it. A last row without a marker counts as 0, which re-counts every earlier conversation.
+
 ## Log
 | date | WP | voice min | text $ | cumulative min | cumulative $ | note |
 |---|---|---|---|---|---|---|
@@ -22,5 +26,4 @@ Warn the orchestrator at **80 voice min** or **$4 text tests**. No Pay As You Go
 | 2026-10-03 | V1 | 0 | 0 | 10.8833 | 2.76 | No EL runs: t26/t27 skipped (earlier runs cost 1,068 + 442 credits, over the 300-credit cap); no voice calls (orchestrator ruling). Balance 22,551 before and after (GET /v1/user/subscription). Only Worker integration + digest ?test=1 (no EL cost) |
 | 2026-10-04 | M1 rework | 0 | 0.023 | 10.8833 | 2.78 | 2 EL Test runs on Haiku (t23, t24 after the fix-6 prompt line), both passed; **157 credits** (22,551 -> 22,394, confirmed by npm run el:credits). $ = reported charging.llm_price ~0.023. No voice. Detail elevenlabs/test_results/m1rework_t23_t24.json |
 | 2026-10-05 | M1 rework verify | 0 | 0 | 10.8833 | 2.78 | No EL runs, no voice; read-only el:check/el:credits/link:status. Credits 22,394 before and after. 1 rework round (checklist only) |
-
-Note (2026-10-03): ElevenLabs credits are now measured via the subscription API (`GET /v1/user/subscription`, remaining = character_limit - character_count; the key has user_read). The balance lags the test run by ~1 min; it matched the per-run `credits_used` sum exactly.
+| 2026-10-05 | H3 call 1 | 4.0667 | 0.0613 | 14.95 | 2.8413 | api=min:4.1333,usd:0.0755; 2 convs since 2026-10-03 on scg-anna (H3 call 1 + the WP8 text-only conv already logged in WP8). Manual row: a plain `usage.ts --log` would have counted the WP8 conv again (4 s, $0.0142) because the previous row has no marker. Call 1 conv_3001m45t5tpger38ksrky7yh6rvt: 4:04, **1,076 credits** (voice 739 + LLM 337), LLM $0.061; balance 22,394 -> 21,318. Text $ = LLM $ only (voice minutes are plan allowance). H3 voice so far 4.07 of 25 min |

@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 3: Anna has read the options from find_works_schedule; the resident chooses Friday afternoon. Anna must call reschedule_access with that option's date and window exactly, then relay the result without promising an SMS.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Алло, это по ремонту труб? Меня в четверг дома не будет."},
     {"role": "agent", "message": "Понимаю, давайте посмотрим. Подскажите, пожалуйста, адрес и номер квартиры."},
     {"role": "user", "message": "Parauga iela, семь, квартира двенадцать."},

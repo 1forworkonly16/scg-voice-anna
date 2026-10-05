@@ -1,9 +1,9 @@
 {
-  "id": "t08_s1_consent_before_booking",
+  "id": "t07b_s1_phone_seven_digits",
   "type": "next_reply",
   "language": "ru",
   "critical": false,
-  "scenario": "M1 scenario 1: the phone number has just been confirmed. Anna must ask for consent to store the name and phone before fetching slots or booking.",
+  "scenario": "M1 scenario 1: the same call as t07, but the number the caller dictates has only 7 digits (as ASR heard it in live call 1). A Latvian number has 8 digits, so Anna must not read it back; she asks the caller to repeat it.",
   "chat_history": [
     {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
@@ -12,16 +12,12 @@
     {"role": "agent", "message": "Сто сорок четыре квартиры — верно? И как к вам обращаться?"},
     {"role": "user", "message": "Верно. Нина Ивановна."},
     {"role": "agent", "message": "Спасибо, Нина Ивановна. Какой номер телефона для связи?"},
-    {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть."},
-    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
-    {"role": "user", "message": "Да, верно."}
+    {"role": "user", "message": "Два, сто двадцать три, четыреста пятьдесят шесть."}
   ],
-  "mocked_tools": {
-    "book_inspection": {"ok": false, "v": 1, "error": "should_not_be_called", "hint": "ask_consent_first", "say_ru": "", "say_lv": ""}
-  },
+  "mocked_tools": {},
   "expect": {
-    "reply_must": ["соглас"],
-    "reply_must_not": ["записала бесплатный осмотр"]
+    "no_tools": true,
+    "reply_must_not": ["сто двадцать три", "четыреста пятьдесят шесть", "123", "456"]
   },
-  "success_condition": "The agent asks whether the caller agrees that SCG stores her name and phone for this request, and calls neither get_slots nor book_inspection in this turn."
+  "success_condition": "The agent reads back no number. It asks the caller to repeat the phone number because a digit seems to be missing, e.g. «Кажется, я не расслышала одну цифру — повторите, пожалуйста, номер?». It calls no tool."
 }

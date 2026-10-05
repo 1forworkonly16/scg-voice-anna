@@ -13,6 +13,12 @@ const allowUnlocked = process.argv.includes('--allow-unlocked');
 const rows: { ok: boolean; name: string; detail: string }[] = [];
 const check = (name: string, ok: boolean, detail = '') => rows.push({ ok: !!ok, name, detail });
 const eq = (name: string, got: unknown, want: unknown) => check(name, JSON.stringify(got) === JSON.stringify(want), `got ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);
+const near = (name: string, got: unknown, want: number) => check(name, typeof got === 'number' && Math.abs(got - want) < 1e-6, `got ${JSON.stringify(got)}, want ${want}`);
+const def: string = c.agent.language;
+const langs: string[] = c.agent.language_presets ?? [];
+const presetsFile = readJson(p('elevenlabs', 'prompt', 'presets.json'));
+const DISCLOSURE: Record<string, RegExp> = { ru: /ИИ/, lv: /mākslīgā intelekta/, en: /\bAI\b/ }; // AI disclosure in the greeting, per language
+const RECORDING = /записыва|ierakst/iu; // audio recording is off (decision 2026-10-05): no greeting may mention recording
 
 const a = await el('GET', `/v1/convai/agents/${id}`);
 const cc = a.conversation_config, ps = a.platform_settings, pr = cc.agent.prompt;
@@ -22,22 +28,35 @@ const toolIds: string[] = Object.entries<any>(toolsFile.tools).filter(([n]) => !
 
 // agent identity and model
 eq('agent name', a.name, c.name);
-eq('default language', cc.agent.language, c.agent.language);
+eq('default language', cc.agent.language, def);
 eq('TTS model', cc.tts.model_id, c.tts.model_id);
-eq('voice (Marina)', cc.tts.voice_id, 'ymDCYd8puC7gYjxIamPt');
-eq('no per-language voice override (ONE voice for LV and RU)', cc.language_presets?.ru?.overrides?.tts?.voice_id ?? null, null);
+eq('voice = agent_config tts.voice_id', cc.tts.voice_id, c.tts.voice_id);
+near('tts speed', cc.tts.speed, c.tts.speed);
+near('tts stability', cc.tts.stability, c.tts.stability);
+near('tts similarity_boost', cc.tts.similarity_boost, c.tts.similarity_boost);
 eq('expressive_mode off (no audio tags)', cc.tts.expressive_mode, false);
 check('LLM is one of the allowed Claude models', ['claude-haiku-4-5', 'claude-sonnet-5-5'].includes(pr.llm), `llm=${pr.llm}`);
 eq('LLM matches agents.json', pr.llm, state?.llm);
-// language presets
-eq('ru preset language', cc.language_presets?.ru?.overrides?.agent?.language, 'ru');
-check('ru preset first_message has AI + recording notice', /ИИ/.test(cc.language_presets?.ru?.overrides?.agent?.first_message ?? '') && /записывается/.test(cc.language_presets?.ru?.overrides?.agent?.first_message ?? ''));
-check('ru preset carries no prompt override (the platform ignores it; probe 2026-10-03)', !cc.language_presets?.ru?.overrides?.agent?.prompt?.prompt, '');
-check('lv first_message has AI + recording notice', /mākslīgā intelekta/.test(cc.agent.first_message) && /ierakst/.test(cc.agent.first_message));
+// language presets: one per agent_config agent.language_presets (the default included), nothing stale
+eq('language presets = agent_config language_presets', Object.keys(cc.language_presets ?? {}).sort(), [...langs].sort());
+for (const l of langs) {
+  const o = cc.language_presets?.[l]?.overrides; // missing preset -> the checks below FAIL, no crash
+  const fm: string = o?.agent?.first_message ?? '';
+  eq(`${l} preset language`, o?.agent?.language ?? null, l);
+  eq(`${l} preset: no per-language voice override (ONE voice)`, o?.tts?.voice_id ?? null, null);
+  check(`${l} preset carries no prompt override (the platform ignores it; probe 2026-10-03)`, !o?.agent?.prompt?.prompt, '');
+  eq(`${l} preset first_message = presets.json`, o?.agent?.first_message ?? null, presetsFile[l]?.first_message ?? null);
+  check(`${l} preset first_message has the AI disclosure`, !!DISCLOSURE[l]?.test(fm), `«${fm}»`);
+  check(`${l} preset first_message says nothing about recording`, !RECORDING.test(fm), `«${fm}»`);
+  eq(`${l} preset max-duration message`, o?.agent?.max_conversation_duration_message ?? null, c.agent.max_duration_message?.[l] ?? null);
+  eq(`${l} preset soft-timeout message`, o?.turn?.soft_timeout_config?.message ?? null, c.turn.soft_timeout_message?.[l] ?? null);
+}
+check(`default (${def}) first_message has the AI disclosure`, !!DISCLOSURE[def]?.test(cc.agent.first_message ?? ''), `«${cc.agent.first_message}»`);
+check(`default (${def}) first_message says nothing about recording`, !RECORDING.test(cc.agent.first_message ?? ''), `«${cc.agent.first_message}»`);
+eq(`default max-duration message = ${def}`, cc.agent.max_conversation_duration_message, c.agent.max_duration_message?.[def]);
 // prompt in sync with the repo files
 const expected = buildBody(state?.webhook_id ?? null, toolIds);
 eq('prompt text in sync with elevenlabs/prompt/*', pr.prompt, expected.conversation_config.agent.prompt.prompt);
-eq('ru preset first_message in sync', cc.language_presets?.ru?.overrides?.agent?.first_message, expected.conversation_config.language_presets.ru.overrides.agent.first_message);
 eq('first_message in sync', cc.agent.first_message, expected.conversation_config.agent.first_message);
 check('prompt carries the 4 WP3 lines', ['Latin letters', 'exactly as the tool', 'Never output bracketed tags', 'correct case'].every((s) => pr.prompt.includes(s)));
 // tools
@@ -63,13 +82,19 @@ eq('daily_limit', ps.call_limits.daily_limit, 25);
 eq('agent_concurrency_limit', ps.call_limits.agent_concurrency_limit, 2);
 eq('bursting_enabled off', ps.call_limits.bursting_enabled, false);
 eq('retention_days', ps.privacy.retention_days, 90);
-eq('record_voice', ps.privacy.record_voice, true);
+eq('record_voice off (audio not stored)', ps.privacy.record_voice, false);
 check(allowUnlocked ? 'auth (unlocked allowed)' : 'auth ON (locked)', allowUnlocked || ps.auth.enable_auth === true, `enable_auth=${ps.auth.enable_auth}`);
 // ASR, turn
 const kw: string[] = cc.asr.keywords ?? [];
 check('asr keywords include Ilūkstes, Tirzes, Parauga', ['Ilūkstes', 'Tirzes', 'Parauga'].every((k) => kw.includes(k)), `${kw.length} keywords`);
 eq('turn_eagerness', cc.turn.turn_eagerness, c.turn.turn_eagerness);
 eq('turn_timeout', cc.turn.turn_timeout, c.turn.turn_timeout);
+eq('speculative_turn', cc.turn.speculative_turn, c.turn.speculative_turn);
+eq('spelling_patience', cc.turn.spelling_patience, c.turn.spelling_patience);
+eq('soft-timeout seconds', cc.turn.soft_timeout_config?.timeout_seconds, c.turn.soft_timeout_seconds);
+eq(`soft-timeout message = ${def}`, cc.turn.soft_timeout_config?.message, c.turn.soft_timeout_message?.[def]);
+const langOverride = ps.overrides?.conversation_config_override?.agent?.language;
+check('client cannot override the language (overrides.conversation_config_override.agent.language not true)', langOverride !== true, `got ${JSON.stringify(langOverride)}`);
 // analysis
 const dcWant = readJson(p('elevenlabs', 'analysis', 'data_collection.json')).map((d: any) => d.id).sort();
 const evWant = readJson(p('elevenlabs', 'analysis', 'evaluation_criteria.json')).map((d: any) => d.id).sort();

@@ -5,7 +5,7 @@
   "critical": true,
   "scenario": "Unknown question: the caller asks how many years of warranty SCG gives on the works. Warranty terms are not in info/, so Anna must defer to the engineer/manager and log the question, without inventing a term.",
   "chat_history": [
-    {"role": "agent", "message": "Labdien, Smart Comfort Group, jūs runājat ar mākslīgā intelekta asistenti Annu; saruna tiek ierakstīta. Kā varu palīdzēt? Можно по-русски."},
+    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Мы думаем менять стояки. Какая у вас гарантия на работы, сколько лет?"}
   ],
   "mocked_tools": {},
