@@ -7,7 +7,8 @@ Eleven short talks (1–10 plus 7b), about 26 minutes in total, plus the LV text
 1. Run `npm run el:credits` and tell you the remaining balance (see Credits below).
 2. Run `npm run link:unlock` and send you the talk-to link.
 3. Run `reset-works` (always), which fills the Parauga iela 7 works plan. Without it, talks 3 and 4 fail (V1 found the plan empty).
-4. Warm up the Worker (`/admin/health?deep=1`).
+4. Warm up the Worker (`/admin/health?deep=1`; everything must be `true`).
+5. Make one warm-up `get_slots` call, as in the `demo/run_sheet_ru.md` preflight (cold start is about 11 ms CPU against the Free limit of 10 ms): `Invoke-RestMethod "$u/tools/get_slots" -Method Post -Headers @{ 'x-scg-key' = $env:SCG_TOOL_KEY } -ContentType 'application/json' -Body '{"conversation_id":"[TEST]-warmup","language":"ru"}'`. Slots must come back.
 
 **On your phone:**
 - Use mobile data, not Wi-Fi.
@@ -52,6 +53,7 @@ Eleven short talks (1–10 plus 7b), about 26 minutes in total, plus the LV text
 
 **3. Scenario 3, RU reschedule (2.5 min)**
 - Apartment 12 always has its works on **Wednesday** of next week (after `reset-works`). The options are **Mon 09–13, Tue 09–13, Thu 13–17**, never Friday (unless a public holiday falls in that week).
+- Talk 3 moves apartment 12 to Thursday, so talk 4 uses **apartment 13** (same stairwell, day and options).
 - Say: «Алло, это по трубам? Parauga iela, семь, квартира двенадцать. Меня в среду дома не будет.» Then «А в субботу утром?» (not offered). Then «Тогда в четверг после обеда.»
 - Check:
   - She reads the schedule and stairwell the tool returns (stairwell 1, Wednesday).
@@ -62,9 +64,11 @@ Eleven short talks (1–10 plus 7b), about 26 minutes in total, plus the LV text
   - Stopwatch.
 
 **4. Scenario 3, LV (2 min)**
-- Say: «Labdien, Parauga iela 7, dzīvoklis 12. Trešdien nebūšu mājās.» Then «Ceturtdien pēcpusdienā.»
+- Apartment 13 has the same plan as apartment 12 had before talk 3: stairwell 1, **Wednesday**, options **Mon 09–13, Tue 09–13, Thu 13–17**.
+- Say: «Labdien, Parauga iela 7, dzīvoklis trīspadsmit. Trešdien nebūšu mājās.» Then «Ceturtdien pēcpusdienā.»
 - Check:
   - «1. kāpņu telpa» is spoken as «pirmā».
+  - She offers the three options above in LV and confirms Thursday, 13:00–17:00.
   - LV dates and the time window sound natural.
   - The street name has the right accent.
 
@@ -115,6 +119,7 @@ Eleven short talks (1–10 plus 7b), about 26 minutes in total, plus the LV text
   - For the leak she says to close the water valve and call the emergency service, then offers a callback.
 
 **10. Clean rehearsal and backup video (4 min). REQUIRED.**
+- **First, Claude runs `reset-works`** (`Invoke-RestMethod "$u/admin/demo/reset-works" -Method Post -Headers $h`, as in the run sheet preflight). Talks 3 and 4 changed the works plan; the reset puts apartment 12 back on Wednesday.
 - Run the full `demo/run_sheet_ru.md` script once, as at the meeting.
 - **Record it as the backup video** (screen recording with sound, or a second phone). The meeting falls back to this video if the link, the network or the credits fail. Save it offline on the meeting phone.
 
