@@ -18,6 +18,30 @@
       "derived": false,
       "language": "ru"
     },
+    "t02b_s1_bare_hello_no_regreet": {
+      "test_id": "test_0401m488fe97e449kp9q29vkjmfx",
+      "name": "scg-t02b_s1_bare_hello_no_regreet",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t02c_s1_silence_checkin": {
+      "test_id": "test_1201m488fegmf87tn9sdq3jmnadj",
+      "name": "scg-t02c_s1_silence_checkin",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t02d_s1_silence_after_checkin": {
+      "test_id": "test_1001m488fepreqjb4zd3zksnb51q",
+      "name": "scg-t02d_s1_silence_after_checkin",
+      "type": "tool_call",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
     "t03_s1_sourced_facts_only": {
       "test_id": "test_5301m41cwkq1ex0b4srrmattpann",
       "name": "scg-t03_s1_sourced_facts_only",
@@ -61,6 +85,14 @@
     "t07b_s1_phone_seven_digits": {
       "test_id": "test_0801m45zx8g7fz29p9fb4qpntr4w",
       "name": "scg-t07b_s1_phone_seven_digits",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t07c_s1_phone_plus371": {
+      "test_id": "test_5601m488fkt8eh58b99vrmtwjqwd",
+      "name": "scg-t07c_s1_phone_plus371",
       "type": "next_reply",
       "critical": false,
       "derived": false,

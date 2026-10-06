@@ -1,0 +1,87 @@
+{
+  "label": "rework2b_2026-10-06",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_6401m489c4w5ehr950rayg97t72x",
+  "runs": [
+    {
+      "test_id": "test_1001m488fepreqjb4zd3zksnb51q",
+      "test_name": "scg-t02d_s1_silence_after_checkin",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Expected tool called",
+      "credits": 94,
+      "llm_price": 0.014278,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "skip_turn",
+              "args": "{\"reason\": \"Caller is silent after the check-in greeting\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1201m488fegmf87tn9sdq3jmnadj",
+      "test_name": "scg-t02c_s1_silence_checkin",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent called the 'skip_turn' tool instead of responding with the required phrase 'Алло, вы меня слышите?'.",
+      "credits": 94,
+      "llm_price": 0.0142351,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "skip_turn",
+              "args": "{\"reason\": \"Caller is silent after greeting\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7501m41cwn5be55t56yf54hscrka",
+      "test_name": "scg-t09_s1_book_inspection_args",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 108,
+      "llm_price": 0.0166639,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Минутку, записываю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "book_inspection",
+              "args": "{\"address_spoken\": \"Il\\u016bkstes iela 16\", \"building_id\": \"ilukstes-16\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4, \"name\": \"\\u041d\\u0438\\u043d\\u0430 \\u0418\\u0432\\u0430\\u043d\\u043e\\u0432\\u043d\\u0430\", \"phone\": \"20123456\", \"caller_role\": \"board_member\", \"consent\": true, \"language\": \"ru\", \"slot_start\": \"2026-10-08T13:00:00+03:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
