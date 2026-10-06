@@ -35,11 +35,13 @@ describe("price figures (rounded by code)", () => {
     const text = JSON.stringify(pricePlaceholders(f, "ru", "words"));
     expect(text).not.toMatch(/месяц|monthly|working/i);
   });
-  it("placeholders in digits, grouped and words", () => {
+  it("placeholders: RU always spoken words (any mode); LV digits, grouped and words", () => {
     const f = { low_net: 84000, high_net: 125000, low_gross: 101000, high_gross: 152000, per_apt_gross: 720 };
-    expect(pricePlaceholders(f, "ru").low_net).toBe("84000");
-    expect(pricePlaceholders(f, "ru", "grouped").high_net).toBe("125 000");
-    expect(pricePlaceholders(f, "ru", "words").low_net).toBe("восемьдесят четыре тысячи");
+    const ru = { low_net: "восьмидесяти четырёх", high_net: "ста двадцати пяти тысяч", low_gross: "ста одной", high_gross: "ста пятидесяти двух тысяч", per_apt_gross: "семьсот двадцать" };
+    for (const mode of ["digits", "grouped", "words"] as const) expect(pricePlaceholders(f, "ru", mode)).toEqual(ru);
+    expect(pricePlaceholders(f, "ru")).toEqual(ru);
+    expect(pricePlaceholders(f, "lv").low_net).toBe("84000");
+    expect(pricePlaceholders(f, "lv", "grouped").high_net).toBe("125 000");
     expect(pricePlaceholders(f, "lv", "words").per_apt_gross).toBe("septiņi simti divdesmit");
   });
 });
@@ -106,19 +108,22 @@ describe("date, time and slot labels", () => {
     expect(windowLabel("13:00-17:00", "lv")).toBe("no plkst. 13.00 līdz 17.00");
     expect(windowLabel("garbage", "ru")).toBe("garbage");
   });
-  it("today label uses Riga time (late UTC evening is already tomorrow)", () => {
-    expect(todayLabel(new Date("2026-10-03T21:30:00Z"), "ru")).toBe("воскресенье, 4 октября");
+  it("today label uses Riga time (late UTC evening is already tomorrow); RU spoken nominative, LV unchanged", () => {
+    expect(todayLabel(new Date("2026-10-03T21:30:00Z"), "ru")).toBe("воскресенье, четвёртое октября");
+    expect(todayLabel(new Date("2026-10-03T21:30:00Z"), "lv")).toBe("svētdien, 4. oktobrī");
   });
 });
 
 describe("building facts: only sourced fields", () => {
   it("speaks sourced fields, skips the rest", () => {
     const b = { floors: 9, stairwells: 4, apartments: 144, sourced: ["floors", "stairwells"] };
-    expect(buildingFacts(b, "ru")).toBe("9 этажей и 4 подъезда");
+    expect(buildingFacts(b, "ru")).toBe("девять этажей и четыре подъезда");
     expect(buildingFacts(b, "lv")).toBe("9 stāvi un 4 kāpņu telpas");
-    expect(buildingFacts({ ...b, sourced: ["floors"] }, "ru")).toBe("9 этажей");
+    expect(buildingFacts({ ...b, sourced: ["floors"] }, "ru")).toBe("девять этажей");
     expect(buildingFacts({ ...b, sourced: [] }, "ru")).toBe("");
-    expect(buildingFacts({ floors: null, stairwells: null, apartments: 60, sourced: ["apartments"] }, "ru")).toBe("60 квартир");
-    expect(buildingFacts({ ...b, sourced: ["floors", "stairwells", "apartments"] }, "ru")).toBe("9 этажей, 4 подъезда и 144 квартиры");
+    expect(buildingFacts({ floors: null, stairwells: null, apartments: 60, sourced: ["apartments"] }, "ru")).toBe("шестьдесят квартир");
+    expect(buildingFacts({ ...b, sourced: ["floors", "stairwells", "apartments"] }, "ru")).toBe("девять этажей, четыре подъезда и сто сорок четыре квартиры");
+    expect(buildingFacts({ ...b, sourced: ["floors", "stairwells", "apartments"] }, "ru", "words")).toBe("девять этажей, четыре подъезда и сто сорок четыре квартиры");
+    expect(buildingFacts({ ...b, sourced: ["floors", "stairwells", "apartments"] }, "lv")).toBe("9 stāvi, 4 kāpņu telpas un 144 dzīvokļi");
   });
 });

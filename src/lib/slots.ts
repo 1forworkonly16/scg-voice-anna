@@ -1,7 +1,7 @@
 // Inspection slots: Mon-Fri, 1-hour slots starting 09:00-16:00 Europe/Riga (a slot may start at 16:00 and ends 17:00),
 // Latvian public holidays excluded, earliest = next working day (demo assumption), horizon 14 days,
 // at most 3 offers spread across days and morning/afternoon. Input is the busy intervals (Google freeBusy).
-import { slotLabel } from "./speech";
+import { slotLabel, slotSpokenRu } from "./speech";
 import {
   addDaysYmd,
   isOfficeOpen,
@@ -35,8 +35,12 @@ export interface Slot {
   date: string;
   hm: string;
   part: PartOfDay;
+  /** Spoken RU, words, full date: «в среду, седьмого октября, в девять утра» (tool-facing). */
   label_ru: string;
+  /** Latvian label (spoken as is): «trešdien, 7. oktobrī, plkst. 9.00». */
   label_lv: string;
+  /** RU text with digits for Calendar / Telegram: «среда, 7 октября, 9:00». Never spoken. */
+  text_ru: string;
   startMs: number;
 }
 
@@ -78,14 +82,25 @@ function makeSlot(date: string, hour: number): Slot {
   const hm = `${String(hour).padStart(2, "0")}:00`;
   const start = rigaLocalToUtc(date, hm);
   const end = new Date(start.getTime() + SLOT_MINUTES * 60000);
+  // Labels are built on first read: a get_slots call makes ~90 candidates but speaks at most 3 (CPU budget on Workers Free).
+  let ru: string | undefined;
+  let lv: string | undefined;
+  let text: string | undefined;
   return {
     start: toRigaIso(start),
     end: toRigaIso(end),
     date,
     hm,
     part: hour < 12 ? "morning" : "afternoon",
-    label_ru: slotLabel(start, "ru"),
-    label_lv: slotLabel(start, "lv"),
+    get label_ru() {
+      return (ru ??= slotSpokenRu(start));
+    },
+    get label_lv() {
+      return (lv ??= slotLabel(start, "lv"));
+    },
+    get text_ru() {
+      return (text ??= slotLabel(start, "ru"));
+    },
     startMs: start.getTime(),
   };
 }

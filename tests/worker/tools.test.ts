@@ -50,7 +50,7 @@ describe("success path of every M1 tool", () => {
     parseResponse("lookup_building", r.body);
     expect(r.body).toMatchObject({ ok: true, status: "found" });
     expect(r.body.building.address).toBe("Ilūkstes iela 16");
-    expect(r.body.say_ru).toContain("9 этажей");
+    expect(r.body.say_ru).toContain("девять этажей");
     await h.flush();
     expect(h.world.urls.filter((u) => u.includes("oauth2")).length).toBe(1);
     expect(h.world.count).toBeLessThanOrEqual(MAX_SUBREQUESTS);
@@ -81,10 +81,12 @@ describe("success path of every M1 tool", () => {
     parseResponse("quote_range", r.body);
     expect(r.body.ok).toBe(true);
     expect(r.body.say_ru).toMatch(/^Ориентировочно/);
-    expect(r.body.say_ru).toContain("с НДС 21%");
+    expect(r.body.say_ru).toContain("с НДС двадцать один процент");
     expect(r.body.say_ru).toContain("Точную цену даст инженер после бесплатного осмотра");
     expect(r.body.say_lv).toMatch(/^Orientējoši/);
-    expect(r.body.say_ru).toContain(String(r.body.figures.low_net));
+    expect(r.body.figures.low_net).toBe(72000);
+    expect(r.body.say_ru).toContain("от семидесяти двух до ста двенадцати тысяч евро без НДС");
+    expect(r.body.say_lv).toContain(String(r.body.figures.low_net));
     expect(h.world.count).toBe(0);
   });
 
@@ -178,7 +180,7 @@ describe("success path of every M1 tool", () => {
       parseResponse("find_works_schedule", f.body);
       expect(f.body).toMatchObject({ ok: true, found: true, building_id: "demo-parauga-iela-7", stairwell: 1, rescheduled: false });
       expect(f.body.options.length).toBeGreaterThan(0);
-      expect(f.body.say_ru).toContain("Квартира 12, подъезд 1");
+      expect(f.body.say_ru).toContain("Квартира двенадцать, первый подъезд");
       expect(h.world.count).toBe(2); // token + batchGet
 
       const pick = f.body.options[0];

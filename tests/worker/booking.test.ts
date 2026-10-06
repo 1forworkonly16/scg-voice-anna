@@ -21,8 +21,10 @@ describe("slot_taken", () => {
     expect(r.body).toMatchObject({ ok: false, error: { code: "slot_taken" } });
     expect(r.body.alternatives).toHaveLength(2);
     for (const a of r.body.alternatives) expect(a.start).not.toBe(SLOT);
+    // tool labels carry the full date; in the spoken list the second slot drops the repeated month
+    expect(r.body.alternatives.map((a: { label_ru: string }) => a.label_ru)).toEqual(["во вторник, шестого октября, в девять утра", "во вторник, шестого октября, в одиннадцать утра"]);
     expect(r.body.say_ru).toContain(r.body.alternatives[0].label_ru);
-    expect(r.body.say_ru).toContain(r.body.alternatives[1].label_ru);
+    expect(r.body.say_ru).toContain("свободно ещё: во вторник, шестого октября, в девять утра или во вторник, шестого, в одиннадцать утра.");
     expect(h.world.events.size).toBe(0);
     await h.flush();
     expect(h.world.tabs.Leads).toHaveLength(0);

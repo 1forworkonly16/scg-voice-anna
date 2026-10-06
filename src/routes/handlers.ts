@@ -18,7 +18,21 @@ import {
   type BusyInterval,
   type Slot as GridSlot,
 } from "../lib/slots";
-import { buildingFacts, dayLabel, priceFigures, pricePlaceholders, slotLabel, todayLabel, windowLabel } from "../lib/speech";
+import {
+  apartmentSpokenRu,
+  buildingFacts,
+  dayAtRu,
+  dayLabel,
+  priceFigures,
+  pricePlaceholders,
+  slotLabel,
+  slotListRu,
+  slotSpokenRu,
+  stairwellSpokenRu,
+  todayLabel,
+  windowLabel,
+  windowSpokenRu,
+} from "../lib/speech";
 import { rigaLocalToUtc, rigaYmd, toRigaIso, type Lang } from "../lib/time";
 import type { NumberMode } from "../lib/words";
 import {
@@ -45,15 +59,17 @@ interface Ctx {
   channel: Channel;
 }
 
+/** Tool-facing slot: label_ru is spoken words with the full date («в среду, седьмого октября, в девять утра»), label_lv unchanged. */
 type Slot = { start: string; label_ru: string; label_lv: string };
 
 const slotOut = (s: GridSlot): Slot => ({ start: s.start, label_ru: s.label_ru, label_lv: s.label_lv });
 
 function slotFromIso(iso: string): Slot {
   const d = new Date(Date.parse(iso));
-  return { start: toRigaIso(d), label_ru: slotLabel(d, "ru"), label_lv: slotLabel(d, "lv") };
+  return { start: toRigaIso(d), label_ru: slotSpokenRu(d), label_lv: slotLabel(d, "lv") };
 }
 
+/** NUMBER_MODE applies to LV speech only; RU speech is always words (see lib/speech.ts). */
 function numberMode(deps: Deps): NumberMode {
   const m = deps.env.NUMBER_MODE;
   return m === "words" || m === "grouped" ? m : "digits";
@@ -83,11 +99,15 @@ export function googleFailure(e: unknown, calendar: boolean): Body {
   return fail("internal_error", sayGeneric(), "Technical problem. Apologise and offer a callback with request_callback.", {}, `${kind}: ${message}`);
 }
 
+/** RU labels for one spoken list: the month only for the first slot and when it changes («…седьмого октября…; в четверг, восьмого, …»). */
+const spokenListRu = (slots: readonly Slot[]): string[] => slotListRu(slots.map((s) => new Date(Date.parse(s.start))));
+
 function slotsPhrase(slots: Slot[]): Say {
   const [a, b, c] = slots;
-  if (a && b && c) return say("slots_offer", { ru: { slot1: a.label_ru, slot2: b.label_ru, slot3: c.label_ru }, lv: { slot1: a.label_lv, slot2: b.label_lv, slot3: c.label_lv } });
-  if (a && b) return say("slots_offer_two", { ru: { slot1: a.label_ru, slot2: b.label_ru }, lv: { slot1: a.label_lv, slot2: b.label_lv } });
-  if (a) return say("slots_offer_one", { ru: { slot1: a.label_ru }, lv: { slot1: a.label_lv } });
+  const [r1, r2, r3] = spokenListRu(slots);
+  if (a && b && c) return say("slots_offer", { ru: { slot1: r1!, slot2: r2!, slot3: r3! }, lv: { slot1: a.label_lv, slot2: b.label_lv, slot3: c.label_lv } });
+  if (a && b) return say("slots_offer_two", { ru: { slot1: r1!, slot2: r2! }, lv: { slot1: a.label_lv, slot2: b.label_lv } });
+  if (a) return say("slots_offer_one", { ru: { slot1: r1! }, lv: { slot1: a.label_lv } });
   return say("no_slots", { ru: {}, lv: {} });
 }
 
@@ -242,7 +262,8 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
     }
     const alts = alternativesFor(input.slot_start, now, busy, 2).map(slotOut);
     const [a, b] = alts;
-    const s = a && b ? say("slot_taken", { ru: { alt1: a.label_ru, alt2: b.label_ru }, lv: { alt1: a.label_lv, alt2: b.label_lv } }) : slotsPhrase(alts);
+    const [r1, r2] = spokenListRu(alts);
+    const s = a && b ? say("slot_taken", { ru: { alt1: r1!, alt2: r2! }, lv: { alt1: a.label_lv, alt2: b.label_lv } }) : slotsPhrase(alts);
     return fail("slot_taken", s, "The slot was taken. Offer the alternatives and call book_inspection again with the chosen start.", { alternatives: alts });
   }
 
@@ -252,7 +273,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
   const roleRu = ROLE_RU[input.caller_role] ?? input.caller_role;
   const texts = eventTexts({
     isTest, address, floors: input.floors, stairwells: input.stairwells, apartments: input.apartments, roleRu,
-    name: input.name, phone, notes: input.notes, unknown, priceTextRu: price?.text ?? null, id: bookingId, slotRu: slot.label_ru,
+    name: input.name, phone, notes: input.notes, unknown, priceTextRu: price?.text ?? null, id: bookingId, slotRu: slot.text_ru,
   });
   const body: EventBody = { ...texts, startIso: slot.start, endIso: slot.end, conversationId: input.conversation_id, leadId: bookingId, isTest };
 
@@ -266,7 +287,8 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
         return bookedOk(bookingId, slotOut(slot), address, true); // same slot: return the existing booking
       }
       // different slot: the slot was re-checked above (freeBusy) -> move the event
-      const was = existing.start?.dateTime ? slotFromIso(existing.start.dateTime).label_ru : "";
+      const wasMs = existing.start?.dateTime ? Date.parse(existing.start.dateTime) : NaN;
+      const was = Number.isFinite(wasMs) ? slotLabel(new Date(wasMs), "ru") : ""; // Telegram text: digits
       await patchEvent(deps, eventId, body);
       movedFromRu = was || "ранее записанное время";
     }
@@ -277,7 +299,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
   // Telegram (+ the Leads row for a new booking) after the answer
   const msg = bookingMessage({
     id: bookingId, isTest, address, floors: input.floors, stairwells: input.stairwells, apartments: input.apartments, roleRu,
-    slotRu: slot.label_ru, name: input.name, phone, notes: input.notes, price, unknown, movedFromRu,
+    slotRu: slot.text_ru, name: input.name, phone, notes: input.notes, price, unknown, movedFromRu,
   });
   const jobs: Promise<unknown>[] = [sendTelegram(deps, msg, isTest)];
   if (!movedFromRu) {
@@ -332,7 +354,10 @@ function resolveWorksBuilding(input: { building_id?: string; address?: string })
   return m.building ? m.building.id : null;
 }
 
+/** Text form (Telegram; RU digits) and the Latvian spoken form. */
 const optionLabel = (date: string, window: string, lang: Lang) => `${dayLabel(date, lang)}, ${windowLabel(window, lang)}`;
+/** Spoken RU: «в понедельник, двенадцатого октября, с девяти утра до часа дня». */
+const optionSpokenRu = (date: string, window: string) => `${dayAtRu(date)}, ${windowSpokenRu(window)}`;
 
 function worksNotFound(): Body {
   return ok(say("works_not_found", { ru: {}, lv: {} }), "No works schedule for this address and apartment. Offer a callback with request_callback; never guess a date.", {
@@ -352,9 +377,10 @@ export async function findWorksSchedule(c: Ctx, input: ToolInput<"find_works_sch
   const now = c.deps.now();
   const sched = apartmentSchedule(toWorksRows(tabs.Works ?? []), toAccessRows(tabs.Access ?? []), buildingId, input.apartment);
   if (!sched) return worksNotFound();
-  const options = rescheduleOptions(sched, now).map((o) => ({ date: o.date, window: o.window, label_ru: optionLabel(o.date, o.window, "ru"), label_lv: optionLabel(o.date, o.window, "lv") }));
-  const when = (lang: Lang) => ({ apartment: input.apartment, stairwell: sched.stairwell, date: dayLabel(sched.current_date, lang), window: windowLabel(sched.current_window, lang) });
-  return ok(say("works_found", { ru: when("ru"), lv: when("lv") }), "Read the sentence. If the caller wants another time, offer the options and call reschedule_access with the chosen one.", {
+  const options = rescheduleOptions(sched, now).map((o) => ({ date: o.date, window: o.window, label_ru: optionSpokenRu(o.date, o.window), label_lv: optionLabel(o.date, o.window, "lv") }));
+  const ru = { apartment: apartmentSpokenRu(input.apartment), stairwell: stairwellSpokenRu(sched.stairwell), date: dayAtRu(sched.current_date), window: windowSpokenRu(sched.current_window) };
+  const lv = { apartment: input.apartment, stairwell: sched.stairwell, date: dayLabel(sched.current_date, "lv"), window: windowLabel(sched.current_window, "lv") };
+  return ok(say("works_found", { ru, lv }), "Read the sentence. If the caller wants another time, offer the options and call reschedule_access with the chosen one.", {
     found: true, building_id: buildingId, stairwell: sched.stairwell, date: sched.current_date, window: sched.current_window, rescheduled: sched.rescheduled, options,
   });
 }
@@ -388,8 +414,9 @@ export async function rescheduleAccess(c: Ctx, input: ToolInput<"reschedule_acce
     fromRu: optionLabel(sched.current_date, sched.current_window, "ru"), toRu: optionLabel(input.new_date, input.new_window, "ru"),
   });
   deps.waitUntil(sendTelegram(deps, msg, isTest));
-  const when = (lang: Lang) => ({ date: dayLabel(input.new_date, lang), window: windowLabel(input.new_window, lang) });
-  return ok(say("access_rescheduled", { ru: when("ru"), lv: when("lv") }), "Read the sentence and close the topic.", { access_id: accessId, date: input.new_date, window: input.new_window });
+  const ru = { date: dayAtRu(input.new_date), window: windowSpokenRu(input.new_window) };
+  const lv = { date: dayLabel(input.new_date, "lv"), window: windowLabel(input.new_window, "lv") };
+  return ok(say("access_rescheduled", { ru, lv }), "Read the sentence and close the topic.", { access_id: accessId, date: input.new_date, window: input.new_window });
 }
 
 // ---------- request_callback ----------

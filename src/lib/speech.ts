@@ -1,6 +1,9 @@
 // What Anna may SAY: price figures (rounded by code), dates, times, slot labels, building facts.
 // Final sentences come from the phrase templates (src/copy/phrases.ts, see render.ts); this module only supplies values.
 // Rules: monthly instalments and working-day estimates are NEVER output (they are not even exposed here).
+// Russian speech (say_ru, every tool-facing label_ru) is ALWAYS finished words with the right case and gender, whatever
+// NUMBER_MODE says: the *Ru functions below. The digit labels (dateLabel, dayLabel, timeLabel, slotLabel, windowLabel) are
+// the text forms for Calendar / Sheet / Telegram, and the Latvian speech forms (unchanged).
 import type { ParametricQuote } from "./quote";
 import {
   type Lang,
@@ -12,11 +15,18 @@ import {
 import {
   type NumberMode,
   dayOrdinalLv,
+  dayOrdinalNomRu,
   dayOrdinalRu,
   formatNumber,
+  genitiveNounRu,
   hourGenitiveRu,
+  numberToWords,
+  numberToWordsGenRu,
+  ordinalRu,
   pluralLv,
   pluralRu,
+  timeAtRu,
+  timeGenRu,
   timeWords,
 } from "./words";
 
@@ -62,8 +72,31 @@ export function priceFigures(q: ParametricQuote): PriceFigures {
 
 export const PRICE_PLACEHOLDERS = ["low_net", "high_net", "low_gross", "high_gross", "per_apt_gross"] as const;
 
-/** Values for the `price_range` phrase template. mode: digits "84000" | words | grouped "84 000" (text). */
+/**
+ * Spoken RU bounds for «от {low} до {high} евро», in the genitive. Both bounds whole thousands (and below a million):
+ * the thousands counts share one noun that agrees with the upper bound — «от семидесяти двух» / «до ста двенадцати тысяч»,
+ * «до ста двадцати одной тысячи». Otherwise each bound is a full genitive number: «от восьми тысяч четырёхсот» / «до девяти тысяч ста».
+ */
+export function priceBoundsRu(low: number, high: number): { low: string; high: string } {
+  const lo = Math.round(low);
+  const hi = Math.round(high);
+  if (lo > 0 && hi > 0 && lo % 1000 === 0 && hi % 1000 === 0 && lo < 1_000_000 && hi < 1_000_000) {
+    const k = hi / 1000;
+    return { low: numberToWordsGenRu(lo / 1000, "f"), high: `${numberToWordsGenRu(k, "f")} ${genitiveNounRu(k, "тысячи", "тысяч")}` };
+  }
+  return { low: numberToWordsGenRu(lo), high: numberToWordsGenRu(hi) };
+}
+
+/**
+ * Values for the `price_range` phrase template. RU: always spoken words (genitive bounds, see priceBoundsRu; per apartment in the
+ * nominative). LV / EN: mode digits "84000" | words | grouped "84 000".
+ */
 export function pricePlaceholders(f: PriceFigures, lang: Lang, mode: NumberMode = "digits"): Record<(typeof PRICE_PLACEHOLDERS)[number], string> {
+  if (lang === "ru") {
+    const net = priceBoundsRu(f.low_net, f.high_net);
+    const gross = priceBoundsRu(f.low_gross, f.high_gross);
+    return { low_net: net.low, high_net: net.high, low_gross: gross.low, high_gross: gross.high, per_apt_gross: numberToWords(Math.round(f.per_apt_gross), "ru") };
+  }
   const fmt = (n: number) => formatNumber(n, lang, mode);
   return {
     low_net: fmt(f.low_net),
@@ -75,6 +108,8 @@ export function pricePlaceholders(f: PriceFigures, lang: Lang, mode: NumberMode 
 }
 
 // ---------- dates, times, slot labels ----------
+// dateLabel / dayLabel / timeLabel / slotLabel / windowLabel: RU digit forms are TEXT only (Calendar, Sheet, Telegram);
+// LV forms are the Latvian speech forms (unchanged). RU speech: see "spoken Russian" below. `words` is the old TTS fallback.
 
 const RU_WD = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
 const RU_MON = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
@@ -82,6 +117,8 @@ const LV_WD = ["svētdien", "pirmdien", "otrdien", "trešdien", "ceturtdien", "p
 const LV_MON = ["janvārī", "februārī", "martā", "aprīlī", "maijā", "jūnijā", "jūlijā", "augustā", "septembrī", "oktobrī", "novembrī", "decembrī"];
 const EN_WD = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const EN_MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+/** «в/во» + accusative weekday. */
+const RU_WD_AT = ["в воскресенье", "в понедельник", "во вторник", "в среду", "в четверг", "в пятницу", "в субботу"];
 
 export interface LabelOpts {
   /** Spell day and hour out as words (TTS fallback). */
@@ -135,9 +172,71 @@ export function windowLabel(window: string, lang: Lang, opts: LabelOpts = {}): s
   return `с ${Number(h1)}:${m1} до ${Number(h2)}:${m2}`;
 }
 
-/** Label for "today" in Riga time (the agent never computes dates itself). */
+// ---------- spoken Russian (say_ru and tool-facing label_ru): words only ----------
+
+const ymdParts = (ymd: string) => ymd.split("-").map(Number) as [number, number, number];
+
+/** «седьмого октября»; month false: «седьмого» (the month was already named). */
+export function dateSpokenRu(ymd: string, opts: { month?: boolean } = {}): string {
+  const [, m, d] = ymdParts(ymd);
+  return opts.month === false ? dayOrdinalRu(d) : `${dayOrdinalRu(d)} ${RU_MON[m - 1]}`;
+}
+
+/** «в среду, седьмого октября» / «во вторник, шестого октября»; month false: «в четверг, восьмого». */
+export function dayAtRu(ymd: string, opts: { month?: boolean } = {}): string {
+  return `${RU_WD_AT[weekdayOfYmd(ymd)]}, ${dateSpokenRu(ymd, opts)}`;
+}
+
+/** Nominative, for «today»: «вторник, шестое октября». */
+export function dayNameRu(ymd: string): string {
+  const [, m, d] = ymdParts(ymd);
+  return `${RU_WD[weekdayOfYmd(ymd)]}, ${dayOrdinalNomRu(d)} ${RU_MON[m - 1]}`;
+}
+
+/** Spoken slot: «в среду, седьмого октября, в девять утра»; month false: «в четверг, восьмого, в час дня». */
+export function slotSpokenRu(start: Date, opts: { month?: boolean } = {}): string {
+  return `${dayAtRu(rigaYmd(start), opts)}, ${timeAtRu(rigaHm(start))}`;
+}
+
+/** Spoken slots of ONE list (an offer): the month is named for the first slot and whenever it differs from the previous slot's. */
+export function slotListRu(starts: readonly Date[]): string[] {
+  let prev = "";
+  return starts.map((s) => {
+    const ym = rigaYmd(s).slice(0, 7);
+    const label = slotSpokenRu(s, { month: ym !== prev });
+    prev = ym;
+    return label;
+  });
+}
+
+const WINDOW_RE = /^(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})$/;
+
+/** Access window "09:00-13:00" -> «с девяти утра до часа дня»; "13:00-17:00" -> «с часа дня до пяти вечера». Unparsable input is returned as given. */
+export function windowSpokenRu(window: string): string {
+  const m = WINDOW_RE.exec(window.trim());
+  if (!m) return window;
+  try {
+    return `с ${timeGenRu(`${m[1]}:${m[2]}`)} до ${timeGenRu(`${m[3]}:${m[4]}`)}`;
+  } catch {
+    return window;
+  }
+}
+
+/** Apartment number as spoken after «Квартира»: a plain integer in words («двенадцать»), anything else as given. */
+export function apartmentSpokenRu(apartment: number | string): string {
+  const n = typeof apartment === "number" ? apartment : /^\d+$/.test(apartment.trim()) ? Number(apartment.trim()) : NaN;
+  return Number.isSafeInteger(n) && n >= 0 && n <= 999_999_999 ? numberToWords(n, "ru") : String(apartment);
+}
+
+/** Stairwell as a masculine ordinal before «подъезд»: 1 -> «первый». Outside 0..999 the value is returned as given. */
+export function stairwellSpokenRu(stairwell: number): string {
+  return Number.isInteger(stairwell) && stairwell >= 0 && stairwell <= 999 ? ordinalRu(stairwell, "nom_m") : String(stairwell);
+}
+
+/** Label for "today" in Riga time (the agent never computes dates itself). RU spoken nominative «вторник, шестое октября»; LV / EN as dayLabel. */
 export function todayLabel(now: Date, lang: Lang): string {
-  return dayLabel(rigaYmd(now), lang);
+  const ymd = rigaYmd(now);
+  return lang === "ru" ? dayNameRu(ymd) : dayLabel(ymd, lang);
 }
 
 /** The date `n` days after today, labelled. */
@@ -156,20 +255,24 @@ export interface SourcedFacts {
   sourced: readonly string[];
 }
 
-/** «9 этажей, 4 подъезда» built from sourced fields only; empty string if none is sourced. */
+/**
+ * Built from sourced fields only; empty string if none is sourced. RU always spoken words with the noun's gender
+ * («девять этажей, четыре подъезда и сто сорок одна квартира»); LV / EN follow `mode` («9 stāvi, 4 kāpņu telpas»).
+ */
 export function buildingFacts(b: SourcedFacts, lang: Lang, mode: NumberMode = "digits"): string {
   const parts: string[] = [];
   const num = (n: number) => formatNumber(n, lang, mode);
-  const add = (field: FactField, ru: readonly [string, string, string], lv: readonly [string, string], en: readonly [string, string]) => {
+  const ruNum = (n: number, g: "m" | "f") => (Number.isInteger(n) && n >= 0 && n <= 999_999_999 ? numberToWords(n, "ru", g) : String(n));
+  const add = (field: FactField, ru: readonly [string, string, string], ruGender: "m" | "f", lv: readonly [string, string], en: readonly [string, string]) => {
     const n = b[field];
     if (n == null || !b.sourced.includes(field)) return;
     if (lang === "lv") parts.push(`${num(n)} ${pluralLv(n, lv)}`);
     else if (lang === "en") parts.push(`${num(n)} ${n === 1 ? en[0] : en[1]}`);
-    else parts.push(`${num(n)} ${pluralRu(n, ru)}`);
+    else parts.push(`${ruNum(n, ruGender)} ${pluralRu(n, ru)}`);
   };
-  add("floors", ["этаж", "этажа", "этажей"], ["stāvs", "stāvi"], ["floor", "floors"]);
-  add("stairwells", ["подъезд", "подъезда", "подъездов"], ["kāpņu telpa", "kāpņu telpas"], ["stairwell", "stairwells"]);
-  add("apartments", ["квартира", "квартиры", "квартир"], ["dzīvoklis", "dzīvokļi"], ["apartment", "apartments"]);
+  add("floors", ["этаж", "этажа", "этажей"], "m", ["stāvs", "stāvi"], ["floor", "floors"]);
+  add("stairwells", ["подъезд", "подъезда", "подъездов"], "m", ["kāpņu telpa", "kāpņu telpas"], ["stairwell", "stairwells"]);
+  add("apartments", ["квартира", "квартиры", "квартир"], "f", ["dzīvoklis", "dzīvokļi"], ["apartment", "apartments"]);
   if (parts.length <= 1) return parts.join("");
   const sep = lang === "lv" ? " un " : lang === "en" ? " and " : " и ";
   return `${parts.slice(0, -1).join(", ")}${sep}${parts[parts.length - 1]}`;

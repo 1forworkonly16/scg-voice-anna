@@ -15,8 +15,8 @@ describe("speakableFields: only sourced fields", () => {
     const rec: BuildingRecord = { id: "x", street_lv: "Ilūkstes iela", house: "16", korpuss: null, floors: 9, stairwells: 4, apartments: 141, sourced: ["floors_above", "stairwells_guess", "apartments"] };
     const b = toBuilding(rec);
     expect(b).toMatchObject({ address: "Ilūkstes iela 16", floors: 9, stairwells: 4, sourced: ["floors", "stairwells", "apartments"] });
-    expect(buildingFacts(b, "ru")).toBe("9 этажей, 4 подъезда и 141 квартира");
-    expect(buildingFacts(toBuilding({ ...rec, sourced: ["floors_above", "apartments"] }), "ru")).toBe("9 этажей и 141 квартира");
+    expect(buildingFacts(b, "ru")).toBe("девять этажей, четыре подъезда и сто сорок одна квартира");
+    expect(buildingFacts(toBuilding({ ...rec, sourced: ["floors_above", "apartments"] }), "ru")).toBe("девять этажей и сто сорок одна квартира");
   });
   it("toBuilding returns every unsourced number as null (WP8 t04: the agent must not see it)", () => {
     const rec: BuildingRecord = { id: "x", street_lv: "Ilūkstes iela", house: "16", korpuss: null, floors: 9, stairwells: 4, apartments: 144, sourced: ["floors_above"] };
@@ -81,7 +81,7 @@ describe.skipIf(!existsSync(searchFile))("real data: src/data/riga_buildings_sea
     for (const f of ["floors", "stairwells", "apartments"]) expect(b.sourced).toContain(f);
     expect(b.sourced).not.toContain("floors_above");
     expect(b.sourced).not.toContain("stairwells_guess");
-    expect(buildingFacts(b, "ru")).toBe("9 этажей, 4 подъезда и 141 квартира");
+    expect(buildingFacts(b, "ru")).toBe("девять этажей, четыре подъезда и сто сорок одна квартира");
     expect(buildingFacts(b, "lv")).toBe("9 stāvi, 4 kāpņu telpas un 141 dzīvoklis");
   });
   it("an entry with null stairwells does not list stairwells as sourced", () => {

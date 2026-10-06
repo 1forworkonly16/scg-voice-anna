@@ -1,6 +1,6 @@
 export const PHRASES = {
   price_range: {
-    ru: "Ориентировочно для вашего дома — от {low_net} до {high_net} евро без НДС, то есть от {low_gross} до {high_gross} евро с НДС 21%, примерно {per_apt_gross} евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.",
+    ru: "Ориентировочно для вашего дома — от {low_net} до {high_net} евро без НДС, или от {low_gross} до {high_gross} с НДС двадцать один процент — это примерно {per_apt_gross} евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.",
     lv: "Orientējoši jūsu mājai — no {low_net} līdz {high_net} eiro bez PVN, tas ir no {low_gross} līdz {high_gross} eiro ar PVN 21%, aptuveni {per_apt_gross} eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas.",
   },
   building_found: {
@@ -20,7 +20,7 @@ export const PHRASES = {
     lv: "Šo adresi sarakstā neatradu, bet tas nekas. Cik mājā ir stāvu, kāpņu telpu un aptuveni cik dzīvokļu?",
   },
   slots_offer: {
-    ru: "Для бесплатного осмотра свободно: {slot1}, {slot2} или {slot3}. Какое время вам удобнее?",
+    ru: "Для бесплатного осмотра свободно: {slot1}; {slot2}; или {slot3}. Какое время вам удобнее?",
     lv: "Bezmaksas apsekošanai brīvie laiki: {slot1}, {slot2} vai {slot3}. Kurš laiks jums der?",
   },
   no_slots: {
@@ -44,7 +44,7 @@ export const PHRASES = {
     lv: "Kalendārs šobrīd neatbild, tāpēc apsekošanas laiku apstiprināt nevaru. Vai vēlaties, lai mēs jums piezvanām darba laikā un vienojamies par dienu?",
   },
   works_found: {
-    ru: "Квартира {apartment}, подъезд {stairwell}: работы у вас по графику — {date}, {window}. Хотите перенести это время?",
+    ru: "Квартира {apartment}, {stairwell} подъезд: работы у вас по графику — {date}, {window}. Хотите перенести это время?",
     lv: "Dzīvoklis {apartment}, {stairwell}. kāpņu telpa: darbi pēc grafika paredzēti — {date}, {window}. Vai vēlaties šo laiku pārcelt?",
   },
   works_not_found: {
@@ -56,7 +56,7 @@ export const PHRASES = {
     lv: "Labi, jaunais piekļuves laiks jūsu dzīvoklim — {date}, {window}. Esmu to ierakstījusi darbu grafikā.",
   },
   callback_ok: {
-    ru: "Хорошо, я передала вашу просьбу — вам перезвонят в рабочее время, с понедельника по пятницу с 9 до 17.",
+    ru: "Хорошо, я передала вашу просьбу — вам перезвонят в рабочее время, с понедельника по пятницу, с девяти утра до пяти вечера.",
     lv: "Labi, jūsu lūgumu esmu nodevusi — jums piezvanīs darba laikā, no pirmdienas līdz piektdienai no 9 līdz 17.",
   },
   tool_error_generic: {

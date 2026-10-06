@@ -181,10 +181,12 @@ describe("slot grid", () => {
     expect(dates.has("2026-12-23")).toBe(true);
     expect(dates.has("2026-12-28")).toBe(true);
   });
-  it("labels exist in RU and LV", () => {
+  it("labels: RU spoken words (tool-facing), LV unchanged, RU text with digits for Calendar / Telegram", () => {
     const s = candidateSlots(now)[0]!;
-    expect(s.label_ru).toBe("понедельник, 5 октября, 9:00");
+    expect(s.label_ru).toBe("в понедельник, пятого октября, в девять утра");
     expect(s.label_lv).toBe("pirmdien, 5. oktobrī, plkst. 9.00");
+    expect(s.text_ru).toBe("понедельник, 5 октября, 9:00");
+    for (const x of candidateSlots(now)) expect(x.label_ru, x.label_ru).not.toMatch(/\d/);
   });
 });
 
