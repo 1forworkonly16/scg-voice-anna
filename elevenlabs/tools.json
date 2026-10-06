@@ -153,7 +153,7 @@
       "config": {
         "type": "webhook",
         "name": "get_slots",
-        "description": "Get up to three free times for the free inspection, with today's date in Riga time. Read say_ru / say_lv aloud; never compute dates yourself.",
+        "description": "Get up to three free times for the free inspection, with today's date in Riga time. Pass only the weekday and part_of_day the caller named, never dates. Read say_ru / say_lv aloud; never compute dates yourself.",
         "response_timeout_secs": 8,
         "api_schema": {
           "url": "https://scg-voice-demo.scg-voice-demo.workers.dev/tools/get_slots",
@@ -198,11 +198,11 @@
               },
               "date_from": {
                 "type": "string",
-                "description": "Earliest acceptable date, YYYY-MM-DD, if the caller gave one."
+                "description": "Leave empty. Never compute an earliest date from «завтра», a weekday or a spoken date; weekday and part_of_day cover the caller's wishes."
               },
               "date_to": {
                 "type": "string",
-                "description": "Latest acceptable date, YYYY-MM-DD, if the caller gave one."
+                "description": "Leave empty. Never compute a latest date from «завтра», a weekday or a spoken date; weekday and part_of_day cover the caller's wishes."
               },
               "part_of_day": {
                 "type": "string",
@@ -225,7 +225,7 @@
       "config": {
         "type": "webhook",
         "name": "book_inspection",
-        "description": "Book the free inspection after the caller chose a slot and gave name, phone and consent. Confirm to the caller only when ok is true.",
+        "description": "Book the free inspection after the caller chose a slot and gave the phone (and the name, if they gave one). Confirm to the caller only when ok is true.",
         "response_timeout_secs": 10,
         "api_schema": {
           "url": "https://scg-voice-demo.scg-voice-demo.workers.dev/tools/book_inspection",
@@ -248,9 +248,7 @@
               "stairwells",
               "apartments",
               "caller_role",
-              "name",
-              "phone",
-              "consent"
+              "phone"
             ],
             "properties": {
               "conversation_id": {
@@ -299,15 +297,11 @@
               },
               "name": {
                 "type": "string",
-                "description": "Caller's name for the booking."
+                "description": "Caller's name, if they gave one; omit it if the caller did not want to say it."
               },
               "phone": {
                 "type": "string",
                 "description": "Caller phone number as dictated, written as digits only without spaces, with optional +371."
-              },
-              "consent": {
-                "type": "boolean",
-                "description": "true only after the caller has clearly agreed that SCG stores the contact details and calls back."
               },
               "building_id": {
                 "type": "string",
@@ -476,7 +470,7 @@
       "config": {
         "type": "webhook",
         "name": "request_callback",
-        "description": "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs phone and consent. Call it right after the caller confirmed the phone and consented; never ask for a name.",
+        "description": "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs the phone. Call it right after the caller confirmed the phone; never ask for a name.",
         "response_timeout_secs": 8,
         "api_schema": {
           "url": "https://scg-voice-demo.scg-voice-demo.workers.dev/tools/request_callback",
@@ -495,8 +489,7 @@
               "language",
               "reason",
               "summary_ru",
-              "phone",
-              "consent"
+              "phone"
             ],
             "properties": {
               "conversation_id": {
@@ -523,10 +516,6 @@
               "phone": {
                 "type": "string",
                 "description": "Caller phone number as dictated, written as digits only without spaces, with optional +371."
-              },
-              "consent": {
-                "type": "boolean",
-                "description": "true only after the caller has clearly agreed that SCG stores the contact details and calls back."
               },
               "name": {
                 "type": "string",

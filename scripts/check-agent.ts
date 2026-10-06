@@ -85,7 +85,8 @@ const sysWant = [...(c.system_tools as string[])].sort();
 eq(`system tools = agent_config (${sysWant.join(' + ')})`, sysTools, sysWant);
 check('skip_turn attached (silence after the check-in, noise, background talk)', sysTools.includes('skip_turn'), `system tools: ${sysTools.join(', ')}`);
 // limits and privacy
-eq('max_duration_seconds', cc.conversation.max_duration_seconds, 300);
+eq('max_duration_seconds = agent_config', cc.conversation.max_duration_seconds, c.conversation.max_duration_seconds);
+check('max_duration_seconds is 300, or 600 while the video is made (decision «Call cap 600 s»)', [300, 600].includes(c.conversation.max_duration_seconds), `agent_config ${c.conversation.max_duration_seconds}`);
 eq('daily_limit', ps.call_limits.daily_limit, 25);
 eq('agent_concurrency_limit', ps.call_limits.agent_concurrency_limit, 2);
 eq('bursting_enabled off', ps.call_limits.bursting_enabled, false);
@@ -94,8 +95,10 @@ eq('record_voice off (audio not stored)', ps.privacy.record_voice, false);
 check(allowUnlocked ? 'auth (unlocked allowed)' : 'auth ON (locked)', allowUnlocked || ps.auth.enable_auth === true, `enable_auth=${ps.auth.enable_auth}`);
 // ASR, turn
 const kw: string[] = cc.asr.keywords ?? [];
-check('asr keywords include Ilūkstes, Tirzes, Parauga', ['Ilūkstes', 'Tirzes', 'Parauga'].every((k) => kw.includes(k)), `${kw.length} keywords`);
+eq('asr keywords = agent_config', kw, c.asr.keywords);
+check('asr keywords include Ilūkstes and Parauga (video addresses)', ['Ilūkstes', 'Parauga'].every((k) => kw.includes(k)), `${kw.length} keywords`);
 eq('turn_eagerness', cc.turn.turn_eagerness, c.turn.turn_eagerness);
+eq('disable_first_message_interruptions = agent_config (greeting interruptible)', cc.agent.disable_first_message_interruptions ?? false, c.agent.disable_first_message_interruptions);
 eq('turn_timeout', cc.turn.turn_timeout, c.turn.turn_timeout);
 eq('turn_timeout 5 s (one «Алло, вы меня слышите?» after about five seconds of silence)', cc.turn.turn_timeout, 5);
 eq('interruption_ignore_terms = agent_config (Kodukliima list)', cc.turn.interruption_ignore_terms ?? null, c.turn.interruption_ignore_terms);

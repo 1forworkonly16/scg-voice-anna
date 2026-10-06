@@ -12,7 +12,8 @@
     "llm": "claude-haiku-4-5",
     "temperature": 0.3,
     "reasoning_effort": null,
-    "disable_first_message_interruptions": true,
+    "disable_first_message_interruptions": false,
+    "_greeting_note": "Greeting interruptible (decision 2026-10-06): if the caller talks over the greeting, Anna's first reply starts «Это Анна, ИИ-ассистент.» (system_prompt.md), so the AI disclosure still comes before any question.",
     "max_duration_message": {
       "ru": "Время разговора закончилось. Спасибо за звонок, всего доброго.",
       "lv": "Sarunas laiks ir beidzies. Paldies par zvanu, visu labu."
@@ -20,19 +21,20 @@
     "_punctuation_note": "No «!» in any first, max-duration or soft-timeout message (decision 2026-10-06: «!» makes the voice jump); build-agent.ts refuses one."
   },
   "tts": {
-    "model_id": "eleven_v3_conversational",
-    "_model_note": "The TTS model is this ONE value (user decision 2026-10-06: v3 conversational, ≈ 550–600 credits/min in total). Going back to eleven_v4_turbo for cost means the fallback below: change model_id, voice_id, stability, speed and similarity_boost together.",
+    "model_id": "eleven_v4_turbo",
+    "_model_note": "The TTS model is this ONE value (decision 2026-10-06 «Voice audition result»: Anna ET on eleven_v4_turbo, about 300 credits/min in total; v4 turbo lists lv, so the LV preset stays). Fallback: Elena Gromova (see _voice) on eleven_v4_turbo; change voice_id, stability, speed and similarity_boost together.",
     "voice_id": "2wP8BdKwYp0tZqqoNvMa",
-    "_voice": "Anna ET (Kodukliima): a Voice Design voice already in the account (no add needed), the same voice as the agent «Anna - Kodukliima demo» (agent_1701m3a6001cebc8r1n6saqxmqn6); TTS settings copied from that agent (read live 2026-10-06). ONE voice for RU and LV (no per-language voice override). Fallback: Elena Gromova 0ArNnoIAWKlT4WweaVMY (Voice Library, public_owner_id 18bb7017de812f7caa40ebbe9059def999a627a113e50e82fb819f0ea77a497d, added to the account 2026-10-05) on eleven_v4_turbo, speed 1.1, stability 0.4, similarity_boost 0.75.",
+    "_voice": "Anna ET (Kodukliima): a Voice Design voice already in the account (no add needed), the same voice as the agent «Anna - Kodukliima demo» (agent_1701m3a6001cebc8r1n6saqxmqn6); picked by ear in the WPV6 audition (2026-10-06) at stability 0.5, similarity_boost 0.75, speed 1.0. ONE voice for RU and LV (no per-language voice override). Fallback: Elena Gromova 0ArNnoIAWKlT4WweaVMY (Voice Library, public_owner_id 18bb7017de812f7caa40ebbe9059def999a627a113e50e82fb819f0ea77a497d, added to the account 2026-10-05) on eleven_v4_turbo, speed 1.1, stability 0.4, similarity_boost 0.75.",
     "expressive_mode": false,
     "stability": 0.5,
     "speed": 1.0,
-    "similarity_boost": 0.8,
+    "similarity_boost": 0.75,
     "optimize_streaming_latency": 3,
     "text_normalisation_type": "elevenlabs"
   },
   "turn": {
-    "turn_eagerness": "eager",
+    "turn_eagerness": "normal",
+    "_turn_eagerness_note": "normal for the video (decision 2026-10-06 «Turn-taking and ASR for the video»); eager cut callers off.",
     "turn_timeout": 5,
     "_turn_timeout_note": "About five seconds of caller silence → Anna says once «Алло, вы меня слышите?», then skip_turn (system_prompt.md §3; decision 2026-10-06).",
     "silence_end_call_timeout": 30,
@@ -40,21 +42,25 @@
     "speculative_turn": true,
     "soft_timeout_seconds": 4,
     "soft_timeout_message": { "ru": "Секундочку.", "lv": "Mirklīti." },
-    "interruption_ignore_terms": ["угу", "Угу.", "Угу-угу.", "Ugu.", "мгм", "Мгм.", "mhm", "Mhm.", "Mm-hmm.", "Mhmh."],
+    "interruption_ignore_terms": ["угу", "Угу.", "Угу-угу.", "Ugu.", "мгм", "Мгм.", "mhm", "Mhm.", "Mm-hmm.", "Mhmh.", "ага", "Ага.", "да-да", "Да-да."],
     "interruption_ignore_term_languages": ["ru", "lv", "en"],
     "merge_with_default_ignore_terms": false,
-    "_interruption_note": "Backchannels that must not interrupt Anna: the list of the Kodukliima agent (read live 2026-10-06), languages ru/lv/en, without the platform's default list."
+    "_interruption_note": "Backchannels that must not interrupt Anna: the Kodukliima list (read live 2026-10-06) plus «ага» and «да-да» (decision 2026-10-06 «Turn-taking and ASR for the video»), languages ru/lv/en, without the platform's default list."
   },
   "asr": {
-    "_note": "Latvian street/district names (Gate S carry-forward #2): the RU-mode ASR writes them in Cyrillic otherwise. Names from data/buildings plus the demo address; both Tirzes (brief) and Tirzas (dataset).",
-    "keywords": [
+    "_note": "Video set (decision 2026-10-06 «Turn-taking and ASR for the video»): only the names the two video calls need. The full list (_keywords_pilot: Latvian street/district names, Gate S carry-forward #2) returns for the pilot and the LV polish.",
+    "keywords": ["Smart Comfort", "Ilūkstes", "Parauga", "Rīgas namu pārvaldnieks"],
+    "_keywords_pilot": [
       "Smart Comfort", "Ilūkstes", "Tirzes", "Tirzas", "Parauga", "Velkoņu", "Balvu", "Kuldīgas", "Jūrmalas gatve",
       "Belševicas", "Brigaderes", "Dzelzavas", "Zentenes", "Rigondas", "Kurzemes prospekts", "Anniņmuižas bulvāris",
       "Krūmu", "Salnas", "Zemes", "Dzeņu", "Bērzupes", "Skaistkalnes", "Valdeķu", "Bauskas", "Ozolciema", "Ilmājas",
       "Purvciems", "Imanta", "Pļavnieki", "Ziepniekkalns", "Rīgas namu pārvaldnieks"
     ]
   },
-  "conversation": { "max_duration_seconds": 300 },
+  "conversation": {
+    "max_duration_seconds": 600,
+    "_note": "600 s while the video is rehearsed and recorded (decision 2026-10-06 «Call cap 600 s»); back to 300 afterwards."
+  },
   "call_limits": { "daily_limit": 25, "agent_concurrency_limit": 2, "bursting_enabled": false },
   "privacy": { "record_voice": false, "retention_days": 90, "_note": "Audio is not stored; transcripts are kept 90 days (latency metrics still work)." },
   "auth": { "enable_auth": true },

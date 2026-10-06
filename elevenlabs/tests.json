@@ -42,6 +42,14 @@
       "derived": false,
       "language": "ru"
     },
+    "t02e_s1_hesitant_first_turn": {
+      "test_id": "test_2501m49kgx41ee4b0z341gnxwe1k",
+      "name": "scg-t02e_s1_hesitant_first_turn",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
     "t03_s1_sourced_facts_only": {
       "test_id": "test_5301m41cwkq1ex0b4srrmattpann",
       "name": "scg-t03_s1_sourced_facts_only",
@@ -261,6 +269,198 @@
     "t27_sim_s3_resident_reschedules": {
       "test_id": "test_7401m41cx82tekv95h0n979v9w49",
       "name": "scg-t27_sim_s3_resident_reschedules",
+      "type": "simulation",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t40_h_garbled_first_turn_reask": {
+      "test_id": "test_3601m49kh494fhq9tpcj5m4a47ke",
+      "name": "scg-t40_h_garbled_first_turn_reask",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t41_h_fast_all_in_one_lookup": {
+      "test_id": "test_2301m49kh4ggfd8aa31vqyxd9gk0",
+      "name": "scg-t41_h_fast_all_in_one_lookup",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t42_h_hesitation_only_skip_turn": {
+      "test_id": "test_2701m49kh4svft3aprzhsn1q949a",
+      "name": "scg-t42_h_hesitation_only_skip_turn",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t43_h_cut_greeting_disclosure": {
+      "test_id": "test_1901m49kh50jfk7rpds6ck9eht6d",
+      "name": "scg-t43_h_cut_greeting_disclosure",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t44_h_price_cut_net_repeat": {
+      "test_id": "test_9801m49kh576esf885vny5h8zdz6",
+      "name": "scg-t44_h_price_cut_net_repeat",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t45_h_che_slots_repeat": {
+      "test_id": "test_3501m49kh5dcevw9zm2s53gjtw6w",
+      "name": "scg-t45_h_che_slots_repeat",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t46_a_korotche_quote_range": {
+      "test_id": "test_5601m49kh5kkfyf9vw5v2yfqvc0x",
+      "name": "scg-t46_a_korotche_quote_range",
+      "type": "tool_call",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t47_a_angry_twice_keeps_booking": {
+      "test_id": "test_1901m49kh5tafkmaa01b102nkanm",
+      "name": "scg-t47_a_angry_twice_keeps_booking",
+      "type": "tool_call",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t48_a_price_objection_line": {
+      "test_id": "test_8201m49kh60kf9v8grw0mqkfm7sy",
+      "name": "scg-t48_a_price_objection_line",
+      "type": "next_reply",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t49_s1_number_visible": {
+      "test_id": "test_5301m49kh66tepbargcazp4hqvx8",
+      "name": "scg-t49_s1_number_visible",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t50_s1_name_refused_phone": {
+      "test_id": "test_4701m49kh6cxfftbsgp1b2drvamm",
+      "name": "scg-t50_s1_name_refused_phone",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t51_s1_slot_change_after_booking": {
+      "test_id": "test_1101m49kh6k2e8sb0n4jqqr9d1c1",
+      "name": "scg-t51_s1_slot_change_after_booking",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t52_s1_saturday_weekdays": {
+      "test_id": "test_4401m49kh6sff9msefkayrxa5n64",
+      "name": "scg-t52_s1_saturday_weekdays",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t53_s1_zavtra_get_slots_no_dates": {
+      "test_id": "test_6401m49kh709fwatab29ffrnhx4w",
+      "name": "scg-t53_s1_zavtra_get_slots_no_dates",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t54_s1_phone_before_name": {
+      "test_id": "test_7001m49kh76vf4rb1s4tksz0evqm",
+      "name": "scg-t54_s1_phone_before_name",
+      "type": "tool_call",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t55_s1_flat_count_correction_quote": {
+      "test_id": "test_7801m49kh7cwff0as25b164n0a5s",
+      "name": "scg-t55_s1_flat_count_correction_quote",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t56_s3_no_flat_number_asks": {
+      "test_id": "test_7101m49kh7kkfbjs1vnv7rqsy1jy",
+      "name": "scg-t56_s3_no_flat_number_asks",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t57_s3_away_all_week_foreman": {
+      "test_id": "test_4801m49kh7t6e37v1vp1rcx0qmzz",
+      "name": "scg-t57_s3_away_all_week_foreman",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t58_s3_neighbour_access_deflect": {
+      "test_id": "test_9701m49kh80hf5fs9ex2t6kg257c",
+      "name": "scg-t58_s3_neighbour_access_deflect",
+      "type": "next_reply",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t59_s3_cyrillic_parauga_find_works": {
+      "test_id": "test_8901m49kh8dwe5s9jvmqjrppz8zc",
+      "name": "scg-t59_s3_cyrillic_parauga_find_works",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t60_s3_options_cut_thursday_reschedule": {
+      "test_id": "test_0401m49kh8m6fs2b1jmfry5jbeqa",
+      "name": "scg-t60_s3_options_cut_thursday_reschedule",
+      "type": "tool_call",
+      "critical": true,
+      "derived": false,
+      "language": "ru"
+    },
+    "t61_s3_abrupt_resident_find_works": {
+      "test_id": "test_6201m49kh8t6fjqsezv9yfet0102",
+      "name": "scg-t61_s3_abrupt_resident_find_works",
+      "type": "tool_call",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t62_sim_s1_abrupt_offscript_elder": {
+      "test_id": "test_4701m49kh93nfxrag7a8vqydyvkr",
+      "name": "scg-t62_sim_s1_abrupt_offscript_elder",
+      "type": "simulation",
+      "critical": false,
+      "derived": false,
+      "language": "ru"
+    },
+    "t63_sim_s3_abrupt_resident": {
+      "test_id": "test_5801m49kh99qfemvkn08hhs8map5",
+      "name": "scg-t63_sim_s3_abrupt_resident",
       "type": "simulation",
       "critical": false,
       "derived": false,
