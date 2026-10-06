@@ -45,5 +45,5 @@ Goal (`docs/decisions.md` 2026-10-06, «Goal: private video»): a private video 
 | WPV7 Release | Sonnet | todo | - | HEAD live; greeting interruptible, turn-taking and ASR for the video, call cap 600 s |
 | WPV8 EL test pass | Sonnet | todo | - | ask the user before any batch over ~3,000 credits («Budget») |
 | WPV9 Rehearsal loop | user + Opus | todo | - | scenarios A and B on the reference setup: laptop, good mic, headphones, OBS |
-| WPV10 Video kit | Opus | todo | - | `demo/video_run_sheet_ru.md` |
+| WPV10 Video kit | Opus | accepted 2026-10-06 | see git log | `demo/video_run_sheet_ru.md` (draft for the user; moved before the calls: every call can be the take); copy-lint 0. Rulings: B options incl. Thursday and A facts 9/4/141 checked against code/data (`rescheduleOptions`, t60; `riga_buildings_search.json`); «Андрей» a placeholder; the «don't ask about recording» tip kept; «Илукстес» is a dataset alias |
 | VB + scg-judge | Opus | todo | - | |
