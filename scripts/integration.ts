@@ -259,7 +259,6 @@ for (let n = 1; n <= N; n++) {
     caller_role: "board_member",
     name: "[TEST] Интеграция",
     phone: "+371 20000000",
-    consent: true,
     notes: "[TEST] автоматическая проверка WP7",
   });
   const row: Row = { n, conv, slot: slot.start, ms: r.ms, ok: r.json?.ok === true, replayed: r.json?.replayed === true, calendar: false, leads: false, leads_is_test: false, tg_test_new: 0, tg_group_new: 0, getslots_ms: gs.ms };
@@ -303,7 +302,7 @@ if (rows[0]) {
   const before = (await readTab("Leads")).filter((x) => x.conversation_id === first.conv).length;
   const rp = await tool("book_inspection", {
     conversation_id: first.conv, language: "ru", slot_start: first.slot, address_spoken: "[TEST] Илукстес 16", floors: 9, stairwells: 4, apartments: 141,
-    caller_role: "board_member", name: "[TEST] Интеграция", phone: "+371 20000000", consent: true,
+    caller_role: "board_member", name: "[TEST] Интеграция", phone: "+371 20000000",
   });
   await sleep(2500);
   const after = (await readTab("Leads")).filter((x) => x.conversation_id === first.conv).length;
