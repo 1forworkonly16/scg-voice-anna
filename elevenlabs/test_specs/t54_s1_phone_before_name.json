@@ -1,0 +1,27 @@
+{
+  "id": "t54_s1_phone_before_name",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Information out of order (WPV2): the caller dictated the phone before the name; it was read back and confirmed. After the name Anna must not ask for the phone again: straight on to get_slots.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, Ilūkstes iela 16, запишите на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Вы старший по дому, член правления или владелец квартиры?"},
+    {"role": "user", "message": "Владелец."},
+    {"role": "agent", "message": "Кто управляет домом — Rīgas namu pārvaldnieks, другая компания или общество собственников?"},
+    {"role": "user", "message": "Rīgas namu pārvaldnieks. И сразу запишите телефон: двадцать, сто двадцать три, четыреста пятьдесят шесть."},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Как к вам обращаться?"},
+    {"role": "user", "message": "Ольга."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "get_slots",
+    "reply_must_not": ["ваш телефон", "номер телефона", "продиктуйте"]
+  },
+  "success_condition": "After the name the agent does not ask for the phone again: the get_slots filler and get_slots follow at once. Fictional caller and number."
+}

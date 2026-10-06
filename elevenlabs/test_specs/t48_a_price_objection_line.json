@@ -1,0 +1,23 @@
+{
+  "id": "t48_a_price_objection_line",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Price objection (WPV2): after the indicative price (quote_range 9/4/141) the caller says it is expensive and that the house manager is probably cheaper. Anna answers with the fixed §6 price-objection line: no comparison, no discount, no new number.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, Ilūkstes iela 16, сколько стоит поменять стояки?"},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти семи до ста тридцати пяти тысяч с НДС двадцать один процент — это примерно семьсот восемьдесят евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра. Записать вас на осмотр?", "tool_calls": [{"name": "quote_range", "args": {"language": "ru", "floors": 9, "stairwells": 4, "apartments": 141}, "result": {"ok": true, "v": 1, "model_version": "MOCK", "figures": {"low_net": 72000, "high_net": 112000, "low_gross": 87000, "high_gross": 135000, "per_apt_gross": 780}, "hint": "Read the sentence exactly; never add, round or compute any number yourself. Offer the free inspection next.", "say_ru": "Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти семи до ста тридцати пяти тысяч с НДС двадцать один процент — это примерно семьсот восемьдесят евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.", "say_lv": "Orientējoši jūsu mājai — no 72000 līdz 112000 eiro bez PVN, tas ir no 87000 līdz 135000 eiro ar PVN 21%, aptuveni 780 eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas."}}]},
+    {"role": "user", "message": "Ого, дорого. А у управляющего, наверное, дешевле будет?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["ориентировочный диапазон", "точную цену даст инженер после бесплатного осмотра"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["дешевле", "скидк", "управляющ", "евро", "тысяч", "за полцены", "гарантир", "переплат"]
+  },
+  "success_condition": "The agent says the fixed line «Понимаю. Это ориентировочный диапазон; точную цену даст инженер после бесплатного осмотра — записать вас?» and nothing more: no comparison with the house manager or other companies, no criticism of managers, no discount, no new or repeated euro amount, no extra claim about value or quality. It calls no tool."
+}

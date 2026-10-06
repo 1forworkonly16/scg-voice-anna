@@ -109,8 +109,16 @@ describe("the exact sentences (Tuesday 6 October)", () => {
   it("lookup_building: facts in words with the noun's gender", async () => {
     const h = await tuesday();
     const r = await h.call("lookup_building", { ...base("e-l"), address: "Илукстес 16" });
-    expect(r.body.say_ru).toBe("Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира. Верно?");
-    expect(r.body.say_lv).toBe("Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis. Vai pareizi?");
+    expect(r.body.say_ru).toBe("Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?");
+    expect(r.body.say_lv).toBe("Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?");
+  });
+
+  it("invalid_phone: asks for the number again, not digit by digit", async () => {
+    const h = await tuesday();
+    const r = await h.call("book_inspection", bookingBody("e-ph", { phone: "123456" }));
+    expect(r.body.error.code).toBe("invalid_phone");
+    expect(r.body.say_ru).toBe("Кажется, я неправильно записала номер. Продиктуйте его, пожалуйста, ещё раз.");
+    expect(r.body.say_lv).toBe("Šķiet, numuru pierakstīju nepareizi. Lūdzu, nosauciet to vēlreiz.");
   });
 
   it("quote_range 9 / 4 / 141: genitive bounds, one «тысяч», net and incl. VAT, per apartment", async () => {

@@ -1,0 +1,25 @@
+{
+  "id": "t50_s1_name_refused_phone",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Flow A off-script (WPV2): the caller refused the name, Anna explained once what it is for, and the caller refuses again. Anna goes on without the name (book_inspection will be called without name; WPV3 makes it optional) and asks for the phone.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, Ilūkstes iela 16, хочу записаться на бесплатный осмотр. Я член правления."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да, всё так."},
+    {"role": "agent", "message": "Как к вам обращаться?"},
+    {"role": "user", "message": "А зачем вам моё имя?"},
+    {"role": "agent", "message": "Чтобы инженер знал, как к вам обращаться."},
+    {"role": "user", "message": "Нет, имя не скажу."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["ваш телефон"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Как к вам обращаться", "ваше имя", "Чтобы инженер знал"]
+  },
+  "success_condition": "The agent accepts the refusal without pressure or comment (a short «Хорошо» at most) and asks for the phone: «И ваш телефон — для связи по этой заявке?» (contains «ваш телефон»). It does not ask for the name again, does not repeat the explanation and calls no tool."
+}

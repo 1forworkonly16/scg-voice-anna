@@ -1,0 +1,20 @@
+{
+  "id": "t46_a_korotche_quote_range",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Abrupt caller (WPV2): the building facts (9/4/141, sourced) were read back and the caller confirms with «Да. Короче, сколько стоит?». Anna stays calm and brief: quote_range filler, then quote_range with the confirmed facts, no other question first.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Ilūkstes шестнадцать. Стояки менять."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да. Короче, сколько стоит?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "quote_range",
+    "args_contains": {"floors": 9, "stairwells": 4, "apartments": 141},
+    "reply_must_not": ["не волнуйтесь", "не торопитесь", "Вам нужна ориентировочная цена", "Как к вам обращаться"]
+  },
+  "success_condition": "After the filler «Секундочку, смотрю цену.» quote_range is called with floors 9, stairwells 4, apartments 141 (the sourced, confirmed facts), without any other question first and without a comment on the caller's tone."
+}

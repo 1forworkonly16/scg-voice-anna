@@ -1,0 +1,26 @@
+{
+  "id": "t52_s1_saturday_weekdays",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Flow A off-script (WPV2): after the phone is confirmed the caller asks for a Saturday inspection. Anna: «По выходным свободного времени для осмотра нет — могу предложить будни.», then get_slots without a weekday or dates.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, я владелец квартиры на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Как к вам обращаться?"},
+    {"role": "user", "message": "Андрей."},
+    {"role": "agent", "message": "И ваш телефон — для связи по этой заявке?"},
+    {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть."},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
+    {"role": "user", "message": "Да. А в субботу можно?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "reply_must": ["выходным", "будни"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["октября", "записала"]
+  },
+  "success_condition": "The agent says there is no free time for the inspection at weekends and offers weekdays: «По выходным свободного времени для осмотра нет — могу предложить будни.», then says the get_slots filler and calls get_slots without a weekday or dates (in test mode the tool call is skipped; the agent then invents no times). It names no date of its own and books nothing. Fictional caller and number."
+}

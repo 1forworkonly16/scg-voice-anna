@@ -1,0 +1,19 @@
+{
+  "id": "t40_h_garbled_first_turn_reask",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Hearing (WPV2, user re-test 2026-10-06): a fast, casual caller's first turn arrives garbled; it has words but no recognisable request. Anna must not go silent (no skip_turn) and must not guess a topic: she asks once, briefly, «Извините, не расслышала. Повторите, пожалуйста?».",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Да, я это… по поводу… ну, у нас там, как его… э-э… с этим, короче, ну вы поняли."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["не расслышала"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Здравствуйте", "слушаю", "слышите", "Это Анна"]
+  },
+  "success_condition": "The caller's message has words, so the agent answers at once instead of staying silent: one short Russian turn asking the caller to repeat, essentially «Извините, не расслышала. Повторите, пожалуйста?» (contains «не расслышала»). It does not guess a topic, does not greet again or re-introduce itself, does not say «Да, слушаю вас.» or «Алло, вы меня слышите?», and calls no tool (no skip_turn)."
+}

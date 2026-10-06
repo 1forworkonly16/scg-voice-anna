@@ -1,0 +1,25 @@
+{
+  "id": "t49_s1_number_visible",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Flow A off-script (WPV2): at the phone question the caller says «Так у вас же мой номер высветился.». Anna does not see caller ids: «Я не вижу ваш номер — продиктуйте, пожалуйста.».",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Как к вам обращаться?"},
+    {"role": "user", "message": "Светлана."},
+    {"role": "agent", "message": "И ваш телефон — для связи по этой заявке?"},
+    {"role": "user", "message": "Так у вас же мой номер высветился."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["не вижу ваш номер"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["двадцать"]
+  },
+  "success_condition": "The agent says plainly that it does not see the number and asks the caller to say it: «Я не вижу ваш номер — продиктуйте, пожалуйста.». It invents no number, gives no technical explanation and calls no tool."
+}

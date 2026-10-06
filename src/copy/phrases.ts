@@ -4,8 +4,8 @@ export const PHRASES = {
     lv: "Orientējoši jūsu mājai — no {low_net} līdz {high_net} eiro bez PVN, tas ir no {low_gross} līdz {high_gross} eiro ar PVN 21%, aptuveni {per_apt_gross} eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas.",
   },
   building_found: {
-    ru: "Нашла: {address} — {facts}. Верно?",
-    lv: "Atradu: {address} — {facts}. Vai pareizi?",
+    ru: "Нашла: {address} — {facts}, верно?",
+    lv: "Atradu: {address} — {facts}, vai pareizi?",
   },
   building_confirm: {
     ru: "Правильно ли я поняла: {address}?",
@@ -36,8 +36,8 @@ export const PHRASES = {
     lv: "Diemžēl šis laiks tikko kļuva aizņemts; vēl ir pieejami: {alt1} vai {alt2}. Kurš jums ērtāk?",
   },
   invalid_phone: {
-    ru: "Кажется, я неправильно записала номер. Продиктуйте его, пожалуйста, ещё раз по цифрам.",
-    lv: "Šķiet, numuru pierakstīju nepareizi. Lūdzu, nosauciet to vēlreiz pa vienam ciparam.",
+    ru: "Кажется, я неправильно записала номер. Продиктуйте его, пожалуйста, ещё раз.",
+    lv: "Šķiet, numuru pierakstīju nepareizi. Lūdzu, nosauciet to vēlreiz.",
   },
   calendar_down: {
     ru: "Календарь сейчас не отвечает, поэтому время осмотра я подтвердить не могу. Хотите, мы перезвоним вам в рабочее время и согласуем день?",

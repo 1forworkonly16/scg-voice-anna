@@ -11,7 +11,7 @@
     {"role": "user", "message": "Ilūkstes iela шестнадцать, это в Purvciems, управляет Rīgas namu pārvaldnieks."}
   ],
   "mocked_tools": {
-    "lookup_building": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "ilukstes-16", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": null, "sourced": ["floors", "stairwells"]}, "candidates": [], "hint": "confirm_sourced_facts", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?", "say_lv": "Atradu: Ilūkstes iela 16 — deviņi stāvi, četras kāpņu telpas. Vai pareizi?"}
+    "lookup_building": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "ilukstes-16", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": null, "sourced": ["floors", "stairwells"]}, "candidates": [], "hint": "confirm_sourced_facts", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — deviņi stāvi, četras kāpņu telpas, vai pareizi?"}
   },
   "expect": {
     "tool": "lookup_building",

@@ -1,0 +1,22 @@
+{
+  "id": "t60_s3_options_cut_thursday_reschedule",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Booking correctness (WPV2): the resident cut off the options after the first one and says «Четверг давайте.». The only Thursday option in find_works_schedule is 2026-10-15, 13:00-17:00; Anna calls reschedule_access with it instead of continuing the cut-off list.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, Parauga iela 7, квартира 12. Меня в среду дома не будет."},
+    {"role": "agent", "message": "Квартира двенадцать, первый подъезд: работы у вас по графику — в среду, четырнадцатого октября, с девяти утра до часа дня. Хотите перенести это время?", "tool_calls": [{"name": "find_works_schedule", "args": {"language": "ru", "address": "Parauga iela 7", "apartment": 12}, "result": {"ok": true, "v": 1, "found": true, "building_id": "demo-parauga-iela-7", "stairwell": 1, "date": "2026-10-14", "window": "09:00-13:00", "rescheduled": false, "options": [{"date": "2026-10-12", "window": "09:00-13:00", "label_ru": "в понедельник, двенадцатого октября, с девяти утра до часа дня", "label_lv": "pirmdien, 12. oktobrī, no plkst. 9.00 līdz 13.00"}, {"date": "2026-10-13", "window": "09:00-13:00", "label_ru": "во вторник, тринадцатого октября, с девяти утра до часа дня", "label_lv": "otrdien, 13. oktobrī, no plkst. 9.00 līdz 13.00"}, {"date": "2026-10-15", "window": "13:00-17:00", "label_ru": "в четверг, пятнадцатого октября, с часа дня до пяти вечера", "label_lv": "ceturtdien, 15. oktobrī, no plkst. 13.00 līdz 17.00"}], "hint": "Read the sentence. If the caller wants another time, offer the options and call reschedule_access with the chosen one.", "say_ru": "Квартира двенадцать, первый подъезд: работы у вас по графику — в среду, четырнадцатого октября, с девяти утра до часа дня. Хотите перенести это время?", "say_lv": "Dzīvoklis 12, 1. kāpņu telpa: darbi pēc grafika paredzēti — trešdien, 14. oktobrī, no plkst. 9.00 līdz 13.00. Vai vēlaties šo laiku pārcelt?"}}]},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Можно так: в понедельник, двенадцатого октября, с девяти утра до часа дня; во вторник..."},
+    {"role": "user", "message": "Четверг давайте."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "reschedule_access",
+    "args_contains": {"building_id": "demo-parauga-iela-7", "apartment": 12, "new_date": "2026-10-15", "new_window": "13:00-17:00"},
+    "reply_must_not": ["SMS", "смс", "прораб позвонит"]
+  },
+  "success_condition": "After the reschedule_access filler reschedule_access is called once with building_id demo-parauga-iela-7, apartment 12, new_date 2026-10-15 and new_window 13:00-17:00, copied from the option, not computed. The agent does not continue the cut-off list."
+}

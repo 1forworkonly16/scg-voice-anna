@@ -1,0 +1,20 @@
+{
+  "id": "t61_s3_abrupt_resident_find_works",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Abrupt resident (WPV2): asked for the apartment number, the resident snaps «Двенадцать. Ну быстрее, а?». Anna stays calm, comments on nothing and calls find_works_schedule.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Ну, по трубам на Parauga семь. Когда?"},
+    {"role": "agent", "message": "Подскажите номер квартиры?"},
+    {"role": "user", "message": "Двенадцать. Ну быстрее, а?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "find_works_schedule",
+    "args_contains": {"apartment": 12},
+    "reply_must_not": ["не волнуйтесь", "не торопитесь", "Как к вам обращаться", "телефон"]
+  },
+  "success_condition": "After the find_works_schedule filler find_works_schedule is called with apartment 12 and the Parauga iela 7 address as spoken; no comment on the caller's tone, no name or phone question."
+}

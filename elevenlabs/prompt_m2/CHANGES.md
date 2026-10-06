@@ -7,6 +7,8 @@ Aligned with WP12's final contract (`docs/tool_contract.md` L69-84, `src/contrac
 
 **2026-10-06, t02c fix mirrored** (`docs/decisions.md` «First silence restated»): §2 new line after the greeting rule, the first «...» after the greeting gets the check-in, never `skip_turn` (M2 adds EN «Hello, can you hear me?»); the silence line ends with the same RU example as M1; the `skip_turn` description in `tool_descriptions_m2.json` starts with the same NEVER sentence as M1.
 
+**2026-10-06, WPV2 hearing + robustness mirrored** (same edits as M1; EN only where M2 already had EN lines): §1 disclosure fallback after a cut-off greeting (+ EN «This is Anna, the AI assistant.»); §2 first-silence line folded into §3; §3 «While you are speaking» → «Hearing»: `skip_turn` only for (a) «...» after the check-in and (b) hesitation-only messages, one short re-ask for unclear words (+ EN «Sorry, I didn't catch that. Could you repeat, please?»), cut-in repeats only the asked part word for word, backchannels, repeated questions, out-of-order data and corrections, abrupt callers (replaces «angry or confused twice → callback»), one tone per turn, no exclamation mark anywhere; §4 A price objection, name refused, «вы же видите мой номер», `get_slots` without dates (weekend line), A.8 time change after a booking (the only allowed repeat of `book_inspection`, §5); §4 B numbered: apartment question, the tool's date wins, foreman handover → `request_callback` reason `access_conflict`, keys / water-off time / exact hour → §D; §6 price-objection line. `skip_turn` description: the same two cases.
+
 ## Changed or added lines
 | M1 → M2 | Section | Change | Scenario |
 |---|---|---|---|

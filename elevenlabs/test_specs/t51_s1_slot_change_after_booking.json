@@ -1,0 +1,30 @@
+{
+  "id": "t51_s1_slot_change_after_booking",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Booking correctness (WPV2): the inspection was booked for Thursday (book_inspection ok), then the caller says «Давайте лучше в пятницу.». The earlier offer had no Friday time. Anna must not book a guessed Friday time or say a date of her own: get_slots with weekday fri first; book_inspection again (which moves the booking) only after the caller picks one of the new times. The harness cannot assert that date_from/date_to are absent; check the run log.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому, Ilūkstes iela 16, запишите на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Верно."},
+    {"role": "agent", "message": "Как к вам обращаться?"},
+    {"role": "user", "message": "Нина Ивановна."},
+    {"role": "agent", "message": "И ваш телефон — для связи по этой заявке?"},
+    {"role": "user", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть."},
+    {"role": "agent", "message": "Двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?"},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Для бесплатного осмотра свободно: в среду, седьмого октября, в девять утра; в четверг, восьмого, в час дня; или в понедельник, двенадцатого, в девять утра. Какое время вам удобнее?", "tool_calls": [{"name": "get_slots", "args": {"language": "ru"}, "result": {"ok": true, "v": 1, "today": {"date": "2026-10-06", "label_ru": "вторник, шестое октября", "label_lv": "otrdien, 6. oktobrī"}, "office_open_now": true, "slots": [{"start": "2026-10-07T09:00:00+03:00", "label_ru": "в среду, седьмого октября, в девять утра", "label_lv": "trešdien, 7. oktobrī, plkst. 9.00"}, {"start": "2026-10-08T13:00:00+03:00", "label_ru": "в четверг, восьмого октября, в час дня", "label_lv": "ceturtdien, 8. oktobrī, plkst. 13.00"}, {"start": "2026-10-12T09:00:00+03:00", "label_ru": "в понедельник, двенадцатого октября, в девять утра", "label_lv": "pirmdien, 12. oktobrī, plkst. 9.00"}], "filter_relaxed": false, "hint": "Offer these times; when the caller chooses, pass the chosen slot's start unchanged to book_inspection.", "say_ru": "Для бесплатного осмотра свободно: в среду, седьмого октября, в девять утра; в четверг, восьмого, в час дня; или в понедельник, двенадцатого, в девять утра. Какое время вам удобнее?", "say_lv": "Bezmaksas apsekošanai brīvie laiki: trešdien, 7. oktobrī, plkst. 9.00, ceturtdien, 8. oktobrī, plkst. 13.00 vai pirmdien, 12. oktobrī, plkst. 9.00. Kurš laiks jums der?"}}]},
+    {"role": "user", "message": "В четверг, в час."},
+    {"role": "agent", "message": "Готово, я записала вас на бесплатный осмотр: Ilūkstes iela 16, в четверг, восьмого октября, в час дня. Пожалуйста, запишите это время — это и есть ваше подтверждение.", "tool_calls": [{"name": "book_inspection", "args": {"language": "ru", "slot_start": "2026-10-08T13:00:00+03:00", "address_spoken": "Ilūkstes iela 16", "building_id": "varis-101117924", "floors": 9, "stairwells": 4, "apartments": 141, "caller_role": "other", "name": "Нина Ивановна", "phone": "20123456"}, "result": {"ok": true, "v": 1, "booking_id": "INS-TEST-0051", "slot": {"start": "2026-10-08T13:00:00+03:00", "label_ru": "в четверг, восьмого октября, в час дня", "label_lv": "ceturtdien, 8. oktobrī, plkst. 13.00"}, "address": "Ilūkstes iela 16", "replayed": false, "hint": "Read the sentence. Confirm to the caller only because ok is true; the read-back time is the confirmation. Then end politely.", "say_ru": "Готово, я записала вас на бесплатный осмотр: Ilūkstes iela 16, в четверг, восьмого октября, в час дня. Пожалуйста, запишите это время — это и есть ваше подтверждение.", "say_lv": "Esmu jūs pierakstījusi bezmaksas apsekošanai: Ilūkstes iela 16, ceturtdien, 8. oktobrī, plkst. 13.00. Lūdzu, pierakstiet šo laiku — tas ir jūsu apstiprinājums."}}]},
+    {"role": "user", "message": "Ой, подождите, в четверг я не могу. Давайте лучше в пятницу."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "get_slots",
+    "args_contains": {"weekday": "fri"},
+    "reply_must_not": ["записала вас на пятниц", "в пятницу, девятого", "девятого октября"]
+  },
+  "success_condition": "After the get_slots filler get_slots is called with weekday fri and no date_from or date_to. No book_inspection with a guessed slot, and no Friday date said before the tool result. Fictional caller and number."
+}

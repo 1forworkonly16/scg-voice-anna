@@ -1,0 +1,19 @@
+{
+  "id": "t42_h_hesitation_only_skip_turn",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Hearing (WPV2): mid-call the caller is thinking about the address and says only hesitation sounds, no words. This is case (b) of skip_turn: Anna waits silently instead of re-asking or checking the line.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, я по поводу замены стояков."},
+    {"role": "agent", "message": "Хорошо, какой адрес дома?"},
+    {"role": "user", "message": "Э-э-э... м-м-м..."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "skip_turn",
+    "no_speech": true
+  },
+  "success_condition": "The agent calls skip_turn (system tool; no parameter checks) and says nothing: no re-ask, no «Алло, вы меня слышите?», no repeated question. The harness checks that there is no speech (expect.no_speech)."
+}

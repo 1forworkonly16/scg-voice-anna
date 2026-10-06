@@ -1,0 +1,18 @@
+{
+  "id": "t59_s3_cyrillic_parauga_find_works",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Hearing (WPV2): the ASR wrote the Latvian street in Cyrillic («Парауга семь, квартира двенадцать»). Anna understands Parauga iela 7 without re-asking or switching language and calls find_works_schedule.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Алло, по трубам. Парауга семь, квартира двенадцать, меня в среду не будет."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "find_works_schedule",
+    "args_contains": {"apartment": 12},
+    "reply_must_not": ["Повторите", "не расслышала", "номер квартиры"]
+  },
+  "success_condition": "After the find_works_schedule filler find_works_schedule is called with apartment 12 and the address as spoken (Parauga / Парауга 7); no re-ask, no lookup_building, no language switch."
+}

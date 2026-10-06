@@ -1,0 +1,21 @@
+{
+  "id": "t55_s1_flat_count_correction_quote",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Correction (WPV2): lookup_building returned 141 sourced apartments; the caller corrects it to 144, Anna acknowledged and read back the new value and the caller confirmed. quote_range must use the corrected 144, not 141.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, сколько стоит замена стояков? Дом Ilūkstes iela 16."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Нет, квартир у нас сто сорок четыре, три квартиры потом разделили."},
+    {"role": "agent", "message": "Поняла, сто сорок четыре квартиры — верно?"},
+    {"role": "user", "message": "Да, сто сорок четыре."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "quote_range",
+    "args_contains": {"floors": 9, "stairwells": 4, "apartments": 144}
+  },
+  "success_condition": "After the quote_range filler quote_range is called once with floors 9, stairwells 4 and apartments 144 (the caller's confirmed correction, not the tool's 141)."
+}

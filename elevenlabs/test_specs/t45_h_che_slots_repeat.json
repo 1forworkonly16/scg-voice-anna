@@ -1,0 +1,29 @@
+{
+  "id": "t45_h_che_slots_repeat",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Hearing (WPV2): right after the slot offer (get_slots, Tuesday 6 October) an abrupt caller says «Чё? Не понял.». Anna repeats the offered times word for word from the tool text; she changes nothing and does not call get_slots again.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, я старший по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Как к вам обращаться?"},
+    {"role": "user", "message": "Игорь."},
+    {"role": "agent", "message": "И ваш телефон — для связи по этой заявке?"},
+    {"role": "user", "message": "Двадцать, шестьсот пятьдесят четыре, триста двадцать один."},
+    {"role": "agent", "message": "Двадцать, шестьсот пятьдесят четыре, триста двадцать один — верно?"},
+    {"role": "user", "message": "Да."},
+    {"role": "agent", "message": "Для бесплатного осмотра свободно: в среду, седьмого октября, в девять утра; в четверг, восьмого, в час дня; или в пятницу, девятого, в девять утра. Какое время вам удобнее?", "tool_calls": [{"name": "get_slots", "args": {"language": "ru"}, "result": {"ok": true, "v": 1, "today": {"date": "2026-10-06", "label_ru": "вторник, шестое октября", "label_lv": "otrdien, 6. oktobrī"}, "office_open_now": true, "slots": [{"start": "2026-10-07T09:00:00+03:00", "label_ru": "в среду, седьмого октября, в девять утра", "label_lv": "trešdien, 7. oktobrī, plkst. 9.00"}, {"start": "2026-10-08T13:00:00+03:00", "label_ru": "в четверг, восьмого октября, в час дня", "label_lv": "ceturtdien, 8. oktobrī, plkst. 13.00"}, {"start": "2026-10-09T09:00:00+03:00", "label_ru": "в пятницу, девятого октября, в девять утра", "label_lv": "piektdien, 9. oktobrī, plkst. 9.00"}], "filter_relaxed": false, "hint": "Offer these times; when the caller chooses, pass the chosen slot's start unchanged to book_inspection.", "say_ru": "Для бесплатного осмотра свободно: в среду, седьмого октября, в девять утра; в четверг, восьмого, в час дня; или в пятницу, девятого, в девять утра. Какое время вам удобнее?", "say_lv": "Bezmaksas apsekošanai brīvie laiki: trešdien, 7. oktobrī, plkst. 9.00, ceturtdien, 8. oktobrī, plkst. 13.00 vai piektdien, 9. oktobrī, plkst. 9.00. Kurš laiks jums der?"}}]},
+    {"role": "user", "message": "Чё? Не понял."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["седьмого октября", "в девять утра", "восьмого", "в час дня", "девятого"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["я уже говорила", "завтра", "послезавтра"]
+  },
+  "success_condition": "The agent repeats the three times word for word from the get_slots result (в среду, седьмого октября, в девять утра; в четверг, восьмого, в час дня; в пятницу, девятого, в девять утра) and asks which suits. It changes no day, date or time, adds no «завтра», does not comment on the caller's tone, does not say «я уже говорила» and calls no tool (no new get_slots). Fictional caller and number."
+}

@@ -1,0 +1,19 @@
+{
+  "id": "t43_h_cut_greeting_disclosure",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Disclosure (WPV2, Phase B: the greeting becomes interruptible): the caller cut the greeting off before «ИИ-ассистент» and asks about the price of risers. Anna's first reply must start with the disclosure «Это Анна, ИИ-ассистент.» and only then ask for the address.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна..."},
+    {"role": "user", "message": "Да-да, здравствуйте, мне насчёт замены стояков, сколько это стоит?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["ИИ-ассистент", "адрес"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Здравствуйте", "слушаю", "слышите"]
+  },
+  "success_condition": "The first agent message was cut off before the AI disclosure (it lacks «ИИ-ассистент»). The reply starts with the disclosure «Это Анна, ИИ-ассистент.» and then asks for the building address (contains «адрес»), so the disclosure comes before any question. No second «Здравствуйте», no «Да, слушаю вас.», no price yet and no tool call."
+}

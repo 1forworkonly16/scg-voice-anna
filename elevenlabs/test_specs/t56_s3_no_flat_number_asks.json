@@ -1,0 +1,19 @@
+{
+  "id": "t56_s3_no_flat_number_asks",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Flow B (WPV2): a resident of the fictional ДЕМО building Parauga iela 7 gives the address but no apartment number. Anna asks only for it: «Подскажите номер квартиры?»; find_works_schedule needs the apartment.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Алло, это насчёт труб, у нас на Parauga iela семь меняют. Меня в среду дома не будет."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["номер квартиры"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Как к вам обращаться", "телефон", "адрес"]
+  },
+  "success_condition": "The agent asks only for the apartment number, e.g. «Подскажите номер квартиры?». It does not ask for the address again, a name or a phone, and calls no tool yet (find_works_schedule needs the apartment; no language switch for Parauga iela)."
+}

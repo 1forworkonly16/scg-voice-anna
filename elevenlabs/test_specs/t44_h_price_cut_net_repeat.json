@@ -1,0 +1,23 @@
+{
+  "id": "t44_h_price_cut_net_repeat",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Hearing + no new number (WPV2): the price line (quote_range, 9/4/141; the Worker's wording from tests/worker/speech_ru.test.ts) was cut off by the caller, who asks only about the net amount. Anna repeats only that part, word for word from the tool text, with «Ориентировочно», and computes nothing.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте. Я старший по дому, Ilūkstes iela 16, хочу узнать цену на замену стояков."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "tool_calls": [{"name": "lookup_building", "args": {"language": "ru", "address": "Ilūkstes iela 16"}, "result": {"ok": true, "v": 1, "status": "found", "confidence": 0.97, "building": {"building_id": "varis-101117924", "address": "Ilūkstes iela 16", "floors": 9, "stairwells": 4, "apartments": 141, "sourced": ["floors", "stairwells", "apartments"]}, "candidates": [], "street": "Ilūkstes iela", "hint": "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", "say_ru": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?", "say_lv": "Atradu: Ilūkstes iela 16 — 9 stāvi, 4 kāpņu telpas un 141 dzīvoklis, vai pareizi?"}}]},
+    {"role": "user", "message": "Да, верно."},
+    {"role": "agent", "message": "Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти...", "tool_calls": [{"name": "quote_range", "args": {"language": "ru", "floors": 9, "stairwells": 4, "apartments": 141}, "result": {"ok": true, "v": 1, "model_version": "MOCK", "figures": {"low_net": 72000, "high_net": 112000, "low_gross": 87000, "high_gross": 135000, "per_apt_gross": 780}, "hint": "Read the sentence exactly; never add, round or compute any number yourself. Offer the free inspection next.", "say_ru": "Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти семи до ста тридцати пяти тысяч с НДС двадцать один процент — это примерно семьсот восемьдесят евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.", "say_lv": "Orientējoši jūsu mājai — no 72000 līdz 112000 eiro bez PVN, tas ir no 87000 līdz 135000 eiro ar PVN 21%, aptuveni 780 eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas."}}]},
+    {"role": "user", "message": "Стоп, сколько-сколько без НДС?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["ориентировочно", "от семидесяти двух до ста двенадцати тысяч евро без НДС"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["72", "112", "000", "на подъезд", "в месяц", "за полцены", "гарантир", "я уже говорила"]
+  },
+  "success_condition": "The agent repeats the net range word for word from the quote_range result, with «Ориентировочно»: «Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС» (repeating the VAT-inclusive part verbatim too is acceptable; it may add the inspection question). It states no new number: no recalculation, rounding, digits, per-stairwell or monthly amount. It does not continue the cut-off sentence from where it stopped, does not say «я уже говорила» and calls no tool."
+}

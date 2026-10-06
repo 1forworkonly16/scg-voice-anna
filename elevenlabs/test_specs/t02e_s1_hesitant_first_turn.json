@@ -15,5 +15,5 @@
     "reply_must_lexical": true,
     "reply_must_not": ["Здравствуйте", "слушаю", "слышите"]
   },
-  "success_condition": "The caller's message has words of a request (replacing risers) mixed with hesitations and stammering, so the agent answers at once instead of staying silent: in Russian, in one short turn, it asks for the building address (the reply contains «адрес»), for example «Хорошо. Какой адрес дома?». It does not greet again («Здравствуйте»), does not say «Да, слушаю вас.», does not ask «Алло, вы меня слышите?», and calls no tool (no skip_turn, no language_detection)."
+  "success_condition": "The caller's message has words of a request (replacing risers) mixed with hesitations and stammering, so the agent answers at once instead of staying silent: in Russian, in one short turn, it asks for the building address (the reply contains «адрес»), for example «Хорошо, какой адрес дома?». It does not greet again («Здравствуйте»), does not say «Да, слушаю вас.», does not ask «Алло, вы меня слышите?», and calls no tool (no skip_turn, no language_detection)."
 }

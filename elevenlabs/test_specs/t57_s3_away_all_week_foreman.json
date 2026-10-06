@@ -1,0 +1,23 @@
+{
+  "id": "t57_s3_away_all_week_foreman",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Flow B (WPV2): none of the three options fits and the resident is away the whole period. Anna hands it to the foreman and asks for the phone (then request_callback, reason access_conflict); she does not reschedule or invent another time.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте, у нас трубы меняют, Parauga iela 7, квартира 12. Когда ко мне придут?"},
+    {"role": "agent", "message": "Квартира двенадцать, первый подъезд: работы у вас по графику — в среду, четырнадцатого октября, с девяти утра до часа дня. Хотите перенести это время?", "tool_calls": [{"name": "find_works_schedule", "args": {"language": "ru", "address": "Parauga iela 7", "apartment": 12}, "result": {"ok": true, "v": 1, "found": true, "building_id": "demo-parauga-iela-7", "stairwell": 1, "date": "2026-10-14", "window": "09:00-13:00", "rescheduled": false, "options": [{"date": "2026-10-12", "window": "09:00-13:00", "label_ru": "в понедельник, двенадцатого октября, с девяти утра до часа дня", "label_lv": "pirmdien, 12. oktobrī, no plkst. 9.00 līdz 13.00"}, {"date": "2026-10-13", "window": "09:00-13:00", "label_ru": "во вторник, тринадцатого октября, с девяти утра до часа дня", "label_lv": "otrdien, 13. oktobrī, no plkst. 9.00 līdz 13.00"}, {"date": "2026-10-15", "window": "13:00-17:00", "label_ru": "в четверг, пятнадцатого октября, с часа дня до пяти вечера", "label_lv": "ceturtdien, 15. oktobrī, no plkst. 13.00 līdz 17.00"}], "hint": "Read the sentence. If the caller wants another time, offer the options and call reschedule_access with the chosen one.", "say_ru": "Квартира двенадцать, первый подъезд: работы у вас по графику — в среду, четырнадцатого октября, с девяти утра до часа дня. Хотите перенести это время?", "say_lv": "Dzīvoklis 12, 1. kāpņu telpa: darbi pēc grafika paredzēti — trešdien, 14. oktobrī, no plkst. 9.00 līdz 13.00. Vai vēlaties šo laiku pārcelt?"}}]},
+    {"role": "user", "message": "Да, перенести."},
+    {"role": "agent", "message": "Можно так: в понедельник, двенадцатого октября, с девяти утра до часа дня; во вторник, тринадцатого октября, с девяти утра до часа дня; или в четверг, пятнадцатого октября, с часа дня до пяти вечера. Что вам подходит?"},
+    {"role": "user", "message": "Нет, ничего не подходит, меня вообще весь месяц не будет, я на даче."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["прораб", "ваш телефон"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Готово", "перенесла", "Как к вам обращаться", "ключ"]
+  },
+  "success_condition": "The agent says it will pass this to the foreman, who will contact the caller and agree a time, and asks for the phone: «Тогда я передам прорабу, чтобы он с вами связался и договорился. И ваш телефон — для связи по этой заявке?». It does not reschedule, invents no other date, suggests no keys or neighbours, asks no name and calls no tool before the phone is given and confirmed."
+}

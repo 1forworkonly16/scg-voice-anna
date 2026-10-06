@@ -1,0 +1,18 @@
+{
+  "id": "t41_h_fast_all_in_one_lookup",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Hearing (WPV2): the caller says everything in one fast, casual breath: role, address, floors, stairwells and a price question. Anna must not re-ask anything already said; flow A step 1 is lookup_building with the address.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здрасьте, короче, я старший по дому, Ilūkstes шестнадцать, девять этажей, четыре подъезда, хотим стояки менять, сколько это стоит?"}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "lookup_building",
+    "args_contains": {"address": "Ilūkstes"},
+    "reply_must_not": ["Повторите", "не расслышала", "Какой адрес"]
+  },
+  "success_condition": "After the lookup_building filler, lookup_building is called with the address Ilūkstes iela 16 as spoken; nothing the caller already said is asked again and there is no language switch because of the street name."
+}

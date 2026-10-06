@@ -304,3 +304,12 @@ describe("copy: RU templates hold no digits; LV templates unchanged", () => {
     expect(PHRASES.callback_ok.ru).toContain(windowSpokenRu("09:00-17:00"));
   });
 });
+
+describe("copy: building_found and invalid_phone (WPV2)", () => {
+  it("building_found is one sentence; invalid_phone asks again without «по цифрам»", () => {
+    expect(PHRASES.building_found.ru).toBe("Нашла: {address} — {facts}, верно?");
+    expect(PHRASES.building_found.lv).toBe("Atradu: {address} — {facts}, vai pareizi?");
+    expect(PHRASES.invalid_phone.ru).toBe("Кажется, я неправильно записала номер. Продиктуйте его, пожалуйста, ещё раз.");
+    expect(PHRASES.invalid_phone.lv).toBe("Šķiet, numuru pierakstīju nepareizi. Lūdzu, nosauciet to vēlreiz.");
+  });
+});
