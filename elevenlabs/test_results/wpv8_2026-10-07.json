@@ -1,0 +1,303 @@
+{
+  "label": "wpv8_2026-10-07",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_9201m49ms472f8xbmc3awsf0ekf6",
+  "runs": [
+    {
+      "test_id": "test_3501m49kh5dcevw9zm2s53gjtw6w",
+      "test_name": "scg-t45_h_che_slots_repeat",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to repeat the times word-for-word as required by the instructions, specifically omitting the dates (седьмого октября, восьмого, девятого) provided in the tool result.",
+      "credits": 115,
+      "llm_price": 0.018165124999999997,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "В среду в девять утра, в четверг в час д ня или в пятницу в девять утра.  Какой день вам подходит?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1101m49kh6k2e8sb0n4jqqr9d1c1",
+      "test_name": "scg-t51_s1_slot_change_after_booking",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 122,
+      "llm_price": 0.019182625,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секундочку, смотрю свободное время.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "get_slots",
+              "args": "{\"language\": \"ru\", \"weekday\": \"fri\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2701m49kh4svft3aprzhsn1q949a",
+      "test_name": "scg-t42_h_hesitation_only_skip_turn",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Expected tool called",
+      "credits": 110,
+      "llm_price": 0.017050825,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "skip_turn",
+              "args": "{\"reason\": \"Caller is hesitating with only sounds, no words\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_9801m49kh576esf885vny5h8zdz6",
+      "test_name": "scg-t44_h_price_cut_net_repeat",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly repeated the requested net price range verbatim as instructed, without adding new calculations or unnecessary commentary.",
+      "credits": 114,
+      "llm_price": 0.017829624999999998,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "От семидесяти двух до ста двенадцати тысяч евро без НД С.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3601m49kh494fhq9tpcj5m4a47ke",
+      "test_name": "scg-t40_h_garbled_first_turn_reask",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent's response perfectly matches the required phrase 'Извините, не расслышала. Повторите, пожалуйста?' and adheres to all negative constraints.",
+      "credits": 109,
+      "llm_price": 0.016818724999999996,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Извините, не расслышала. Повторите, пожалуйста?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_7801m49kh7cwff0as25b164n0a5s",
+      "test_name": "scg-t55_s1_flat_count_correction_quote",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 32,
+      "llm_price": 0.00289069,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секундочку, смотрю цену.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "quote_range",
+              "args": "{\"language\": \"ru\", \"apartments\": 144, \"floors\": 9, \"stairwells\": 4}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8901m49kh8dwe5s9jvmqjrppz8zc",
+      "test_name": "scg-t59_s3_cyrillic_parauga_find_works",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 28,
+      "llm_price": 0.0023417900000000003,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, смотрю график.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "find_works_schedule",
+              "args": "{\"address\": \"Paraugas iela 7\", \"apartment\": 12, \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_6401m49kh709fwatab29ffrnhx4w",
+      "test_name": "scg-t53_s1_zavtra_get_slots_no_dates",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Expected tool called",
+      "credits": 112,
+      "llm_price": 0.017601925,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секундочку, смотрю свободное время.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "get_slots",
+              "args": "{\"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2501m49kgx41ee4b0z341gnxwe1k",
+      "test_name": "scg-t02e_s1_hesitant_first_turn",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the request, responded in Russian with a short, direct question asking for the address, and avoided prohibited phrases or unnecessary greetings.",
+      "credits": 109,
+      "llm_price": 0.016785724999999998,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Хорошо, какой адрес дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_2301m49kh4ggfd8aa31vqyxd9gk0",
+      "test_name": "scg-t41_h_fast_all_in_one_lookup",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 111,
+      "llm_price": 0.017191625,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Секунду, смотрю.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "lookup_building",
+              "args": "{\"address\": \"Il\\u016bkstes iela 16\", \"language\": \"ru\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1901m49kh50jfk7rpds6ck9eht6d",
+      "test_name": "scg-t43_h_cut_greeting_disclosure",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to include the mandatory AI disclosure ('ИИ-ассистент') in the response.",
+      "credits": 108,
+      "llm_price": 0.016739524999999998,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Хорошо, какой адрес дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_8201m49kh60kf9v8grw0mqkfm7sy",
+      "test_name": "scg-t48_a_price_objection_line",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent used the exact required phrase and did not provide any additional commentary or unauthorized information.",
+      "credits": 114,
+      "llm_price": 0.018012224999999996,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Понимаю. Это ориентировочный диапазон; точную цену даст инженер после б есплатного осмотра — записать вас?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_0401m49kh8m6fs2b1jmfry5jbeqa",
+      "test_name": "scg-t60_s3_options_cut_thursday_reschedule",
+      "status": "passed",
+      "result": "success",
+      "rationale": "All parameter evaluations passed",
+      "credits": 35,
+      "llm_price": 0.00343409,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Минутку, переношу.",
+          "tools": []
+        },
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "reschedule_access",
+              "args": "{\"language\": \"ru\", \"apartment\": 12, \"building_id\": \"demo-parauga-iela-7\", \"new_date\": \"2026-10-15\", \"new_window\": \"13:00-17:00\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

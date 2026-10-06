@@ -1,0 +1,40 @@
+{
+  "label": "wpv8_t43_2026-10-07",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_0501m49nz8t2e3090mzqejqr2dx2",
+  "runs": [
+    {
+      "test_id": "test_2501m49kgx41ee4b0z341gnxwe1k",
+      "test_name": "scg-t02e_s1_hesitant_first_turn",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the request, responded in Russian with a short, direct question asking for the address, and avoided prohibited phrases or unnecessary greetings.",
+      "credits": 111,
+      "llm_price": 0.017118475,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Хорошо, какой адрес дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1901m49kh50jfk7rpds6ck9eht6d",
+      "test_name": "scg-t43_h_cut_greeting_disclosure",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to include the mandatory AI disclosure ('ИИ-ассистент') in the response.",
+      "credits": 110,
+      "llm_price": 0.017072275,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Хорошо, какой адрес дома?",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}

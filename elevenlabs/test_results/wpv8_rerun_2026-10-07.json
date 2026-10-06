@@ -1,0 +1,56 @@
+{
+  "label": "wpv8_rerun_2026-10-07",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_0901m49n7ys5f1r8q4extck5xr5b",
+  "runs": [
+    {
+      "test_id": "test_1901m49kh50jfk7rpds6ck9eht6d",
+      "test_name": "scg-t43_h_cut_greeting_disclosure",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent's response is missing from the provided transcript, making it impossible to evaluate if the disclosure and address request were included.",
+      "credits": 108,
+      "llm_price": 0.016904525,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Какой адрес дома?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_9801m49kh576esf885vny5h8zdz6",
+      "test_name": "scg-t44_h_price_cut_net_repeat",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly repeated the requested net price range verbatim as instructed, without adding new calculations or unnecessary commentary.",
+      "credits": 115,
+      "llm_price": 0.018022125,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "От семидесяти двух до ста двенадцати тысяч евро без НД С.",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_3501m49kh5dcevw9zm2s53gjtw6w",
+      "test_name": "scg-t45_h_che_slots_repeat",
+      "status": "failed",
+      "result": "failure",
+      "rationale": "The agent failed to repeat the times word-for-word as instructed, omitting the specific dates (e.g., 'седьмого октября') provided in the tool output.",
+      "credits": 116,
+      "llm_price": 0.018346625000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "В среду в девять утра, в четверг в час д ня или в пятницу в девять утра.  Какое выбираете?",
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
