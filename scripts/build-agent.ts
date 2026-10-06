@@ -98,7 +98,7 @@ async function ensureWebhook(state: any): Promise<string> {
   if (!secret) throw new Error('webhook created but no secret was returned; re-run with --rotate-webhook');
   try { putWorkerSecret('ELEVENLABS_WEBHOOK_SECRET', secret); } catch (e) { throw new Error(`webhook ${r.webhook_id} created but the Worker secret could not be set (${(e as Error).message}); re-run with --rotate-webhook`); }
   const persisted = persistUserEnv('ELEVENLABS_WEBHOOK_SECRET', secret);
-  console.log(`webhook ${r.webhook_id} created; ELEVENLABS_WEBHOOK_SECRET set on the Worker (value not shown); user env ${persisted ? 'updated' : 'NOT updated'}`);
+  console.log(`webhook ${r.webhook_id} created; ELEVENLABS_WEBHOOK_SECRET set on the Worker (value not shown); user env ${persisted ? 'updated' : 'NOT updated: set ELEVENLABS_WEBHOOK_SECRET in your environment settings'}`);
   return r.webhook_id;
 }
 

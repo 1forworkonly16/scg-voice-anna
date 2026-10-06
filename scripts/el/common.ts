@@ -54,6 +54,7 @@ export function putWorkerSecret(name: string, value: string): void {
 
 /** Persists to the Windows USER environment (value travels in the child env, not on a command line). Best effort. */
 export function persistUserEnv(name: string, value: string): boolean {
+  if (process.platform !== 'win32') return false; // cloud session: no user env to write, the user updates the value in the environment settings
   const r = spawnSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', `[Environment]::SetEnvironmentVariable('${name}', $env:SCG_PERSIST_VALUE, 'User')`], { env: { ...process.env, SCG_PERSIST_VALUE: value }, encoding: 'utf8' });
   return r.status === 0;
 }

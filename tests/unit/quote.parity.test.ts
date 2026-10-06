@@ -23,8 +23,9 @@ const fx: Fixture = JSON.parse(readFileSync(fromRoot("tests/fixtures/parity.json
 
 describe("price model data", () => {
   it("fixture was generated from the same price_model.json that the port reads", () => {
-    const bytes = readFileSync(fromRoot("src/data/price_model.json"));
-    expect(createHash("sha256").update(bytes).digest("hex")).toBe(fx.price_model_sha256);
+    // Hash over LF-normalised bytes (CRLF -> LF): a Windows checkout has CRLF, Linux has LF. scripts/gen-parity.py hashes the same way.
+    const lf = readFileSync(fromRoot("src/data/price_model.json"), "latin1").replace(/\r\n/g, "\n");
+    expect(createHash("sha256").update(lf, "latin1").digest("hex")).toBe(fx.price_model_sha256);
     expect(PRICE_MODEL_VERSION).toBe(fx.model_version);
   });
 });

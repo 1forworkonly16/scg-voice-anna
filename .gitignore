@@ -26,3 +26,6 @@ __pycache__/
 
 # vitest local output
 .vitest/
+
+# temporary intermediates
+.tmp/

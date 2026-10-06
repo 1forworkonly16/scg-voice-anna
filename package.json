@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "node scripts/sync-data.mjs --check && vitest run && vitest run --config tests/worker/vitest.config.ts",
+    "test:cloud": "vitest run && vitest run --config tests/worker/vitest.config.ts",
     "typecheck": "tsc --noEmit",
     "gen:parity": "python scripts/gen-parity.py",
     "sync:data": "node scripts/sync-data.mjs",
@@ -15,15 +16,15 @@
     "dry-run": "wrangler deploy --dry-run --outdir .wrangler/dry",
     "secrets:set": "node scripts/secrets.mjs",
     "integration": "node scripts/integration.ts",
-    "el:tools": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/gen-tools.ts",
-    "el:build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/build-agent.ts",
-    "el:check": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/check-agent.ts",
-    "el:credits": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/credits.ts",
-    "el:metrics": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/call-metrics.ts",
-    "el:tests": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/el/tests.ts",
-    "link:unlock": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts unlock",
-    "link:lock": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts lock",
-    "link:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/el/run.ps1 scripts/link.ts status"
+    "el:tools": "node scripts/el/run.mjs scripts/gen-tools.ts",
+    "el:build": "node scripts/el/run.mjs scripts/build-agent.ts",
+    "el:check": "node scripts/el/run.mjs scripts/check-agent.ts",
+    "el:credits": "node scripts/el/run.mjs scripts/el/credits.ts",
+    "el:metrics": "node scripts/el/run.mjs scripts/el/call-metrics.ts",
+    "el:tests": "node scripts/el/run.mjs scripts/el/tests.ts",
+    "link:unlock": "node scripts/el/run.mjs scripts/link.ts unlock",
+    "link:lock": "node scripts/el/run.mjs scripts/link.ts lock",
+    "link:status": "node scripts/el/run.mjs scripts/link.ts status"
   },
   "dependencies": {
     "zod": "4.6.5"

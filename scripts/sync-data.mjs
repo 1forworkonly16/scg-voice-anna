@@ -20,6 +20,10 @@ const FILES = [
   },
 ];
 
+// Line-ending-insensitive (CRLF -> LF): a Windows checkout has CRLF, Linux has LF; only a content change counts as drift.
+const lfBytes = (file) => readFileSync(file, "latin1").replace(/\r\n/g, "\n");
+const sameContent = (a, b) => lfBytes(a) === lfBytes(b);
+
 let failed = false;
 for (const f of FILES) {
   const srcOk = existsSync(f.src);
@@ -33,7 +37,7 @@ for (const f of FILES) {
     continue;
   }
   const dstOk = existsSync(f.dst);
-  const same = dstOk && readFileSync(f.src).equals(readFileSync(f.dst));
+  const same = dstOk && sameContent(f.src, f.dst);
   if (check) {
     if (same) console.log(`[OK] ${f.name} in sync`);
     else {
