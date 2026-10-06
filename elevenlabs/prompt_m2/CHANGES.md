@@ -5,6 +5,8 @@ Aligned with WP12's final contract (`docs/tool_contract.md` L69-84, `src/contrac
 
 **2026-10-06, M1 rework round 2 mirrored into M2** (`docs/decisions.md` 2026-10-06): §2 greeting once (+ EN «Yes, I'm listening.»); §3 Kodukliima tone, no «!», grammar self-check, +371 phone rule, new «While you are speaking» subsection with the silence check-in (+ EN «Hello, can you hear me?») and `skip_turn`; §4 A price on any price question (price is now step 2, role step 3); §5 fixed fillers, M2 adds `create_ticket` «Минутку, записываю.» / «Mirklīti, pierakstu.» and `log_request` «Минутку, передаю.» / «Mirklīti, nododu.», EN always «One moment, please.»; goodbyes without «!» (also `presets_en.json`); §6 exact-price line «after the indicative price was given». `skip_turn` description added to `tool_descriptions_m2.json`. The M1 → M2 line numbers below predate this round; `diff` the two prompts for the current map.
 
+**2026-10-06, t02c fix mirrored** (`docs/decisions.md` «First silence restated»): §2 new line after the greeting rule, the first «...» after the greeting gets the check-in, never `skip_turn` (M2 adds EN «Hello, can you hear me?»); the silence line ends with the same RU example as M1; the `skip_turn` description in `tool_descriptions_m2.json` starts with the same NEVER sentence as M1.
+
 ## Changed or added lines
 | M1 → M2 | Section | Change | Scenario |
 |---|---|---|---|
