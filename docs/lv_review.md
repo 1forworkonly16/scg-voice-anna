@@ -5,7 +5,7 @@ Every Latvian line Anna can say, written by WP3 (Opus). Please read them aloud o
 Design rule: tool placeholders (`{address}`, `{slot}`, `{date}` …) arrive in the nominative or as ready-made labels, so the phrases put them after a colon or a dash, where no case ending is needed.
 
 ## New lines 2026-10-06 (H3 re-test, rework round 2): all CHECK
-Dima does not hear these lines either (RU-only meeting). Where: greeting and max-duration in `presets.json` / `agent_config.json`, soft timeout in `agent_config.json`, the rest in `elevenlabs/prompt/system_prompt.md` (§2, §3, §5; mirrored in `prompt_m2`). Rule behind the punctuation: no «!» in any of Anna's lines, because it makes the voice jump (`docs/decisions.md` 2026-10-06, «Tone»).
+Dima does not hear these lines either (RU-only meeting). Where: greeting and max-duration in `presets.json` / `agent_config.json`, soft timeout in `agent_config.json`, the rest in `elevenlabs/prompt/system_prompt.md` (§2, §3, §5, §6; mirrored in `prompt_m2`). Rule behind the punctuation: no «!» in any of Anna's lines, because it makes the voice jump (`docs/decisions.md` 2026-10-06, «Tone»).
 
 | Key | LV | RU meaning | Note |
 |---|---|---|---|
@@ -24,6 +24,7 @@ Dima does not hear these lines either (RU-only meeting). Where: greeting and max
 | §5 filler `reschedule_access` | Mirklīti, pārceļu. | Минутку, переношу. | CHECK |
 | §5 filler `request_callback` (M2 also `log_request`) | Mirklīti, nododu. | Минутку, передаю. | CHECK: «nododu» alone may sound unfinished; alternative «Mirklīti, nododu ziņu.» |
 | §5 goodbye | Paldies par zvanu. Visu labu. | Спасибо за звонок. Всего доброго. | CHECK: period instead of «!» |
+| §6 office hours, spoken form | no pirmdienas līdz piektdienai, no deviņiem līdz septiņpadsmitiem | с понедельника по пятницу, с девяти утра до пяти вечера | CHECK: declined «septiņpadsmitiem» or indeclinable «līdz septiņpadsmit»; alternative mirroring the RU: «no deviņiem rītā līdz pieciem vakarā» |
 
 ## New lines 2026-10-05 (H3 call-1 feedback): all CHECK
 The meeting demo is Russian-only and the LV polish comes after Dima agrees (`docs/decisions.md`, 2026-10-05), so Dima does not hear these lines. Where: the LV greeting is the `lv` preset (`presets.json`); the other lines are in `elevenlabs/prompt/system_prompt.md`.
