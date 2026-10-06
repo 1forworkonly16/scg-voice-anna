@@ -1,5 +1,7 @@
 # H3 live test: Anna on your phone
 
+> **Superseded 2026-10-06 by the video track** (`docs/decisions.md`, «Goal: private video»; `docs/status.md`, Video track). Kept for reference. Since 2026-10-06 Anna asks no consent question (`docs/decisions.md`, «No consent question»); the lines below are updated for that.
+
 **RU-only for now** (decision 2026-10-05). **H3 is now talk 1 plus talks 3, 5 and 10** (decision 2026-10-06, «Voice cost»): talk 1, the re-test of call 1, was done on 2026-10-06 and led to rework round 2; talks 3, 5 and 10 take about 10 minutes with the spot checks (about 6,000 credits at 600 per minute). Talks 7 and 9 and the slot-taken check are no longer separate calls: their questions are spot checks inside talks 3, 5 and 10 (marked **Spot check**). The LV talks (2, 4, 6, 7b, 8) and the LV text review are **deferred to the LV polish (optional)**. Full scripts: `docs/scenarios.md`.
 
 ## Before you start
@@ -41,7 +43,7 @@
 ## The talks
 **1. Scenario 1, RU booking: the re-test of call 1 (3 min). Done 2026-10-06** (`conv_2801m471k2pse81ahr5nbhgwz1yj`, `docs/status.md`); kept for reference. Its checks now come back in talk 10.
 - Say: «Здравствуйте, я старшая по дому, хочу узнать про замену стояков.» Then «Ilūkstes iela, шестнадцать». Then «Да. А сколько это будет стоить?». Then «Давайте осмотр. Нина Ивановна».
-- For the phone, first give only 7 digits: «два, сто двадцать три, четыреста пятьдесят шесть». After her re-ask, the full number: «двадцать, сто двадцать три, четыреста пятьдесят шесть». Then «Да», «Согласна», and pick a slot.
+- For the phone, first give only 7 digits: «два, сто двадцать три, четыреста пятьдесят шесть». After her re-ask, the full number: «двадцать, сто двадцать три, четыреста пятьдесят шесть». Then «Да» and pick a slot.
 - Once, hesitate mid-sentence («э-э-э…»).
 - Check:
   - The greeting is Russian, about 5 s, with no recording words, and she does not switch language.
@@ -51,7 +53,7 @@
   - 7 digits: «Кажется, я не расслышала одну цифру — повторите, пожалуйста, номер?», and no read-back of the 7.
   - 8 digits: read back in your groups: «двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?».
   - She does not cut you off during «э-э-э…», and the phone number arrives as one turn.
-  - She asks for consent and offers at most 3 slots.
+  - She asks «И ваш телефон — для связи по этой заявке?», asks no consent question, and after your «Да» to the read-back goes straight to at most 3 slots.
   - Stopwatch: calendar event and group message within 15 s.
   - `el:metrics`: median from you stopping to her voice ≤ 1.8 s (max ≤ 3.5 s), at most 1 interrupted turn, median agent turn ≤ 80 characters (tool read-outs excluded), talk share ≤ 45%, ≤ 600 credits/min.
   - **Your verdict:** does she sound human enough to show Dima?
@@ -90,7 +92,7 @@
   - The street name has the right accent.
 
 **5. Scenario 8, RU human plus handover (2 min)**
-- Say: «Подождите, а вы вообще человек?» Then «Не хочу с роботом, хочу с человеком.» Then give a phone number and consent.
+- Say: «Подождите, а вы вообще человек?» Then «Не хочу с роботом, хочу с человеком.» Then give a phone number.
 - Check:
   - She answers honestly: «Нет, я ИИ-ассистент…».
   - She offers a callback in working hours.
@@ -107,7 +109,7 @@
 - Check:
   - «Nē, es esmu mākslīgā intelekta asistente…».
   - She switches to LV and stays there.
-  - She asks «Uz kuru numuru zvanīt?».
+  - She asks «Un jūsu tālruņa numurs — saziņai par šo pieteikumu?».
 
 **7. Scenario 9, RU exact price (2 min). No longer a separate call (decision 2026-10-06):** the exact-price demand is in the talk 10 run sheet; the other questions are spot checks in talk 5.
 - Get the price first, as in talk 1. Then ask: «Назовите точную сумму». Then «Сколько за подъезд?», «В рассрочку можно?», «Рига ведь оплачивает половину?» and «Какая гарантия?».

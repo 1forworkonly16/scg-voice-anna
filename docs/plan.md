@@ -162,6 +162,8 @@ The agent's real job is answering SCG's phone, with a widget on the website late
 | `create_ticket` (M2) | type, urgency, description, address | ticket_id, scg_site, escalated | Tickets row + «СРОЧНО» alert |
 | `log_request` (M2) | kind (b2b, job_candidate, emergency_referral, admin_message, …), summary_ru | request_id | Requests row + Telegram |
 
+*Consent removed 2026-10-06: `book_inspection` and `request_callback` take no `consent` input, and the Sheet's `consent` column holds `request` (`docs/decisions.md`, «No consent question»).*
+
 - **Price speech, built by code:**
   - Starts with «Ориентировочно» / «Orientējoši» and gives the amount net and «с НДС 21%».
   - Amounts ≥ €10,000 are rounded outward to thousands; smaller ones to the nearest 100; the per-apartment figure to the nearest 10.

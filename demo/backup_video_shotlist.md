@@ -19,7 +19,7 @@ Purpose: if the network, the microphone or ElevenLabs fails at the meeting, play
 | 5 | 0:40 | Call screen | The price line for 141 at once, with «ориентировочно», without and with VAT 21%, «точную цену даст инженер после бесплатного осмотра», then «Записать вас на осмотр?». When the video is shown, the consultant says the price-basis line live (run sheet, 1:05) |
 | 6 | 1:10 | Call screen | «Назовите точную сумму» and the inspection offer instead |
 | 7 | 1:25 | Call screen | «А вы вообще человек?» and the honest answer |
-| 8 | 1:35 | Call screen | name, phone read back in the caller's groups, consent, up to 3 slots, booking confirmed |
+| 8 | 1:35 | Call screen | name, «И ваш телефон — для связи по этой заявке?», phone read back in the caller's groups, up to 3 slots, booking confirmed |
 | 9 | 2:20 | Google Calendar «SCG — Бесплатный осмотр», new event | caption with the stopwatch time from end of call to event |
 | 10 | 2:30 | Telegram group «заявки(демо)», new message | caption «Заявка с данными дома — сразу у вас» |
 | 11 | 2:45 | End card | «В пилоте — на ваш настоящий номер, когда никто не берёт трубку или после 17:00.» |
