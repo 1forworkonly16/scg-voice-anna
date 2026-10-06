@@ -1,0 +1,47 @@
+{
+  "_note": "Russian lines for scripts/el/voice-audition.ts. `source` = a repo file read at run time (the greeting always equals elevenlabs/prompt/first_message.md). `default: true` = part of the default matrix, which is kept short because text-to-speech is billed per character; pick others with --lines key1,key2 or --lines all. Texts are test copy, not facts about a real building.",
+  "lines": [
+    {
+      "key": "greeting",
+      "label": "Приветствие (first_message.md)",
+      "source": "elevenlabs/prompt/first_message.md",
+      "default": true
+    },
+    {
+      "key": "ack",
+      "label": "Короткое подтверждение",
+      "text": "Хорошо, какой адрес дома?",
+      "default": true
+    },
+    {
+      "key": "building_latin",
+      "label": "Дом: улица латиницей",
+      "text": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира, верно?",
+      "default": true
+    },
+    {
+      "key": "building_cyrillic",
+      "label": "Дом: улица кириллицей",
+      "text": "Нашла: улица Илукстес, дом шестнадцать — девять этажей, четыре подъезда и сто сорок одна квартира, верно?",
+      "default": false
+    },
+    {
+      "key": "price",
+      "label": "Ориентировочная цена (фраза из tests/worker/speech_ru.test.ts)",
+      "text": "Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти семи до ста тридцати пяти тысяч с НДС двадцать один процент — это примерно семьсот восемьдесят евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.",
+      "default": false
+    },
+    {
+      "key": "slots",
+      "label": "Свободное время для осмотра",
+      "text": "Для бесплатного осмотра свободно: в четверг, восьмого октября, в час дня; в пятницу, девятого октября, в два часа дня; или в понедельник, двенадцатого октября, в девять утра. Какое время вам удобнее?",
+      "default": false
+    },
+    {
+      "key": "booked",
+      "label": "Подтверждение записи",
+      "text": "Готово, я записала вас на бесплатный осмотр: Ilūkstes iela 16, в четверг, восьмого октября, в час дня. Пожалуйста, запишите это время — это и есть ваше подтверждение.",
+      "default": false
+    }
+  ]
+}

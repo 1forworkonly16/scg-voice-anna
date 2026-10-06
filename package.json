@@ -22,6 +22,7 @@
     "el:credits": "node scripts/el/run.mjs scripts/el/credits.ts",
     "el:metrics": "node scripts/el/run.mjs scripts/el/call-metrics.ts",
     "el:tests": "node scripts/el/run.mjs scripts/el/tests.ts",
+    "el:audition": "node scripts/el/run.mjs scripts/el/voice-audition.ts",
     "link:unlock": "node scripts/el/run.mjs scripts/link.ts unlock",
     "link:lock": "node scripts/el/run.mjs scripts/link.ts lock",
     "link:status": "node scripts/el/run.mjs scripts/link.ts status"

@@ -1,0 +1,459 @@
+{
+  "_note": "FICTIONAL sample for tests/unit/hearing.test.ts: no real caller, name, phone or building. Reduced shape of GET /v1/convai/conversations/{id}. Times are seconds into the call.",
+  "agent_id": "agent_fixture_hearing",
+  "conversation_id": "conv_fixture_hearing",
+  "status": "done",
+  "transcript": [
+    {
+      "role": "agent",
+      "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": null,
+      "interrupted": true,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "А-а-м, да, здравствуйте. Э-э, я хочу узнать п-по поводу замены стояков.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 3,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "skip_turn_fx1",
+          "tool_name": "skip_turn",
+          "params_as_json": "{\"reason\":\"caller is hesitating\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 5,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.47
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "type": "system",
+          "request_id": "skip_turn_fx1",
+          "tool_name": "skip_turn",
+          "result_value": "Skipping turn",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0
+        }
+      ],
+      "feedback": null,
+      "time_in_call_secs": 5,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Здравствуйте, я хочу узнать по поводу замены стояков.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 9,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": "Алло, вы меня слышите?",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 12,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.52
+          },
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.81
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21
+          },
+          "convai_ttf_audio_since_silence": {
+            "elapsed_time": 6.8
+          },
+          "convai_turn_silence_before_initiation": {
+            "elapsed_time": 5.9
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Да, слышу. Я хочу узнать по поводу замены стояков.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 15,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": "Хорошо. Какой адрес дома?",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.52
+          },
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.81
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21
+          },
+          "convai_ttf_audio_since_silence": {
+            "elapsed_time": 2.1
+          },
+          "convai_turn_silence_before_initiation": {
+            "elapsed_time": 0.4
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Тестовая улица, пять.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 21,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": "Извините, я не расслышала. Повторите, пожалуйста, адрес?",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 24,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.52
+          },
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.81
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21
+          },
+          "convai_ttf_audio_since_silence": {
+            "elapsed_time": 1.9
+          },
+          "convai_turn_silence_before_initiation": {
+            "elapsed_time": 0.4
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Тестовая улица, пять, Рига.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 27,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": "Нашла: улица Тестовая, дом пять — пять этажей, два подъезда и сорок квартир, верно?",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 30,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.52
+          },
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.81
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21
+          },
+          "convai_ttf_audio_since_silence": {
+            "elapsed_time": 2.4
+          },
+          "convai_turn_silence_before_initiation": {
+            "elapsed_time": 0.4
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Да, верно.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 32,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "user",
+      "message": "Да, всё правильно.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 34,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": "Для бесплатного осмотра свободно: в четверг, в час дня; или в пятницу, в два часа дня. Какое время вам удобнее?",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 37,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.52
+          },
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.81
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21
+          },
+          "convai_ttf_audio_since_silence": {
+            "elapsed_time": 3.2
+          },
+          "convai_turn_silence_before_initiation": {
+            "elapsed_time": 0.4
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Э-э... м-м... секундочку, посмотрю в календаре.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 41,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "skip_turn_fx2",
+          "tool_name": "skip_turn",
+          "params_as_json": "{\"reason\":\"caller needs a moment\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [
+        {
+          "type": "system",
+          "request_id": "skip_turn_fx2",
+          "tool_name": "skip_turn",
+          "result_value": "Skipping turn",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0
+        }
+      ],
+      "feedback": null,
+      "time_in_call_secs": 43,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.44
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "Давайте в четверг.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 49,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": "Готово, я записала вас на бесплатный осмотр в четверг, в час дня. Пожалуйста, запишите это время.",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 52,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.52
+          },
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.81
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21
+          },
+          "convai_ttf_audio_since_silence": {
+            "elapsed_time": 2.6
+          },
+          "convai_turn_silence_before_initiation": {
+            "elapsed_time": 0.4
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "message": "...",
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 58,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "skip_turn_fx3",
+          "tool_name": "skip_turn",
+          "params_as_json": "{\"reason\":\"silence after the answer\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.45
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "type": "system",
+          "request_id": "skip_turn_fx3",
+          "tool_name": "skip_turn",
+          "result_value": "Skipping turn",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0
+        }
+      ],
+      "feedback": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "call_duration_secs": 63,
+    "main_language": "ru"
+  }
+}

@@ -9,8 +9,17 @@
 // say_* text. Without --text no message text is printed: the first agent message is described (script, length, equal to
 // first_message.md, recording words) and the first user message only by script and length (it can hold a name or address);
 // --text prints every transcript line to the terminal only (nothing is written to a file).
+// A «hearing:» block per conversation (scripts/el/hearing.ts) shows whether Anna heard the caller: skip_turn calls, check-ins, re-asks,
+// interrupted agent turns, likely missed turns (the caller repeated himself), unanswered caller turns, caller speech during the greeting
+// (an ESTIMATE) and the first-reply wait. Numbers and times only; --text adds the text of the flagged turns.
 import { el } from './api.ts';
 import { agentId, cfg, p, readText } from './common.ts';
+import { analyzeHearing, formatHearing } from './hearing.ts';
+
+if (!process.env.ELEVENLABS_API_KEY) { // fail before anything else: every mode reads the conversation API
+  console.error('ELEVENLABS_API_KEY missing (dot-source scripts/env.ps1, or set it in the environment settings)');
+  process.exit(1);
+}
 
 const CHARS_PER_SEC = 14; // talk-share fallback when the call has no TTS audio seconds
 const args = process.argv.slice(2);
@@ -91,6 +100,8 @@ async function report(id: string) {
   const greeting = readText(p('elevenlabs', 'prompt', 'first_message.md')).trim();
   console.log(`first agent message [${scriptOf(fa)}, ${fa.length} chars, ${fa.trim() === greeting ? '= first_message.md' : 'NOT first_message.md'}, recording words: ${/записыва|ierakst/iu.test(fa) ? 'YES' : 'none'}]${showText ? `: «${fa}»` : ''}`);
   console.log(`first user message [${scriptOf(fu)}, ${fu.length} chars]${showText ? `: «${fu}»` : ''}`);
+
+  console.log('\n' + formatHearing(analyzeHearing(tr), showText ? (i) => (typeof tr[i]?.message === 'string' ? tr[i].message : undefined) : undefined).join('\n'));
 
   if (showText) {
     console.log('\n--- transcript (terminal only) ---');
