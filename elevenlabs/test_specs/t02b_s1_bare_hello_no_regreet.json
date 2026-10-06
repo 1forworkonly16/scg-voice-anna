@@ -1,0 +1,17 @@
+{
+  "id": "t02b_s1_bare_hello_no_regreet",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Re-test of call 1 (2026-10-06): right after the greeting the speech recogniser heard only a greeting from the caller, and Anna greeted a second time. She greets once: a bare greeting or line check gets «Да, слушаю вас.», with no second greeting and no new introduction.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Алло, привет."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must_not": ["Здравствуйте", "Привет", "Добрый день", "Анна", "ИИ-ассистент"]
+  },
+  "success_condition": "The agent does not greet again and does not introduce itself again: no «Здравствуйте», «Привет» or «Добрый день», no «Это Анна», no «я ИИ-ассистент». It answers in Russian, in one short sentence, that it is listening, for example «Да, слушаю вас.», and calls no tool."
+}

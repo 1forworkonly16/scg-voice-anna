@@ -14,28 +14,36 @@
     "reasoning_effort": null,
     "disable_first_message_interruptions": true,
     "max_duration_message": {
-      "ru": "Время разговора закончилось. Спасибо за звонок, всего доброго!",
-      "lv": "Sarunas laiks ir beidzies. Paldies par zvanu, visu labu!"
-    }
+      "ru": "Время разговора закончилось. Спасибо за звонок, всего доброго.",
+      "lv": "Sarunas laiks ir beidzies. Paldies par zvanu, visu labu."
+    },
+    "_punctuation_note": "No «!» in any first, max-duration or soft-timeout message (decision 2026-10-06: «!» makes the voice jump); build-agent.ts refuses one."
   },
   "tts": {
-    "model_id": "eleven_v4_turbo",
-    "voice_id": "0ArNnoIAWKlT4WweaVMY",
-    "_voice": "Elena Gromova (Voice Library voice 0ArNnoIAWKlT4WweaVMY, public_owner_id 18bb7017de812f7caa40ebbe9059def999a627a113e50e82fb819f0ea77a497d). The live-push step adds her to the account first (POST /v1/voices/add/{public_owner_id}/{voice_id}, free, 1 of 30 slots). ONE voice for RU and LV (no per-language voice override). Fallback: Marusya G sNQyZH8Wfcnv7zh3rHxR.",
+    "model_id": "eleven_v3_conversational",
+    "_model_note": "The TTS model is this ONE value (user decision 2026-10-06: v3 conversational, ≈ 550–600 credits/min in total). Going back to eleven_v4_turbo for cost means the fallback below: change model_id, voice_id, stability, speed and similarity_boost together.",
+    "voice_id": "2wP8BdKwYp0tZqqoNvMa",
+    "_voice": "Anna ET (Kodukliima): a Voice Design voice already in the account (no add needed), the same voice as the agent «Anna - Kodukliima demo» (agent_1701m3a6001cebc8r1n6saqxmqn6); TTS settings copied from that agent (read live 2026-10-06). ONE voice for RU and LV (no per-language voice override). Fallback: Elena Gromova 0ArNnoIAWKlT4WweaVMY (Voice Library, public_owner_id 18bb7017de812f7caa40ebbe9059def999a627a113e50e82fb819f0ea77a497d, added to the account 2026-10-05) on eleven_v4_turbo, speed 1.1, stability 0.4, similarity_boost 0.75.",
     "expressive_mode": false,
-    "stability": 0.4,
-    "speed": 1.1,
-    "similarity_boost": 0.75,
+    "stability": 0.5,
+    "speed": 1.0,
+    "similarity_boost": 0.8,
+    "optimize_streaming_latency": 3,
     "text_normalisation_type": "elevenlabs"
   },
   "turn": {
     "turn_eagerness": "eager",
-    "turn_timeout": 7,
+    "turn_timeout": 5,
+    "_turn_timeout_note": "About five seconds of caller silence → Anna says once «Алло, вы меня слышите?», then skip_turn (system_prompt.md §3; decision 2026-10-06).",
     "silence_end_call_timeout": 30,
     "spelling_patience": "auto",
     "speculative_turn": true,
     "soft_timeout_seconds": 4,
-    "soft_timeout_message": { "ru": "Минутку, пожалуйста.", "lv": "Mirklīti, lūdzu." }
+    "soft_timeout_message": { "ru": "Секундочку.", "lv": "Mirklīti." },
+    "interruption_ignore_terms": ["угу", "Угу.", "Угу-угу.", "Ugu.", "мгм", "Мгм.", "mhm", "Mhm.", "Mm-hmm.", "Mhmh."],
+    "interruption_ignore_term_languages": ["ru", "lv", "en"],
+    "merge_with_default_ignore_terms": false,
+    "_interruption_note": "Backchannels that must not interrupt Anna: the list of the Kodukliima agent (read live 2026-10-06), languages ru/lv/en, without the platform's default list."
   },
   "asr": {
     "_note": "Latvian street/district names (Gate S carry-forward #2): the RU-mode ASR writes them in Cyrillic otherwise. Names from data/buildings plus the demo address; both Tirzes (brief) and Tirzas (dataset).",
@@ -52,5 +60,6 @@
   "auth": { "enable_auth": true },
   "tools": ["lookup_building", "quote_range", "get_slots", "book_inspection", "find_works_schedule", "reschedule_access", "request_callback"],
   "_tools_note": "Allowlist of contract tools that gen-tools / build-agent / check-agent handle. M1 = these 7. WP13 adds create_ticket and log_request together with the M2 prompt; until then el:build must not attach them to the live agent.",
-  "system_tools": ["language_detection", "end_call"]
+  "system_tools": ["language_detection", "end_call", "skip_turn"],
+  "_system_tools_note": "skip_turn (2026-10-06): Anna stays silent on noise, background talk or an empty message, and after her one «Алло, вы меня слышите?» when the silence continues. Descriptions come from elevenlabs/prompt/tool_descriptions.json."
 }

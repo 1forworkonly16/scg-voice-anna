@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 3: an elderly Russian-speaking resident of the fictional ДЕМО building Parauga iela 7 will not be home on the works day. After giving the address and apartment, Anna must call find_works_schedule (and must not switch to Latvian because of the street name).",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Алло, это по ремонту труб? Меня в четверг дома не будет."},
     {"role": "agent", "message": "Понимаю, давайте посмотрим. Подскажите, пожалуйста, адрес и номер квартиры."},
     {"role": "user", "message": "Parauga iela, семь, квартира двенадцать."}

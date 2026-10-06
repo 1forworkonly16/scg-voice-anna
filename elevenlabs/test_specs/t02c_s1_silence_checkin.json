@@ -1,0 +1,19 @@
+{
+  "id": "t02c_s1_silence_checkin",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Silence after the greeting. The platform passes the turn timeout (about 5 s of silence) to the model as a user message of only «...» (seen in the Kodukliima call conv_9801m3chpfgne868d7q74w4fkmm2). Anna has not asked yet, so she says exactly «Алло, вы меня слышите?»: no second greeting, no new introduction.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "..."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["слышите"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Здравствуйте", "Анна", "ИИ-ассистент"]
+  },
+  "success_condition": "The caller's «...» means silence. The agent says «Алло, вы меня слышите?» in Russian (the reply contains «слышите») and nothing else: no second greeting («Здравствуйте»), no introduction («Это Анна», «ИИ-ассистент»), no question about the caller's request. It calls no tool."
+}

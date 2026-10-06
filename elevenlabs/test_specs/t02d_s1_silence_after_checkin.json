@@ -1,0 +1,19 @@
+{
+  "id": "t02d_s1_silence_after_checkin",
+  "type": "tool_call",
+  "language": "ru",
+  "critical": false,
+  "scenario": "The silence continues after the check-in: Anna already asked «Алло, вы меня слышите?» and the caller is still silent (another «...», the platform's turn timeout). She calls skip_turn and says nothing: no second check-in, no greeting.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "..."},
+    {"role": "agent", "message": "Алло, вы меня слышите?"},
+    {"role": "user", "message": "..."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "tool": "skip_turn",
+    "no_speech": true
+  },
+  "success_condition": "The agent calls skip_turn (system tool; no parameter checks) and says nothing: no second «Алло, вы меня слышите?», no greeting, no introduction. The platform checks the call; the harness checks that there is no speech (expect.no_speech)."
+}

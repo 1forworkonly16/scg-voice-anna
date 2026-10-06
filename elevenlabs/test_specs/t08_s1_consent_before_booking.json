@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 1: the phone number has just been confirmed. Anna must ask for consent to store the name and phone before fetching slots or booking.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
     {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
     {"role": "user", "message": "Да, и квартир сто сорок четыре."},

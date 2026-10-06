@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 1: floors, stairwells and apartments are confirmed by read-back. Anna must call quote_range with exactly these values.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
     {"role": "agent", "message": "Подскажите, пожалуйста, адрес дома."},
     {"role": "user", "message": "Ilūkstes iela, шестнадцать."},

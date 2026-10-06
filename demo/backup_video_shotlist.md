@@ -14,7 +14,7 @@ Purpose: if the network, the microphone or ElevenLabs fails at the meeting, play
 |---|---|---|---|
 | 1 | 0:00 | Title card: «ИИ-ассистент Smart Comfort Group — демо. Данные выдуманные.» | silence |
 | 2 | 0:05 | Talk-to page, tap to call | caption «19:30, офис закрыт» |
-| 3 | 0:10 | Call screen | Anna's greeting, about 5 s: «Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?» (no recording notice: audio recording is off). Caption «Первая фраза: Анна сразу говорит, что она ИИ» |
+| 3 | 0:10 | Call screen | Anna's greeting, about 5 s: «Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?» (no recording notice: audio recording is off). Caption «Первая фраза: Анна сразу говорит, что она ИИ» |
 | 4 | 0:20 | Call screen | «Я старшая по дому, хочу узнать про замену стояков», then «Ilūkstes iela, шестнадцать». Anna: «Нашла: Ilūkstes iela 16 — 9 этажей, 4 подъезда и 141 квартира. Верно?» → «Да» |
 | 5 | 0:40 | Call screen | The price line for 141 at once, with «ориентировочно», without and with VAT 21%, «точную цену даст инженер после бесплатного осмотра», then «Записать вас на осмотр?». When the video is shown, the consultant says the price-basis line live (run sheet, 1:05) |
 | 6 | 1:10 | Call screen | «Назовите точную сумму» and the inspection offer instead |

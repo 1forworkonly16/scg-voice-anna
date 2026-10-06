@@ -30,6 +30,9 @@ export function buildBody(webhookId: string | null, toolIds: string[]) {
   for (const l of new Set([def, ...langs])) {
     const miss = [!presets[l]?.first_message && `presets.json ${l}.first_message`, !c.agent.max_duration_message?.[l] && `agent.max_duration_message.${l}`, !c.turn.soft_timeout_message?.[l] && `turn.soft_timeout_message.${l}`].filter(Boolean);
     if (miss.length) throw new Error(`language ${l}: missing ${miss.join(', ')}`);
+    // no «!» in a fixed message (decision 2026-10-06: it makes the voice jump)
+    const bang = [presets[l].first_message, c.agent.max_duration_message[l], c.turn.soft_timeout_message[l]].filter((s: string) => s.includes('!'));
+    if (bang.length) throw new Error(`language ${l}: «!» in ${bang.map((s: string) => `«${s}»`).join(', ')}`);
   }
   const first = readText(p('elevenlabs', 'prompt', 'first_message.md')).trim();
   if (first !== presets[def].first_message.trim()) throw new Error(`first_message.md differs from presets.json ${def}.first_message`);
@@ -58,10 +61,12 @@ export function buildBody(webhookId: string | null, toolIds: string[]) {
         prompt: { prompt: base, llm, temperature: c.agent.temperature, ...(c.agent.reasoning_effort ? { reasoning_effort: c.agent.reasoning_effort } : {}), tool_ids: toolIds, built_in_tools: builtIn },
       },
       asr: { keywords: c.asr.keywords },
-      tts: { model_id: c.tts.model_id, voice_id: c.tts.voice_id, expressive_mode: c.tts.expressive_mode, stability: c.tts.stability, speed: c.tts.speed, similarity_boost: c.tts.similarity_boost, text_normalisation_type: c.tts.text_normalisation_type },
+      tts: { model_id: c.tts.model_id, voice_id: c.tts.voice_id, expressive_mode: c.tts.expressive_mode, stability: c.tts.stability, speed: c.tts.speed, similarity_boost: c.tts.similarity_boost, optimize_streaming_latency: c.tts.optimize_streaming_latency, text_normalisation_type: c.tts.text_normalisation_type },
       turn: {
         turn_eagerness: turn.turn_eagerness, turn_timeout: turn.turn_timeout, silence_end_call_timeout: turn.silence_end_call_timeout,
         spelling_patience: turn.spelling_patience, speculative_turn: turn.speculative_turn,
+        // backchannels («угу», «mhm») that must not interrupt Anna (the Kodukliima agent's list, 2026-10-06)
+        interruption_ignore_terms: turn.interruption_ignore_terms, interruption_ignore_term_languages: turn.interruption_ignore_term_languages, merge_with_default_ignore_terms: turn.merge_with_default_ignore_terms,
         soft_timeout_config: { timeout_seconds: turn.soft_timeout_seconds, message: turn.soft_timeout_message[def] },
       },
       conversation: { max_duration_seconds: c.conversation.max_duration_seconds },

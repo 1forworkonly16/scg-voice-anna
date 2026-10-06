@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenarios 8 and 10 (LV): the call opens with the Russian greeting; a Latvian caller's first sentence asks whether Anna is a real person. A full Latvian sentence in reply to the opening counts, so Anna must call language_detection (lv) before her first Latvian word.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Labdien. Vai jūs esat īsts cilvēks vai robots?"}
   ],
   "mocked_tools": {},

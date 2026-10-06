@@ -1,0 +1,23 @@
+{
+  "id": "t07c_s1_phone_plus371",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": false,
+  "scenario": "Re-test of call 1 (2026-10-06): the caller gave the phone number with the country code, 8 digits after +371, and Anna wrongly said a digit was missing. She must drop +371, count 8 digits and read the number back in the caller's groups, as words. Fictional number (the test caller's 20 123 456).",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
+    {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
+    {"role": "user", "message": "Да, и квартир сто сорок четыре."},
+    {"role": "agent", "message": "Сто сорок четыре квартиры — верно? И как к вам обращаться?"},
+    {"role": "user", "message": "Верно. Нина Ивановна."},
+    {"role": "agent", "message": "Хорошо, Нина Ивановна. Какой номер телефона для связи?"},
+    {"role": "user", "message": "+371 2012 3456."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must_not": ["не расслышала", "повторите", "2012", "3456"]
+  },
+  "success_condition": "After dropping +371 the number has 8 digits, so it is complete. The agent reads it back as words in the caller's groups, for example «двадцать двенадцать, тридцать четыре пятьдесят шесть — верно?», and asks whether it is correct. It does not say that a digit is missing, does not ask to repeat the number, does not read it digit by digit and calls no tool. Fictional test caller and number."
+}

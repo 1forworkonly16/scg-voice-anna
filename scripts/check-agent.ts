@@ -2,7 +2,7 @@
 //   node scripts/check-agent.ts [--allow-unlocked] [--json]
 // --allow-unlocked: do not fail when auth is OFF (use only while a talk-to call is intended; the end state must be locked).
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { el } from './el/api.ts';
 import { agentId, cfg, p, readAgents, readJson, loadContract } from './el/common.ts';
 import { buildBody } from './build-agent.ts';
@@ -19,6 +19,7 @@ const langs: string[] = c.agent.language_presets ?? [];
 const presetsFile = readJson(p('elevenlabs', 'prompt', 'presets.json'));
 const DISCLOSURE: Record<string, RegExp> = { ru: /ИИ/, lv: /mākslīgā intelekta/, en: /\bAI\b/ }; // AI disclosure in the greeting, per language
 const RECORDING = /записыва|ierakst/iu; // audio recording is off (decision 2026-10-05): no greeting may mention recording
+const BANG = /!/; // no «!» in the fixed messages (decision 2026-10-06: it makes the voice jump)
 
 const a = await el('GET', `/v1/convai/agents/${id}`);
 const cc = a.conversation_config, ps = a.platform_settings, pr = cc.agent.prompt;
@@ -29,12 +30,13 @@ const toolIds: string[] = Object.entries<any>(toolsFile.tools).filter(([n]) => !
 // agent identity and model
 eq('agent name', a.name, c.name);
 eq('default language', cc.agent.language, def);
-eq('TTS model', cc.tts.model_id, c.tts.model_id);
-eq('voice = agent_config tts.voice_id', cc.tts.voice_id, c.tts.voice_id);
+eq(`TTS model = agent_config (${c.tts.model_id})`, cc.tts.model_id, c.tts.model_id);
+eq(`voice = agent_config tts.voice_id (${c.tts.voice_id})`, cc.tts.voice_id, c.tts.voice_id);
 near('tts speed', cc.tts.speed, c.tts.speed);
 near('tts stability', cc.tts.stability, c.tts.stability);
 near('tts similarity_boost', cc.tts.similarity_boost, c.tts.similarity_boost);
-eq('expressive_mode off (no audio tags)', cc.tts.expressive_mode, false);
+eq('tts optimize_streaming_latency', cc.tts.optimize_streaming_latency, c.tts.optimize_streaming_latency);
+eq(`expressive_mode off on ${c.tts.model_id} (no audio tags; agent_config and live)`, [c.tts.expressive_mode, cc.tts.expressive_mode], [false, false]);
 check('LLM is one of the allowed Claude models', ['claude-haiku-4-5', 'claude-sonnet-5-5'].includes(pr.llm), `llm=${pr.llm}`);
 eq('LLM matches agents.json', pr.llm, state?.llm);
 // language presets: one per agent_config agent.language_presets (the default included), nothing stale
@@ -48,12 +50,16 @@ for (const l of langs) {
   eq(`${l} preset first_message = presets.json`, o?.agent?.first_message ?? null, presetsFile[l]?.first_message ?? null);
   check(`${l} preset first_message has the AI disclosure`, !!DISCLOSURE[l]?.test(fm), `«${fm}»`);
   check(`${l} preset first_message says nothing about recording`, !RECORDING.test(fm), `«${fm}»`);
+  check(`${l} preset first_message has no «!»`, !!fm && !BANG.test(fm), `«${fm}»`);
   eq(`${l} preset max-duration message`, o?.agent?.max_conversation_duration_message ?? null, c.agent.max_duration_message?.[l] ?? null);
+  check(`${l} preset max-duration message has no «!»`, !BANG.test(o?.agent?.max_conversation_duration_message ?? '!'), `«${o?.agent?.max_conversation_duration_message}»`);
   eq(`${l} preset soft-timeout message`, o?.turn?.soft_timeout_config?.message ?? null, c.turn.soft_timeout_message?.[l] ?? null);
 }
 check(`default (${def}) first_message has the AI disclosure`, !!DISCLOSURE[def]?.test(cc.agent.first_message ?? ''), `«${cc.agent.first_message}»`);
 check(`default (${def}) first_message says nothing about recording`, !RECORDING.test(cc.agent.first_message ?? ''), `«${cc.agent.first_message}»`);
+check(`default (${def}) first_message has no «!»`, !BANG.test(cc.agent.first_message ?? '!'), `«${cc.agent.first_message}»`);
 eq(`default max-duration message = ${def}`, cc.agent.max_conversation_duration_message, c.agent.max_duration_message?.[def]);
+check('default max-duration message has no «!»', !BANG.test(cc.agent.max_conversation_duration_message ?? '!'), `«${cc.agent.max_conversation_duration_message}»`);
 // prompt in sync with the repo files
 const expected = buildBody(state?.webhook_id ?? null, toolIds);
 eq('prompt text in sync with elevenlabs/prompt/*', pr.prompt, expected.conversation_config.agent.prompt.prompt);
@@ -75,7 +81,9 @@ const sec = (await el('GET', '/v1/convai/secrets')).secrets ?? [];
 const tsec = sec.find((s: any) => s.name === c.tool_secret_name);
 check('workspace secret scg_tool_key exists', !!tsec && tsec.secret_id === toolsFile.secret_id, '');
 const sysTools = Object.entries(pr.built_in_tools ?? {}).filter(([, v]) => v).map(([k]) => k).sort();
-eq('system tools = language_detection + end_call', sysTools, ['end_call', 'language_detection']);
+const sysWant = [...(c.system_tools as string[])].sort();
+eq(`system tools = agent_config (${sysWant.join(' + ')})`, sysTools, sysWant);
+check('skip_turn attached (silence after the check-in, noise, background talk)', sysTools.includes('skip_turn'), `system tools: ${sysTools.join(', ')}`);
 // limits and privacy
 eq('max_duration_seconds', cc.conversation.max_duration_seconds, 300);
 eq('daily_limit', ps.call_limits.daily_limit, 25);
@@ -89,10 +97,15 @@ const kw: string[] = cc.asr.keywords ?? [];
 check('asr keywords include Ilūkstes, Tirzes, Parauga', ['Ilūkstes', 'Tirzes', 'Parauga'].every((k) => kw.includes(k)), `${kw.length} keywords`);
 eq('turn_eagerness', cc.turn.turn_eagerness, c.turn.turn_eagerness);
 eq('turn_timeout', cc.turn.turn_timeout, c.turn.turn_timeout);
+eq('turn_timeout 5 s (one «Алло, вы меня слышите?» after about five seconds of silence)', cc.turn.turn_timeout, 5);
+eq('interruption_ignore_terms = agent_config (Kodukliima list)', cc.turn.interruption_ignore_terms ?? null, c.turn.interruption_ignore_terms);
+eq('interruption_ignore_term_languages = agent_config', cc.turn.interruption_ignore_term_languages ?? null, c.turn.interruption_ignore_term_languages);
+eq('merge_with_default_ignore_terms = agent_config (off)', cc.turn.merge_with_default_ignore_terms ?? null, c.turn.merge_with_default_ignore_terms);
 eq('speculative_turn', cc.turn.speculative_turn, c.turn.speculative_turn);
 eq('spelling_patience', cc.turn.spelling_patience, c.turn.spelling_patience);
 eq('soft-timeout seconds', cc.turn.soft_timeout_config?.timeout_seconds, c.turn.soft_timeout_seconds);
 eq(`soft-timeout message = ${def}`, cc.turn.soft_timeout_config?.message, c.turn.soft_timeout_message?.[def]);
+check('soft-timeout messages have no «!» (agent_config, every language)', Object.values<string>(c.turn.soft_timeout_message ?? {}).every((m) => !BANG.test(m)), JSON.stringify(c.turn.soft_timeout_message));
 const langOverride = ps.overrides?.conversation_config_override?.agent?.language;
 check('client cannot override the language (overrides.conversation_config_override.agent.language not true)', langOverride !== true, `got ${JSON.stringify(langOverride)}`);
 // analysis
@@ -117,7 +130,12 @@ check('Worker secret ELEVENLABS_WEBHOOK_SECRET present', names.includes('ELEVENL
 const wj = readFileSync(p('wrangler.jsonc'), 'utf8');
 check('wrangler.jsonc ELEVENLABS_AGENT_ID = this agent', new RegExp(`"ELEVENLABS_AGENT_ID"\\s*:\\s*"${id}"`).test(wj), '');
 // tests exist
-try { const tj = readJson(p('elevenlabs', 'tests.json')); check('tests.json has 27 specs + derived', Object.keys(tj.tests ?? {}).length >= 27, `${Object.keys(tj.tests ?? {}).length}`); } catch { check('tests.json present', false, 'missing'); }
+try {
+  const tj = readJson(p('elevenlabs', 'tests.json'));
+  const specIds = readdirSync(p('elevenlabs', 'test_specs')).filter((f) => f.endsWith('.json')).map((f) => f.replace(/\.json$/, ''));
+  const missing = specIds.filter((s) => !tj.tests?.[s]);
+  check(`tests.json has all ${specIds.length} specs + derived (else run el:tests -- sync)`, specIds.length >= 27 && !missing.length, missing.length ? `missing: ${missing.join(', ')}` : `${Object.keys(tj.tests ?? {}).length}`);
+} catch { check('tests.json present', false, 'missing'); }
 
 let fail = 0;
 for (const r of rows) { if (!r.ok) fail++; console.log(`${r.ok ? 'PASS' : 'FAIL'}  ${r.name}${r.ok ? '' : '  -> ' + r.detail}`); }

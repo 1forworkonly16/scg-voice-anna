@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 1: the elder dictates her 8-digit phone number in groups. Anna must read it back in the caller's own groups, as words, and ask for confirmation before anything else.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
     {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
     {"role": "user", "message": "Да, и квартир сто сорок четыре."},

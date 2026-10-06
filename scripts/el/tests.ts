@@ -10,14 +10,24 @@
 // SAFETY: next_reply ("llm") and tool_call tests never execute tools (the platform returns "Skipping tool call in test mode");
 // simulations mock EVERY tool (mocking_strategy all, fallback raise_error, mocks from the specs), so nothing reaches the live Worker,
 // the Calendar, the Sheet or Telegram. check_no_live_calls() proves it afterwards from the tool-execution log.
-// Scoring = platform verdict AND deterministic checks (expect.reply_must_not on every agent turn; expect.reply_must on text tests;
-// expect.no_tools: the reply contains no tool call).
+// Scoring = platform verdict AND deterministic checks (expect.reply_must_not on every agent turn; expect.reply_must on text tests
+// that relay a tool, or with expect.reply_must_lexical; expect.no_tools: the reply contains no tool call; expect.no_speech: the
+// agent says nothing). History tool calls carry the tool's fixed filler from system_prompt.md §5 (system tools: none).
 import { readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { el, sleep } from './api.ts';
 import { agentId, cfg, p, readJson, readText, writeJson } from './common.ts';
 
 const toolsFile = readJson(p('elevenlabs', 'tools.json'));
-const toolId = (n: string): { id: string; type: string } => n === 'language_detection' ? { id: 'language_detection', type: 'system' } : { id: toolsFile.tools[n].id, type: 'webhook' };
+const SYSTEM_TOOLS = new Set(['language_detection', 'skip_turn', 'end_call']); // referenced by name (type system); no filler before them
+const toolId = (n: string): { id: string; type: string } => SYSTEM_TOOLS.has(n) ? { id: n, type: 'system' } : { id: toolsFile.tools[n].id, type: 'webhook' };
+// Anna's fixed filler per tool, read from system_prompt.md §5 («- `tool`: RU «…» LV «…»»), so the histories say what the prompt says.
+const FILLERS = new Map([...readText(p('elevenlabs', 'prompt', 'system_prompt.md')).matchAll(/^\s*-\s*`(\w+)`:\s*RU «([^»]+)»\s*LV «([^»]+)»\s*$/gm)].map((m) => [m[1]!, { ru: m[2]!, lv: m[3]! }]));
+function filler(tool: string, lang: string): string | null {
+  if (SYSTEM_TOOLS.has(tool)) return null;
+  const f = FILLERS.get(tool);
+  if (!f) throw new Error(`no fixed filler for ${tool} in elevenlabs/prompt/system_prompt.md §5`);
+  return lang === 'lv' ? f.lv : f.ru;
+}
 const SPEC_DIR = p('elevenlabs', 'test_specs');
 const OUT_DIR = p('elevenlabs', 'test_results');
 
@@ -29,12 +39,12 @@ const loadSpecs = (): Spec[] => readdirSync(SPEC_DIR).filter((f) => f.endsWith('
 let reqN = 0;
 const callEntry = (tool: string, args: unknown, message: string | null, t: number) => {
   const rid = `toolu_test_${++reqN}`;
-  const sys = tool === 'language_detection';
+  const sys = SYSTEM_TOOLS.has(tool);
   return { rid, entry: { role: 'agent', message, tool_calls: [{ type: sys ? 'system' : 'webhook', request_id: rid, tool_name: tool, params_as_json: JSON.stringify(args), tool_has_been_called: true, tool_details: null }], tool_results: [], time_in_call_secs: t } };
 };
 const resultEntry = (rid: string, tool: string, result: unknown, t: number) => ({
   role: 'agent', message: null, tool_calls: [],
-  tool_results: [{ request_id: rid, tool_name: tool, result_value: JSON.stringify(result), is_error: false, is_blocked: false, tool_has_been_called: true, tool_latency_secs: 0.6, error_type: '', raw_error_message: '', dynamic_variable_updates: [], type: tool === 'language_detection' ? 'system' : 'webhook' }],
+  tool_results: [{ request_id: rid, tool_name: tool, result_value: JSON.stringify(result), is_error: false, is_blocked: false, tool_has_been_called: true, tool_latency_secs: 0.6, error_type: '', raw_error_message: '', dynamic_variable_updates: [], type: SYSTEM_TOOLS.has(tool) ? 'system' : 'webhook' }],
   time_in_call_secs: t,
 });
 
@@ -59,12 +69,12 @@ function convertHistory(hist: any[], callerLang: string): any[] {
     // add it so the history is realistic (DEF=lv: ru before the first Russian reply after the LV greeting). Only for callers whose language is not DEF.
     if (m.role === 'agent' && agentTurns++ > 0 && !switched && callerLang !== DEF && langOf(m.message ?? '') !== DEF) { out.push(...langSwitch(langOf(m.message ?? ''), t)); switched = true; t += 2; }
     if (m.role === 'agent' && !m.tool_calls?.length && /^Нашла: Ilūkstes iela 16/.test(m.message ?? '')) { // the specs write the lookup answer without the call; add it so the history is realistic
-      const { rid, entry } = callEntry('lookup_building', { language: 'ru', address: 'Ilūkstes iela 16' }, null, t);
+      const { rid, entry } = callEntry('lookup_building', { language: 'ru', address: 'Ilūkstes iela 16' }, filler('lookup_building', 'ru'), t);
       out.push(entry); out.push(resultEntry(rid, 'lookup_building', LOOKUP_MOCK, t)); t += 1;
     }
     if (m.tool_calls?.length) { // spec format {name,args,result} -> platform format (call entry + result entry)
       const first = m.tool_calls[0];
-      const { rid, entry } = callEntry(first.name, first.args ?? {}, 'Секунду, проверяю.', t);
+      const { rid, entry } = callEntry(first.name, first.args ?? {}, filler(first.name, callerLang), t);
       out.push(entry); out.push(resultEntry(rid, first.name, first.result ?? {}, t));
       out.push({ role: 'agent', message: m.message, tool_calls: [], tool_results: [], time_in_call_secs: t + 1 });
     } else out.push({ role: m.role, message: m.message, tool_calls: [], tool_results: [], time_in_call_secs: t });
@@ -95,7 +105,7 @@ function buildHistory(spec: Spec, injectTool?: string): any[] {
   let t = (h.at(-1)?.time_in_call_secs ?? 0);
   if (needsLangSwitchInjection(spec)) { h.push(...langSwitch(spec.language, t + 1)); t += 2; }
   if (injectTool) {
-    const { rid, entry } = callEntry(injectTool, relayArgs(spec, injectTool), 'Секунду, проверяю.', t + 1);
+    const { rid, entry } = callEntry(injectTool, relayArgs(spec, injectTool), filler(injectTool, spec.language), t + 1);
     h.push(entry); h.push(resultEntry(rid, injectTool, spec.mocked_tools[injectTool], t + 2));
   }
   return h;
@@ -137,7 +147,7 @@ function buildAll(): Built[] {
       const inject = e.tool && spec.mocked_tools?.[e.tool] ? e.tool : undefined;
       list.push({ key: spec.id, spec, critical: !!spec.critical, derived: false, body: { type: 'llm', name, chat_history: buildHistory(spec, inject), success_condition: conditionText(spec, !!inject), success_examples: [], failure_examples: [], dynamic_variables: {} } });
     } else if (spec.type === 'tool_call') {
-      const params = Object.entries(e.args_contains ?? {}).map(([k, v]) => ({ path: e.tool === 'language_detection' ? k : `body.${k}`, eval: paramEval(fixSpecValue(k, v)) }));
+      const params = Object.entries(e.args_contains ?? {}).map(([k, v]) => ({ path: SYSTEM_TOOLS.has(e.tool) ? k : `body.${k}`, eval: paramEval(fixSpecValue(k, v)) }));
       list.push({ key: spec.id, spec, critical: !!spec.critical, derived: false, body: { type: 'tool', name, chat_history: buildHistory(spec), tool_call_parameters: { referenced_tool: toolId(e.tool), parameters: params, verify_absence: false }, check_any_tool_matches: false, dynamic_variables: {} } });
       if (e.reply_must?.length && spec.mocked_tools?.[e.tool]) { // t22: also test the relay of the mocked result in Russian
         const rel = { ...spec, id: spec.id + '_relay' };
@@ -196,7 +206,7 @@ function dry(a: Map<string, string>) {
     const spec = b.spec;
     const injected = ldCalls(b.body.chat_history, 'tool_name').slice(ldCalls(spec.chat_history, 'name').length).map((c: any) => JSON.parse(c.params_as_json).language);
     const e = spec.expect ?? {};
-    const exp = [e.tool, e.no_tools ? 'no_tools' : '', e.reply_must?.length ? 'must' : '', e.reply_must_not?.length ? 'must_not' : ''].filter(Boolean).join(' ') || '-';
+    const exp = [e.tool, e.no_tools ? 'no_tools' : '', e.no_speech ? 'no_speech' : '', e.reply_must?.length ? (e.reply_must_lexical ? 'must(lex)' : 'must') : '', e.reply_must_not?.length ? 'must_not' : ''].filter(Boolean).join(' ') || '-';
     const first = String(spec.chat_history.find((m: any) => m.role === 'agent')?.message ?? '');
     console.log([b.key.padEnd(40), `${spec.type}${b.derived ? '*' : ''}`.padEnd(12), String(spec.language).padEnd(4), (injected.join(',') || '-').padEnd(7), exp.padEnd(30), (first.trim() === greeting ? 'ok' : 'DIFF').padEnd(5), first.slice(0, 60).replace(/\s+/g, ' ')].join(' '));
   }
@@ -239,10 +249,13 @@ function detChecks(key: string, spec: Spec, agent: { message: string | null; too
   const text = ns(agent.map((m) => m.message ?? '').join(' '));
   const issues: string[] = [];
   for (const s of spec.expect?.reply_must_not ?? []) if (text.includes(ns(String(s)))) issues.push(`MUST_NOT «${s}»`);
-  // reply_must is a lexical check only for verbatim tool relays (expect.tool set); free-text answers are judged by the LLM (paraphrases are fine)
-  if (spec.type !== 'tool_call' && spec.expect?.tool) for (const s of spec.expect?.reply_must ?? []) if (!text.includes(ns(String(s)))) issues.push(`missing «${s}»`);
+  // reply_must is a lexical check only for verbatim tool relays (expect.tool set) and fixed lines (expect.reply_must_lexical, e.g. «Алло, вы меня слышите?»);
+  // other free-text answers are judged by the LLM (paraphrases are fine)
+  if (spec.type !== 'tool_call' && (spec.expect?.tool || spec.expect?.reply_must_lexical)) for (const s of spec.expect?.reply_must ?? []) if (!text.includes(ns(String(s)))) issues.push(`missing «${s}»`);
   // expect.no_tools: the reply must not contain any tool call (e.g. no language_detection for a caller who already speaks DEF)
   if (spec.expect?.no_tools) { const used = agent.flatMap((m) => (m.tools ?? []).map((c: any) => c.name)); if (used.length) issues.push(`NO_TOOLS: called ${used.join(',')}`); }
+  // expect.no_speech: the agent says nothing (e.g. skip_turn while the caller stays silent after the check-in)
+  if (spec.expect?.no_speech && text) issues.push(`NO_SPEECH: said «${agent.map((m) => m.message ?? '').join(' ').trim().slice(0, 60)}»`);
   return issues;
 }
 

@@ -1,6 +1,6 @@
 # H3 live test: Anna on your phone
 
-**RU-only for now** (decision 2026-10-05): talks 1, 3, 5, 7, 9 and 10, about 15 minutes in total. Talk 1 is the re-test of call 1. The LV talks (2, 4, 6, 7b, 8) and the LV text review are **deferred to the LV polish (optional)**. Full scripts: `docs/scenarios.md`.
+**RU-only for now** (decision 2026-10-05). **H3 is now talk 1 plus talks 3, 5 and 10** (decision 2026-10-06, «Voice cost»): talk 1, the re-test of call 1, was done on 2026-10-06 and led to rework round 2; talks 3, 5 and 10 take about 10 minutes with the spot checks (about 6,000 credits at 600 per minute). Talks 7 and 9 and the slot-taken check are no longer separate calls: their questions are spot checks inside talks 3, 5 and 10 (marked **Spot check**). The LV talks (2, 4, 6, 7b, 8) and the LV text review are **deferred to the LV polish (optional)**. Full scripts: `docs/scenarios.md`.
 
 ## Before you start
 **Ask Claude to:**
@@ -20,10 +20,12 @@
 - Have a stopwatch ready.
 
 **Every talk:**
-- Anna's first message says she is an AI assistant, before any question: «Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?» There is no recording notice: audio recording is off.
+- Anna's first message says she is an AI assistant, before any question: «Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?» There is no recording notice: audio recording is off.
+- She greets only once: a bare «Алло?» gets «Да, слушаю вас.». After about 5 s of silence she says «Алло, вы меня слышите?» once, then waits silently.
+- Calm, even tone: no «Отлично!», no «Спасибо» at the start of two replies in a row, one fixed short filler before each tool (`docs/scenarios.md`).
 - She stays in Russian.
 - Every price starts with «Ориентировочно», gives the price without VAT and with VAT 21%, and ends with «точную цену даст инженер после бесплатного осмотра».
-- Every phone number: she checks for 8 digits first, then reads it back in your own groups, as words.
+- Every phone number: she drops +371 if you say it, checks for 8 digits, then reads it back in your own groups, as words.
 - Anna never promises an SMS or an e-mail.
 
 **Stopwatch:** start it when Anna says «Готово…». Within 15 s you should see the calendar event and the group message. Write down the seconds.
@@ -32,26 +34,26 @@
 
 ## Credits
 - **Before talk 1:** Claude runs `npm run el:credits` and writes down the remaining balance.
-- **After talk 1** (wait about 1 minute; the balance lags): Claude runs `npm run el:credits -- --before <balance before> --min <talk 1 minutes>`, and `el:metrics` gives the talk's credits per minute (target ≤ 320). Claude then tells you how many of the remaining talks fit.
-- **Stop rule:** stop testing when fewer than **8,000** credits remain (`el:credits` prints STOP). They are kept for the meeting. If the measured rate shows that talk 10 would cross the line, skip the remaining spot checks and do talk 10 first.
+- **After talk 1** (wait about 1 minute; the balance lags): Claude runs `npm run el:credits -- --before <balance before> --min <talk 1 minutes>`, and `el:metrics` gives the talk's credits per minute (target ≤ 600 on `eleven_v3_conversational`, expected about 550–600; decision 2026-10-06). Claude then tells you how many of the remaining talks fit.
+- **Stop rule:** stop testing when fewer than **8,000** credits remain (`el:credits` prints STOP). They are kept for the meeting (about 14 minutes of talk). If the measured rate shows that talk 10 would cross the line, skip the remaining spot checks and do talk 10 first.
 - Calls are cut off at 5 minutes, and there is a limit of 25 calls per day.
 
 ## The talks
-**1. Scenario 1, RU booking: the re-test of call 1 (3 min)**
+**1. Scenario 1, RU booking: the re-test of call 1 (3 min). Done 2026-10-06** (`conv_2801m471k2pse81ahr5nbhgwz1yj`, `docs/status.md`); kept for reference. Its checks now come back in talk 10.
 - Say: «Здравствуйте, я старшая по дому, хочу узнать про замену стояков.» Then «Ilūkstes iela, шестнадцать». Then «Да. А сколько это будет стоить?». Then «Давайте осмотр. Нина Ивановна».
 - For the phone, first give only 7 digits: «два, сто двадцать три, четыреста пятьдесят шесть». After her re-ask, the full number: «двадцать, сто двадцать три, четыреста пятьдесят шесть». Then «Да», «Согласна», and pick a slot.
 - Once, hesitate mid-sentence («э-э-э…»).
 - Check:
   - The greeting is Russian, about 5 s, with no recording words, and she does not switch language.
   - She asks for the address straight away (no question about the purpose of your call).
-  - «Нашла: Ilūkstes iela 16 — 9 этажей, 4 подъезда и 141 квартира. Верно?» After your «Да» she does not ask the apartment count again.
-  - The price line for 141 comes at once, then only «Записать вас на осмотр?». No «Спасибо за уточнение». Figures, ориентировочно: about 72,000–112,000 € without VAT, about 87,000–135,000 € with VAT 21%, about 780 € per apartment; the exact line is the tool's.
+  - «Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда и сто сорок одна квартира. Верно?» After your «Да» she does not ask the apartment count again.
+  - The price line for 141 comes at once, in words, then only «Записать вас на осмотр?». Never «Вам нужна ориентировочная цена?», no «Спасибо за уточнение». Figures, ориентировочно: about 72,000–112,000 € without VAT, about 87,000–135,000 € with VAT 21%, about 780 € per apartment; the exact line is the tool's.
   - 7 digits: «Кажется, я не расслышала одну цифру — повторите, пожалуйста, номер?», and no read-back of the 7.
   - 8 digits: read back in your groups: «двадцать, сто двадцать три, четыреста пятьдесят шесть — верно?».
   - She does not cut you off during «э-э-э…», and the phone number arrives as one turn.
   - She asks for consent and offers at most 3 slots.
   - Stopwatch: calendar event and group message within 15 s.
-  - `el:metrics`: median from you stopping to her voice ≤ 1.8 s (max ≤ 3.5 s), at most 1 interrupted turn, median agent turn ≤ 80 characters (tool read-outs excluded), talk share ≤ 45%, ≤ 320 credits/min.
+  - `el:metrics`: median from you stopping to her voice ≤ 1.8 s (max ≤ 3.5 s), at most 1 interrupted turn, median agent turn ≤ 80 characters (tool read-outs excluded), talk share ≤ 45%, ≤ 600 credits/min.
   - **Your verdict:** does she sound human enough to show Dima?
 
 **2. Scenario 1, LV booking (3 min). Deferred to the LV polish (optional).**
@@ -76,6 +78,7 @@
   - She never asks for your name or phone number.
   - The group message includes «Прорабу».
   - Stopwatch.
+- **Spot check** (from talk 9), after the reschedule: «У нас течёт с потолка!» → she says to close the water valve and call the manager's emergency service, then offers a callback. Then «А разговор записывается?» → «Звук не записывается, текст разговора сохраняется для вашей заявки.»
 
 **4. Scenario 3, LV (2 min). Deferred to the LV polish (optional).**
 - Apartment 13 has the same plan as apartment 12 had before talk 3: stairwell 1, **Wednesday**, options **Mon 09–13, Tue 09–13, Thu 13–17**.
@@ -93,6 +96,11 @@
   - She offers a callback in working hours.
   - She checks for 8 digits, then reads the phone back in your groups.
   - The group gets a callback message.
+- **Spot checks** (from talks 7 and 9), before you ask for a person:
+  - After her answer to «вы человек?», stay silent for about 10 s: she says «Алло, вы меня слышите?» once, then waits silently.
+  - «А в рассрочку можно?» → «Это уточнит наш инженер или менеджер.» No instalment terms.
+  - «Рига ведь оплачивает половину?» → the 2026 co-financing line (internal risers not covered; up to 90% of the technical documentation). No «половина», no half-price promise.
+  - The manager question from talk 9 («…вы ведь дешевле?») → neutral, no comparison; at most one offer after each fixed line.
 
 **6. Scenario 8, LV (1.5 min). Deferred to the LV polish (optional).**
 - Say: «Vai jūs esat īsts cilvēks vai robots?» Then «Gribu runāt ar cilvēku.»
@@ -101,7 +109,7 @@
   - She switches to LV and stays there.
   - She asks «Uz kuru numuru zvanīt?».
 
-**7. Scenario 9, RU exact price (2 min)**
+**7. Scenario 9, RU exact price (2 min). No longer a separate call (decision 2026-10-06):** the exact-price demand is in the talk 10 run sheet; the other questions are spot checks in talk 5.
 - Get the price first, as in talk 1. Then ask: «Назовите точную сумму». Then «Сколько за подъезд?», «В рассрочку можно?», «Рига ведь оплачивает половину?» and «Какая гарантия?».
 - Check:
   - She gives no new numbers.
@@ -126,7 +134,7 @@
   - **Test only:** after the switch to LV, does her voice really sound Latvian, and does she understand you?
   - The LV price line is correct, and she switches back to RU.
 
-**9. Spot checks (1.5 min)**
+**9. Spot checks (1.5 min). No longer a separate call (decision 2026-10-06):** spot checks in talks 3 and 5.
 - Say: «Наш управляющий завышает цены, вы ведь дешевле?» Then «У нас течёт с потолка!» Then «А разговор записывается?»
 - Check:
   - She stays neutral and does not attack the manager.
@@ -136,6 +144,8 @@
 **10. Clean rehearsal and backup video (4 min). REQUIRED.**
 - **First, Claude runs `reset-works`** (`Invoke-RestMethod "$u/admin/demo/reset-works" -Method Post -Headers $h`, as in the run sheet preflight). Talk 3 changed the works plan; the reset puts apartment 12 back on Wednesday.
 - Run the full `demo/run_sheet_ru.md` script once, as at the meeting: your phone on speaker, Russian only.
+- Check the talk 1 points again (one greeting, the lines in words, the price at once, the phone read-back, Calendar and Telegram within 15 s, `el:metrics` ≤ 600 credits/min).
+- **Spot check** (slot taken): when she offers the slots, first ask for the time you booked in talk 1. She must not book it a second time and offers the free times; then pick one of them.
 - **Record it as the backup video** (screen recording with sound, or a second phone). The meeting falls back to this video if the link, the network or the credits fail. Save it offline on the meeting phone.
 
 ## LV text review (deferred to the LV polish; optional, no credits, about 15 min)
@@ -143,11 +153,12 @@
 - Report to Claude the key of each wrong line and the correct wording.
 
 ## Ear-check list (tick each one)
-- [ ] **Voice:** Elena Gromova sounds like a warm, lively office manager, not an audiobook reader. If not, or if she stumbles on Russian numbers or street names, Claude switches to the fallback Marusya G.
+- [ ] **Voice:** Anna ET (the Kodukliima voice, `eleven_v3_conversational`) sounds calm and natural, like the Kodukliima demo, not like AI. If not, or if she stumbles on Russian numbers or street names, Claude switches to the fallback Elena Gromova on `eleven_v4_turbo`.
+- [ ] One greeting only; «Алло, вы меня слышите?» at most once per silence, then quiet.
 - [ ] Every number read-back: 141, the phone in your groups, prices and dates.
 - [ ] Accent on street names: Ilūkstes, Parauga, Purvciems.
 - [ ] Anna does not talk over you on speaker, does not cut you off during «э-э-э…», and replies come fast (`el:metrics` median ≤ 1.8 s).
-- [ ] Short turns, usually one sentence; she varies her acknowledgements; after a correction she repeats the new value.
+- [ ] Short turns, usually one sentence; a calm, even voice with no jumps or «Отлично!»; she varies her acknowledgements; after a correction she repeats the new value.
 - [ ] The `invalid_reschedule` re-read of the options.
 - [ ] **No claim of her own after a fixed line or deflection.** After co-financing, warranty, instalments or the exact price she adds at most one offer (free inspection or callback) and nothing else: no «Наша цена одна и та же для всех», nothing about quality, speed or savings. Write down her exact words if she does.
 - [ ] *(LV polish)* «Esmu Anna, … asistente» and «Kurš jums ērtāk?» sound natural.

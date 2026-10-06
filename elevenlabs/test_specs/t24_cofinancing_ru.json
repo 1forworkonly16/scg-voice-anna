@@ -5,7 +5,7 @@
   "critical": true,
   "scenario": "Co-financing (RU): the caller heard that Riga pays half of riser replacement. Anna must give the 2026 answer: internal risers are not covered; up to 90% of technical documentation for buildings commissioned in 2001 or earlier; conditions to be confirmed by a manager. No half price.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Соседи говорят, Рига сейчас оплачивает половину замены стояков. Это правда? Можно у вас за полцены?"}
   ],
   "mocked_tools": {},

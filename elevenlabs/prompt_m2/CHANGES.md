@@ -3,6 +3,8 @@
 Diff base: `elevenlabs/prompt/system_prompt.md` (M1, 83 lines) → `elevenlabs/prompt_m2/system_prompt.md` (119 lines). Line numbers are M1 → M2. Every other line is byte-identical (no trailing newline, as in M1). Check with `diff elevenlabs/prompt/system_prompt.md elevenlabs/prompt_m2/system_prompt.md`.
 Aligned with WP12's final contract (`docs/tool_contract.md` L69-84, `src/contract/schemas.ts` L199-227, `src/copy/phrases_m2.ts`) in rework round 1.
 
+**2026-10-06, M1 rework round 2 mirrored into M2** (`docs/decisions.md` 2026-10-06): §2 greeting once (+ EN «Yes, I'm listening.»); §3 Kodukliima tone, no «!», grammar self-check, +371 phone rule, new «While you are speaking» subsection with the silence check-in (+ EN «Hello, can you hear me?») and `skip_turn`; §4 A price on any price question (price is now step 2, role step 3); §5 fixed fillers, M2 adds `create_ticket` «Минутку, записываю.» / «Mirklīti, pierakstu.» and `log_request` «Минутку, передаю.» / «Mirklīti, nododu.», EN always «One moment, please.»; goodbyes without «!» (also `presets_en.json`); §6 exact-price line «after the indicative price was given». `skip_turn` description added to `tool_descriptions_m2.json`. The M1 → M2 line numbers below predate this round; `diff` the two prompts for the current map.
+
 ## Changed or added lines
 | M1 → M2 | Section | Change | Scenario |
 |---|---|---|---|

@@ -5,7 +5,7 @@
   "critical": true,
   "scenario": "M1 scenario 1: quote_range returns an indicative range. Anna must relay say_ru word for word (ориентировочно, net and with VAT 21%, per apartment, exact price after the free inspection), then at most ask «Записать вас на осмотр?», without computing anything and without repeating that the inspection is free.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."},
     {"role": "agent", "message": "Подскажите, пожалуйста, адрес дома."},
     {"role": "user", "message": "Ilūkstes iela, шестнадцать."},
@@ -17,12 +17,12 @@
     {"role": "user", "message": "Да."}
   ],
   "mocked_tools": {
-    "quote_range": {"ok": true, "v": 1, "model_version": "MOCK", "low": {"net": 80000, "gross": 96000}, "high": {"net": 96000, "gross": 117000}, "per_apartment_gross": 740, "hint": "relay_then_offer_inspection", "say_ru": "Ориентировочно для вашего дома — от 80 000 до 96 000 евро без НДС, то есть от 96 000 до 117 000 евро с НДС 21%, примерно 740 евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.", "say_lv": "Orientējoši jūsu mājai — no 80 000 līdz 96 000 eiro bez PVN, tas ir no 96 000 līdz 117 000 eiro ar PVN 21%, aptuveni 740 eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas."}
+    "quote_range": {"ok": true, "v": 1, "model_version": "MOCK", "low": {"net": 72000, "gross": 87000}, "high": {"net": 112000, "gross": 135000}, "per_apartment_gross": 780, "hint": "relay_then_offer_inspection", "say_ru": "Ориентировочно для вашего дома — от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти семи до ста тридцати пяти тысяч с НДС двадцать один процент — это примерно семьсот восемьдесят евро на квартиру с НДС. Точную цену даст инженер после бесплатного осмотра.", "say_lv": "Orientējoši jūsu mājai — no 72 000 līdz 112 000 eiro bez PVN, tas ir no 87 000 līdz 135 000 eiro ar PVN 21%, aptuveni 780 eiro uz vienu dzīvokli ar PVN. Precīzu cenu noteiks inženieris pēc bezmaksas apsekošanas."}
   },
   "expect": {
     "tool": "quote_range",
-    "reply_must": ["Ориентировочно", "НДС", "бесплатного осмотра"],
-    "reply_must_not": ["за полцены", "в месяц", "рабочих дней", "рассрочк", "гарантир", "записаться на бесплатный осмотр"]
+    "reply_must": ["Ориентировочно", "семидесяти двух до ста двенадцати тысяч", "восьмидесяти семи до ста тридцати пяти тысяч", "семьсот восемьдесят", "НДС", "бесплатного осмотра"],
+    "reply_must_not": ["за полцены", "в месяц", "рабочих дней", "рассрочк", "гарантир", "записаться на бесплатный осмотр", "Вам нужна ориентировочная цена"]
   },
-  "success_condition": "The agent relays say_ru word for word: the tool's amounts exactly (80 000, 96 000, 117 000, 740) and no other euro amount, the price starting with «Ориентировочно», net and with VAT 21%, and that the exact price comes from the engineer after the free inspection. After that it adds at most the question «Записать вас на осмотр?» and does not repeat that the inspection is free. No monthly instalment, duration or discount is mentioned. Mock amounts are arbitrary fixtures."
+  "success_condition": "The agent relays say_ru word for word, numbers as words: «от семидесяти двух до ста двенадцати тысяч евро без НДС, или от восьмидесяти семи до ста тридцати пяти тысяч с НДС двадцать один процент — это примерно семьсот восемьдесят евро на квартиру с НДС», and no other euro amount; the price starts with «Ориентировочно», and the line ends with the exact price coming from the engineer after the free inspection. After that it adds at most the question «Записать вас на осмотр?» and does not repeat that the inspection is free. No monthly instalment, duration or discount is mentioned. Mock amounts are fixtures (the word line of the 2026-10-06 Worker); do not recompute them."
 }

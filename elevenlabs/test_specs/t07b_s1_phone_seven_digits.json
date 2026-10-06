@@ -5,7 +5,7 @@
   "critical": false,
   "scenario": "M1 scenario 1: the same call as t07, but the number the caller dictates has only 7 digits (as ASR heard it in live call 1). A Latvian number has 8 digits, so Anna must not read it back; she asks the caller to repeat it.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому на Ilūkstes iela 16, хочу записаться на бесплатный осмотр."},
     {"role": "agent", "message": "Нашла: Ilūkstes iela 16 — девять этажей, четыре подъезда. Верно?"},
     {"role": "user", "message": "Да, и квартир сто сорок четыре."},

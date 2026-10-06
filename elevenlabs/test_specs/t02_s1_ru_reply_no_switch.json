@@ -5,7 +5,7 @@
   "critical": true,
   "scenario": "M1 scenario 1, turn 1: the call opens in Russian, the default. A Russian-speaking house elder answers the greeting, says her role and asks about replacing risers. Anna must stay in Russian without any tool call and go straight to the address.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Здравствуйте. Я старшая по дому, хочу узнать про замену стояков."}
   ],
   "mocked_tools": {},

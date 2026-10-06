@@ -5,11 +5,11 @@
   "critical": false,
   "scenario": "M1 scenario 3: Anna has read the options from find_works_schedule; the resident chooses Friday afternoon. Anna must call reschedule_access with that option's date and window exactly, then relay the result without promising an SMS.",
   "chat_history": [
-    {"role": "agent", "message": "Здравствуйте! Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
     {"role": "user", "message": "Алло, это по ремонту труб? Меня в четверг дома не будет."},
     {"role": "agent", "message": "Понимаю, давайте посмотрим. Подскажите, пожалуйста, адрес и номер квартиры."},
     {"role": "user", "message": "Parauga iela, семь, квартира двенадцать."},
-    {"role": "agent", "message": "Секунду, проверяю. Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?", "tool_calls": [{"name": "find_works_schedule", "args": {"address": "Parauga iela 7", "apartment": "12"}, "result": {"ok": true, "v": 1, "building_id": "DEMO-parauga-7", "apartment": "12", "stairwell": "2", "options": [{"date": "2026-10-09", "window": "09-13", "label_ru": "пятница 9 октября, с 9 до 13"}, {"date": "2026-10-09", "window": "13-17", "label_ru": "пятница 9 октября, с 13 до 17"}, {"date": "2026-10-12", "window": "09-13", "label_ru": "понедельник 12 октября, с 9 до 13"}], "say_ru": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?"}}]},
+    {"role": "agent", "message": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?", "tool_calls": [{"name": "find_works_schedule", "args": {"address": "Parauga iela 7", "apartment": "12"}, "result": {"ok": true, "v": 1, "building_id": "DEMO-parauga-7", "apartment": "12", "stairwell": "2", "options": [{"date": "2026-10-09", "window": "09-13", "label_ru": "пятница 9 октября, с 9 до 13"}, {"date": "2026-10-09", "window": "13-17", "label_ru": "пятница 9 октября, с 13 до 17"}, {"date": "2026-10-12", "window": "09-13", "label_ru": "понедельник 12 октября, с 9 до 13"}], "say_ru": "Квартира 12, подъезд 2: работы у вас по графику — четверг 8 октября, с 9 до 13. Хотите перенести это время?"}}]},
     {"role": "user", "message": "Да, перенесите, пожалуйста."},
     {"role": "agent", "message": "Можно так: пятница 9 октября, с 9 до 13; пятница 9 октября, с 13 до 17; или понедельник 12 октября, с 9 до 13. Что вам подходит?"},
     {"role": "user", "message": "В пятницу после обеда."}
