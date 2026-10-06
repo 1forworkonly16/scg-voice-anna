@@ -14,10 +14,15 @@
   3. The M2 English phone question states its purpose («…about this request…»), for the criterion `contact_data_for_request_only`.
 
 ## User steps (numbering as in «Immediate Next Steps» of the earlier handoff; Claude cannot do these)
-- Step 1 (keys): done. All 8 env vars are present in the environment (names only were checked, 2026-10-06); a new session in the same environment inherits them.
-- Step 2 (network): **still open.** At the probe on 2026-10-06 around 21:50 Riga, all 4 hosts returned proxy 403 (CONNECT): `api.elevenlabs.io`, `api.cloudflare.com`, `scg-voice-demo.scg-voice-demo.workers.dev`, `api.telegram.org`.
-- Step 3 (GitHub): done.
-- Step 4: after saving the Network setting, start a new session in the same environment on `claude/stoic-rubin-fpy6pz` and say «Resume from the latest handoff».
+- Step 1 (keys): **reopened (probe 2026-10-06, later session).** All 8 env vars are present, but `ELEVENLABS_API_KEY` holds the key **ID** (64 chars, no `sk_` prefix): the API answers `api_key_id_used_as_api_key`. The user creates a new key in ElevenLabs (the `sk_…` value shows once; Agents write, Text to Speech, Voices read, User read) and puts it into `ELEVENLABS_API_KEY`. Env changes reach only a new session.
+- Step 2 (network): done. At the same probe all 4 hosts were reachable: `api.elevenlabs.io`, `api.cloudflare.com`, `scg-voice-demo.scg-voice-demo.workers.dev`, `api.telegram.org`.
+- Step 3 (GitHub): done; the branch is pushed and in sync.
+- Step 4: after the key swap, start a new session in the same environment on `claude/stoic-rubin-fpy6pz` and say «Resume from the latest handoff». WPV6 starts with `npm run el:credits` as the key check.
+
+## Probe notes (2026-10-06, read-only, 0 credits)
+- `CLOUDFLARE_API_TOKEN` is an **account-owned** token: `/user/tokens/verify` says "Invalid API Token" (expected), `/accounts/$CLOUDFLARE_ACCOUNT_ID/tokens/verify` says `active`. Not a fault.
+- Worker admin auth is the header `x-admin-key` (not Bearer). Live Worker `wp6-1`: `/admin/health` ok, all bindings configured.
+- Telegram `getMe` ok; `GOOGLE_SA_KEY_JSON` parses (client_email + private_key).
 
 ## Still to log in WPV6
 - The 2nd re-test call `conv_2301m48bf0dwfrwbcnhz4zbtfvcp`.
