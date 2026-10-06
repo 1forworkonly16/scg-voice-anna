@@ -1,0 +1,49 @@
+{
+  "label": "rework2c_2026-10-06",
+  "llm": "claude-haiku-4-5",
+  "repeat": 1,
+  "invocation": "suite_4801m48a2mb8fe7apwaqcee349m8",
+  "runs": [
+    {
+      "test_id": "test_1201m488fegmf87tn9sdq3jmnadj",
+      "test_name": "scg-t02c_s1_silence_checkin",
+      "status": "passed",
+      "result": "success",
+      "rationale": "The agent correctly identified the silence and responded with the required phrase 'Алло, вы меня слышите?' without any additional greetings or tool calls.",
+      "credits": 94,
+      "llm_price": 0.014316225,
+      "analysis": null,
+      "agent": [
+        {
+          "message": "Алло, вы меня слышите?",
+          "tools": []
+        }
+      ]
+    },
+    {
+      "test_id": "test_1001m488fepreqjb4zd3zksnb51q",
+      "test_name": "scg-t02d_s1_silence_after_checkin",
+      "status": "passed",
+      "result": "success",
+      "rationale": "Expected tool called",
+      "credits": 96,
+      "llm_price": 0.014590125000000002,
+      "analysis": null,
+      "agent": [
+        {
+          "message": null,
+          "tools": [
+            {
+              "name": "skip_turn",
+              "args": "{\"reason\": \"Caller is silent after check-in\"}"
+            }
+          ]
+        },
+        {
+          "message": null,
+          "tools": []
+        }
+      ]
+    }
+  ]
+}
