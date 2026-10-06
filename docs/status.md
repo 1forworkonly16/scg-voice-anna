@@ -32,13 +32,13 @@ Goal (`docs/decisions.md` 2026-10-06, «Goal: private video»): a private video 
 
 | WP | owner model | status | commit | notes |
 |---|---|---|---|---|
-| **Phase A** | | in progress | | |
+| **Phase A** | | done 2026-10-06 | | |
 | WPV0 Cloud setup | Sonnet | accepted 2026-10-06 | 2ccaa0f | `scripts/el/run.mjs` (el:*/link:* on Windows and Linux), LF-safe parity hash, `npm run test:cloud` (492 + 111 green), pushes only to `claude/*` |
-| WPV1 Decisions + docs | Opus | in progress | - | the 12 decisions of 2026-10-06; `CLAUDE.md` rule 5 + «Cloud session (Linux)»; consent leftovers in docs and demo |
-| WPV2 Hearing + robustness prompt/tests | Opus | in progress | - | incl. the prompt rule for a talked-over greeting («Greeting interruptible») |
-| WPV3 Worker + contract | Sonnet | in progress | - | `TOOLS_ENABLED` with the 7 M1 tools («M2 deploy guard») |
-| WPV4 Diagnosis + audition tools | Sonnet | in progress | - | |
-| VA Phase A verification | Opus | in progress | - | |
+| WPV1 Decisions + docs | Opus | accepted 2026-10-06 | 962cecc | the 12 decisions of 2026-10-06; `CLAUDE.md` rule 5 + «Cloud session (Linux)»; consent leftovers in docs and demo |
+| WPV2 Hearing + robustness prompt/tests | Opus | accepted 2026-10-06 | f125e55 | incl. the prompt rule for a talked-over greeting («Greeting interruptible»); §3 Hearing, §4 A/B robustness, §5 repeat exception, §6 price-objection line, mirrored in `prompt_m2`; specs t40-t63 (24 new, 12 critical); copy-lint 0, `tests.ts dry` 58/58. Advisory: t51 history passes `caller_role` other for «старшая по дому» (board_member elsewhere); new LV lines need native review |
+| WPV3 Worker + contract | Sonnet | accepted 2026-10-06 | f4b286f | `TOOLS_ENABLED` with the 7 M1 tools («M2 deploy guard»); `name` optional in `book_inspection` («—»); `invalid_phone` hint; `RU_STREET_SPOKEN` latin (default, `say_ru` only); `docs/tool_contract.md` 20 phrase keys. Advisory: RU street forms (Курземский проспект; ņu/ļu as «ню/лю», not «ньу»); `get_slots` date_from/date_to descriptions still invite dates |
+| WPV4 Diagnosis + audition tools | Sonnet | accepted 2026-10-06 | 287765f | `scripts/el/hearing.ts` (hearing report per call), `scripts/el/voice-audition.ts` (`--dry` offline: 36 renders, ~1,134 credits estimated) |
+| VA Phase A verification | Opus | done 2026-10-06 | see git log | test:cloud 579 + 146 green, tsc clean, scan:secrets 0, dry-run OK (`TOOLS_ENABLED`, `RU_STREET_SPOKEN` "latin"), `el:credits` fails cleanly without a key, all offline; HEAD + WPV3 alone also green (578 + 145); `info-hash` N/A in the cloud (no `../info/`); 0 credits |
 | **Phase B** | | todo | | |
 | WPV6 Baseline + audition | Sonnet + user | todo | - | RU voice audition; the user picks by ear («Voice audition») |
 | WPV7 Release | Sonnet | todo | - | HEAD live; greeting interruptible, turn-taking and ASR for the video, call cap 600 s |
