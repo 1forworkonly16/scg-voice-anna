@@ -17,6 +17,10 @@ export interface Env {
   ELEVENLABS_AGENT_ID: string;
   /** digits (default) | words | grouped: how prices are written into say_*. */
   NUMBER_MODE?: string;
+  /** Comma-separated names of the tools that may be called. Unset or empty: every tool. Live keeps the M2 tools (create_ticket, log_request) off until WP13. */
+  TOOLS_ENABLED?: string;
+  /** latin (default) | cyrillic: with cyrillic, say_ru speaks street addresses as Russian words; say_lv, Sheet, Calendar and Telegram keep the Latin address. */
+  RU_STREET_SPOKEN?: string;
 }
 
 export interface Limits {

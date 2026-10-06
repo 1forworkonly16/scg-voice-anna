@@ -14,7 +14,13 @@
     "TELEGRAM_CHAT_ID": "-5579985990",
     "TELEGRAM_TEST_CHAT_ID": "1010766038",
     "ELEVENLABS_AGENT_ID": "agent_4801m41cmf0ge7er75wzv5nj3pn1",
-    "NUMBER_MODE": "digits"
+    "NUMBER_MODE": "digits",
+    // Tools the agent may call (comma list). The M2 tools create_ticket and log_request stay OFF live until WP13 wires them into the agent
+    // (then add them here). A tool that is not listed is answered like an unknown tool name. Unset or empty = every tool.
+    "TOOLS_ENABLED": "lookup_building,quote_range,get_slots,book_inspection,find_works_schedule,reschedule_access,request_callback",
+    // How say_ru writes a street address: latin = «Ilūkstes iela 16» (as in the Sheet) | cyrillic = «улица Илукстес, дом шестнадцать».
+    // say_lv, the Sheet, the Calendar and Telegram always keep the Latin address. Phase B may flip it after the voice audition.
+    "RU_STREET_SPOKEN": "latin"
   },
 
   // UTC. 15:00 Mon-Fri = 17:00/18:00 Riga: daily digest. 04:00 daily = 06:00/07:00 Riga: roll the demo Works dates forward.

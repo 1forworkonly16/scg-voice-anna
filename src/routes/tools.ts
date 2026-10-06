@@ -1,4 +1,5 @@
-// POST /tools/<name>: auth (x-scg-key, constant time), zod validation, handler dispatch, 6 s deadline, always HTTP 200 except a bad key (401).
+// POST /tools/<name>: auth (x-scg-key, constant time), tool switch (TOOLS_ENABLED), zod validation, handler dispatch, 6 s deadline,
+// always HTTP 200 except a bad key (401).
 import { TOOLS, TOOL_NAMES, type ToolName } from "../contract";
 import { say, fail, sayGeneric, type Body } from "./envelope";
 import {
@@ -11,7 +12,7 @@ import {
   rescheduleAccess,
 } from "./handlers";
 import { createTicket, logRequest } from "./handlers_m2";
-import type { Channel, Deps } from "./types";
+import type { Channel, Deps, Env } from "./types";
 import { TimeoutError, cleanSecret, json, safeEqual, withTimeout } from "./util";
 
 const MAX_BODY = 50_000;
@@ -28,6 +29,16 @@ const HANDLERS: { [N in ToolName]: (c: { deps: Deps; channel: Channel }, input: 
   create_ticket: createTicket as never,
   log_request: logRequest as never,
 };
+
+/**
+ * Tool names switched on by the TOOLS_ENABLED var (comma list, spaces around a name ignored). null = no restriction: the var is unset,
+ * empty or holds no name at all (so a stray comma can never switch every tool off).
+ */
+export function enabledTools(env: Pick<Env, "TOOLS_ENABLED">): ReadonlySet<string> | null {
+  const raw = typeof env.TOOLS_ENABLED === "string" ? env.TOOLS_ENABLED : "";
+  const names = raw.split(",").map((n) => n.trim()).filter(Boolean);
+  return names.length ? new Set(names) : null;
+}
 
 /** Which channel does this key belong to? null = not a valid key. */
 export async function channelOfKey(deps: Deps, key: string | null): Promise<Channel | null> {
@@ -50,9 +61,13 @@ export async function handleToolRequest(req: Request, name: string, deps: Deps):
   if (!channel) return json({ ok: false, error: "unauthorized" }, 401);
 
   const started = Date.now();
-  const log = (fields: Record<string, unknown>) => console.log(JSON.stringify({ evt: "tool", tool: name, channel, ms: Date.now() - started, ...fields }));
+  const log = (fields: Record<string, unknown>) => console.log(JSON.stringify({ evt: "tool", tool: name.slice(0, 64), channel, ms: Date.now() - started, ...fields }));
 
-  if (!(TOOL_NAMES as string[]).includes(name)) {
+  // A tool that is switched off (TOOLS_ENABLED) gets exactly the answer of a name that does not exist; only the log tells them apart.
+  const known = (TOOL_NAMES as string[]).includes(name);
+  const enabled = enabledTools(deps.env);
+  if (!known || (enabled && !enabled.has(name))) {
+    log({ ok: false, code: "invalid_input", why: known ? "tool_disabled" : "unknown_tool" });
     return json(fail("invalid_input", sayGeneric(), "Unknown tool name.", {}, "unknown tool"));
   }
   const tool = name as ToolName;

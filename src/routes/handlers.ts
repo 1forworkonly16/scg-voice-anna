@@ -33,6 +33,7 @@ import {
   windowLabel,
   windowSpokenRu,
 } from "../lib/speech";
+import { addressSpokenRu, streetSpokenMode, streetSpokenRu } from "../lib/street_ru";
 import { rigaLocalToUtc, rigaYmd, toRigaIso, type Lang } from "../lib/time";
 import type { NumberMode } from "../lib/words";
 import {
@@ -75,6 +76,13 @@ function numberMode(deps: Deps): NumberMode {
   return m === "words" || m === "grouped" ? m : "digits";
 }
 
+/**
+ * RU_STREET_SPOKEN=cyrillic: say_ru speaks a street address as Russian words («улица Илукстес, дом шестнадцать», lib/street_ru.ts).
+ * Only the say_ru placeholders go through these two; say_lv, the Sheet, the Calendar, Telegram and the structured fields keep the Latin address.
+ */
+const ruAddress = (deps: Deps, address: string): string => (streetSpokenMode(deps.env.RU_STREET_SPOKEN) === "cyrillic" ? addressSpokenRu(address) : address);
+const ruStreet = (deps: Deps, street: string): string => (streetSpokenMode(deps.env.RU_STREET_SPOKEN) === "cyrillic" ? streetSpokenRu(street) : street);
+
 let indexCache: AddressIndex<AddressEntry> | null = null;
 export function addressIndex(): AddressIndex<AddressEntry> {
   indexCache ??= buildAddressIndex(loadSearchIndex(searchRaw));
@@ -94,6 +102,12 @@ const asRecord = (e: AddressEntry): BuildingRecord => e as unknown as BuildingRe
  * Since 2026-10-06 it is the caller's own request (GDPR Art. 6(1)(b)); Anna asks no consent question. A lawyer confirms before the pilot.
  */
 const CONTACT_BASIS = "request";
+
+/** What the Leads row, the Telegram text and the Calendar description show when the caller gave no name (the name is optional in book_inspection). */
+const NAME_NOT_GIVEN = "—";
+
+/** Hint for the agent after a phone number that does not parse (book_inspection, request_callback). */
+const INVALID_PHONE_HINT = "Ask the caller to repeat the phone number, check the 8 digits, then read it back in the caller's groups.";
 
 /** Google failures: the calendar-flavoured tools tell the caller the calendar is down; others a generic hiccup. */
 export function googleFailure(e: unknown, calendar: boolean): Body {
@@ -131,19 +145,19 @@ export async function lookupBuilding(c: Ctx, input: ToolInput<"lookup_building">
     const factsRu = buildingFacts(b, "ru", mode);
     const factsLv = buildingFacts(b, "lv", mode);
     if (factsRu && factsLv) {
-      return ok(say("building_found", { ru: { address: b.address, facts: factsRu }, lv: { address: b.address, facts: factsLv } }), "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", fields);
+      return ok(say("building_found", { ru: { address: ruAddress(c.deps, b.address), facts: factsRu }, lv: { address: b.address, facts: factsLv } }), "Say the sentence and wait for the caller to confirm the address. Speak only the facts in it.", fields);
     }
-    return ok(say("building_confirm", { ru: { address: b.address }, lv: { address: b.address } }), "The building is known but has no facts that may be spoken: confirm the address, then ask floors, stairwells and apartments.", fields);
+    return ok(say("building_confirm", { ru: { address: ruAddress(c.deps, b.address) }, lv: { address: b.address } }), "The building is known but has no facts that may be spoken: confirm the address, then ask floors, stairwells and apartments.", fields);
   }
   if (r.status === "confirm") {
     const list = b ? [b] : candidates;
-    const ru = list.map((x) => x.address).join(" или ");
+    const ru = list.map((x) => ruAddress(c.deps, x.address)).join(" или ");
     const lv = list.map((x) => x.address).join(" vai ");
     return ok(say("building_confirm", { ru: { address: ru }, lv: { address: lv } }), "Ask the caller to confirm which address is meant. If the caller corrects it, call lookup_building again.", fields);
   }
   if (r.status === "need_house") {
     const street = r.street ?? "";
-    return ok(say("building_need_house", { ru: { street }, lv: { street } }), "Ask for the house number, then call lookup_building again with the full address.", fields);
+    return ok(say("building_need_house", { ru: { street: ruStreet(c.deps, street) }, lv: { street } }), "Ask for the house number, then call lookup_building again with the full address.", fields);
   }
   return ok(say("building_not_found", { ru: {}, lv: {} }), "The address is not in the list. Ask floors, stairwells and approximate apartments; do not invent building facts.", fields);
 }
@@ -232,7 +246,9 @@ function eventTexts(p: { isTest: boolean; address: string; floors: number; stair
 export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">): Promise<Body> {
   const { deps } = c;
   const phone = normalizePhone(input.phone);
-  if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), "Ask the caller to repeat the phone number digit by digit, then call again.");
+  if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), INVALID_PHONE_HINT);
+  const callerName = input.name?.trim() || undefined; // empty or blank = the caller gave none
+  const nameText = callerName ?? NAME_NOT_GIVEN;
 
   const now = deps.now();
   let busy: BusyInterval[];
@@ -244,7 +260,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
   }
   const eventId = await inspectionEventId(input.conversation_id);
   const bookingId = `B-${eventId.slice(0, 8).toUpperCase()}`;
-  const isTest = isTestMarker(input.conversation_id, input.name);
+  const isTest = isTestMarker(input.conversation_id, callerName);
   const entry = entryById(input.building_id);
   const address = entry ? displayAddress(asRecord(entry)) : input.address_spoken.trim();
 
@@ -258,7 +274,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
     try {
       const existing = await getEvent(deps, eventId);
       if (existing && existing.status !== "cancelled" && sameInstant(existing.start?.dateTime, input.slot_start)) {
-        return bookedOk(bookingId, slotFromIso(input.slot_start), address, true);
+        return bookedOk(deps, bookingId, slotFromIso(input.slot_start), address, true);
       }
     } catch (e) {
       return googleFailure(e, true);
@@ -276,7 +292,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
   const roleRu = ROLE_RU[input.caller_role] ?? input.caller_role;
   const texts = eventTexts({
     isTest, address, floors: input.floors, stairwells: input.stairwells, apartments: input.apartments, roleRu,
-    name: input.name, phone, notes: input.notes, unknown, priceTextRu: price?.text ?? null, id: bookingId, slotRu: slot.text_ru,
+    name: nameText, phone, notes: input.notes, unknown, priceTextRu: price?.text ?? null, id: bookingId, slotRu: slot.text_ru,
   });
   const body: EventBody = { ...texts, startIso: slot.start, endIso: slot.end, conversationId: input.conversation_id, leadId: bookingId, isTest };
 
@@ -287,7 +303,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
       const existing = await getEvent(deps, eventId);
       if (!existing) return googleFailure(new GoogleError("http", "event vanished after 409"), true);
       if (existing.status !== "cancelled" && sameInstant(existing.start?.dateTime, slot.start)) {
-        return bookedOk(bookingId, slotOut(slot), address, true); // same slot: return the existing booking
+        return bookedOk(deps, bookingId, slotOut(slot), address, true); // same slot: return the existing booking
       }
       // different slot: the slot was re-checked above (freeBusy) -> move the event
       const wasMs = existing.start?.dateTime ? Date.parse(existing.start.dateTime) : NaN;
@@ -302,7 +318,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
   // Telegram (+ the Leads row for a new booking) after the answer
   const msg = bookingMessage({
     id: bookingId, isTest, address, floors: input.floors, stairwells: input.stairwells, apartments: input.apartments, roleRu,
-    slotRu: slot.text_ru, name: input.name, phone, notes: input.notes, price, unknown, movedFromRu,
+    slotRu: slot.text_ru, name: nameText, phone, notes: input.notes, price, unknown, movedFromRu,
   });
   const jobs: Promise<unknown>[] = [sendTelegram(deps, msg, isTest)];
   if (!movedFromRu) {
@@ -313,7 +329,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
         rowOf("Leads", {
           timestamp: now.toISOString(), channel: c.channel, language: input.language, role: roleRu, address, building_id: input.building_id ?? "",
           floors: input.floors, apartments: input.apartments, stairwells: input.stairwells, scope: input.scope ?? "risers_complete",
-          price_range: price?.short ?? "", name: input.name, phone, consent: CONTACT_BASIS, booked_slot: `${slot.date} ${slot.hm}`,
+          price_range: price?.short ?? "", name: nameText, phone, consent: CONTACT_BASIS, booked_slot: `${slot.date} ${slot.hm}`,
           status: "inspection_booked", notes: input.notes ?? "", lead_id: bookingId, conversation_id: input.conversation_id,
           calendar_event_id: eventId, unknown_questions: unknown.join(" | "), is_test: isTest ? "TRUE" : "",
         }),
@@ -321,11 +337,11 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
     );
   }
   deps.waitUntil(Promise.allSettled(jobs));
-  return bookedOk(bookingId, slotOut(slot), address, false);
+  return bookedOk(deps, bookingId, slotOut(slot), address, false);
 }
 
-function bookedOk(bookingId: string, slot: Slot, address: string, replayed: boolean): Body {
-  const s = say("booking_ok", { ru: { slot: slot.label_ru, address }, lv: { slot: slot.label_lv, address } });
+function bookedOk(deps: Deps, bookingId: string, slot: Slot, address: string, replayed: boolean): Body {
+  const s = say("booking_ok", { ru: { slot: slot.label_ru, address: ruAddress(deps, address) }, lv: { slot: slot.label_lv, address } });
   return ok(s, "Read the sentence. Confirm to the caller only because ok is true; the read-back time is the confirmation. Then end politely.", { booking_id: bookingId, slot, address, replayed });
 }
 
@@ -427,7 +443,7 @@ export async function rescheduleAccess(c: Ctx, input: ToolInput<"reschedule_acce
 export async function requestCallback(c: Ctx, input: ToolInput<"request_callback">): Promise<Body> {
   const { deps } = c;
   const phone = normalizePhone(input.phone);
-  if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), "Ask the caller to repeat the phone number digit by digit, then call again.");
+  if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), INVALID_PHONE_HINT);
   const now = deps.now();
   const isTest = isTestMarker(input.conversation_id, input.name);
   const id = `C-${(await sha256Hex(`${input.conversation_id}|callback|${input.reason}`)).slice(0, 6).toUpperCase()}`;

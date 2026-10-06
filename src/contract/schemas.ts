@@ -137,7 +137,7 @@ export const bookInspectionInput = z.object({
   stairwells,
   apartments,
   caller_role: z.enum(CALLER_ROLES).describe("Who is calling: owner, manager, board_member, tenant or other."),
-  name: z.string().min(1).max(100).describe("Caller's name for the booking."),
+  name: z.string().max(100).optional().describe("Caller's name, if they gave one; omit it if the caller did not want to say it."),
   phone,
   building_id: z.string().max(100).optional().describe("Building id from lookup_building, if it was found."),
   scope: z.enum(SCOPES).optional().describe("Work scope the caller is interested in, if discussed."),
@@ -247,7 +247,7 @@ export const TOOLS = {
     output: getSlotsOutput,
   },
   book_inspection: {
-    description: "Book the free inspection after the caller chose a slot and gave name and phone. Confirm to the caller only when ok is true.",
+    description: "Book the free inspection after the caller chose a slot and gave the phone (and the name, if they gave one). Confirm to the caller only when ok is true.",
     timeoutSecs: 10,
     input: bookInspectionInput,
     output: bookInspectionOutput,

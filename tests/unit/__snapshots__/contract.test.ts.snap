@@ -249,7 +249,7 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
             "type": "string",
           },
           "name": {
-            "description": "Caller's name for the booking.",
+            "description": "Caller's name, if they gave one; omit it if the caller did not want to say it.",
             "type": "string",
           },
           "notes": {
@@ -296,7 +296,6 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
           "stairwells",
           "apartments",
           "caller_role",
-          "name",
           "phone",
         ],
         "type": "object",
@@ -308,7 +307,7 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
       },
       "url": "{base_url}/tools/book_inspection",
     },
-    "description": "Book the free inspection after the caller chose a slot and gave name and phone. Confirm to the caller only when ok is true.",
+    "description": "Book the free inspection after the caller chose a slot and gave the phone (and the name, if they gave one). Confirm to the caller only when ok is true.",
     "name": "book_inspection",
     "response_timeout_secs": 10,
   },

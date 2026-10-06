@@ -35,17 +35,27 @@ describe("contract: inputs", () => {
     expect(TOOLS.get_slots.input.safeParse({ ...base, weekday: "sat" }).success).toBe(false);
     expect(TOOLS.get_slots.input.safeParse({ ...base, date_from: "5.10.2026" }).success).toBe(false);
   });
-  it("book_inspection: required set", () => {
+  it("book_inspection: required set (the name is optional)", () => {
     const ok = {
       ...base, slot_start: "2026-10-05T10:00:00+03:00", address_spoken: "Илукстес 16", floors: 9, stairwells: 4, apartments: 144,
       caller_role: "owner", name: "Иван", phone: "+371 22848144",
     };
     expect(TOOLS.book_inspection.input.safeParse(ok).success).toBe(true);
-    for (const k of ["slot_start", "address_spoken", "floors", "stairwells", "apartments", "caller_role", "name", "phone"]) {
+    for (const k of ["slot_start", "address_spoken", "floors", "stairwells", "apartments", "caller_role", "phone"]) {
       const { [k]: _omit, ...rest } = ok as Record<string, unknown>;
       expect(TOOLS.book_inspection.input.safeParse(rest).success, k).toBe(false);
     }
     expect(TOOLS.book_inspection.input.safeParse({ ...ok, unknown_questions: ["a", "b", "c", "d", "e", "f"] }).success).toBe(false);
+  });
+  it("book_inspection: name is optional (omitted, empty and blank pass), at most 100 characters", () => {
+    const ok = {
+      ...base, slot_start: "2026-10-05T10:00:00+03:00", address_spoken: "Илукстес 16", floors: 9, stairwells: 4, apartments: 144,
+      caller_role: "owner", phone: "+371 22848144",
+    };
+    expect(TOOLS.book_inspection.input.safeParse(ok).success).toBe(true); // no name at all
+    for (const name of ["", "   ", "Иван", "я".repeat(100)]) expect(TOOLS.book_inspection.input.safeParse({ ...ok, name }).success, `${name.length} chars`).toBe(true);
+    expect(TOOLS.book_inspection.input.safeParse({ ...ok, name: "я".repeat(101) }).success).toBe(false);
+    expect(TOOLS.book_inspection.input.safeParse({ ...ok, name: 5 }).success).toBe(false);
   });
   it("works and callback inputs", () => {
     expect(TOOLS.find_works_schedule.input.safeParse({ ...base, apartment: 12, building_id: "b" }).success).toBe(true);
@@ -113,6 +123,15 @@ describe("toElevenLabsTool", () => {
     }
     expect(toElevenLabsTool("book_inspection").description).not.toMatch(/consent/i);
     expect(toElevenLabsTool("request_callback").description).not.toMatch(/consent/i);
+  });
+  it("book_inspection: the name is optional in the tool JSON; the phone stays required", () => {
+    const t = toElevenLabsTool("book_inspection");
+    const s = t.api_schema.request_body_schema;
+    expect(Object.keys(s.properties)).toContain("name");
+    expect(s.required).not.toContain("name");
+    expect(s.required).toContain("phone");
+    expect(s.properties.name!.description).toBe("Caller's name, if they gave one; omit it if the caller did not want to say it.");
+    expect(t.description).toBe("Book the free inspection after the caller chose a slot and gave the phone (and the name, if they gave one). Confirm to the caller only when ok is true.");
   });
   it("timeouts: 10 s for booking, 8 s otherwise", () => {
     expect(toElevenLabsTool("book_inspection").response_timeout_secs).toBe(10);
