@@ -38,10 +38,10 @@ describe("contract: inputs", () => {
   it("book_inspection: required set", () => {
     const ok = {
       ...base, slot_start: "2026-10-05T10:00:00+03:00", address_spoken: "Илукстес 16", floors: 9, stairwells: 4, apartments: 144,
-      caller_role: "owner", name: "Иван", phone: "+371 22848144", consent: true,
+      caller_role: "owner", name: "Иван", phone: "+371 22848144",
     };
     expect(TOOLS.book_inspection.input.safeParse(ok).success).toBe(true);
-    for (const k of ["slot_start", "address_spoken", "floors", "stairwells", "apartments", "caller_role", "name", "phone", "consent"]) {
+    for (const k of ["slot_start", "address_spoken", "floors", "stairwells", "apartments", "caller_role", "name", "phone"]) {
       const { [k]: _omit, ...rest } = ok as Record<string, unknown>;
       expect(TOOLS.book_inspection.input.safeParse(rest).success, k).toBe(false);
     }
@@ -51,7 +51,13 @@ describe("contract: inputs", () => {
     expect(TOOLS.find_works_schedule.input.safeParse({ ...base, apartment: 12, building_id: "b" }).success).toBe(true);
     expect(TOOLS.reschedule_access.input.safeParse({ ...base, building_id: "b", apartment: 12, new_date: "2026-10-08", new_window: "09:00-13:00" }).success).toBe(true);
     expect(TOOLS.reschedule_access.input.safeParse({ ...base, building_id: "b", apartment: 12, new_date: "2026-10-08", new_window: "10:00-11:00" }).success).toBe(false);
-    expect(TOOLS.request_callback.input.safeParse({ ...base, reason: "human_requested", summary_ru: "Хочет с человеком", phone: "22848144", consent: true }).success).toBe(true);
+    expect(TOOLS.request_callback.input.safeParse({ ...base, reason: "human_requested", summary_ru: "Хочет с человеком", phone: "22848144" }).success).toBe(true);
+  });
+  it("no consent field (decision 2026-10-06); a stale consent from the old tool definition is stripped, never required", () => {
+    expect(Object.keys(TOOLS.book_inspection.input.shape)).not.toContain("consent");
+    expect(Object.keys(TOOLS.request_callback.input.shape)).not.toContain("consent");
+    const cb = TOOLS.request_callback.input.parse({ ...base, reason: "x", summary_ru: "y", phone: "22848144", consent: false });
+    expect(cb).not.toHaveProperty("consent");
   });
 });
 
@@ -69,8 +75,10 @@ describe("contract: responses (envelope)", () => {
     expect(ErrorResponseSchema.safeParse({ ok: false, ...env, error: { code: "slot_taken" }, alternatives: [slot, slot] }).success).toBe(true);
     expect(ErrorResponseSchema.safeParse({ ok: false, ...env, error: { code: "slot_taken" }, alternatives: [slot, slot, slot] }).success).toBe(false);
   });
-  it("error codes from the plan are present", () => {
+  it("error codes from the plan are present; consent_required is gone", () => {
     for (const c of ["slot_taken", "invalid_slot", "invalid_phone", "calendar_down"]) expect(ERROR_CODES).toContain(c);
+    expect(ERROR_CODES).not.toContain("consent_required");
+    expect(ErrorResponseSchema.safeParse({ ok: false, ...env, error: { code: "consent_required" } }).success).toBe(false);
   });
   it("quote_range output carries only the rounded figures plus the raw range, never instalments or days", () => {
     const keys = Object.keys(TOOLS.quote_range.output.shape);
@@ -95,6 +103,16 @@ describe("toElevenLabsTool", () => {
     const t = toElevenLabsTool("get_slots", { baseUrl: "https://w.example.workers.dev/", secretId: "sec_1" });
     expect(t.api_schema.url).toBe("https://w.example.workers.dev/tools/get_slots");
     expect(t.api_schema.request_headers["x-scg-key"]).toEqual({ secret_id: "sec_1" });
+  });
+  it("book_inspection and request_callback carry no consent parameter", () => {
+    for (const n of ["book_inspection", "request_callback"] as const) {
+      const s = toElevenLabsTool(n).api_schema.request_body_schema;
+      expect(Object.keys(s.properties), n).not.toContain("consent");
+      expect(s.required, n).not.toContain("consent");
+      expect(s.required, n).toContain("phone");
+    }
+    expect(toElevenLabsTool("book_inspection").description).not.toMatch(/consent/i);
+    expect(toElevenLabsTool("request_callback").description).not.toMatch(/consent/i);
   });
   it("timeouts: 10 s for booking, 8 s otherwise", () => {
     expect(toElevenLabsTool("book_inspection").response_timeout_secs).toBe(10);

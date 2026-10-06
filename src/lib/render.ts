@@ -24,7 +24,6 @@ export const PHRASE_SPEC = {
   callback_ok: [],
   tool_error_generic: [],
   unknown_question: [],
-  consent_required: [],
   invalid_reschedule: [],
   slots_offer_two: ["slot1", "slot2"],
   slots_offer_one: ["slot1"],

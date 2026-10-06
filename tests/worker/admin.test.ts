@@ -75,7 +75,7 @@ describe("digest from real rows only", () => {
     const h = await harness();
     await h.call("book_inspection", bookingBody("real-1"));
     await h.call("book_inspection", bookingBody("[TEST]-2", { slot_start: "2026-10-07T10:00:00+03:00" }));
-    await h.call("request_callback", { ...base("real-3"), reason: "x", summary_ru: "y", phone: "29327275", consent: true });
+    await h.call("request_callback", { ...base("real-3"), reason: "x", summary_ru: "y", phone: "29327275" });
     await h.flush();
     h.world.tabs.Calls.push(["2026-10-05T05:00:00.000Z", "c1", "a", "ru", 60, "done", "success", "s", "{}", "{}", ""]); // 08:00 Riga: outside office hours
     h.world.tabs.Calls.push([NOW.toISOString(), "c2", "a", "ru", 60, "done", "success", "s", "{}", "{}", ""]);
@@ -128,7 +128,7 @@ describe("test cleanup", () => {
     const h = await harness();
     await h.call("book_inspection", bookingBody("real-1"));
     await h.call("book_inspection", bookingBody("[TEST]-9", { slot_start: "2026-10-07T10:00:00+03:00" }));
-    await h.call("request_callback", { ...base("[TEST]-9"), reason: "x", summary_ru: "y", phone: "29327275", consent: true });
+    await h.call("request_callback", { ...base("[TEST]-9"), reason: "x", summary_ru: "y", phone: "29327275" });
     await h.flush();
     expect(h.world.events.size).toBe(2);
     const res = await admin(h, "/admin/test/cleanup");

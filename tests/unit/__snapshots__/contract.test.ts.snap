@@ -230,10 +230,6 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
             ],
             "type": "string",
           },
-          "consent": {
-            "description": "true only after the caller has clearly agreed that SCG stores the contact details and calls back.",
-            "type": "boolean",
-          },
           "conversation_id": {
             "description": "Conversation id. Filled automatically by the platform; never ask the caller.",
             "dynamic_variable": "system__conversation_id",
@@ -302,7 +298,6 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
           "caller_role",
           "name",
           "phone",
-          "consent",
         ],
         "type": "object",
       },
@@ -313,7 +308,7 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
       },
       "url": "{base_url}/tools/book_inspection",
     },
-    "description": "Book the free inspection after the caller chose a slot and gave name, phone and consent. Confirm to the caller only when ok is true.",
+    "description": "Book the free inspection after the caller chose a slot and gave name and phone. Confirm to the caller only when ok is true.",
     "name": "book_inspection",
     "response_timeout_secs": 10,
   },
@@ -439,10 +434,6 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
       "request_body_schema": {
         "description": "Request body of request_callback.",
         "properties": {
-          "consent": {
-            "description": "true only after the caller has clearly agreed that SCG stores the contact details and calls back.",
-            "type": "boolean",
-          },
           "conversation_id": {
             "description": "Conversation id. Filled automatically by the platform; never ask the caller.",
             "dynamic_variable": "system__conversation_id",
@@ -480,7 +471,6 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
           "reason",
           "summary_ru",
           "phone",
-          "consent",
         ],
         "type": "object",
       },
@@ -491,7 +481,7 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
       },
       "url": "{base_url}/tools/request_callback",
     },
-    "description": "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs phone and consent. Call it right after the caller confirmed the phone and consented; never ask for a name.",
+    "description": "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs the phone. Call it right after the caller confirmed the phone; never ask for a name.",
     "name": "request_callback",
     "response_timeout_secs": 8,
   },

@@ -89,6 +89,12 @@ function entryById(id: string | undefined): AddressEntry | undefined {
 
 const asRecord = (e: AddressEntry): BuildingRecord => e as unknown as BuildingRecord;
 
+/**
+ * Value of the `consent` column in Leads and Callbacks: the legal basis for storing the name and phone, no longer a yes/no.
+ * Since 2026-10-06 it is the caller's own request (GDPR Art. 6(1)(b)); Anna asks no consent question. A lawyer confirms before the pilot.
+ */
+const CONTACT_BASIS = "request";
+
 /** Google failures: the calendar-flavoured tools tell the caller the calendar is down; others a generic hiccup. */
 export function googleFailure(e: unknown, calendar: boolean): Body {
   const kind = e instanceof GoogleError ? e.kind : "network";
@@ -225,9 +231,6 @@ function eventTexts(p: { isTest: boolean; address: string; floors: number; stair
 
 export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">): Promise<Body> {
   const { deps } = c;
-  if (input.consent !== true) {
-    return fail("consent_required", say("consent_required", { ru: {}, lv: {} }), "Ask for consent to store the contact details; call again with consent true only after a clear yes.");
-  }
   const phone = normalizePhone(input.phone);
   if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), "Ask the caller to repeat the phone number digit by digit, then call again.");
 
@@ -310,7 +313,7 @@ export async function bookInspection(c: Ctx, input: ToolInput<"book_inspection">
         rowOf("Leads", {
           timestamp: now.toISOString(), channel: c.channel, language: input.language, role: roleRu, address, building_id: input.building_id ?? "",
           floors: input.floors, apartments: input.apartments, stairwells: input.stairwells, scope: input.scope ?? "risers_complete",
-          price_range: price?.short ?? "", name: input.name, phone, consent: true, booked_slot: `${slot.date} ${slot.hm}`,
+          price_range: price?.short ?? "", name: input.name, phone, consent: CONTACT_BASIS, booked_slot: `${slot.date} ${slot.hm}`,
           status: "inspection_booked", notes: input.notes ?? "", lead_id: bookingId, conversation_id: input.conversation_id,
           calendar_event_id: eventId, unknown_questions: unknown.join(" | "), is_test: isTest ? "TRUE" : "",
         }),
@@ -423,7 +426,6 @@ export async function rescheduleAccess(c: Ctx, input: ToolInput<"reschedule_acce
 
 export async function requestCallback(c: Ctx, input: ToolInput<"request_callback">): Promise<Body> {
   const { deps } = c;
-  if (input.consent !== true) return fail("consent_required", say("consent_required", { ru: {}, lv: {} }), "Ask for consent to store the phone number; call again with consent true only after a clear yes.");
   const phone = normalizePhone(input.phone);
   if (!phone) return fail("invalid_phone", say("invalid_phone", { ru: {}, lv: {} }), "Ask the caller to repeat the phone number digit by digit, then call again.");
   const now = deps.now();
@@ -433,7 +435,7 @@ export async function requestCallback(c: Ctx, input: ToolInput<"request_callback
   const [sheet, tg] = await Promise.allSettled([
     appendRow(deps, "Callbacks", rowOf("Callbacks", {
       timestamp: now.toISOString(), callback_id: id, conversation_id: input.conversation_id, language: input.language, reason: input.reason,
-      summary_ru: input.summary_ru, name: input.name ?? "", phone, consent: true, status: "new", is_test: isTest ? "TRUE" : "",
+      summary_ru: input.summary_ru, name: input.name ?? "", phone, consent: CONTACT_BASIS, status: "new", is_test: isTest ? "TRUE" : "",
     })),
     sendTelegram(deps, msg, isTest),
   ]);

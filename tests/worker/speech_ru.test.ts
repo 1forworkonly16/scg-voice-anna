@@ -176,7 +176,7 @@ describe("the exact sentences (Tuesday 6 October)", () => {
 
   it("request_callback: office hours in words", async () => {
     const h = await tuesday();
-    const r = await h.call("request_callback", { ...base("e-cb"), reason: "human_requested", summary_ru: "Хочет поговорить с человеком.", phone: "29327275", consent: true });
+    const r = await h.call("request_callback", { ...base("e-cb"), reason: "human_requested", summary_ru: "Хочет поговорить с человеком.", phone: "29327275" });
     expect(r.body.say_ru).toBe("Хорошо, я передала вашу просьбу — вам перезвонят в рабочее время, с понедельника по пятницу, с девяти утра до пяти вечера.");
     expect(r.body.say_lv).toBe("Labi, jūsu lūgumu esmu nodevusi — jums piezvanīs darba laikā, no pirmdienas līdz piektdienai no 9 līdz 17.");
     await h.flush();
@@ -232,7 +232,6 @@ async function exercise(h: H, today: string): Promise<{ tool: M1; texts: string[
   await call("book_inspection", bookingBody("n-b1", { slot_start: starts[1] })); // move
   await call("book_inspection", bookingBody("n-b2", { slot_start: starts[1] })); // taken by n-b1
   await call("book_inspection", bookingBody("n-b3", { slot_start: starts[2]!.replace(":00:00", ":30:00") })); // invalid
-  await call("book_inspection", bookingBody("n-b4", { consent: false }));
   await call("book_inspection", bookingBody("n-b4", { phone: "123456" }));
   seedWorks(h, today);
   for (const apartment of [1, 12, 30, 31, 61, 90, 999]) await call("find_works_schedule", { ...base("n-w"), apartment, address: "Parauga iela 7" });
@@ -243,9 +242,8 @@ async function exercise(h: H, today: string): Promise<{ tool: M1; texts: string[
   await call("find_works_schedule", { ...base("n-w"), apartment: 12, building_id: PARAUGA }); // after the move
   await call("reschedule_access", { ...base("n-r"), building_id: PARAUGA, apartment: 12, new_date: "2027-02-02", new_window: "09:00-13:00" });
   await call("reschedule_access", { ...base("n-r"), building_id: "nope", apartment: 12, new_date: "2026-10-13", new_window: "09:00-13:00" });
-  await call("request_callback", { ...base("n-c"), reason: "human_requested", summary_ru: "Перезвонить.", phone: "29327275", consent: true });
-  await call("request_callback", { ...base("n-c"), reason: "x", summary_ru: "y", phone: "29327275", consent: false });
-  await call("request_callback", { ...base("n-c"), reason: "x", summary_ru: "y", phone: "123456", consent: true });
+  await call("request_callback", { ...base("n-c"), reason: "human_requested", summary_ru: "Перезвонить.", phone: "29327275" });
+  await call("request_callback", { ...base("n-c"), reason: "x", summary_ru: "y", phone: "123456" });
   await h.flush();
   return out;
 }

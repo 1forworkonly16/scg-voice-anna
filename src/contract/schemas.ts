@@ -20,7 +20,8 @@ const floors = z.number().int().min(1).max(40).describe("Number of floors above 
 const stairwells = z.number().int().min(1).max(30).describe("Number of stairwells (entrances), e.g. 4.");
 const apartments = z.number().int().min(1).max(2000).describe("Total number of apartments in the building, as the caller said it or as lookup_building returned it. Never guess.");
 const phone = z.string().min(6).max(24).describe("Caller phone number as dictated, written as digits only without spaces, with optional +371.");
-const consent = z.boolean().describe("true only after the caller has clearly agreed that SCG stores the contact details and calls back.");
+// No `consent` field (decision 2026-10-06): the legal basis for storing name and phone is the caller's own request
+// (GDPR Art. 6(1)(b)); the Worker writes "request" into the Sheet's consent column. A stale `consent` key is stripped by zod.
 
 // ---------- shared response parts ----------
 export const SlotSchema = z.object({
@@ -48,7 +49,6 @@ export const ERROR_CODES = [
   "invalid_slot",
   "slot_taken",
   "invalid_phone",
-  "consent_required",
   "calendar_down",
   "not_found",
   "invalid_reschedule",
@@ -139,7 +139,6 @@ export const bookInspectionInput = z.object({
   caller_role: z.enum(CALLER_ROLES).describe("Who is calling: owner, manager, board_member, tenant or other."),
   name: z.string().min(1).max(100).describe("Caller's name for the booking."),
   phone,
-  consent,
   building_id: z.string().max(100).optional().describe("Building id from lookup_building, if it was found."),
   scope: z.enum(SCOPES).optional().describe("Work scope the caller is interested in, if discussed."),
   notes: z.string().max(500).optional().describe("Short qualification notes in Russian (systems, access, wishes). No phone numbers or names."),
@@ -188,7 +187,6 @@ export const requestCallbackInput = z.object({
   reason: z.string().min(1).max(120).describe("Why a human should call: e.g. human_requested, complaint, quote_details, unknown_question."),
   summary_ru: z.string().min(1).max(600).describe("Two or three sentences in Russian summarising the call for the manager. No names or phone numbers."),
   phone,
-  consent,
   name: z.string().max(100).optional().describe("Caller's name, if given."),
 });
 export const requestCallbackOutput = success({
@@ -249,7 +247,7 @@ export const TOOLS = {
     output: getSlotsOutput,
   },
   book_inspection: {
-    description: "Book the free inspection after the caller chose a slot and gave name, phone and consent. Confirm to the caller only when ok is true.",
+    description: "Book the free inspection after the caller chose a slot and gave name and phone. Confirm to the caller only when ok is true.",
     timeoutSecs: 10,
     input: bookInspectionInput,
     output: bookInspectionOutput,
@@ -267,7 +265,7 @@ export const TOOLS = {
     output: rescheduleAccessOutput,
   },
   request_callback: {
-    description: "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs phone and consent. Call it right after the caller confirmed the phone and consented; never ask for a name.",
+    description: "Hand over to a human: record a callback request when the caller wants a person or the question is outside what Anna may answer. Needs the phone. Call it right after the caller confirmed the phone; never ask for a name.",
     timeoutSecs: 8,
     input: requestCallbackInput,
     output: requestCallbackOutput,

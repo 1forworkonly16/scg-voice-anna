@@ -38,9 +38,9 @@ function ticketSay(urgent: boolean, delivered: boolean, scgSite: boolean | null)
   return sayM2(scgSite === false ? "ticket_urgent_other" : "ticket_urgent");
 }
 
-const TICKET_HINT_NORMAL = "Read the sentence. The ticket is recorded. If the caller wants a callback, take the phone number and consent and call request_callback (reason ticket_followup). Do not promise a callback time.";
-const TICKET_HINT_URGENT = "Read the sentence. The team has been alerted. Take the caller's phone number and consent and call request_callback (reason urgent_ticket). Do not promise a callback time or a live transfer.";
-const TICKET_HINT_FAILED = "The ticket is recorded but the urgent alert could not be confirmed. Read the sentence, take the phone number and consent and call request_callback (reason urgent_ticket); do not promise a callback time.";
+const TICKET_HINT_NORMAL = "Read the sentence. The ticket is recorded. If the caller wants a callback, take the phone number and call request_callback (reason ticket_followup). Do not promise a callback time.";
+const TICKET_HINT_URGENT = "Read the sentence. The team has been alerted. Take the caller's phone number and call request_callback (reason urgent_ticket). Do not promise a callback time or a live transfer.";
+const TICKET_HINT_FAILED = "The ticket is recorded but the urgent alert could not be confirmed. Read the sentence, take the phone number and call request_callback (reason urgent_ticket); do not promise a callback time.";
 
 function ticketOk(s: Say, id: string, scgSite: boolean | null, escalated: boolean, replayed: boolean, delivered: boolean): Body {
   return ok(s, escalated ? (delivered ? TICKET_HINT_URGENT : TICKET_HINT_FAILED) : TICKET_HINT_NORMAL, { ticket_id: id, scg_site: scgSite, escalated, replayed });
@@ -99,7 +99,7 @@ export async function logRequest(c: Ctx, input: ToolInput<"log_request">): Promi
   const hint =
     input.kind === "emergency_referral"
       ? "Read the sentence. This is not an SCG client: do not promise a visit or a transfer; offer a free inspection booking (book_inspection) only if the caller wants one."
-      : "Read the sentence. The request is recorded; if the caller wants a callback, take the phone number and consent and call request_callback. Do not promise a callback time.";
+      : "Read the sentence. The request is recorded; if the caller wants a callback, take the phone number and call request_callback. Do not promise a callback time.";
 
   let tabs: TabData | null = null;
   try {

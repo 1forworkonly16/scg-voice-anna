@@ -3,7 +3,7 @@
   "type": "tool_call",
   "language": "lv",
   "critical": false,
-  "scenario": "M2 scenario 5 (LV) follow-up: the emergency referral is logged; the caller prefers a call back in working hours, gives and confirms the phone and consents. Anna must use request_callback (M1 tool) with phone and consent, not another log_request.",
+  "scenario": "M2 scenario 5 (LV) follow-up: the emergency referral is logged; the caller prefers a call back in working hours, gives and confirms the phone (no consent question since 2026-10-06). Anna must use request_callback (M1 tool) with the phone, not another log_request.",
   "chat_history": [
     {
       "role": "agent",
@@ -28,14 +28,6 @@
     {
       "role": "user",
       "message": "Jā."
-    },
-    {
-      "role": "agent",
-      "message": "Vai piekrītat, ka saglabāsim jūsu tālruņa numuru atzvanīšanai?"
-    },
-    {
-      "role": "user",
-      "message": "Piekrītu."
     }
   ],
   "mocked_tools": {
@@ -51,8 +43,7 @@
   "expect": {
     "tool": "request_callback",
     "args_contains": {
-      "phone": "20123456",
-      "consent": true
+      "phone": "20123456"
     },
     "reply_must_not": [
       "SMS",
@@ -61,5 +52,5 @@
       "112"
     ]
   },
-  "success_condition": "request_callback is called once with phone 20123456, consent true, a reason such as emergency_referral and a short Russian summary_ru (burst pipe in the basement, not an SCG building, wants a call back about a free inspection) with no names. The agent does not call log_request again and speaks Latvian only."
+  "success_condition": "request_callback is called once, right after the confirmed read-back and without a consent question, with phone 20123456, a reason such as emergency_referral and a short Russian summary_ru (burst pipe in the basement, not an SCG building, wants a call back about a free inspection) with no names. The agent does not call log_request again and speaks Latvian only."
 }

@@ -13,5 +13,5 @@
     "reply_must": ["перезвон"],
     "reply_must_not": ["соединяю", "переключаю", "сейчас соединю", "оставайтесь на линии"]
   },
-  "success_condition": "The agent replies in Russian, says it cannot connect directly right now, offers a callback from a staff member in working hours and asks which number to call. It does not pretend to transfer and does not push the booking flow."
+  "success_condition": "The agent replies in Russian, says it cannot connect directly right now, offers a callback from a staff member in working hours and asks for the caller's phone number (for example «И ваш телефон — для связи по этой заявке?»), with no question about consent. It does not pretend to transfer and does not push the booking flow."
 }

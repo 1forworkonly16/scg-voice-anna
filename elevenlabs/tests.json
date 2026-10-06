@@ -98,9 +98,9 @@
       "derived": false,
       "language": "ru"
     },
-    "t08_s1_consent_before_booking": {
+    "t08_s1_no_consent_question": {
       "test_id": "test_8801m41cwmybedhapft131nph5f1",
-      "name": "scg-t08_s1_consent_before_booking",
+      "name": "scg-t08_s1_no_consent_question",
       "type": "next_reply",
       "critical": false,
       "derived": false,

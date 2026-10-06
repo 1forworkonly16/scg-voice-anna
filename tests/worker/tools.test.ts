@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { TOOL_NAMES, parseResponse, type ToolName } from "../../src/contract";
 import { PHRASES } from "../../src/copy/phrases";
+import { CALLBACKS_HEADERS, LEADS_HEADERS } from "../../src/google/sheet_schema";
 import { demoWorksRows } from "../../src/lib/works";
 import { base, bookingBody, harness, NOW, SLOT, TOOL_KEY } from "./helpers";
 
 const MAX_SUBREQUESTS = 6;
+// The `consent` column holds the legal basis "request" (the caller's own request, decision 2026-10-06), not a yes/no.
+const LEADS_CONSENT = LEADS_HEADERS.indexOf("consent");
+const CALLBACKS_CONSENT = CALLBACKS_HEADERS.indexOf("consent");
 
 describe("auth", () => {
   it("401 only for a bad or missing key; CRLF in the stored secret is trimmed", async () => {
@@ -126,6 +130,7 @@ describe("success path of every M1 tool", () => {
     await h.flush();
     expect(h.world.tabs.Leads).toHaveLength(1);
     expect(h.world.tabs.Leads[0]![20]).toBe(r.body.booking_id); // lead_id column
+    expect(h.world.tabs.Leads[0]![LEADS_CONSENT]).toBe("request"); // legal basis, no consent question
     expect(h.world.tabs.Leads[0]![24]).toBe(""); // is_test is the LAST column
     expect(h.world.telegram).toHaveLength(1);
     const t = h.world.telegram[0]!;
@@ -148,13 +153,20 @@ describe("success path of every M1 tool", () => {
     expect([...h.world.events.values()][0]!.summary.startsWith("[TEST] ")).toBe(true);
   });
 
-  it("book_inspection validates consent and phone before touching Google", async () => {
+  it("book_inspection validates the phone before touching Google", async () => {
     const h = await harness();
-    const a = await h.call("book_inspection", bookingBody("c1", { consent: false }));
-    expect(a.body.error.code).toBe("consent_required");
     const b = await h.call("book_inspection", bookingBody("c1", { phone: "123456" }));
     expect(b.body.error.code).toBe("invalid_phone");
     expect(h.world.count).toBe(0);
+  });
+
+  it("book_inspection needs no consent: a stale consent:false from the old tool definition is ignored, the row says request", async () => {
+    const h = await harness();
+    const r = await h.call("book_inspection", bookingBody("c-stale", { consent: false }));
+    expect(r.body).toMatchObject({ ok: true, replayed: false });
+    await h.flush();
+    expect(h.world.tabs.Leads).toHaveLength(1);
+    expect(h.world.tabs.Leads[0]![LEADS_CONSENT]).toBe("request");
   });
 
   it("book_inspection: Telegram text is HTML-escaped", async () => {
@@ -220,18 +232,22 @@ describe("success path of every M1 tool", () => {
 
   it("request_callback: Callbacks row + Telegram, 3 subrequests cold", async () => {
     const h = await harness();
-    const r = await h.call("request_callback", { ...base("c-cb"), reason: "human_requested", summary_ru: "Хочет поговорить с человеком про смету.", phone: "29327275", consent: true, name: "Пётр" });
+    const r = await h.call("request_callback", { ...base("c-cb"), reason: "human_requested", summary_ru: "Хочет поговорить с человеком про смету.", phone: "29327275", name: "Пётр" });
     parseResponse("request_callback", r.body);
     expect(r.body.ok).toBe(true);
     expect(h.world.tabs.Callbacks).toHaveLength(1);
     expect(h.world.tabs.Callbacks[0]![7]).toBe("+37129327275");
+    expect(h.world.tabs.Callbacks[0]![CALLBACKS_CONSENT]).toBe("request"); // legal basis, no consent question
     expect(h.world.telegram[0]!.text).toContain("Просьба перезвонить");
     expect(h.world.telegram[0]!.text.endsWith(`ДЕМО · ${r.body.callback_id}`)).toBe(true);
     expect(h.world.count).toBe(3);
-    const bad = await h.call("request_callback", { ...base("c-cb"), reason: "x", summary_ru: "y", phone: "123456", consent: true });
+    const bad = await h.call("request_callback", { ...base("c-cb"), reason: "x", summary_ru: "y", phone: "123456" });
     expect(bad.body.error.code).toBe("invalid_phone");
-    const noc = await h.call("request_callback", { ...base("c-cb"), reason: "x", summary_ru: "y", phone: "29327275", consent: false });
-    expect(noc.body.error.code).toBe("consent_required");
+    // a stale consent:false from the old tool definition is ignored: the callback is recorded with the basis "request"
+    const stale = await h.call("request_callback", { ...base("c-cb"), reason: "x", summary_ru: "y", phone: "29327275", consent: false });
+    expect(stale.body.ok).toBe(true);
+    expect(h.world.tabs.Callbacks).toHaveLength(2);
+    expect(h.world.tabs.Callbacks[1]![CALLBACKS_CONSENT]).toBe("request");
   });
 });
 
@@ -276,7 +292,7 @@ describe("subrequest budget: every tool stays within 6 fetches per call (cold to
     book_inspection: (h) => h.call("book_inspection", bookingBody("s1")),
     find_works_schedule: (h) => h.call("find_works_schedule", { ...base("s1"), apartment: 3, address: "Parauga iela 7" }),
     reschedule_access: (h) => h.call("reschedule_access", { ...base("s1"), building_id: "demo-parauga-iela-7", apartment: 3, new_date: "2026-10-13", new_window: "09:00-13:00" }),
-    request_callback: (h) => h.call("request_callback", { ...base("s1"), reason: "x", summary_ru: "y", phone: "29327275", consent: true }),
+    request_callback: (h) => h.call("request_callback", { ...base("s1"), reason: "x", summary_ru: "y", phone: "29327275" }),
     create_ticket: (h) => h.call("create_ticket", { ...base("s1"), type: "leak", urgency: "urgent", description: "Течёт с потолка", address: "Parauga iela 7", apartment: 3 }),
     log_request: (h) => h.call("log_request", { ...base("s1"), kind: "b2b", summary_ru: "Шведский подрядчик, нужны сварщики" }),
   };

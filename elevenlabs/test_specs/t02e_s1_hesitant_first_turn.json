@@ -1,0 +1,19 @@
+{
+  "id": "t02e_s1_hesitant_first_turn",
+  "type": "next_reply",
+  "language": "ru",
+  "critical": true,
+  "scenario": "Second re-test of call 1 (2026-10-06): the caller's first turn came with hesitations and stammering, Anna called skip_turn and stayed silent (in conv_2301m48bf0dwfrwbcnhz4zbtfvcp the caller hung up). A message with words of a request is always answered: she answers the request, not the greeting, and asks for the building address.",
+  "chat_history": [
+    {"role": "agent", "message": "Здравствуйте. Это Анна, ИИ-ассистент Smart Comfort Group. Чем могу помочь?"},
+    {"role": "user", "message": "А-а-м, да, здравствуйте, Анна. А-а-м, я старший по дому, я хочу узнать п-по поводу замены стояков."}
+  ],
+  "mocked_tools": {},
+  "expect": {
+    "no_tools": true,
+    "reply_must": ["адрес"],
+    "reply_must_lexical": true,
+    "reply_must_not": ["Здравствуйте", "слушаю", "слышите"]
+  },
+  "success_condition": "The caller's message has words of a request (replacing risers) mixed with hesitations and stammering, so the agent answers at once instead of staying silent: in Russian, in one short turn, it asks for the building address (the reply contains «адрес»), for example «Хорошо. Какой адрес дома?». It does not greet again («Здравствуйте»), does not say «Да, слушаю вас.», does not ask «Алло, вы меня слышите?», and calls no tool (no skip_turn, no language_detection)."
+}

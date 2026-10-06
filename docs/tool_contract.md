@@ -17,7 +17,9 @@ Single source: `src/contract/schemas.ts` (zod v4). `toElevenLabsTool(name, {base
 Success: `{ ok: true, v: 1, say_ru, say_lv, hint, ...fields }`. Error: `{ ok: false, v: 1, say_ru, say_lv, hint, error: { code, message? }, alternatives? }`.
 `say_*` come from the phrase templates (`src/copy/phrases.ts`, filled by `src/lib/render.ts`); the agent reads `say_<language>` aloud and follows `hint`. Prices, dates and times are produced by code only.
 
-Error codes: `invalid_input`, `invalid_slot`, `slot_taken` (carries `alternatives`, at most 2 slots), `invalid_phone`, `consent_required`, `calendar_down`, `not_found`, `invalid_reschedule`, `internal_error`.
+Error codes: `invalid_input`, `invalid_slot`, `slot_taken` (carries `alternatives`, at most 2 slots), `invalid_phone`, `calendar_down`, `not_found`, `invalid_reschedule`, `internal_error`.
+
+Contact data (decision 2026-10-06): `book_inspection` and `request_callback` take no consent input; the basis for storing the name and phone is the caller's own request (GDPR Art. 6(1)(b)), and Anna's phone question says what the number is for. The Sheet's `consent` column (Leads, Callbacks) records that basis as `request`. A stale `consent` key in a call is stripped by zod.
 
 Slot object: `{ start (ISO 8601 with Europe/Riga offset), label_ru, label_lv }`.
 Building object: `{ id, address, floors, stairwells, apartments (each int or null), sourced[] }`. Only fields listed in `sourced` may be spoken.
@@ -42,11 +44,11 @@ Timeouts on the ElevenLabs side: 10 s for `book_inspection`, 8 s for the others.
 - Side effects: freeBusy read.
 
 ### `book_inspection`
-- In (required): `slot_start`, `address_spoken`, `floors`, `stairwells`, `apartments`, `caller_role` (`owner` / `manager` / `board_member` / `tenant` / `other`), `name`, `phone`, `consent` (true).
+- In (required): `slot_start`, `address_spoken`, `floors`, `stairwells`, `apartments`, `caller_role` (`owner` / `manager` / `board_member` / `tenant` / `other`), `name`, `phone` (the 8 digits Anna read back, optional +371).
 - In (optional): `building_id`, `scope`, `notes` (no names or phones), `unknown_questions` (at most 5).
 - Out: `booking_id`, `slot`, `address`, `replayed`.
-- Errors: `slot_taken` (+ `alternatives`), `invalid_slot`, `invalid_phone`, `consent_required`, `calendar_down`.
-- Side effects: Calendar event written synchronously (id = first 32 hex of SHA-256 of `conversation_id|inspection`, so a replay is idempotent); Leads row and Telegram message afterwards.
+- Errors: `slot_taken` (+ `alternatives`), `invalid_slot`, `invalid_phone`, `calendar_down`.
+- Side effects: Calendar event written synchronously (id = first 32 hex of SHA-256 of `conversation_id|inspection`, so a replay is idempotent); Leads row (`consent` = `request`) and Telegram message afterwards.
 
 ### `find_works_schedule`
 - In: `apartment`; `address` or `building_id`.
@@ -60,13 +62,13 @@ Timeouts on the ElevenLabs side: 10 s for `book_inspection`, 8 s for the others.
 - Side effects: Access row, Telegram message.
 
 ### `request_callback`
-- In: `reason`, `summary_ru` (no names or phones), `phone`, `consent` (true); optional `name`.
+- In: `reason`, `summary_ru` (no names or phones), `phone` (called right after the caller confirmed the read-back); optional `name`.
 - Out: `callback_id`.
-- Errors: `invalid_phone`, `consent_required`.
-- Side effects: Callbacks row, Telegram message. Replaces brief A's `handoff(summary)`.
+- Errors: `invalid_phone`.
+- Side effects: Callbacks row (`consent` = `request`), Telegram message. Replaces brief A's `handoff(summary)`.
 
 ## M2 tools (backend built, not yet wired into the agent: WP13)
-`create_ticket` and `log_request` live in the same zod source and Worker, but the live agent still has the 7 M1 tools until `npm run el:tools` / `el:build` run in WP13. Phrases: `src/copy/phrases_m2.ts` (6 keys: `ticket_ok`, `ticket_urgent`, `ticket_urgent_other`, `ticket_alert_failed`, `request_ok`, `request_emergency_referral`). Neither tool takes a name or phone number; the agent takes a number only through `request_callback` (with consent).
+`create_ticket` and `log_request` live in the same zod source and Worker, but the live agent still has the 7 M1 tools until `npm run el:tools` / `el:build` run in WP13. Phrases: `src/copy/phrases_m2.ts` (6 keys: `ticket_ok`, `ticket_urgent`, `ticket_urgent_other`, `ticket_alert_failed`, `request_ok`, `request_emergency_referral`). Neither tool takes a name or phone number; the agent takes a number only through `request_callback`.
 Both tools: id derived from `conversation_id`, so a re-sent call returns the stored result with `replayed: true` and writes nothing; `[TEST]` conversations are flagged `is_test` and notify only `TELEGRAM_TEST_CHAT_ID`; free text has phone-like digit runs replaced by `[номер скрыт]`.
 
 Known limitation (accepted for the demo): the replay check reads the tab before it appends, so two identical calls from the same conversation at the same instant can both write a row (and send two alerts). Sequential retries are safe.

@@ -87,7 +87,7 @@ function relayArgs(spec: Spec, tool: string): any {
   const base = { language: 'ru' };
   if (tool === 'quote_range') return { ...base, floors: 9, stairwells: 4, apartments: 144 };
   if (tool === 'lookup_building') return { ...base, address: 'Ilūkstes iela 16' };
-  if (tool === 'book_inspection') return { ...base, slot_start: spec.id.startsWith('t12') ? '2026-10-09T14:00:00+03:00' : '2026-10-08T10:00:00+03:00', address_spoken: 'Ilūkstes iela 16', floors: 9, stairwells: 4, apartments: 144, caller_role: 'other', name: 'Нина Ивановна', phone: '20123456', consent: true };
+  if (tool === 'book_inspection') return { ...base, slot_start: spec.id.startsWith('t12') ? '2026-10-09T14:00:00+03:00' : '2026-10-08T10:00:00+03:00', address_spoken: 'Ilūkstes iela 16', floors: 9, stairwells: 4, apartments: 144, caller_role: 'other', name: 'Нина Ивановна', phone: '20123456' }; // no consent param since 2026-10-06
   return base;
 }
 

@@ -39,8 +39,9 @@ describe("phrase table vs PHRASE_SPEC", () => {
     expect(problems.some((p) => p.startsWith("missing key callback_ok"))).toBe(true);
     expect(problems.some((p) => p.startsWith("price_range.ru"))).toBe(true);
   });
-  it("spec has the 21 agreed keys (17 from WP3 + 4 moved from routes/say.ts)", () => {
-    expect(Object.keys(PHRASE_SPEC)).toHaveLength(21);
+  it("spec has the 20 agreed keys (17 from WP3 + 4 moved from routes/say.ts, minus consent_required dropped 2026-10-06)", () => {
+    expect(Object.keys(PHRASE_SPEC)).toHaveLength(20);
+    expect(Object.keys(PHRASE_SPEC)).not.toContain("consent_required");
   });
 
   const real = fromRoot("src/copy/phrases.ts");

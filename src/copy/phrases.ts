@@ -67,10 +67,6 @@ export const PHRASES = {
     ru: "Это уточнит наш инженер или менеджер — я записала ваш вопрос.",
     lv: "To precizēs mūsu inženieris vai menedžeris — jūsu jautājumu esmu pierakstījusi.",
   },
-  consent_required: {
-    ru: "Мне нужно ваше согласие: мы сохраним ваше имя и номер телефона только для этой заявки, чтобы связаться с вами по ней. Вы согласны?",
-    lv: "Man vajadzīga jūsu piekrišana: saglabāsim jūsu vārdu un tālruņa numuru tikai šim pieteikumam, lai varētu ar jums par to sazināties. Vai piekrītat?",
-  },
   invalid_reschedule: {
     ru: "К сожалению, на это время перенести нельзя. Сейчас я ещё раз назову свободные варианты.",
     lv: "Diemžēl uz šo laiku pārcelt nevar. Tūlīt vēlreiz nosaukšu pieejamos variantus.",

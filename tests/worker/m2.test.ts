@@ -288,6 +288,25 @@ describe("log_request", () => {
   });
 });
 
+describe("hand-over hints ask for the phone only, never consent (decision 2026-10-06)", () => {
+  it("normal, urgent and failed-alert tickets and a logged request", async () => {
+    const h = await harness();
+    seedWorks(h);
+    const hints: string[] = [];
+    hints.push((await h.call("create_ticket", leak("c-h1", { type: "maintenance", urgency: "normal", description: "Нужен мастер" }))).body.hint);
+    hints.push((await h.call("create_ticket", leak("c-h2"))).body.hint);
+    hints.push((await h.call("log_request", { ...base("c-h3"), kind: "b2b", summary_ru: "Шведский подрядчик" })).body.hint);
+    const failed = await harness({ status: (u) => (u.includes("api.telegram.org") ? 500 : null) });
+    seedWorks(failed);
+    hints.push((await failed.call("create_ticket", leak("c-h4"))).body.hint);
+    for (const hint of hints) {
+      expect(hint).toContain("request_callback");
+      expect(hint).toContain("phone number");
+      expect(hint).not.toMatch(/consent/i);
+    }
+  });
+});
+
 describe("admin test cleanup covers the new tabs", () => {
   it("cleanup removes [TEST] ticket and request rows", async () => {
     const h = await harness();

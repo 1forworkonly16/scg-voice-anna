@@ -246,7 +246,6 @@ export const bookingBody = (conv: string, over: Record<string, unknown> = {}) =>
   caller_role: "board_member",
   name: "Иван",
   phone: "+371 22 84 81 44",
-  consent: true,
   notes: "Стояки ХВС и канализации, подвал открыт",
   unknown_questions: ["Можно ли в рассрочку?"],
   ...over,
