@@ -1,16 +1,22 @@
 // TOOLS_ENABLED (WPV3): live keeps the M2 tools (create_ticket, log_request) off until WP13 while the Worker is deployed from HEAD.
 // A tool that is not in the comma list is answered EXACTLY like a name that does not exist (HTTP 200, invalid_input, «Unknown tool name.»);
 // only the log tells them apart. Unset or empty = every tool, so the M2 tests run unchanged with the default harness env.
+import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { TOOL_NAMES, parseResponse, type ToolName } from "../../src/contract";
 import { PHRASES } from "../../src/copy/phrases";
 import { demoWorksRows } from "../../src/lib/works";
 import { enabledTools } from "../../src/routes/tools";
+import { fromRoot } from "../fixtures/paths";
 import { base, bookingBody, harness, TOOL_KEY } from "./helpers";
 
 type H = Awaited<ReturnType<typeof harness>>;
 
-/** The value in wrangler.jsonc: the 7 M1 tools. */
+/** wrangler.jsonc has `//` comments only: drop them (a string-aware strip, so a «//» inside a value survives), then JSON.parse. */
+const parseJsonc = (jsonc: string): Record<string, unknown> =>
+  JSON.parse(jsonc.replace(/("(?:[^"\\]|\\.)*")|\/\/[^\n]*/g, (_m, str: string | undefined) => str ?? "")) as Record<string, unknown>;
+
+/** The M1 list as the harness tests below set it (decoupled from the file; the describe on wrangler.jsonc checks the file itself). */
 const M1_LIST = "lookup_building,quote_range,get_slots,book_inspection,find_works_schedule,reschedule_access,request_callback";
 const M1_TOOLS: ToolName[] = ["lookup_building", "quote_range", "get_slots", "book_inspection", "find_works_schedule", "reschedule_access", "request_callback"];
 const M2_TOOLS: ToolName[] = ["create_ticket", "log_request"];
@@ -50,8 +56,32 @@ describe("enabledTools: the TOOLS_ENABLED parser", () => {
     expect([...enabledTools({ TOOLS_ENABLED: M1_LIST })!].sort()).toEqual([...M1_TOOLS].sort());
     expect([...enabledTools({ TOOLS_ENABLED: " create_ticket , log_request ,, " })!]).toEqual(["create_ticket", "log_request"]);
   });
-  it("the wrangler value lists exactly the 7 M1 tools", () => {
+  it("the M1 and M2 lists together are every tool of the contract (a new tool must be sorted into one of them)", () => {
     expect([...M1_TOOLS, ...M2_TOOLS].sort()).toEqual([...TOOL_NAMES].sort());
+  });
+});
+
+// What live really runs: the var in wrangler.jsonc, read from the file (the other tests below set the var through the harness).
+// WP13 changes this var and elevenlabs/agent_config.json "tools" together; these tests then fail until both are updated.
+describe("TOOLS_ENABLED in wrangler.jsonc", () => {
+  const vars = parseJsonc(readFileSync(fromRoot("wrangler.jsonc"), "utf8")).vars as Record<string, unknown>;
+  const agentTools = (JSON.parse(readFileSync(fromRoot("elevenlabs/agent_config.json"), "utf8")) as { tools: unknown }).tools;
+
+  it("is set and lists exactly the 7 M1 tools, written plainly (no spaces, no empty item, no duplicate) and no M2 tool", () => {
+    expect(typeof vars.TOOLS_ENABLED).toBe("string");
+    const listed = (vars.TOOLS_ENABLED as string).split(","); // no trim: a stray space or comma must show up here
+    expect([...listed].sort()).toEqual([...M1_TOOLS].sort());
+    expect(listed).toHaveLength(7);
+    for (const tool of M2_TOOLS) expect(listed, tool).not.toContain(tool);
+  });
+
+  it("is the same set as the tools of the live agent (elevenlabs/agent_config.json \"tools\")", () => {
+    expect(Array.isArray(agentTools)).toBe(true);
+    expect([...(vars.TOOLS_ENABLED as string).split(",")].sort()).toEqual([...(agentTools as string[])].sort());
+  });
+
+  it("the file parser keeps «//» inside a string and drops comments", () => {
+    expect(parseJsonc('{ // note\n "u": "https://x.example/a", "n": 1 // tail\n}')).toEqual({ u: "https://x.example/a", n: 1 });
   });
 });
 

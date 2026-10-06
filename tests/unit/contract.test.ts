@@ -133,6 +133,18 @@ describe("toElevenLabsTool", () => {
     expect(s.properties.name!.description).toBe("Caller's name, if they gave one; omit it if the caller did not want to say it.");
     expect(t.description).toBe("Book the free inspection after the caller chose a slot and gave the phone (and the name, if they gave one). Confirm to the caller only when ok is true.");
   });
+  it("get_slots: the agent is told to pass no dates (prompt rule: never compute or pass dates), yet the Worker still accepts them", () => {
+    const t = toElevenLabsTool("get_slots");
+    const props = t.api_schema.request_body_schema.properties;
+    for (const k of ["date_from", "date_to"]) {
+      expect(props[k]!.description, k).toMatch(/^Leave empty\./);
+      expect(props[k]!.description, k).toContain("«завтра», a weekday or a spoken date");
+      expect(props[k]!.description, k).not.toMatch(/if the caller gave one/);
+    }
+    expect(t.description).toContain("Pass only the weekday and part_of_day the caller named, never dates.");
+    expect(t.api_schema.request_body_schema.required).toEqual(["conversation_id", "language"]);
+    expect(TOOLS.get_slots.input.safeParse({ ...base, date_from: "2026-10-05", date_to: "2026-10-09" }).success).toBe(true);
+  });
   it("timeouts: 10 s for booking, 8 s otherwise", () => {
     expect(toElevenLabsTool("book_inspection").response_timeout_secs).toBe(10);
     expect(toElevenLabsTool("quote_range").response_timeout_secs).toBe(8);

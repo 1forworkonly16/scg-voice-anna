@@ -42,7 +42,7 @@ Timeouts on the ElevenLabs side: 10 s for `book_inspection`, 8 s for the others.
 - Never output: instalments, working days. Always «ориентировочно», net and incl. VAT 21%.
 
 ### `get_slots`
-- In: all optional: `weekday` (`mon`..`fri`), `date_from`, `date_to` (YYYY-MM-DD), `part_of_day` (`morning` / `afternoon`).
+- In: all optional: `weekday` (`mon`..`fri`) and `part_of_day` (`morning` / `afternoon`), only as the caller named them. `date_from`, `date_to` (YYYY-MM-DD) are still accepted by the Worker, but their descriptions tell the agent to leave them empty: dates are never computed from «завтра», a weekday or a spoken date.
 - Out: `today` (`date`, `label_ru`, `label_lv`), `office_open_now`, `slots` (at most 3), `filter_relaxed` (true when the filter left fewer than 3 and others were added).
 - Rules: Mon-Fri, 1-hour slots starting 09:00-16:00 Europe/Riga, Latvian public holidays excluded, earliest is the next working day, horizon 14 days.
 - Side effects: freeBusy read.

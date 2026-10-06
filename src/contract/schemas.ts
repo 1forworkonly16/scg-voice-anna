@@ -116,8 +116,8 @@ export const quoteRangeOutput = success({
 export const getSlotsInput = z.object({
   ...requestBase,
   weekday: z.enum(["mon", "tue", "wed", "thu", "fri"]).optional().describe("Only offer this weekday, if the caller asked for one."),
-  date_from: z.string().regex(YMD).optional().describe("Earliest acceptable date, YYYY-MM-DD, if the caller gave one."),
-  date_to: z.string().regex(YMD).optional().describe("Latest acceptable date, YYYY-MM-DD, if the caller gave one."),
+  date_from: z.string().regex(YMD).optional().describe("Leave empty. Never compute an earliest date from «завтра», a weekday or a spoken date; weekday and part_of_day cover the caller's wishes."),
+  date_to: z.string().regex(YMD).optional().describe("Leave empty. Never compute a latest date from «завтра», a weekday or a spoken date; weekday and part_of_day cover the caller's wishes."),
   part_of_day: z.enum(["morning", "afternoon"]).optional().describe("morning or afternoon, if the caller prefers one."),
 });
 export const getSlotsOutput = success({
@@ -241,7 +241,7 @@ export const TOOLS = {
     output: quoteRangeOutput,
   },
   get_slots: {
-    description: "Get up to three free times for the free inspection, with today's date in Riga time. Read say_ru / say_lv aloud; never compute dates yourself.",
+    description: "Get up to three free times for the free inspection, with today's date in Riga time. Pass only the weekday and part_of_day the caller named, never dates. Read say_ru / say_lv aloud; never compute dates yourself.",
     timeoutSecs: 8,
     input: getSlotsInput,
     output: getSlotsOutput,

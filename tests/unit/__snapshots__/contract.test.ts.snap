@@ -147,11 +147,11 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
             "type": "string",
           },
           "date_from": {
-            "description": "Earliest acceptable date, YYYY-MM-DD, if the caller gave one.",
+            "description": "Leave empty. Never compute an earliest date from «завтра», a weekday or a spoken date; weekday and part_of_day cover the caller's wishes.",
             "type": "string",
           },
           "date_to": {
-            "description": "Latest acceptable date, YYYY-MM-DD, if the caller gave one.",
+            "description": "Leave empty. Never compute a latest date from «завтра», a weekday or a spoken date; weekday and part_of_day cover the caller's wishes.",
             "type": "string",
           },
           "language": {
@@ -196,7 +196,7 @@ exports[`toElevenLabsTool > snapshot of all tool definitions 1`] = `
       },
       "url": "{base_url}/tools/get_slots",
     },
-    "description": "Get up to three free times for the free inspection, with today's date in Riga time. Read say_ru / say_lv aloud; never compute dates yourself.",
+    "description": "Get up to three free times for the free inspection, with today's date in Riga time. Pass only the weekday and part_of_day the caller named, never dates. Read say_ru / say_lv aloud; never compute dates yourself.",
     "name": "get_slots",
     "response_timeout_secs": 8,
   },
